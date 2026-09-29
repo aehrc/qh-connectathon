@@ -1,0 +1,91 @@
+# Track 2 — VM deployment status & handover (2026-09-29)
+
+Where the deployment experiments stand on `aehrc-qh-connectathon-track-2.it.csiro.au`,
+what's proven, the current blocker, and how to resume.
+
+## TL;DR
+
+- **Docker-compose stack (Stage 0): WORKS — proven.** Both HAPI servers ran; the **HCPD IG
+  loaded (28 StructureDefinitions) and `$validate` enforced the HCPD profiles**. This answered
+  the key question: **the HCPD IG runs on HAPI** (standard REST; no special ops for the core path).
+- **microk8s (Stage 1): manifests validated & applied** (all 14 resources into the `track2`
+  namespace, pods scheduled, PVC bound, DB + seed ran) — but not completed.
+- **Current blocker: a host-level apparmor fault** on the VM stops **both** runtimes (snap/microk8s
+  *and* docker/runc) from starting containers. Introduced around the `microk8s stop/start` + reboot.
+  This is a VM/OS image issue, not our manifests.
+- **Event target: AWS EKS** (DiSP is an optional intermediate rung; EKS is the real host). Next real
+  k8s work is **Helm/Flux → EKS**, not more microk8s-on-this-VM.
+
+## What's proven (keep)
+
+- Two-HAPI + Postgres layout works **with the required Postgres dialect**
+  `SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect`
+  (without it HAPI defaults to H2 dialect and crashes on Postgres DDL — `seq_resource_type`).
+- **HCPD packaging:** not on public registries and HAPI has no runtime `$install`; load by
+  **extracting the CI-build tarball and PUTting its conformance resources** (28 SD + ValueSets +
+  CodeSystems loaded cleanly). `$validate` against `hcpd-organization` returned the correct
+  HCPD-required errors (ABN identifier slice, active, address).
+- HCPD package is **profiles-only (no examples)** → conformant instances must be authored for seeding.
+- All fixes are committed in `deploy/` (install.sh + k8s manifests carry the dialect; k8s uses the
+  microk8s registry for the referrer image).
+
+## Current blocker (apparmor)
+
+Symptoms: `microk8s kubectl` →
+`snap-confine has elevated permissions and is not confined but should be`;
+`docker compose up` → `runc create failed: unable to start init: fork/exec /proc/self/fd/6:
+permission denied`.
+
+Root cause **(confirmed via research)**: this is the known Ubuntu 24.04 snap-confine confinement
+error, and on this VM it is caused by **USG / CIS hardening** (the CSIRO image is hardened).
+USG modifies `/etc/apparmor.d/usr.lib.snapd.snap-confine.real`, which breaks the snap-confine
+apparmor profile so it no longer loads → snap-confine sees itself as unconfined and refuses to run
+→ this cascades to **docker/runc** too (both use apparmor), so no container starts. A reboot does
+NOT fix it because the altered *profile file* is the problem, not runtime state. Related context:
+Ubuntu's CVE-2026-3888 snapd hardening makes snap-confine insist on confinement.
+
+Refs: snapcraft forum "snap-confine elevated permissions error after using USG" (t/40876);
+Ubuntu CVE-2026-3888 advisory.
+
+### Fix (CONFIRMED — needs sudo)
+Restore the snap-confine apparmor profile that USG altered, by reinstalling snapd:
+```bash
+sudo apt install --reinstall -o Dpkg::Options::="--force-confask,confnew,confmiss" snapd
+```
+This does not break USG/CIS auditing (per the forum thread). Then verify:
+```bash
+sudo aa-status | grep -c snap-confine     # expect > 0
+docker run --rm hello-world               # runc should start a container again
+```
+If it recurs after a future `usg fix` run, re-apply the reinstall.
+
+### Restore the compose stack (once apparmor is fixed)
+```bash
+ssh track2-vm
+cd ~/track2-stack
+docker compose --env-file .env up -d
+# then re-load HCPD (volumes persist, but if the directory DB was reset):
+#   see deploy/README.md — extract build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz and PUT its
+#   StructureDefinition/ValueSet/CodeSystem to http://localhost:8081/fhir
+```
+**Also add `restart: unless-stopped`** to the compose services so a reboot doesn't drop the stack
+(the reboot is what lost it this time).
+
+## Resume plan (next session)
+
+1. **Fix apparmor** on the VM (above) — or rebuild the VM from an image where snap/docker work.
+2. **Restore compose**, re-verify HCPD + `$validate`.
+3. **Develop the fhir-frog test** against the live compose stack (Scenario 1, starting with Step 1
+   HCPD discovery) — reusing `sparked-testing-2026-07-08` TestScripts; author conformant seed
+   instances first (package is profiles-only). See `Deployment-Design.md` §5.
+4. **Helm/Flux → AWS EKS** for the event host (the real target): HAPI + Postgres as HelmReleases,
+   our Kustomize base as a Flux Kustomization, `overlays/aws` (ALB + ACM TLS + gp3, sized ~16 GB /
+   4 vCPU for 35–40 users). microk8s Stage 1 has served its purpose (manifests validated).
+
+## VM facts (for reference)
+
+- Ubuntu 24.04, 16 GB RAM / 2 vCPU (bump CPU before load test), snap + docker installed.
+- Disk: added a 40 GB LVM disk (`/dev/sdb` → `vg_local`), grew `/var` 5→25 GB (microk8s containerd
+  storage). This fixed the earlier DiskPressure taint.
+- `sue005` is in `docker` + `microk8s` groups.
+- SSH: `ssh track2-vm` (config alias; user sue005, key id_ed25519).

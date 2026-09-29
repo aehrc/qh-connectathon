@@ -35,7 +35,7 @@ say "Waiting for microk8s to be ready…"
 sudo microk8s status --wait-ready >/dev/null 2>&1 || microk8s status --wait-ready >/dev/null
 
 say "Enabling addons (dns, hostpath-storage, ingress)…"
-microk8s enable dns hostpath-storage ingress 2>&1 | grep -iE 'enabl|already' || true
+microk8s enable dns hostpath-storage ingress registry 2>&1 | grep -iE 'enabl|already' || true
 
 # ---- 2. Build + import the referrer image ---------------------------------
 say "Building the Patient-Referral image…"
@@ -43,8 +43,9 @@ if [ ! -d "$SCRIPT_DIR/Patient-Referral/.git" ]; then
   git clone --depth 1 https://github.com/mjosborne1/Patient-Referral.git "$SCRIPT_DIR/Patient-Referral"
 fi
 docker build -t patient-referral:local "$SCRIPT_DIR/Patient-Referral"
-say "Importing the image into microk8s…"
-docker save patient-referral:local | microk8s ctr image import -
+say "Pushing the image to the microk8s registry (localhost:32000)…"
+docker tag  patient-referral:local localhost:32000/patient-referral:local
+docker push localhost:32000/patient-referral:local
 
 # ---- 3. Deploy the manifests ----------------------------------------------
 say "Applying deploy/k8s/overlays/local …"

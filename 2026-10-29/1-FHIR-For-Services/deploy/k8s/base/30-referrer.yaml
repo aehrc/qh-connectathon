@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: referrer
-          image: patient-referral:local
+          image: localhost:32000/patient-referral:local
           imagePullPolicy: IfNotPresent      # image imported locally, not pulled
           env:
             - { name: USE_AUTH,   value: "false" }
