@@ -28,25 +28,25 @@ F -> S : 3. poll / subscribe for new Tasks
 S --> F : Task (requested) + ServiceRequest
 F -> S : accept / reject / on-hold (coded reason)
 
-note over F, S
-  The filler publishes and refreshes availability
-  **independently** of any single referral.
+note over R, S
+  The referrer tracks **this referral's Task**
+  (Task?focus=ServiceRequest/{id}) to know whether
+  **this specific request** has been acted on —
+  not generic Slot availability.
 end note
 F -> S : 4. publish / refresh Schedule + free Slots
 
-R -> S : 5. search Slot (free, by service & date)
-alt slots available
-  S --> R : available Slots
-  R -> S : 6. POST Appointment (proposed, basedOn ServiceRequest)
+R -> S : 5. GET Task?focus=ServiceRequest/{id} (poll or subscribe)
+alt Task accepted / scheduled — request acted on
+  S --> R : Task (accepted) + linked Slots
+  R -> S : 6. search Slot / POST Appointment (proposed, basedOn ServiceRequest)
   F -> S : confirm: Appointment booked, Slot busy, Task in-progress
-else no slots yet (searched too early)
-  S --> R : empty searchset
-  R -> S : subscribe to Slot / Schedule (or poll)
-  S --> R : notify when new Slots published
-  note right of R : retry the booking once slots appear
+else Task still requested / on-hold — not yet acted on
+  S --> R : Task (requested / on-hold, statusReason)
+  note right of R : keep watching the Task; retry once accepted
 end
 
 R -> S : 7. read Task / Appointment status
-S --> R : businessStatus = Booked
+S --> R : Task businessStatus = Booked
 
 @enduml
