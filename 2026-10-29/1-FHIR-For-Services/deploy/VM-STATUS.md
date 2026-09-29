@@ -27,6 +27,15 @@ kernel/ptrace hardening control — out of scope; use containerd/microk8s instea
 
 ## TL;DR
 
+> **UPDATE — fhir-frog test PASSES (2026-09-29):** end-to-end proven on the live microk8s stack,
+> **without docker**. Seeded a conformant HCPD Organization+Location+HealthcareService (Balmain)
+> into the directory server (`deploy/seed/hcpd-balmain.json`), adapted the Sparked Scenario-1 Step-1
+> TestScript (`deploy/frog-tests/scenario1/step1/`), built + ran **frog-runner** on the VM (Java 17
+> + Maven), pointed at the **external** directory (`serverUrl=http://localhost:18081/fhir`) → run
+> COMPLETED, result **pass**, "All tests passed". Passing an explicit `serverUrl` avoids
+> frog-runner's docker-managed backend (which would fail here) — use external server always on this VM.
+
+
 > **UPDATE 2026-09-29 (later):** microk8s Stage 1 now **also verified** after (a) the snapd
 > reinstall fixed snap-confine and (b) the VM was resized to **8 vCPU** (2 vCPU caused
 > Insufficient-cpu scheduling failures + slow HAPI boots). Both HAPI servers reach 1/1 in the

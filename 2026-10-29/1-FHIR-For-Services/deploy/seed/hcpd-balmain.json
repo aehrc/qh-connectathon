@@ -1,0 +1,57 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:org-1",
+      "resource": {
+        "resourceType": "Organization",
+        "meta": { "profile": ["http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-organization"] },
+        "identifier": [
+          { "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0", "value": "8003620000000001" },
+          { "system": "http://digitalhealth.gov.au/fhir/hcpd/sid/source-identifier", "value": "SRC-ORG-1" },
+          { "system": "http://example.org/local-org-id", "value": "LOCAL-ORG-1" }
+        ],
+        "active": true,
+        "name": "Balmain Imaging Services",
+        "address": [ { "line": ["1 Darling St"], "city": "Balmain", "state": "NSW", "postalCode": "2041", "country": "AU" } ]
+      },
+      "request": { "method": "PUT", "url": "Organization/hcpd-seed-org-1" }
+    },
+    {
+      "fullUrl": "urn:uuid:loc-1",
+      "resource": {
+        "resourceType": "Location",
+        "meta": { "profile": ["http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-location"] },
+        "identifier": [
+          { "system": "http://digitalhealth.gov.au/fhir/hcpd/sid/source-identifier", "value": "SRC-LOC-1" },
+          { "system": "http://example.org/local-loc-id", "value": "LOCAL-LOC-1" }
+        ],
+        "status": "active",
+        "name": "Balmain Imaging Centre",
+        "telecom": [ { "system": "phone", "value": "02 9555 0000" } ],
+        "address": { "line": ["1 Darling St"], "city": "Balmain", "state": "NSW", "postalCode": "2041", "country": "AU" },
+        "managingOrganization": { "reference": "Organization/hcpd-seed-org-1" }
+      },
+      "request": { "method": "PUT", "url": "Location/hcpd-seed-loc-1" }
+    },
+    {
+      "fullUrl": "urn:uuid:hcs-1",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "meta": { "profile": ["http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"] },
+        "identifier": [
+          { "system": "http://digitalhealth.gov.au/fhir/hcpd/sid/source-identifier", "value": "SRC-HCS-1" },
+          { "system": "http://example.org/local-hcs-id", "value": "LOCAL-HCS-1" }
+        ],
+        "active": true,
+        "providedBy": { "reference": "Organization/hcpd-seed-org-1" },
+        "type": [
+          { "coding": [ { "system": "http://snomed.info/sct", "code": "708175000", "display": "Diagnostic imaging service" } ] }
+        ],
+        "location": [ { "reference": "Location/hcpd-seed-loc-1" } ]
+      },
+      "request": { "method": "PUT", "url": "HealthcareService/hcpd-seed-hcs-1" }
+    }
+  ]
+}
