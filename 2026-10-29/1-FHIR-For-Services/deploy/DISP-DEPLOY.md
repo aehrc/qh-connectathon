@@ -24,7 +24,7 @@ Confirm these with the DiSP admin, then fill them in:
 |---|------|---------------|-----------------|
 | 1 | **Namespace** name (DiSP-assigned) | replace `TRACK2_NS` in `flux/track2-disp.yaml` **and** `overlays/disp` `namespace:` | — |
 | 2 | **Contour IngressClass** name | `overlays/disp` ingress patch `ingressClassName` | `contour` |
-| 3 | **Host** under the wildcard | `overlays/disp` ingress `host` | `track2.dw.csiro.au` |
+| 3 | **Host** under the wildcard | `overlays/disp` ingress `host` | `aehrc-qh-connectathon-track-2.dw.csiro.au` |
 | 4 | **cert-manager ClusterIssuer** name | `overlays/disp` `cert-manager.io/cluster-issuer` | `letsencrypt` |
 | 5 | **StorageClass** name | base PVC (add `storageClassName` patch if not default) | cluster default |
 | 6 | **Registry** for the referrer image | `overlays/disp` `images:` | GitLab registry |

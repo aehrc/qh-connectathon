@@ -28,11 +28,11 @@ patches:
         value: letsencrypt
       - op: add
         path: /spec/rules/0/host
-        value: track2.dw.csiro.au
+        value: aehrc-qh-connectathon-track-2.dw.csiro.au
       - op: add
         path: /spec/tls
         value:
-          - hosts: [track2.dw.csiro.au]
+          - hosts: [aehrc-qh-connectathon-track-2.dw.csiro.au]
             secretName: track2-tls
     target: { kind: Ingress, name: track2 }
 
