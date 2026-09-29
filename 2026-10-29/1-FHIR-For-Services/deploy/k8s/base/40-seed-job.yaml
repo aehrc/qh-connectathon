@@ -1,0 +1,45 @@
+# Seed Job — runs once after the servers are up:
+#   1. creates the second Postgres DB (hapi_dir) for the directory server
+#   2. installs the HCPD IG into the directory server and radiology-referral into fhir
+#      (packages are NOT on public registries — fetched from the FHIR CI-build)
+# Idempotent-ish: re-running re-installs packages (harmless) and skips DB create if present.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: seed
+  namespace: track2
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: seed
+          image: curlimages/curl:8.10.1
+          env:
+            - { name: PGPASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
+          command: ["/bin/sh","-c"]
+          args:
+            - |
+              set -e
+              echo "Waiting for FHIR servers..."
+              until curl -sf http://fhir:8080/fhir/metadata >/dev/null; do sleep 5; done
+              until curl -sf http://directory:8080/fhir/metadata >/dev/null; do sleep 5; done
+              echo "Fetching IG packages from the FHIR CI-build..."
+              curl -fsSL -o /tmp/hcpd.tgz https://build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz
+              curl -fsSL -o /tmp/rr.tgz  https://build.fhir.org/ig/aehrc/radiology-referral/package.tgz || echo "WARN: radiology-referral package pending"
+              echo "Installing HCPD into directory server..."
+              curl -fsS -X POST http://directory:8080/fhir/\$install \
+                -H 'Content-Type: application/fhir+json' \
+                -d "{\"resourceType\":\"Parameters\",\"parameter\":[{\"name\":\"npmContent\",\"valueBase64Binary\":\"$(base64 -w0 /tmp/hcpd.tgz)\"}]}" \
+                && echo "  HCPD installed" || echo "  WARN: HCPD \$install failed (check au.pd floating dep)"
+              if [ -f /tmp/rr.tgz ]; then
+                echo "Installing radiology-referral into fhir server..."
+                curl -fsS -X POST http://fhir:8080/fhir/\$install \
+                  -H 'Content-Type: application/fhir+json' \
+                  -d "{\"resourceType\":\"Parameters\",\"parameter\":[{\"name\":\"npmContent\",\"valueBase64Binary\":\"$(base64 -w0 /tmp/rr.tgz)\"}]}" \
+                  && echo "  radiology-referral installed" || echo "  WARN: radiology-referral \$install failed"
+              fi
+              echo "Seed complete."
+      # NOTE: creating the hapi_dir database is done by k8s-install.sh via kubectl exec
+      # into the db pod before this Job runs, since it needs psql/createdb not in this image.

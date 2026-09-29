@@ -1,0 +1,83 @@
+# Two HAPI FHIR servers sharing the Postgres instance:
+#   fhir       — referral server (radiology-referral IG)   DB: hapi
+#   directory  — provider directory (HCPD IG)              DB: hapi_dir
+# Terminology is remote (TX_URL from the ConfigMap) — no tx server here.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fhir
+  namespace: track2
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: fhir } }
+  template:
+    metadata: { labels: { app: fhir } }
+    spec:
+      containers:
+        - name: hapi
+          image: hapiproject/hapi:latest
+          env:
+            - { name: JAVA_OPTS, value: "-Xmx2g" }
+            - { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://db:5432/hapi" }
+            - { name: SPRING_DATASOURCE_USERNAME, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
+            - { name: SPRING_DATASOURCE_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
+            - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
+            - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
+            - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
+          ports: [ { containerPort: 8080 } ]
+          readinessProbe:
+            httpGet: { path: /fhir/metadata, port: 8080 }
+            initialDelaySeconds: 45
+            periodSeconds: 15
+            failureThreshold: 20
+          resources:
+            requests: { cpu: "500m", memory: "2Gi" }
+            limits:   { memory: "3Gi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: fhir, namespace: track2 }
+spec:
+  selector: { app: fhir }
+  ports: [ { port: 8080, targetPort: 8080 } ]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory
+  namespace: track2
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: directory } }
+  template:
+    metadata: { labels: { app: directory } }
+    spec:
+      containers:
+        - name: hapi
+          image: hapiproject/hapi:latest
+          env:
+            - { name: JAVA_OPTS, value: "-Xmx2g" }
+            - { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://db:5432/hapi_dir" }
+            - { name: SPRING_DATASOURCE_USERNAME, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
+            - { name: SPRING_DATASOURCE_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
+            - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
+            - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
+            - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
+          ports: [ { containerPort: 8080 } ]
+          readinessProbe:
+            httpGet: { path: /fhir/metadata, port: 8080 }
+            initialDelaySeconds: 45
+            periodSeconds: 15
+            failureThreshold: 20
+          resources:
+            requests: { cpu: "500m", memory: "2Gi" }
+            limits:   { memory: "3Gi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: directory, namespace: track2 }
+spec:
+  selector: { app: directory }
+  ports: [ { port: 8080, targetPort: 8080 } ]

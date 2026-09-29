@@ -1,0 +1,32 @@
+# Patient-Referral (mjosborne1) — the Referrer/Filler UI, browser-core path.
+# Image is built on the VM and imported into microk8s (see k8s-install.sh).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: referrer
+  namespace: track2
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: referrer } }
+  template:
+    metadata: { labels: { app: referrer } }
+    spec:
+      containers:
+        - name: referrer
+          image: patient-referral:local
+          imagePullPolicy: IfNotPresent      # image imported locally, not pulled
+          env:
+            - { name: USE_AUTH,   value: "false" }
+            - { name: FHIR_SERVER, value: "http://fhir:8080/fhir" }
+            - { name: PD_SERVER,   value: "http://directory:8080/fhir" }
+          ports: [ { containerPort: 5000 } ]
+          resources:
+            requests: { cpu: "100m", memory: "256Mi" }
+            limits:   { memory: "512Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: referrer, namespace: track2 }
+spec:
+  selector: { app: referrer }
+  ports: [ { port: 5000, targetPort: 5000 } ]

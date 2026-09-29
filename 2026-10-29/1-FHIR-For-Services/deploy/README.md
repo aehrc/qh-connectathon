@@ -35,6 +35,29 @@ newgrp docker                       # (or log out/in) so the group applies
 TX_URL=https://<confirmed-tx>/fhir ./install.sh   # no sudo needed for the stack
 ```
 
+## Stage 1 — microk8s (real Kubernetes on the VM)
+
+`k8s-install.sh` brings the same stack up on **microk8s**, using the manifests in
+`k8s/base` + `k8s/overlays/local` — the same source that promotes to DiSP and AWS EKS.
+This validates the Kubernetes manifests (Deployments, Services, PVC, Ingress, seed Job)
+on a real cluster before the cloud.
+
+```bash
+ssh track2-vm
+cd ~/deploy
+sudo ./k8s-install.sh        # installs microk8s + addons (dns, hostpath-storage, ingress)
+newgrp microk8s              # so the group applies
+./k8s-install.sh --no-install   # deploy the stack (builds+imports referrer, applies overlay, seeds IGs)
+```
+
+Endpoints (via the microk8s ingress, on the node IP):
+- Referrer  `http://<vm-ip>/`
+- Referral  `http://<vm-ip>/fhir/metadata`
+- Directory `http://<vm-ip>/directory/metadata` (HCPD IG)
+
+Inspect: `microk8s kubectl -n track2 get pods,svc,ingress`.
+The overlay renders to 14 resources (`kustomize build k8s/overlays/local`) — validated.
+
 ## Notes / known gotchas
 
 - **HCPD isn't on public package registries** — the script fetches the tarball from the FHIR

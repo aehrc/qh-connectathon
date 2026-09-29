@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pgdata
+  namespace: track2
+spec:
+  accessModes: [ "ReadWriteOnce" ]
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: track2
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: db } }
+  template:
+    metadata: { labels: { app: db } }
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16
+          env:
+            - { name: POSTGRES_USER,     valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
+            - { name: POSTGRES_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
+            - { name: POSTGRES_DB,       value: hapi }
+            # Both HAPI servers share this instance; the directory uses a second DB (created by the seed Job).
+          ports: [ { containerPort: 5432 } ]
+          volumeMounts: [ { name: pgdata, mountPath: /var/lib/postgresql/data } ]
+          readinessProbe:
+            exec: { command: ["pg_isready", "-U", "hapi"] }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests: { cpu: "250m", memory: "512Mi" }
+            limits:   { memory: "1Gi" }
+      volumes:
+        - name: pgdata
+          persistentVolumeClaim: { claimName: pgdata }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: track2
+spec:
+  selector: { app: db }
+  ports: [ { port: 5432, targetPort: 5432 } ]

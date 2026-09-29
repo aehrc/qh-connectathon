@@ -1,0 +1,19 @@
+# Local overlay — microk8s on the single VM.
+# - sets a real DB password (edit the literal, or use an env/secret source in CI)
+# - keeps the ingress class "public" (microk8s ingress addon default)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: track2
+resources:
+  - ../../base
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      - POSTGRES_PASSWORD=track2-local-changeme   # change for anything shared
+generatorOptions:
+  disableNameSuffixHash: true
+
+# microk8s uses the 'microk8s-hostpath' StorageClass by default when
+# hostpath-storage is enabled, so the PVC's default class is fine.

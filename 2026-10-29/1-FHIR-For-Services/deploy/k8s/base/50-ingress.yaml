@@ -1,0 +1,24 @@
+# Single path-routed ingress: / (referrer), /fhir (referral), /directory (HCPD).
+# microk8s ingress addon uses the "public" ingress class (nginx).
+# For the event, add TLS (cert-manager / ACM) in the aws overlay.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: track2
+  namespace: track2
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: public
+  rules:
+    - http:
+        paths:
+          - path: /fhir(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend: { service: { name: fhir, port: { number: 8080 } } }
+          - path: /directory(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend: { service: { name: directory, port: { number: 8080 } } }
+          - path: /()(.*)
+            pathType: ImplementationSpecific
+            backend: { service: { name: referrer, port: { number: 5000 } } }
