@@ -111,6 +111,7 @@ services:
       SPRING_DATASOURCE_USERNAME: hapi
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect"
       HAPI_FHIR_FHIR_VERSION: R4
       # Remote terminology — the one external dependency
       HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM: "http://snomed.info/sct"
@@ -127,6 +128,7 @@ services:
       SPRING_DATASOURCE_USERNAME: hapi
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_DATASOURCE_DRIVERCLASSNAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect"
       HAPI_FHIR_FHIR_VERSION: R4
       HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM: "http://snomed.info/sct"
       HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL: "${TX_URL}"

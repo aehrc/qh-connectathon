@@ -75,6 +75,22 @@ Three things in the IG are **not** plain REST (and how we handle them):
 **Conclusion:** deploy the HCPD IG package on HAPI, seed conformant resources, run open. The only
 "special operation" is `$export`, which is optional and HAPI-capable when enabled.
 
+**Verified empirically (2026-09-29, on the Track 2 VM, docker-compose stack):**
+- HAPI (`hapiproject/hapi:latest`) + Postgres runs the two-server layout once the **Postgres
+  dialect** is set (`SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect`)
+  — without it, HAPI defaults to `HapiFhirH2Dialect` and crashes on Postgres DDL (`seq_resource_type` syntax error). **This is a required setting** (now in the compose + k8s manifests).
+- **Package loading:** HAPI does **not** expose a runtime `$install` operation (returns 400
+  "does not know how to handle POST operation[$install]"), and **cannot fetch HCPD by name**
+  (not on any public package registry — `HAPI-1301`). Working method: **extract the CI-build
+  tarball and PUT its conformance resources** (StructureDefinition/ValueSet/CodeSystem) — 36
+  resources loaded cleanly (28 StructureDefinitions confirmed via search).
+- **`$validate` enforces the HCPD profiles:** validating a minimal Organization against
+  `hcpd-organization` correctly returned the HCPD-required errors (identifier/ABN slice, active,
+  address). So conformance validation against HCPD works on HAPI.
+- **Caveat:** the HCPD package is **profiles-only (no example instances)** — conformant
+  Organization/HealthcareService/etc. must be **authored for seeding** (feeds the fhir-frog test
+  fixtures and the directory search step).
+
 ## 3. Repository layout (GitOps-ready)
 
 Keep manifests in the repo so the same source promotes across stages — `base` + `overlays`,
