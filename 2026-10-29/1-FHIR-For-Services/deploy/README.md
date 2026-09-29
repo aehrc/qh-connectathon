@@ -23,6 +23,18 @@ TX_URL=https://<confirmed-tx>/fhir ./install.sh      # installs docker (sudo onc
 # re-run in a fresh shell if it just added you to the docker group
 ```
 
+### Two-phase (prep docker now, stack after resize)
+
+The VM is ~2 GB until the quota lands — too small for the HAPI servers. To prep the
+runtime now and bring up the stack after the resize:
+
+```bash
+sudo ./install.sh --docker-only     # now: installs docker, adds you to the docker group
+newgrp docker                       # (or log out/in) so the group applies
+# ...after the VM is resized to >= 8 GB...
+TX_URL=https://<confirmed-tx>/fhir ./install.sh   # no sudo needed for the stack
+```
+
 ## Notes / known gotchas
 
 - **HCPD isn't on public package registries** — the script fetches the tarball from the FHIR

@@ -10,6 +10,7 @@
 #
 # Usage:
 #   sudo ./install.sh            # installs docker (needs sudo once), then builds the stack
+#   sudo ./install.sh --docker-only    # install docker only (prep before VM resize)
 #   ./install.sh --no-docker-install   # skip docker install (already present)
 #   TX_URL=https://r4.ontoserver.csiro.au/fhir ./install.sh
 #
@@ -24,11 +25,20 @@ RADIOLOGY_IG_PKG="${RADIOLOGY_IG_PKG:-https://build.fhir.org/ig/aehrc/radiology-
 HAPI_IMAGE="${HAPI_IMAGE:-hapiproject/hapi:latest}"
 REFERRER_IMAGE="${REFERRER_IMAGE:-}"        # built from source if empty
 WORKDIR="${WORKDIR:-$HOME/track2-stack}"
-INSTALL_DOCKER=1
-[ "${1:-}" = "--no-docker-install" ] && INSTALL_DOCKER=0
 
 say() { printf '\033[1;36m[install]\033[0m %s\n' "$*"; }
 die() { printf '\033[1;31m[install] ERROR:\033[0m %s\n' "$*" >&2; exit 1; }
+
+INSTALL_DOCKER=1
+DOCKER_ONLY=0
+for arg in "$@"; do
+  case "$arg" in
+    --no-docker-install) INSTALL_DOCKER=0 ;;
+    --docker-only)       DOCKER_ONLY=1 ;;
+    -h|--help) grep '^#' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    *) die "unknown option: $arg" ;;
+  esac
+done
 
 # ---- Pre-flight ------------------------------------------------------------
 MEM_MB=$(free -m | awk '/^Mem:/{print $2}')
@@ -44,6 +54,13 @@ if [ "$INSTALL_DOCKER" = 1 ] && ! command -v docker >/dev/null; then
   say "Added $USER to the docker group. You may need to log out/in for it to take effect."
   say "If 'docker ps' fails below, re-run this script in a fresh shell."
 fi
+
+if [ "$DOCKER_ONLY" = 1 ]; then
+  say "--docker-only: runtime prepared. Docker is installed$( groups | grep -q docker && echo " and your shell has the docker group" || echo "; log out/in (or 'newgrp docker') so the group applies" )."
+  say "After the VM is resized, run:  ./install.sh        # no sudo needed for the stack"
+  exit 0
+fi
+
 command -v docker >/dev/null || die "docker not available"
 docker compose version >/dev/null 2>&1 || die "docker compose v2 not available"
 
