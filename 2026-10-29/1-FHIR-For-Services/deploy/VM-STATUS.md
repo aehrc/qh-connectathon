@@ -3,6 +3,28 @@
 Where the deployment experiments stand on `aehrc-qh-connectathon-track-2.it.csiro.au`,
 what's proven, the current blocker, and how to resume.
 
+## Docker on this VM — known limitation (do not fight it)
+
+Docker/runc **cannot start containers** on this CIS/USG-hardened VM:
+`runc create failed: ... fork/exec /proc/self/fd/6: permission denied`.
+
+Systematically ruled out (all tested this session): apparmor (`apparmor=unconfined` still fails),
+seccomp (`seccomp=unconfined` still fails), docker `exec-root` on an exec-capable path,
+`vm.memfd_noexec` (=0), kernel lockdown (none), and `noexec` on `/run` **and** `/proc` (both
+remounted `exec` — docker still failed). There are **no apparmor/seccomp/audit denials** logged.
+So it is a deep runc-1.3 × hardened-kernel incompatibility, not a flippable config.
+
+**Decision: do not use docker on this VM.** It isn't needed —
+- **microk8s (containerd) works** and is the deployment path that matters (Stage 1 → EKS). Its
+  runc invocation tolerates this kernel's hardening; docker's does not.
+- The event target is **AWS EKS**, where these CIS-image quirks don't apply.
+- The docker-compose path (Stage 0) is superseded by microk8s here.
+
+`deploy/fix-docker-noexec.sh` (exec-root) and the `/run`+`/proc` remounts did **not** fix it;
+those mount changes are non-persistent (a reboot restores CIS noexec). If docker is ever truly
+needed on such an image, the likely remaining levers are runc's `RUNC_DMZ`/`memfd` behaviour or a
+kernel/ptrace hardening control — out of scope; use containerd/microk8s instead.
+
 ## TL;DR
 
 > **UPDATE 2026-09-29 (later):** microk8s Stage 1 now **also verified** after (a) the snapd
