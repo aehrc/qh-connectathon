@@ -24,16 +24,36 @@ spec:
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # Conformance-test target: the AU eRequesting test fixtures are isolated
+            # resources with references to other conformant instances that are not
+            # co-loaded (each TestScript PUTs only its own fixture). Disable write-time
+            # referential integrity so those fixtures load standalone (HAPI-1094 otherwise).
+            - { name: HAPI_FHIR_ENFORCE_REFERENTIAL_INTEGRITY_ON_WRITE, value: "false" }
+            - { name: HAPI_FHIR_ENFORCE_REFERENTIAL_INTEGRITY_ON_DELETE, value: "false" }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
-            # --- radiology-referral IG (HAPI-native packageUrl auto-install) ---
-            # akkadakka "Bug 8": HAPI silently drops non-active CodeSystem/ValueSet on
-            # package upload unless this is disabled.
+            # --- AU eRequesting IG (akkadakka name/version pattern) ---
+            # akkadakka's canonical AU-IG install: registry name + version + STORE_AND_INSTALL,
+            # NO packageUrl (AU IGs are on the FHIR package registry, unlike HCPD). HAPI fetches
+            # it (and its AU Core / AU Base dependencies — fetchDependencies defaults true) from
+            # the registry on boot. This provides the au-erequesting-* profiles AND the conformant
+            # example instances the au-erequesting-tests suite reads/validates.
+            # akkadakka "Bug 8": HAPI silently drops non-active CodeSystem/ValueSet on package
+            # upload unless status validation is disabled.
             - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
-            # NOTE: enable the four IMPLEMENTATIONGUIDES_REFERRAL_* vars below once the
-            # radiology-referral CI build publishes a package.tgz (build.fhir.org). While
-            # the tarball 404s, an enabled packageUrl fails HAPI startup, so it is left
-            # inert until the autobuilder goes green.
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_NAME, value: hl7.fhir.au.ereq }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_VERSION, value: "1.0.1" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_INSTALLMODE, value: STORE_AND_INSTALL }
+            # akkadakka Bug 7 guard: some AU IG versions transitively pull R5 packages
+            # (hl7.terminology.r5 / hl7.fhir.uv.extensions) into an R4 server, which can
+            # break startup. Exclude the R5 packages ONLY — precise Java-regex (escaped
+            # dots), never "hl7.terminology.*" which would also drop the required R4
+            # terminology (Bug 7). These are list entries (indexed env vars).
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_DEPENDENCYEXCLUDES_0, value: "hl7\\.terminology\\.r5" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_DEPENDENCYEXCLUDES_1, value: "hl7\\.fhir\\.uv\\.extensions\\.r5" }
+            # NOTE: enable the radiology-referral IG below once its CI build publishes a
+            # package.tgz (build.fhir.org). It builds on AU eRequesting (installed above). While
+            # the tarball 404s, an enabled packageUrl fails HAPI startup, so it is left inert.
             # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_NAME, value: au.csiro.aehrc.referral }
             # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_VERSION, value: 0.1.0 }
             # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_PACKAGEURL, value: https://build.fhir.org/ig/aehrc/radiology-referral/package.tgz }

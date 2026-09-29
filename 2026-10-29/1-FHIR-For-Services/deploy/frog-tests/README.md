@@ -44,7 +44,56 @@ curl -s -X POST http://localhost:8090/api/v1/runs -H 'Content-Type: application/
 (spins up its own HAPI via containers) — which fails on the CIS-hardened VM (see
 `../VM-STATUS.md`). Pointing at our in-cluster servers uses the external/unmanaged path.
 
-## Verified result (2026-09-29, live microk8s stack)
+## Where validation runs (critical): frog-side, not server-side
+
+`ProfileValidation` assertions (`validateProfileId`) run **in-process inside frog-runner**, using
+a HAPI `FhirValidator` whose `ValidationSupport` chain is built from the **`igPackage`** run
+parameter — NOT by calling the target server's `$validate`. Confirmed in frog-runner
+`RunService`: without an IG, `validateProfileId` "runs, but against whatever
+`DefaultProfileValidationSupport` ships (base FHIR only)", and the UI help: "Without this, every
+ProfileValidation/terminology assertion fails against a plain HAPI".
+
+Consequence — the packages are needed in **two independent places**:
+
+| Concern | Where | How |
+|---------|-------|-----|
+| Create/store the test **fixtures** (referenced resources must resolve, or be allowed to dangle) | target **server** | install the IG on the server (`HAPI_FHIR_IMPLEMENTATIONGUIDES_*`) **and** `enforce_referential_integrity_on_write=false` so isolated fixtures load |
+| **Validate** a resource against a profile | **frog-runner** | pass `igPackage` (+ `terminologyServerUrl`) on the run |
+
+So a run against our AU eRequesting referral server must supply **both** `serverUrl` and
+`igPackage`:
+
+```bash
+FR=https://frog-runner.dw.csiro.au   # existing in-cluster frog-runner (another DiSP namespace)
+SVC=http://fhir.aehrc-qh-connectathon-track-2.svc.cluster.local:8080/fhir  # cluster-internal DNS
+curl -s -X POST "$FR/api/v1/runs" -H 'Content-Type: application/json' -d '{
+  "testPackage":"fhirfrog.au-erequesting-tests#0.1.0",
+  "serverUrl":"'"$SVC"'",
+  "igPackage":"hl7.fhir.au.ereq#1.0.1",
+  "terminologyServerUrl":"https://tx.ontoserver.csiro.au/fhir"}'
+# poll: GET /api/v1/runs/{id}
+```
+
+The in-cluster frog-runner reaches our servers over **cluster-internal service DNS** (no
+port-forward, no public TLS needed — our own ingress cert was still provisioning at test time).
+
+## Verified result (2026-09-29, live DiSP stack, remote frog-runner)
+
+AU eRequesting suite (`fhirfrog.au-erequesting-tests#0.1.0`) against the DiSP `fhir` referral
+server with `igPackage=hl7.fhir.au.ereq#1.0.1` + ontoserver tx: **3/7 pass**.
+
+- PASS: Patient, Practitioner, PractitionerRole.
+- FAIL (genuine fixture-vs-IG-version gaps, not infra): Organization (missing
+  `Identifier.type`), ServiceRequest imag/path + DiagnosticRequest (missing mandatory
+  `ServiceRequest.extension:displaySequence` slice and `ServiceRequest.requisition`). These are
+  the shared test package's own 0.1.0-era fixtures not yet satisfying AU eRequesting 1.0.1
+  mandatory elements — a suite fixture issue, independent of this deployment.
+
+Server-side prerequisites now baked into `20-fhir.yaml`: AU eRequesting installed via the
+akkadakka name/version pattern (registry, no packageUrl), `enforce_referential_integrity_on_write
+=false` (fixtures load standalone), and akkadakka Bug-7 R5 `dependencyExcludes` guard.
+
+## Earlier verified result (2026-09-29, live microk8s stack)
 
 - Step 1 (directory + HCPD IG): **pass**.
 - Steps 2–6 (referral server): **6/6 pass** — "All tests passed" for create-erequest,
