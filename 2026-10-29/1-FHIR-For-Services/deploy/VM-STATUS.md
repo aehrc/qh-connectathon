@@ -5,6 +5,18 @@ what's proven, the current blocker, and how to resume.
 
 ## TL;DR
 
+> **UPDATE 2026-09-29 (later):** microk8s Stage 1 now **also verified** after (a) the snapd
+> reinstall fixed snap-confine and (b) the VM was resized to **8 vCPU** (2 vCPU caused
+> Insufficient-cpu scheduling failures + slow HAPI boots). Both HAPI servers reach 1/1 in the
+> `track2` namespace; **HCPD loaded (28 StructureDefinitions) and `$validate` enforces the
+> profiles on the k8s directory server** — same result as compose. Remaining caveat: **docker/runc
+> is still broken by the apparmor/USG issue** (only snap-confine was fixed by the snapd reinstall),
+> so the docker-compose path is down — but microk8s uses containerd and is unaffected. To fix
+> docker too: reload its apparmor profile (`sudo aa-status | grep docker`; likely
+> `sudo systemctl reload apparmor && sudo systemctl restart docker`, or reinstall the
+> apparmor/docker profile the same way as snapd).
+
+
 - **Docker-compose stack (Stage 0): WORKS — proven.** Both HAPI servers ran; the **HCPD IG
   loaded (28 StructureDefinitions) and `$validate` enforced the HCPD profiles**. This answered
   the key question: **the HCPD IG runs on HAPI** (standard REST; no special ops for the core path).
