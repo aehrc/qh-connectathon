@@ -80,10 +80,9 @@ An **end-to-end radiology referral** workflow. A referrer:
 
 ## Systems and roles
 
-![w:760 center](slides/diagrams/architecture.svg)
+![h:400 center](slides/diagrams/architecture.svg)
 
-**Referrer** raises & books · **HCPD** directory of record · **Referral Server** (HAPI + QH IG)
-holds the resources · **Imaging Provider** triages & confirms · *Patient app* (stretch) self-books.
+Reference client: **Patient-Referral** (mjosborne1) at `patient-referral.onrender.com`, pointed at HCPD — the browser-core path for discover → refer → track.
 
 ---
 
@@ -200,3 +199,5 @@ Track status through to **Booked**; report return closes the Task (stretch).
 Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/1-FHIR-For-Services`
 
 IG: `github.com/aehrc/radiology-referral`
+
+Referrer app: `patient-referral.onrender.com` (`github.com/mjosborne1/Patient-Referral`)

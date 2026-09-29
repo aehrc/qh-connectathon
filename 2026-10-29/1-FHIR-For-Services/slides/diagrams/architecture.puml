@@ -16,10 +16,10 @@ skinparam actor {
 skinparam ArrowColor #001D34
 skinparam ArrowFontColor #757579
 
-actor "Referrer\n(Placer)" as R
+actor "Referrer (Placer)\nPatient-Referral app" as R
 component "Provider Directory\n(HCPD)" as D
 component "Referral Server\n(HAPI + QH IG)" as S
-component "Imaging Provider\n(Filler / RIS)" as F
+component "Imaging Provider (Filler / RIS)\nPatient-Referral Filler view" as F
 actor "Patient app\n(stretch)" as P
 
 R --> D : discover service + Endpoint
@@ -32,6 +32,12 @@ P ..> S : view referral / self-book
 note bottom of S
   Holds ServiceRequest, Task,
   Schedule / Slot / Appointment
+end note
+
+note top of R
+  Patient-Referral (mjosborne1) —
+  live at patient-referral.onrender.com,
+  pointed at HCPD
 end note
 
 @enduml

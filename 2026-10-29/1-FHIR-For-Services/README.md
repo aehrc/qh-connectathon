@@ -75,6 +75,28 @@ git submodule update --init --recursive
 git submodule update --remote 2026-10-29/1-FHIR-For-Services/ig
 ```
 
+## Reference client — Patient-Referral
+
+The **Referrer** role in the scenario is implemented by **Patient-Referral**
+([mjosborne1/Patient-Referral](https://github.com/mjosborne1/Patient-Referral)), a Flask app
+built for **Sparked Connected Testing Scenario 1 (eRequest/eReferral)** — the same scenario
+lineage as our IG. The live instance runs at **https://patient-referral.onrender.com/** and is
+already pointed at HCPD.
+
+It covers most of our flow out of the box:
+
+| Scenario step | Patient-Referral feature |
+|---------------|--------------------------|
+| Discover (search HCPD) | Provider Directory search (name / suburb / postcode / service type) |
+| Create referral | AU eRequesting `ServiceRequest` bundle from search to submission; SNOMED CT indication via Ontoserver |
+| Filler triage | Filler / Specialist view — Task inbox for the receiving specialist |
+| Track this request | Task status lifecycle |
+
+It gives the **browser-core stream** a real UI (discover → refer → track) while the developer
+deep-dive drives the FHIR API directly. It also renders any FHIR bundle as a Mermaid diagram —
+useful for teaching. See the open `track:services` issues for the integration gaps still to
+close (booking/scheduling step, target FHIR server, IG conformance).
+
 ## Keeping SharePoint and GitHub in sync
 
 `scripts/sync-sharepoint-github.sh` syncs this Track 2 content between the SharePoint document
