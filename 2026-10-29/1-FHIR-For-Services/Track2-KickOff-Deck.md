@@ -129,6 +129,8 @@ Track status through to **Booked**; report return closes the Task (stretch).
 - **FHIR R4 Scheduling** — Schedule, Slot, Appointment
 - *Bulk Data Access IG* — HCPD `$export` (stretch)
 
+> Profiles for this scenario: the **Radiology Referral and Booking IG** — `github.com/aehrc/radiology-referral` (builds on AU eRequesting 1.0.1).
+
 ---
 
 ## Two streams, run in parallel
@@ -196,3 +198,5 @@ Track status through to **Booked**; report return closes the Task (stretch).
 ## Questions, ideas, and let's FHIR it up
 
 Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/1-FHIR-For-Services`
+
+IG: `github.com/aehrc/radiology-referral`

@@ -1,0 +1,4 @@
+[submodule "2026-10-29/1-FHIR-For-Services/ig"]
+	path = 2026-10-29/1-FHIR-For-Services/ig
+	url = git@github.com:aehrc/radiology-referral.git
+	branch = main

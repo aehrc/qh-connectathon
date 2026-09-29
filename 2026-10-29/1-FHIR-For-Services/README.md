@@ -38,6 +38,7 @@ Daniel Foulkes (AEHRC) · Joern Guy Suess (AEHRC) · Paul Davies (QH)
 | [`2026-09-28-Services-Track-Discussion-Recap.md`](2026-09-28-Services-Track-Discussion-Recap.md) | Recap, decisions, action items and ideas from the 28 Sep 2026 planning meeting. |
 | [`Track2-KickOff-Deck.md`](Track2-KickOff-Deck.md) / `.pptx` | Kick-off slide deck (Marp source + rendered editable PowerPoint). |
 | [`slides/`](slides/) | Slide build: `Makefile`, PlantUML diagram sources, and build output. |
+| [`ig/`](ig/) | The **Radiology Referral and Booking IG** ([aehrc/radiology-referral](https://github.com/aehrc/radiology-referral)) as a git submodule, tracking its `main` branch. |
 | `Daniel Joern Guy Paul Michael O/` | Working materials: EOI insights, early thoughts, meeting notes, and the external-service-access investigation. |
 
 ## Building the slides
@@ -55,6 +56,24 @@ make help       # list targets
 
 Requires `marp`, `plantuml` (+ Java, Graphviz), Chromium, and LibreOffice — all present on the
 CSIRO dev image. Edit `Track2-KickOff-Deck.md` (and the `slides/diagrams/*.puml`) and re-run `make`.
+
+## Implementation Guide
+
+The FHIR profiles for this scenario live in a separate repository,
+[**aehrc/radiology-referral**](https://github.com/aehrc/radiology-referral) — the *Radiology
+Referral and Booking IG* (Connected Test Scenario 1). It builds on **AU eRequesting 1.0.1**,
+AU Core 2.0.0 and AU Base 6.0.0, and profiles the Referral ServiceRequest, Referral Task,
+Booking Schedule/Slot, and Referral Appointment used throughout the scenario and slides.
+
+It is included here as a **git submodule** at [`ig/`](ig/), tracking its `main` branch:
+
+```bash
+# first checkout
+git submodule update --init --recursive
+
+# pull the latest IG from its default branch
+git submodule update --remote 2026-10-29/1-FHIR-For-Services/ig
+```
 
 ## Keeping SharePoint and GitHub in sync
 
