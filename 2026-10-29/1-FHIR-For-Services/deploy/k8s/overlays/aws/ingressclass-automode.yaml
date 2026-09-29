@@ -1,0 +1,26 @@
+# EKS Auto Mode load balancing — built-in ALB controller (no add-on install).
+# Config goes in IngressClassParams (NOT alb.ingress.kubernetes.io annotations on the class).
+apiVersion: eks.amazonaws.com/v1
+kind: IngressClassParams
+metadata:
+  name: track2-alb
+spec:
+  scheme: internet-facing
+  group:
+    name: track2
+  # TLS: ACM cert for the Track 2 domain (infra issue #13). Set before deploy.
+  certificateARNs:
+    - "arn:aws:acm:REGION:ACCOUNT:certificate/REPLACE-ME"
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: track2-alb
+  annotations:
+    ingressclass.kubernetes.io/is-default-class: "true"
+spec:
+  controller: eks.amazonaws.com/alb          # EKS Auto Mode's built-in controller
+  parameters:
+    apiGroup: eks.amazonaws.com
+    kind: IngressClassParams
+    name: track2-alb

@@ -1,9 +1,11 @@
-# AWS EKS overlay — the event host.
-# Same base as microk8s (local), with EKS specifics:
-#   - ALB ingress (replaces base nginx ingress) with ACM TLS
-#   - gp3 default StorageClass (EBS CSI)
+# AWS EKS Auto Mode overlay — the event host.
+# Auto Mode provides Karpenter (nodes), EBS CSI, and the ALB controller BUILT IN
+# (no add-on installs). Specifics vs local/microk8s:
+#   - Auto Mode IngressClass + IngressClassParams (controller eks.amazonaws.com/alb),
+#     replacing the base nginx ingress; ACM TLS via IngressClassParams.certificateARNs
+#   - gp3 StorageClass with the Auto Mode provisioner (ebs.csi.eks.amazonaws.com)
 #   - production sizing for 35-40 concurrent users
-#   - referrer image from ECR (set your registry), Postgres password via secret
+#   - referrer image from ECR; DB password via Secrets Manager/External Secrets
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: track2
@@ -11,8 +13,9 @@ namespace: track2
 resources:
   - ../../base
   - storageclass-gp3.yaml
+  - ingressclass-automode.yaml
 
-# Replace the base (nginx) ingress with the ALB ingress of the same name
+# Replace the base (nginx) ingress with the Auto Mode ALB ingress of the same name
 patches:
   - path: ingress-alb.yaml
     target: { kind: Ingress, name: track2 }

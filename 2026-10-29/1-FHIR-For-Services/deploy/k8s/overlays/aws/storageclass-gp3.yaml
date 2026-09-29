@@ -1,14 +1,15 @@
-# gp3 StorageClass for EKS (EBS CSI driver). gp3 is cheaper/faster than the gp2 default.
-# Requires the aws-ebs-csi-driver addon on the cluster.
+# gp3 StorageClass for EKS Auto Mode.
+# Auto Mode does NOT create a StorageClass and uses its OWN provisioner
+# (ebs.csi.eks.amazonaws.com), not the self-managed EBS CSI (ebs.csi.aws.com).
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: gp3
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
-provisioner: ebs.csi.aws.com
+provisioner: ebs.csi.eks.amazonaws.com
 volumeBindingMode: WaitForFirstConsumer
 allowVolumeExpansion: true
 parameters:
   type: gp3
-  fsType: ext4
+  encrypted: "true"
