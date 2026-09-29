@@ -130,9 +130,41 @@ or as a small in-cluster Deployment for interactive use during the event. It nee
 alongside the functional smoke test, and doubles as a teaching artifact (participants can see
 their own bundles pass/fail).
 
-> Open: fhir-frog is an early trial. If the IG→TestScript compile isn't ready for HCPD/radiology-
-> referral in time, fall back to `$validate` on the servers (functional) + manual conformance
-> review, and keep frog-runner as the stretch.
+### 5c. Reuse the prior Sparked frog suite (Scenario 1)
+
+There is already a fhir-frog test suite for **this exact scenario** from the 8 July 2026 Sparked
+Testing Event:
+[`fhir-frog/sparked-testing-2026-07-08`](https://gitlab.com/australian-e-health-research-centre/fhir-frog/sparked-testing-2026-07-08)
+(local clone: `/home/jg/git/sparked-testing-2026-07-08`). It has TestScripts for **all six steps
+of Connected Scenario 1**, which map 1:1 onto our flow:
+
+| Our flow step | Sparked TestScript(s) |
+|---------------|-----------------------|
+| 1. Discover (HCPD) | `step1/hcpd-healthcareservice-location-search`, `hcpd-practitioner-referral-search`, `hcpd-practitionerrole-referral-search` — **live-verified against the real HCPD sandbox** (incl. ADHA's own "SEARCH-27 Dr Riley" case) |
+| 2. Create referral | `step2/create-erequest`, `submit-erequest` |
+| 3. Filler retrieve/triage | `step3/retrieve-erequest-and-supporting-info` |
+| 4. Update status | `step4/update-fulfilment-status` |
+| 5. Track status | `step5/monitor-fulfilment-status` |
+| 6. Patient view | `step6/patient-displays-erequest` |
+
+**Carry forward its hard-won lessons** (documented gaps in fhir-frog found event-eve, worked
+around with a small local proxy — `scripts/hcpd-proxy.py`):
+
+1. fhir-frog's `search` ignores the TestScript `params` field (issues a bare search) — the proxy
+   supplies the query. Relevant if pointing frog at a real HCPD.
+2. fhir-frog can't set custom outbound headers; **HCPD rejects requests without a valid-UUID
+   `X-Request-ID`** — the proxy injects one. (Our `X-Request-ID` requirement, confirmed.)
+3. HAPI's client fetches `/metadata` first; HCPD returns 404 there — the proxy stubs it.
+
+For our **in-cluster** directory (HAPI) these three mostly disappear (HAPI serves `/metadata`,
+and we control headers), so the suite should run more cleanly against our stack than against the
+public sandbox — but keep the proxy pattern for any "connect to real HCPD" stretch. **Build note:**
+the suite depends on `fhir-frog` installed locally with `-Djgitver.skip=true` (see its README).
+
+> This suite is the concrete starting point for §5b — reuse/adapt these TestScripts rather than
+> compiling from scratch. fhir-frog is still an early trial: if adapting it to our in-cluster
+> stack (and the QH/HCPD IG profiles) isn't ready in time, fall back to `$validate` on the servers
+> plus manual conformance review, and keep the frog suite as the stretch.
 
 ## 6. How this answers the open decisions / issues
 
@@ -156,9 +188,9 @@ their own bundles pass/fail).
    driven via the FHIR API for now?
 4. **Secured vs open** — keep open for teaching simplicity, or add in-cluster SMART for the
    security-minded stream (#11/transport)?
-5. **frog-runner readiness** — can we compile the HCPD and radiology-referral IGs into fhir-frog
-   TestScripts in time (`au-core-compiler` approach), or do we ship `$validate` + manual review for
-   the event and treat frog-runner conformance as the stretch?
+5. **frog-runner readiness** — adapt the existing `sparked-testing-2026-07-08` Scenario 1 suite
+   (all six steps, HCPD Step 1 live-verified) to our in-cluster stack and the QH/HCPD IG profiles,
+   or ship `$validate` + manual review for the event and treat full frog conformance as the stretch?
 6. **HCPD IG version/scope** — track `au.gov.digitalhealth.fhir.hcpd` (v26.0.0), and decide which
    profiles/search parameters the seeded directory must support for the discovery step.
 
