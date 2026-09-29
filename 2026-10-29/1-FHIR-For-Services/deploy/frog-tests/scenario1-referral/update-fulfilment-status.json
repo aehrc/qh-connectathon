@@ -1,0 +1,47 @@
+{
+  "resourceType": "TestScript",
+  "id": "scenario1-step4-update-fulfilment-status",
+  "url": "https://gitlab.com/australian-e-health-research-centre/fhir-frog/sparked-testing-2026-07-08/TestScript/scenario1-step4-update-fulfilment-status",
+  "name": "Scenario1Step4UpdateFulfilmentStatus",
+  "title": "Scenario 1 / Step 4: Fulfilling system updates the fulfilment status of the request",
+  "status": "draft",
+  "description": "HL7 AU Sparked Testing Event (2026-07-08), Scenario 1 / Step 4: the fulfilling system updates the fulfilment status of ServiceRequest/s1-sr-1 from active to completed. Simplification (documented in design.md): fulfilment status is modelled directly via ServiceRequest.status, the same mechanism fhir-frog-sample/erequesting's walkthrough uses, rather than a separate Task resource - the AU eRequesting IG's fuller Task-based fulfilment-status model was out of scope for this pass. Setup PUTs the active state first so the test-phase transition is a deterministic update (HTTP 200). Run against a LOCAL HAPI FHIR server only.",
+  "fixture": [
+    { "id": "patient-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "Patient-s1-patient-1" } },
+    { "id": "org-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "Organization-s1-org-requester" } },
+    { "id": "pr-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "PractitionerRole-s1-pr-requester" } },
+    { "id": "sr-active-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "ServiceRequest-s1-sr-active" } },
+    { "id": "sr-completed-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "ServiceRequest-s1-sr-completed" } }
+  ],
+  "setup": {
+    "action": [
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "Patient", "sourceId": "patient-fixture", "responseId": "setup-patient-response" } },
+      { "assert": { "resource": "Patient", "sourceId": "setup-patient-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "Organization", "sourceId": "org-fixture", "responseId": "setup-org-response" } },
+      { "assert": { "resource": "Organization", "sourceId": "setup-org-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "PractitionerRole", "sourceId": "pr-fixture", "responseId": "setup-pr-response" } },
+      { "assert": { "resource": "PractitionerRole", "sourceId": "setup-pr-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "ServiceRequest", "description": "Ensure ServiceRequest/s1-sr-1 exists in active state before the fulfilment-status update.", "sourceId": "sr-active-fixture", "responseId": "setup-sr-response" } },
+      { "assert": { "resource": "ServiceRequest", "sourceId": "setup-sr-response" } }
+    ]
+  },
+  "test": [
+    {
+      "name": "Fulfilling system marks the request completed",
+      "description": "PUT ServiceRequest/s1-sr-1 with status=completed. Asserts HTTP 200 and status=completed with intent=order maintained.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+            "resource": "ServiceRequest",
+            "sourceId": "sr-completed-fixture",
+            "responseId": "complete-response"
+          }
+        },
+        { "assert": { "response": "okay", "sourceId": "complete-response" } },
+        { "assert": { "expression": "ServiceRequest.status", "value": "completed", "sourceId": "complete-response" } },
+        { "assert": { "expression": "ServiceRequest.intent", "value": "order", "sourceId": "complete-response" } }
+      ]
+    }
+  ]
+}

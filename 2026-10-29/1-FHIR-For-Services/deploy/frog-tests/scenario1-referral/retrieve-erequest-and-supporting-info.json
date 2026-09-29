@@ -1,0 +1,62 @@
+{
+  "resourceType": "TestScript",
+  "id": "scenario1-step3-retrieve-erequest",
+  "url": "https://gitlab.com/australian-e-health-research-centre/fhir-frog/sparked-testing-2026-07-08/TestScript/scenario1-step3-retrieve-erequest",
+  "name": "Scenario1Step3RetrieveERequest",
+  "title": "Scenario 1 / Step 3: Fulfilling system retrieves/displays the eRequest and supporting info",
+  "status": "draft",
+  "description": "HL7 AU Sparked Testing Event (2026-07-08), Scenario 1 / Step 3: the fulfilling system (AU eRequesting Filler) reads the active ServiceRequest (id s1-sr-1) and its supporting information (the referenced Patient) to display them before acting on the referral. Read-only against the LOCAL HAPI FHIR server.",
+  "fixture": [
+    { "id": "patient-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "Patient-s1-patient-1" } },
+    { "id": "org-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "Organization-s1-org-requester" } },
+    { "id": "pr-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "PractitionerRole-s1-pr-requester" } },
+    { "id": "sr-active-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "ServiceRequest-s1-sr-active" } }
+  ],
+  "setup": {
+    "action": [
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "Patient", "sourceId": "patient-fixture", "responseId": "setup-patient-response" } },
+      { "assert": { "resource": "Patient", "sourceId": "setup-patient-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "Organization", "sourceId": "org-fixture", "responseId": "setup-org-response" } },
+      { "assert": { "resource": "Organization", "sourceId": "setup-org-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "PractitionerRole", "sourceId": "pr-fixture", "responseId": "setup-pr-response" } },
+      { "assert": { "resource": "PractitionerRole", "sourceId": "setup-pr-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "ServiceRequest", "description": "Ensure ServiceRequest/s1-sr-1 exists in active state before retrieval.", "sourceId": "sr-active-fixture", "responseId": "setup-sr-response" } },
+      { "assert": { "resource": "ServiceRequest", "sourceId": "setup-sr-response" } }
+    ]
+  },
+  "test": [
+    {
+      "name": "Fulfilling system retrieves the eRequest",
+      "description": "GET ServiceRequest/s1-sr-1. Asserts HTTP 200 and that the retrieved resource is active/order.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "read" },
+            "resource": "ServiceRequest",
+            "params": "/s1-sr-1",
+            "responseId": "read-sr-response"
+          }
+        },
+        { "assert": { "response": "okay", "sourceId": "read-sr-response" } },
+        { "assert": { "resource": "ServiceRequest", "sourceId": "read-sr-response" } },
+        { "assert": { "expression": "ServiceRequest.status", "value": "active", "sourceId": "read-sr-response" } }
+      ]
+    },
+    {
+      "name": "Fulfilling system retrieves the referenced Patient as supporting info",
+      "description": "GET Patient/s1-patient-1, the subject referenced by the ServiceRequest. Asserts HTTP 200.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "read" },
+            "resource": "Patient",
+            "params": "/s1-patient-1",
+            "responseId": "read-patient-response"
+          }
+        },
+        { "assert": { "response": "okay", "sourceId": "read-patient-response" } },
+        { "assert": { "resource": "Patient", "sourceId": "read-patient-response" } }
+      ]
+    }
+  ]
+}

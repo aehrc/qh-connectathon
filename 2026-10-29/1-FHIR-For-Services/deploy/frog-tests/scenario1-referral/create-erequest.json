@@ -1,0 +1,101 @@
+{
+  "resourceType": "TestScript",
+  "id": "scenario1-step2-create-erequest",
+  "url": "https://gitlab.com/australian-e-health-research-centre/fhir-frog/sparked-testing-2026-07-08/TestScript/scenario1-step2-create-erequest",
+  "name": "Scenario1Step2CreateERequest",
+  "title": "Scenario 1 / Step 2: Requesting system creates an eRequest/eReferral",
+  "status": "draft",
+  "description": "HL7 AU Sparked Testing Event (2026-07-08), Scenario 1 / Step 2 (first half): the requesting system (AU eRequesting Placer) creates a new ServiceRequest representing an eRequest/eReferral. POSTs (create, not update/PUT) so the server assigns its own id, demonstrating genuine creation semantics. Run against a LOCAL HAPI FHIR server only (docker/local-fhir-server/), never against the shared Sparked eReq server - see scripts/local-fhir-server.sh.",
+  "fixture": [
+    {
+      "id": "patient-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "Patient-s1-patient-1" }
+    },
+    {
+      "id": "org-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "Organization-s1-org-requester" }
+    },
+    {
+      "id": "pr-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "PractitionerRole-s1-pr-requester" }
+    },
+    {
+      "id": "sr-create-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "ServiceRequest-s1-sr-create" }
+    }
+  ],
+  "setup": {
+    "action": [
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "Patient",
+          "description": "Ensure the requester's Patient exists locally (idempotent upsert - see design.md for why this setup step deliberately does not assert an exact response code).",
+          "sourceId": "patient-fixture",
+          "responseId": "setup-patient-response"
+        }
+      },
+      {
+        "assert": { "resource": "Patient", "sourceId": "setup-patient-response" }
+      },
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "Organization",
+          "sourceId": "org-fixture",
+          "responseId": "setup-org-response"
+        }
+      },
+      {
+        "assert": { "resource": "Organization", "sourceId": "setup-org-response" }
+      },
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "PractitionerRole",
+          "sourceId": "pr-fixture",
+          "responseId": "setup-pr-response"
+        }
+      },
+      {
+        "assert": { "resource": "PractitionerRole", "sourceId": "setup-pr-response" }
+      }
+    ]
+  },
+  "test": [
+    {
+      "name": "Create draft eRequest ServiceRequest",
+      "description": "POST a new ServiceRequest with status=draft, intent=proposal. Asserts HTTP 201 Created and the returned resource's key fields.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "create" },
+            "resource": "ServiceRequest",
+            "sourceId": "sr-create-fixture",
+            "responseId": "create-response"
+          }
+        },
+        {
+          "assert": { "response": "created", "sourceId": "create-response" }
+        },
+        {
+          "assert": { "resource": "ServiceRequest", "sourceId": "create-response" }
+        },
+        {
+          "assert": { "expression": "ServiceRequest.status", "value": "draft", "sourceId": "create-response" }
+        },
+        {
+          "assert": { "expression": "ServiceRequest.intent", "value": "proposal", "sourceId": "create-response" }
+        }
+      ]
+    }
+  ]
+}

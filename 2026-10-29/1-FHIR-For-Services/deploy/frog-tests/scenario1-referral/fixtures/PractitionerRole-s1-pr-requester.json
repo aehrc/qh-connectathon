@@ -1,0 +1,26 @@
+{
+  "resourceType": "PractitionerRole",
+  "id": "s1-pr-requester",
+  "identifier": [
+    {
+      "system": "http://www.example.org/practitionerrole",
+      "value": "NSW-GP-001"
+    }
+  ],
+  "active": true,
+  "organization": {
+    "reference": "Organization/s1-org-requester",
+    "display": "Balmain Family Medical Practice"
+  },
+  "code": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "62247001",
+          "display": "Family physician"
+        }
+      ]
+    }
+  ]
+}

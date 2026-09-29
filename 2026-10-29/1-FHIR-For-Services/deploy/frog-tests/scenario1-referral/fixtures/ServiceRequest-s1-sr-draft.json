@@ -1,0 +1,24 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "s1-sr-1",
+  "status": "draft",
+  "intent": "proposal",
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "168731009",
+        "display": "Ultrasonography"
+      }
+    ],
+    "text": "Obstetric ultrasound"
+  },
+  "subject": {
+    "reference": "Patient/s1-patient-1",
+    "display": "Jane Citizen"
+  },
+  "requester": {
+    "reference": "PractitionerRole/s1-pr-requester"
+  },
+  "authoredOn": "2026-07-08T09:00:00+10:00"
+}

@@ -1,0 +1,64 @@
+{
+  "resourceType": "TestScript",
+  "id": "scenario1-step5-monitor-fulfilment-status",
+  "url": "https://gitlab.com/australian-e-health-research-centre/fhir-frog/sparked-testing-2026-07-08/TestScript/scenario1-step5-monitor-fulfilment-status",
+  "name": "Scenario1Step5MonitorFulfilmentStatus",
+  "title": "Scenario 1 / Step 5: Requesting system monitors/displays the fulfilment status",
+  "status": "draft",
+  "description": "HL7 AU Sparked Testing Event (2026-07-08), Scenario 1 / Step 5: the requesting system (AU eRequesting Placer) checks back on ServiceRequest/s1-sr-1, now completed by the fulfilling system in Step 4, both by direct read and by search. Read-only against the LOCAL HAPI FHIR server. Note: FHIRFrog's search operation always issues a bare, unparameterized search (OperationExecutor.executeSearch never forwards params - the same gap documented for Step 1's HCPD proxy, confirmed by reading the same source again here) - harmless locally since this suite creates only one ServiceRequest, so a bare search still returns exactly the resource under test.",
+  "fixture": [
+    { "id": "patient-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "Patient-s1-patient-1" } },
+    { "id": "org-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "Organization-s1-org-requester" } },
+    { "id": "pr-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "PractitionerRole-s1-pr-requester" } },
+    { "id": "sr-completed-fixture", "autocreate": false, "autodelete": false, "resource": { "reference": "ServiceRequest-s1-sr-completed" } }
+  ],
+  "setup": {
+    "action": [
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "Patient", "sourceId": "patient-fixture", "responseId": "setup-patient-response" } },
+      { "assert": { "resource": "Patient", "sourceId": "setup-patient-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "Organization", "sourceId": "org-fixture", "responseId": "setup-org-response" } },
+      { "assert": { "resource": "Organization", "sourceId": "setup-org-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "PractitionerRole", "sourceId": "pr-fixture", "responseId": "setup-pr-response" } },
+      { "assert": { "resource": "PractitionerRole", "sourceId": "setup-pr-response" } },
+      { "operation": { "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" }, "resource": "ServiceRequest", "description": "Ensure ServiceRequest/s1-sr-1 exists in completed state to monitor.", "sourceId": "sr-completed-fixture", "responseId": "setup-sr-response" } },
+      { "assert": { "resource": "ServiceRequest", "sourceId": "setup-sr-response" } }
+    ]
+  },
+  "test": [
+    {
+      "name": "Requesting system reads the completed status directly",
+      "description": "GET ServiceRequest/s1-sr-1. Asserts HTTP 200 and status=completed.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "read" },
+            "resource": "ServiceRequest",
+            "params": "/s1-sr-1",
+            "responseId": "read-sr-response"
+          }
+        },
+        { "assert": { "response": "okay", "sourceId": "read-sr-response" } },
+        { "assert": { "expression": "ServiceRequest.status", "value": "completed", "sourceId": "read-sr-response" } }
+      ]
+    },
+    {
+      "name": "Requesting system's worklist search also shows the completed request",
+      "description": "Search ServiceRequest. Asserts the result set contains at least one entry and that our completed request is among them.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "search" },
+            "resource": "ServiceRequest",
+            "params": "?_id=s1-sr-1",
+            "description": "params is documentation of intent only - FHIRFrog issues a bare search here (see TestScript description above); harmless in this suite since ServiceRequest/s1-sr-1 is the only ServiceRequest this suite creates.",
+            "responseId": "search-sr-response"
+          }
+        },
+        { "assert": { "response": "okay", "sourceId": "search-sr-response" } },
+        { "assert": { "resource": "Bundle", "sourceId": "search-sr-response" } },
+        { "assert": { "expression": "Bundle.entry.count() > 0", "sourceId": "search-sr-response" } },
+        { "assert": { "expression": "Bundle.entry.resource.where(id = 's1-sr-1' and status = 'completed').exists()", "sourceId": "search-sr-response" } }
+      ]
+    }
+  ]
+}

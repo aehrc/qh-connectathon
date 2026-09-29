@@ -1,0 +1,101 @@
+{
+  "resourceType": "TestScript",
+  "id": "scenario1-step2-submit-erequest",
+  "url": "https://gitlab.com/australian-e-health-research-centre/fhir-frog/sparked-testing-2026-07-08/TestScript/scenario1-step2-submit-erequest",
+  "name": "Scenario1Step2SubmitERequest",
+  "title": "Scenario 1 / Step 2: Requesting system submits the eRequest/eReferral",
+  "status": "draft",
+  "description": "HL7 AU Sparked Testing Event (2026-07-08), Scenario 1 / Step 2 (second half): the requesting system transitions a known ServiceRequest (id s1-sr-1) from draft/proposal to active/order - 'submitting' it to the fulfilling system. Setup PUTs the draft state first so the test-phase transition is a deterministic update (HTTP 200), not a first-time create (HTTP 201) - see design.md 'Why setup steps here don't assert an exact response code' for the live-verified reason this matters. Run against a LOCAL HAPI FHIR server only.",
+  "fixture": [
+    {
+      "id": "patient-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "Patient-s1-patient-1" }
+    },
+    {
+      "id": "org-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "Organization-s1-org-requester" }
+    },
+    {
+      "id": "pr-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "PractitionerRole-s1-pr-requester" }
+    },
+    {
+      "id": "sr-draft-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "ServiceRequest-s1-sr-draft" }
+    },
+    {
+      "id": "sr-active-fixture",
+      "autocreate": false,
+      "autodelete": false,
+      "resource": { "reference": "ServiceRequest-s1-sr-active" }
+    }
+  ],
+  "setup": {
+    "action": [
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "Patient",
+          "sourceId": "patient-fixture",
+          "responseId": "setup-patient-response"
+        }
+      },
+      { "assert": { "resource": "Patient", "sourceId": "setup-patient-response" } },
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "Organization",
+          "sourceId": "org-fixture",
+          "responseId": "setup-org-response"
+        }
+      },
+      { "assert": { "resource": "Organization", "sourceId": "setup-org-response" } },
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "PractitionerRole",
+          "sourceId": "pr-fixture",
+          "responseId": "setup-pr-response"
+        }
+      },
+      { "assert": { "resource": "PractitionerRole", "sourceId": "setup-pr-response" } },
+      {
+        "operation": {
+          "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+          "resource": "ServiceRequest",
+          "description": "Ensure ServiceRequest/s1-sr-1 exists in draft state before submitting it.",
+          "sourceId": "sr-draft-fixture",
+          "responseId": "setup-sr-response"
+        }
+      },
+      { "assert": { "resource": "ServiceRequest", "sourceId": "setup-sr-response" } }
+    ]
+  },
+  "test": [
+    {
+      "name": "Submit eRequest: transition ServiceRequest to active/order",
+      "description": "PUT ServiceRequest/s1-sr-1 with status=active, intent=order. Because setup just PUT the draft state, this update is guaranteed to be a genuine update (HTTP 200), never a first-time create.",
+      "action": [
+        {
+          "operation": {
+            "type": { "system": "http://terminology.hl7.org/CodeSystem/testscript-operation-codes", "code": "update" },
+            "resource": "ServiceRequest",
+            "sourceId": "sr-active-fixture",
+            "responseId": "submit-response"
+          }
+        },
+        { "assert": { "response": "okay", "sourceId": "submit-response" } },
+        { "assert": { "expression": "ServiceRequest.status", "value": "active", "sourceId": "submit-response" } },
+        { "assert": { "expression": "ServiceRequest.intent", "value": "order", "sourceId": "submit-response" } }
+      ]
+    }
+  ]
+}
