@@ -16,6 +16,10 @@ spec:
           image: localhost:32000/patient-referral:local
           imagePullPolicy: IfNotPresent      # image imported locally, not pulled
           env:
+            # Setting PORT triggers the app's cloud-host branch: bind 0.0.0.0:$PORT
+            # (containerd does not create /.dockerenv, so the app would otherwise fall
+            # back to 127.0.0.1:5001 and be unreachable from the Service).
+            - { name: PORT,       value: "5000" }
             - { name: USE_AUTH,   value: "false" }
             - { name: FHIR_SERVER, value: "http://fhir:8080/fhir" }
             - { name: PD_SERVER,   value: "http://directory:8080/fhir" }

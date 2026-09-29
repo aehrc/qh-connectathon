@@ -36,11 +36,20 @@ patches:
             secretName: track2-tls
     target: { kind: Ingress, name: track2 }
 
-# Referrer image — a registry DiSP can pull (GitLab registry / mirror).
+  # Referrer pulls from a public registry on DiSP (base uses IfNotPresent for the
+  # microk8s local import; DiSP must actually pull it).
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: Always
+    target: { kind: Deployment, name: referrer }
+
+# Referrer image — public Docker Hub repo (DiSP pulls Docker Hub anonymously, as it
+# already does for postgres/hapi). Built from github.com/mjosborne1/Patient-Referral.
 images:
   - name: localhost:32000/patient-referral:local
-    newName: registry.gitlab.com/australian-e-health-research-centre/patient-referral
-    newTag: latest
+    newName: joernguysuess/patient-referral
+    newTag: track2
 
 secretGenerator:
   - name: db-secret
