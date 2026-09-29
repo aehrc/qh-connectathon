@@ -1,32 +1,73 @@
-# Flux layer for DiSP — internal testing (deploy this first; AWS EKS later).
-# DiSP reconciles via its GitLab-connected Flux/agentk. Apply into flux-system
-# (or the DiSP-designated Flux namespace) once; Flux then syncs from this repo.
+# Flux bootstrap for DiSP — tenant-namespace-scoped, per DiSP's Flux model.
+#
+# DiSP constraints (from disp-flux docs):
+#   - Per-object impersonation: every Kustomization MUST name a ServiceAccount
+#     (spec.serviceAccountName); omitting it reconciles as `default` = zero RBAC = Forbidden.
+#   - RBAC ceiling is namespace-scoped `admin` via a RoleBinding (never ClusterRoleBinding,
+#     never cluster-admin, no flux-system access).
+#   - No cross-namespace references: everything lives in the tenant namespace.
+#
+# Replace TRACK2_NS with the DiSP-assigned namespace. Everything below is in that namespace.
+#
+# Sourcing: two DiSP-proven options —
+#   (A) GitRepository + fine-grained read-only PAT (like aehrc-quokka-deploy), or
+#   (B) OCIRepository + Deploy Token (like disp-gitlab-runner).
+# (A) shown here against this GitHub repo; the PAT goes in the `repo-auth` Secret.
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: track2-flux
+  namespace: TRACK2_NS
+---
+# Namespace-scoped admin (the DiSP ceiling) — RoleBinding, NOT ClusterRoleBinding.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: track2-flux-admin
+  namespace: TRACK2_NS
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole          # cluster-DEFINED role, namespace-scoped binding
+  name: admin
+subjects:
+  - kind: ServiceAccount
+    name: track2-flux
+    namespace: TRACK2_NS
+---
+# Fine-grained, read-only PAT for the GitHub repo (option A). Create out-of-band:
+#   kubectl -n TRACK2_NS create secret generic repo-auth \
+#     --from-literal=username=<gh-user> --from-literal=password=<fine-grained-PAT>
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: qh-connectathon
-  namespace: flux-system
+  namespace: TRACK2_NS
 spec:
   interval: 5m
   url: https://github.com/aehrc/qh-connectathon.git
   ref:
     branch: main
+  secretRef:
+    name: repo-auth
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: track2-disp
-  namespace: flux-system
+  name: track2
+  namespace: TRACK2_NS
 spec:
+  serviceAccountName: track2-flux          # REQUIRED on DiSP (per-object impersonation)
   interval: 10m
   path: ./2026-10-29/1-FHIR-For-Services/deploy/k8s/overlays/disp
   prune: true
   sourceRef:
     kind: GitRepository
     name: qh-connectathon
-  targetNamespace: track2
+  # No targetNamespace: the disp overlay already sets namespace to the tenant ns
+  # (edit overlays/disp namespace: TRACK2_NS to match, or drop it to inherit).
   timeout: 5m
   wait: true
   healthChecks:
-    - { apiVersion: apps/v1, kind: Deployment, name: fhir, namespace: track2 }
-    - { apiVersion: apps/v1, kind: Deployment, name: directory, namespace: track2 }
+    - { apiVersion: apps/v1, kind: Deployment, name: fhir, namespace: TRACK2_NS }
+    - { apiVersion: apps/v1, kind: Deployment, name: directory, namespace: TRACK2_NS }
