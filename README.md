@@ -17,7 +17,10 @@ collaboration.
 - FHIR For Services
 - FHIR For Data
 - FHIR for Users
- 
+
+## Participating on the day
+
+All participants: see [**Participant devices & network — what to expect on the day**](2026-10-29/Participant-Devices-and-Network.md). In short — **bring a laptop and plan to use a non-QH network** (venue wifi or hotspot), and pre-test the URLs and ports you'll need.
 
 ## More information
 
