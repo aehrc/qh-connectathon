@@ -87,9 +87,27 @@ holds the resources · **Imaging Provider** triages & confirms · *Patient app* 
 
 ---
 
-## The flow
+## The flow — 1. Discover & request
 
-![h:440 center](slides/diagrams/referral-flow.svg)
+![h:430 center](slides/diagrams/flow-1-discover-request.svg)
+
+Search the directory → raise the referral (ServiceRequest + Task) → filler triages.
+
+---
+
+## The flow — 2. Track this request & book
+
+![h:430 center](slides/diagrams/flow-2-track-book.svg)
+
+Monitor **this referral's Task** to know when it has been acted on, then book.
+
+---
+
+## The flow — 3. Confirm & complete
+
+![h:400 center](slides/diagrams/flow-3-confirm-complete.svg)
+
+Track status through to **Booked**; report return closes the Task (stretch).
 
 ---
 

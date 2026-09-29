@@ -1,0 +1,29 @@
+@startuml flow-3-confirm-complete
+' Part 3 — Confirm the booking and track status to completion
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam sequence {
+  ArrowColor #001D34
+  LifeLineBorderColor #757579
+  ParticipantBorderColor #00A9CE
+  ParticipantBackgroundColor #E6F6FA
+  ParticipantFontColor #001D34
+  ActorBorderColor #00A9CE
+  ActorBackgroundColor #E6F6FA
+}
+
+actor "Referrer\n(Placer)" as R
+participant "Referral\nServer" as S
+participant "Imaging Provider\n(Filler)" as F
+
+R -> S : read Task / Appointment status
+S --> R : Task businessStatus = Booked
+
+opt report return (stretch)
+  F -> S : post DiagnosticReport / ImagingStudy; Task completed
+  R -> S : read Task
+  S --> R : Task status = completed
+end
+
+@enduml

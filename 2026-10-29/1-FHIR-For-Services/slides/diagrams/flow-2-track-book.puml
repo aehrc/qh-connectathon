@@ -1,0 +1,38 @@
+@startuml flow-2-track-book
+' Part 2 — Track THIS request's Task, then book when it has been acted on
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam sequence {
+  ArrowColor #001D34
+  LifeLineBorderColor #757579
+  ParticipantBorderColor #00A9CE
+  ParticipantBackgroundColor #E6F6FA
+  ParticipantFontColor #001D34
+  ActorBorderColor #00A9CE
+  ActorBackgroundColor #E6F6FA
+}
+
+actor "Referrer\n(Placer)" as R
+participant "Referral\nServer" as S
+participant "Imaging Provider\n(Filler)" as F
+
+note over R, S
+  Track **this referral's Task** — Task?focus=ServiceRequest/{id} —
+  to know whether **this specific request** has been acted on,
+  not generic Slot availability. The filler publishes availability
+  independently.
+end note
+
+R -> S : GET Task?focus=ServiceRequest/{id} (poll or subscribe)
+
+alt Task accepted / scheduled — request acted on
+  S --> R : Task (accepted) + linked Slots
+  R -> S : search Slot / POST Appointment (proposed, basedOn ServiceRequest)
+  F -> S : confirm: Appointment booked, Slot busy, Task in-progress
+else Task still requested / on-hold — not yet acted on
+  S --> R : Task (requested / on-hold, statusReason)
+  note right of R : keep watching the Task; retry once accepted
+end
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml flow-1-discover-request
+' Part 1 — Discover the service and raise the referral
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam sequence {
+  ArrowColor #001D34
+  LifeLineBorderColor #757579
+  ParticipantBorderColor #00A9CE
+  ParticipantBackgroundColor #E6F6FA
+  ParticipantFontColor #001D34
+  ActorBorderColor #00A9CE
+  ActorBackgroundColor #E6F6FA
+}
+
+actor "Referrer\n(Placer)" as R
+participant "Provider\nDirectory (HCPD)" as D
+participant "Referral\nServer" as S
+participant "Imaging Provider\n(Filler)" as F
+
+R -> D : 1. search HealthcareService / Location / Endpoint
+D --> R : matching services + receiving Endpoint
+
+R -> S : 2. POST Bundle (ServiceRequest + Task + supporting info)
+S --> R : 201 Created
+
+F -> S : 3. poll / subscribe for new Tasks
+S --> F : Task (requested) + ServiceRequest
+F -> S : accept / reject / on-hold (coded reason)
+
+@enduml
