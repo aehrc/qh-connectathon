@@ -6,6 +6,7 @@ kind: Kustomization
 namespace: track2
 resources:
   - ../../base
+  - namespace.yaml
 
 secretGenerator:
   - name: db-secret

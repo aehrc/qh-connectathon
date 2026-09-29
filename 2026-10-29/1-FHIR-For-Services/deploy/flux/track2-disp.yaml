@@ -7,7 +7,7 @@
 #     never cluster-admin, no flux-system access).
 #   - No cross-namespace references: everything lives in the tenant namespace.
 #
-# Replace TRACK2_NS with the DiSP-assigned namespace. Everything below is in that namespace.
+# Replace aehrc-qh-connectathon-track-2 with the DiSP-assigned namespace. Everything below is in that namespace.
 #
 # Sourcing: two DiSP-proven options —
 #   (A) GitRepository + fine-grained read-only PAT (like aehrc-quokka-deploy), or
@@ -18,14 +18,14 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: track2-flux
-  namespace: TRACK2_NS
+  namespace: aehrc-qh-connectathon-track-2
 ---
 # Namespace-scoped admin (the DiSP ceiling) — RoleBinding, NOT ClusterRoleBinding.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: track2-flux-admin
-  namespace: TRACK2_NS
+  namespace: aehrc-qh-connectathon-track-2
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole          # cluster-DEFINED role, namespace-scoped binding
@@ -33,16 +33,16 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: track2-flux
-    namespace: TRACK2_NS
+    namespace: aehrc-qh-connectathon-track-2
 ---
 # Fine-grained, read-only PAT for the GitHub repo (option A). Create out-of-band:
-#   kubectl -n TRACK2_NS create secret generic repo-auth \
+#   kubectl -n aehrc-qh-connectathon-track-2 create secret generic repo-auth \
 #     --from-literal=username=<gh-user> --from-literal=password=<fine-grained-PAT>
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
   name: qh-connectathon
-  namespace: TRACK2_NS
+  namespace: aehrc-qh-connectathon-track-2
 spec:
   interval: 5m
   url: https://github.com/aehrc/qh-connectathon.git
@@ -55,7 +55,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: track2
-  namespace: TRACK2_NS
+  namespace: aehrc-qh-connectathon-track-2
 spec:
   serviceAccountName: track2-flux          # REQUIRED on DiSP (per-object impersonation)
   interval: 10m
@@ -65,9 +65,9 @@ spec:
     kind: GitRepository
     name: qh-connectathon
   # No targetNamespace: the disp overlay already sets namespace to the tenant ns
-  # (edit overlays/disp namespace: TRACK2_NS to match, or drop it to inherit).
+  # (edit overlays/disp namespace: aehrc-qh-connectathon-track-2 to match, or drop it to inherit).
   timeout: 5m
   wait: true
   healthChecks:
-    - { apiVersion: apps/v1, kind: Deployment, name: fhir, namespace: TRACK2_NS }
-    - { apiVersion: apps/v1, kind: Deployment, name: directory, namespace: TRACK2_NS }
+    - { apiVersion: apps/v1, kind: Deployment, name: fhir, namespace: aehrc-qh-connectathon-track-2 }
+    - { apiVersion: apps/v1, kind: Deployment, name: directory, namespace: aehrc-qh-connectathon-track-2 }

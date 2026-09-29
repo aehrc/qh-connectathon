@@ -12,6 +12,7 @@ namespace: track2
 
 resources:
   - ../../base
+  - namespace.yaml
   - storageclass-gp3.yaml
   - ingressclass-automode.yaml
 
