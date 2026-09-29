@@ -103,6 +103,15 @@ Monitor **this referral's Task** to know when it has been acted on, then book.
 
 ---
 
+## Tracking: poll vs subscribe
+
+![h:400 center](slides/diagrams/flow-poll-vs-subscribe.svg)
+
+**Baseline:** poll the Task for this request. **Stretch:** a FHIR Subscription
+(R4 rest-hook) pushes a notification on change — no polling.
+
+---
+
 ## The flow — 3. Confirm & complete
 
 ![h:400 center](slides/diagrams/flow-3-confirm-complete.svg)

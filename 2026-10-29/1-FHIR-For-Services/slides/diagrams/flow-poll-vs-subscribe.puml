@@ -1,0 +1,44 @@
+@startuml flow-poll-vs-subscribe
+' Tracking this request's Task: polling (baseline) vs FHIR Subscription (stretch)
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam sequence {
+  ArrowColor #001D34
+  LifeLineBorderColor #757579
+  ParticipantBorderColor #00A9CE
+  ParticipantBackgroundColor #E6F6FA
+  ParticipantFontColor #001D34
+  ActorBorderColor #00A9CE
+  ActorBackgroundColor #E6F6FA
+}
+
+actor "Referrer\n(Placer)" as R
+participant "Referral\nServer" as S
+
+group Polling  — baseline
+  loop until status changes
+    R -> S : GET Task?focus=ServiceRequest/{id}
+    S --> R : Task (still requested)
+  end
+  R -> S : GET Task?focus=ServiceRequest/{id}
+  S --> R : Task (accepted) — now book
+end
+
+group FHIR Subscription  — stretch (R4 rest-hook)
+  R -> S : POST Subscription\n(criteria: Task?focus=ServiceRequest/{id},\nchannel: rest-hook)
+  S --> R : 201 Created (requested -> active)
+  ... filler acts on the Task ...
+  S -> R : notification (rest-hook POST) — matching change
+  R -> S : GET Task/{id}
+  S --> R : Task (accepted) — now book
+end
+
+note over R, S
+  Baseline: poll the Task for **this request**.
+  Stretch: subscribe and be notified on change
+  (R4 rest-hook; topic-based / R5 backport is the
+  direction of travel).
+end note
+
+@enduml
