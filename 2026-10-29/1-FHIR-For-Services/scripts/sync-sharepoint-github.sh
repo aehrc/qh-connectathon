@@ -45,13 +45,17 @@ GH_SHARED="$GH_TRACK/Daniel Joern Guy Paul Michael O"
 
 # Repo-authored artifacts to publish back to SharePoint (relative to GH_TRACK).
 # These land in the SharePoint Track 2 folder so the wider team can see them.
+# Policy: publish human-readable deliverables (Markdown) and the rendered deck.
+# Do NOT publish source/build material (slides/ Makefile, *.puml, *.svg,
+# scripts/, the ig/ submodule) — that belongs in git only.
 PUBLISH_FILES=(
   "README.md"
+  "AGENTS.md"
   "QH-Radiology-Referral-Scenario-DRAFT.md"
   "Services-Track-Two-Day-Agenda.md"
   "Services-Track-Concrete-Time-Plan.md"
   "2026-09-28-Services-Track-Discussion-Recap.md"
-  "AGENTS.md"
+  "Track2-KickOff-Deck.md"
   "Track2-KickOff-Deck.pptx"
 )
 # Where published artifacts go inside the SharePoint library (relative to SHIT_REPO).

@@ -82,8 +82,10 @@ library (via `shit`) and this repository (via `git`). The sync is directional:
 
 - **pull** — SharePoint → GitHub: refresh shared working materials (the `Daniel Joern Guy Paul
   Michael O/` folder) into the repo and commit.
-- **push** — GitHub → SharePoint: publish repo-authored artifacts (README, scenario, time plan,
-  agenda, recap, deck) back to the library so the wider team can see them.
+- **push** — GitHub → SharePoint: publish the human-readable deliverables (README, AGENTS,
+  scenario, agenda, time plan, recap, and the kick-off deck `.md` + `.pptx`) back to the library
+  so the wider team can see them. Source/build material (`slides/`, `scripts/`, the `ig/`
+  submodule) stays in git only.
 
 ```bash
 cd scripts
