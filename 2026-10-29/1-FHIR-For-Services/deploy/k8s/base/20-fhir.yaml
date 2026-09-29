@@ -26,6 +26,18 @@ spec:
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
+            # --- radiology-referral IG (HAPI-native packageUrl auto-install) ---
+            # akkadakka "Bug 8": HAPI silently drops non-active CodeSystem/ValueSet on
+            # package upload unless this is disabled.
+            - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
+            # NOTE: enable the four IMPLEMENTATIONGUIDES_REFERRAL_* vars below once the
+            # radiology-referral CI build publishes a package.tgz (build.fhir.org). While
+            # the tarball 404s, an enabled packageUrl fails HAPI startup, so it is left
+            # inert until the autobuilder goes green.
+            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_NAME, value: au.csiro.aehrc.referral }
+            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_VERSION, value: 0.1.0 }
+            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_PACKAGEURL, value: https://build.fhir.org/ig/aehrc/radiology-referral/package.tgz }
+            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_INSTALLMODE, value: STORE_AND_INSTALL }
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
             httpGet: { path: /fhir/metadata, port: 8080 }
@@ -67,6 +79,16 @@ spec:
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
+            # --- HCPD IG (HAPI-native packageUrl auto-install) ---
+            # HCPD is not on any public registry, so we point at the CI-build tarball.
+            # akkadakka "Bug 8": disable status validation or HAPI silently drops the
+            # draft CodeSystem/ValueSet resources on package upload.
+            - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_NAME, value: au.gov.digitalhealth.fhir.hcpd }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_VERSION, value: "26.0.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_PACKAGEURL, value: https://build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
             httpGet: { path: /fhir/metadata, port: 8080 }
