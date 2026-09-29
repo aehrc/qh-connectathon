@@ -80,30 +80,16 @@ An **end-to-end radiology referral** workflow. A referrer:
 
 ## Systems and roles
 
-| Role | Responsibility |
-|------|----------------|
-| **Referrer** (Placer) | Searches the directory, raises the referral, books |
-| **Provider Directory** | Source of truth: organisations, services, locations, roles, endpoints (HCPD) |
-| **Referral Server** | Holds ServiceRequest, Task, Schedule/Slot/Appointment (HAPI + QH IG) |
-| **Imaging Provider** (Filler) | Triages referrals, publishes availability, confirms bookings |
-| *Patient app (stretch)* | Lets the patient view the referral and self-book |
+![w:760 center](slides/diagrams/architecture.svg)
+
+**Referrer** raises & books · **HCPD** directory of record · **Referral Server** (HAPI + QH IG)
+holds the resources · **Imaging Provider** triages & confirms · *Patient app* (stretch) self-books.
 
 ---
 
 ## The flow
 
-The referrer, referral server and imaging provider (filler) interact in six steps:
-
-| # | Step | From → To |
-|---|------|-----------|
-| **1** | **Search** the directory for an imaging service | Referrer → HCPD |
-| **2** | **POST** referral Bundle (ServiceRequest + Task + info) | Referrer → Referral Server |
-| **3** | **Poll / subscribe** for new referrals | Imaging Provider → Referral Server |
-| **4** | **Publish** availability, then **search Slot** | Provider publishes · Referrer searches |
-| **5** | **POST** Appointment (proposed) | Referrer → Referral Server |
-| **6** | **Accept** Task, **book** Appointment, read status | Provider confirms · Referrer tracks |
-
-> Discovery → request → triage → book → track — one continuous thread.
+![h:440 center](slides/diagrams/referral-flow.svg)
 
 ---
 

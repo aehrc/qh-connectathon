@@ -1,0 +1,5 @@
+# Slide build artifacts
+build/
+
+# Rendered diagrams are committed (SVG) so the deck renders without a build step.
+# PlantUML sources live in diagrams/*.puml

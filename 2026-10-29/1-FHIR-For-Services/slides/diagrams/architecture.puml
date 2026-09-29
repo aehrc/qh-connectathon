@@ -1,0 +1,37 @@
+@startuml architecture
+' Systems and roles for the radiology referral scenario
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam componentStyle rectangle
+skinparam component {
+  BorderColor #00A9CE
+  BackgroundColor #E6F6FA
+  FontColor #001D34
+}
+skinparam actor {
+  BorderColor #00A9CE
+  BackgroundColor #E6F6FA
+}
+skinparam ArrowColor #001D34
+skinparam ArrowFontColor #757579
+
+actor "Referrer\n(Placer)" as R
+component "Provider Directory\n(HCPD)" as D
+component "Referral Server\n(HAPI + QH IG)" as S
+component "Imaging Provider\n(Filler / RIS)" as F
+actor "Patient app\n(stretch)" as P
+
+R --> D : discover service + Endpoint
+R --> S : create referral\n(ServiceRequest + Task)
+R --> S : search Slot / book Appointment
+F --> S : triage, publish Slots,\nconfirm booking
+S --> F : deliver new Tasks
+P ..> S : view referral / self-book
+
+note bottom of S
+  Holds ServiceRequest, Task,
+  Schedule / Slot / Appointment
+end note
+
+@enduml

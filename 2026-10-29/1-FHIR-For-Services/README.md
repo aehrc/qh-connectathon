@@ -36,7 +36,25 @@ Daniel Foulkes (AEHRC) · Joern Guy Suess (AEHRC) · Paul Davies (QH)
 | [`Services-Track-Concrete-Time-Plan.md`](Services-Track-Concrete-Time-Plan.md) | Concrete two-day time plan mapping the scenario onto the official event program, with a session budget and integration notes. |
 | [`Services-Track-Two-Day-Agenda.md`](Services-Track-Two-Day-Agenda.md) | The block-level two-day agenda (AM / Mid / PM / Close) extracted from the scenario proposal. |
 | [`2026-09-28-Services-Track-Discussion-Recap.md`](2026-09-28-Services-Track-Discussion-Recap.md) | Recap, decisions, action items and ideas from the 28 Sep 2026 planning meeting. |
+| [`Track2-KickOff-Deck.md`](Track2-KickOff-Deck.md) / `.pptx` | Kick-off slide deck (Marp source + rendered editable PowerPoint). |
+| [`slides/`](slides/) | Slide build: `Makefile`, PlantUML diagram sources, and build output. |
 | `Daniel Joern Guy Paul Michael O/` | Working materials: EOI insights, early thoughts, meeting notes, and the external-service-access investigation. |
+
+## Building the slides
+
+The kick-off deck is authored in [Marp](https://marp.app/) Markdown with PlantUML-rendered
+diagrams. Build it from the `slides/` directory:
+
+```bash
+cd slides
+make            # render diagrams + build the editable PPTX
+make preview    # per-slide PNG previews in build/preview/
+make pdf        # PDF export
+make help       # list targets
+```
+
+Requires `marp`, `plantuml` (+ Java, Graphviz), Chromium, and LibreOffice — all present on the
+CSIRO dev image. Edit `Track2-KickOff-Deck.md` (and the `slides/diagrams/*.puml`) and re-run `make`.
 
 ## Event schedule (Track 2 blocks)
 

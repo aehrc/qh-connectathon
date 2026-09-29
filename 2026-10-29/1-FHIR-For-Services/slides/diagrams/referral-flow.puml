@@ -1,0 +1,41 @@
+@startuml referral-flow
+' Radiology referral end-to-end sequence
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam sequence {
+  ArrowColor #001D34
+  LifeLineBorderColor #757579
+  ParticipantBorderColor #00A9CE
+  ParticipantBackgroundColor #E6F6FA
+  ParticipantFontColor #001D34
+  ActorBorderColor #00A9CE
+  ActorBackgroundColor #E6F6FA
+}
+
+actor "Referrer\n(Placer)" as R
+participant "Provider\nDirectory (HCPD)" as D
+participant "Referral\nServer" as S
+participant "Imaging Provider\n(Filler)" as F
+
+R -> D : 1. search HealthcareService / Location / Endpoint
+D --> R : matching services + receiving Endpoint
+
+R -> S : 2. POST Bundle (ServiceRequest + Task + supporting info)
+S --> R : 201 Created
+
+F -> S : 3. poll / subscribe for new Tasks
+S --> F : Task (requested) + ServiceRequest
+F -> S : accept / reject / on-hold (coded reason)
+
+F -> S : 4. publish Schedule + free Slots
+R -> S : search Slot (free, by service & date)
+S --> R : available Slots
+
+R -> S : 5. POST Appointment (proposed, basedOn ServiceRequest)
+F -> S : confirm: Appointment booked, Slot busy, Task in-progress
+
+R -> S : 6. read Task / Appointment status
+S --> R : businessStatus = Booked
+
+@enduml
