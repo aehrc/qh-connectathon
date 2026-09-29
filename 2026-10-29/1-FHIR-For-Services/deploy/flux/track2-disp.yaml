@@ -1,0 +1,32 @@
+# Flux layer for DiSP — internal testing (deploy this first; AWS EKS later).
+# DiSP reconciles via its GitLab-connected Flux/agentk. Apply into flux-system
+# (or the DiSP-designated Flux namespace) once; Flux then syncs from this repo.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: qh-connectathon
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/aehrc/qh-connectathon.git
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: track2-disp
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./2026-10-29/1-FHIR-For-Services/deploy/k8s/overlays/disp
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: qh-connectathon
+  targetNamespace: track2
+  timeout: 5m
+  wait: true
+  healthChecks:
+    - { apiVersion: apps/v1, kind: Deployment, name: fhir, namespace: track2 }
+    - { apiVersion: apps/v1, kind: Deployment, name: directory, namespace: track2 }

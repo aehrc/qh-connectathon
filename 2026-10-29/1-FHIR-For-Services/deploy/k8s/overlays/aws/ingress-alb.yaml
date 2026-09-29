@@ -1,0 +1,33 @@
+# ALB ingress for EKS — replaces the microk8s nginx ingress from base.
+# Requires the AWS Load Balancer Controller on the cluster.
+# TLS via ACM (set the certificate ARN + host below before deploy).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: track2
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # TODO before deploy: set the ACM cert ARN for the Track 2 domain (infra issue #13)
+    alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:REGION:ACCOUNT:certificate/REPLACE-ME"
+    alb.ingress.kubernetes.io/healthcheck-path: /fhir/metadata
+    alb.ingress.kubernetes.io/group.name: track2
+spec:
+  ingressClassName: alb
+  rules:
+    # TODO: set the real Track 2 host (the CA-issued DNS name)
+    - host: track2.REPLACE-ME.example
+      http:
+        paths:
+          - path: /fhir
+            pathType: Prefix
+            backend: { service: { name: fhir, port: { number: 8080 } } }
+          - path: /directory
+            pathType: Prefix
+            backend: { service: { name: directory, port: { number: 8080 } } }
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: referrer, port: { number: 5000 } } }

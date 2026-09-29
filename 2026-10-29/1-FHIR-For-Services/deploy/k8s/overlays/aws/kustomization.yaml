@@ -1,0 +1,34 @@
+# AWS EKS overlay — the event host.
+# Same base as microk8s (local), with EKS specifics:
+#   - ALB ingress (replaces base nginx ingress) with ACM TLS
+#   - gp3 default StorageClass (EBS CSI)
+#   - production sizing for 35-40 concurrent users
+#   - referrer image from ECR (set your registry), Postgres password via secret
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: track2
+
+resources:
+  - ../../base
+  - storageclass-gp3.yaml
+
+# Replace the base (nginx) ingress with the ALB ingress of the same name
+patches:
+  - path: ingress-alb.yaml
+    target: { kind: Ingress, name: track2 }
+  - path: patch-sizing.yaml
+
+# Referrer image: push mjosborne1/Patient-Referral to ECR and set the ref here.
+images:
+  - name: localhost:32000/patient-referral:local
+    newName: ACCOUNT.dkr.ecr.REGION.amazonaws.com/patient-referral
+    newTag: latest
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      # Production: replace with an External Secret / SOPS-encrypted value, not a literal.
+      - POSTGRES_PASSWORD=CHANGE-ME-IN-SECRETS-MANAGER
+generatorOptions:
+  disableNameSuffixHash: true

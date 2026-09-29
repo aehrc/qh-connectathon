@@ -1,0 +1,38 @@
+# DiSP overlay — internal testing target (before AWS EKS).
+# DiSP runs the Flux/Kustomize GitOps pattern (agentk-connected to GitLab), like
+# disp-gitlab-runner. Uses the base as-is with DiSP-appropriate defaults:
+#   - keep the base nginx-style Ingress (DiSP has an in-cluster ingress, not ALB)
+#   - default StorageClass (no gp3/EBS assumption)
+#   - moderate sizing (internal test, not full event load)
+#   - referrer image from a registry DiSP can pull (set below)
+#
+# TODO before deploy: confirm DiSP's ingress class + host, StorageClass name, and
+# the registry/namespace with the DiSP admin; set the host in ingress-host.yaml.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: track2
+
+resources:
+  - ../../base
+
+patches:
+  # set a real host on the base ingress for DiSP (edit before deploy)
+  - patch: |-
+      - op: add
+        path: /spec/rules/0/host
+        value: track2.REPLACE-WITH-DISP-HOST
+    target: { kind: Ingress, name: track2 }
+
+# Referrer image — set to a registry DiSP can pull from (GitLab registry / mirror).
+images:
+  - name: localhost:32000/patient-referral:local
+    newName: registry.gitlab.com/australian-e-health-research-centre/patient-referral
+    newTag: latest
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      - POSTGRES_PASSWORD=CHANGE-ME-DISP   # use a sealed/SOPS secret in the real deploy
+generatorOptions:
+  disableNameSuffixHash: true

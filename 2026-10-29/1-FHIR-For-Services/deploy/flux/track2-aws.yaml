@@ -1,0 +1,34 @@
+# Flux layer for EKS — GitOps reconciliation of the aws overlay.
+# Apply these once (flux bootstrap or kubectl apply) into the flux-system namespace;
+# thereafter Flux keeps the cluster in sync with this repo. Mirrors the disp-gitlab-runner
+# Flux/Kustomize pattern, adapted to this GitHub repo.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: qh-connectathon
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/aehrc/qh-connectathon.git
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: track2-aws
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./2026-10-29/1-FHIR-For-Services/deploy/k8s/overlays/aws
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: qh-connectathon
+  targetNamespace: track2
+  timeout: 5m
+  wait: true
+  # health checks so Flux reports the HAPI servers actually came up
+  healthChecks:
+    - { apiVersion: apps/v1, kind: Deployment, name: fhir, namespace: track2 }
+    - { apiVersion: apps/v1, kind: Deployment, name: directory, namespace: track2 }
