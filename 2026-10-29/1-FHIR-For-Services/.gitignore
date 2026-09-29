@@ -1,0 +1,3 @@
+# Build products (regenerate with `make` in slides/)
+# The .pptx IS tracked — it is a deliverable and is synced to SharePoint.
+*.pdf
