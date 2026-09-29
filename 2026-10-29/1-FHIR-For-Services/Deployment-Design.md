@@ -48,6 +48,33 @@ Path-routed single ingress (as the RIS stack does with `/fhir`): one domain, TLS
 no per-service CORS. Nothing but 443 is exposed inbound; no inbound MLLP (not needed for this
 scenario). The only **outbound** dependency is HTTPS to the external tx (`TX_URL`).
 
+### 2a. Can the HCPD IG run on HAPI? (yes, for our purposes)
+
+The HCPD IG (`au.gov.digitalhealth.fhir.hcpd`) is fundamentally a **StructureDefinition +
+SearchParameter** IG on AU Base/Core/PD. Its **directory Responder** role uses only **standard
+FHIR REST** — `read` + `search-type` on Organization, Location, HealthcareService, Practitioner,
+PractitionerRole, Endpoint, Provenance, with standard search params
+(`Organization-identifier`, `HealthcareService.service-type`, `Location.address-city/-state/
+-postalcode/near`, `PractitionerRole.practitioner/location`, `_include`/`_revinclude`). **HAPI
+serves all of this natively** once the IG's NPM package is loaded; `$validate` works against the
+profiles. So a seeded HAPI profiled with the HCPD IG is a faithful stand-in for the discovery step
+— **no special operations needed for the core path.**
+
+Three things in the IG are **not** plain REST (and how we handle them):
+
+1. **OAuth is SHALL** on the Responder ("all interactions SHALL be secured using OAuth"). Our
+   event stack runs **open** for teaching simplicity — conformant on resources/search, deliberately
+   not on the security requirement. (Optional SMART stream if we want it.)
+2. **Bulk Data `$export`** is a *separate* actor (`HealthConnectBulkExportRequester`) that "does
+   not support standard REST search" — a Parameters resource with `_type`/`_typeFilter`/
+   `_outputFormat=application/fhir+ndjson`/`_since` (FHIR Bulk Data IG). **HAPI supports `$export`**
+   but it must be enabled (Bulk Export provider + artifact store) and taught the HCPD `_typeFilter`
+   conventions. This stays a **stretch**, matching the scenario.
+3. **Provenance** is SHALL — trivial for HAPI (standard read/search), just needs seeding.
+
+**Conclusion:** deploy the HCPD IG package on HAPI, seed conformant resources, run open. The only
+"special operation" is `$export`, which is optional and HAPI-capable when enabled.
+
 ## 3. Repository layout (GitOps-ready)
 
 Keep manifests in the repo so the same source promotes across stages — `base` + `overlays`,
