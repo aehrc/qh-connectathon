@@ -132,3 +132,38 @@ docker compose --env-file .env up -d
   storage). This fixed the earlier DiskPressure taint.
 - `sue005` is in `docker` + `microk8s` groups.
 - SSH: `ssh track2-vm` (config alias; user sue005, key id_ed25519).
+
+## DiSP deploy — LIVE (2026-09-29)
+
+Deployed the stack to the DiSP namespace `aehrc-qh-connectathon-track-2` (auth via the
+`~/.local/bin/kubectl-dw` wrapper = kubectl v1.24 + context `sue005-kubernetes`; the cluster is
+v1.24 and needs the old client for exec/port-forward). All manifests passed DiSP server-side
+admission (Gatekeeper, Istio, ONTAP CSI). Result: **db (ONTAP PVC bound), fhir, directory all
+1/1 Running; Contour ingress up at `aehrc-qh-connectathon-track-2.dw.csiro.au` (auto-DNS +
+cert-manager TLS); HCPD loaded on the directory server (28 SD + 4 VS + 4 CS).** referrer is
+ImagePullBackOff (image not yet published — expected).
+
+Confirmed DiSP conventions: Contour ingress (`ingressClassName: contour`), cert-manager
+(`cluster-issuer: letsencrypt`), default StorageClass `ontap-csi`, Gatekeeper enforces
+namespace-scoped + unique ingress hostnames (our `aehrc-qh-connectathon-track-2.dw.csiro.au`
+passed), pods have **egress** (fetched build.fhir.org tarball + tx.ontoserver, both 200).
+
+## IG install approach — decision (akkadakka / fhirlab / Rob Ferguson)
+
+HAPI-native config is the right way (better than a seed Job PUT-loop):
+```yaml
+hapi.fhir.implementationguides.hcpd:
+  name: au.gov.digitalhealth.fhir.hcpd
+  version: 26.0.0
+  packageUrl: https://build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz  # CI-build tarball (HCPD not on a registry)
+  installMode: STORE_AND_INSTALL
+```
+- **`packageUrl`** installs from a tarball URL — solves the "not on a registry" problem for HCPD.
+- Set **`hapi.fhir.validate_resource_status_for_package_upload: false`** (akkadakka Bug 8: HAPI
+  silently drops non-`active` CodeSystem/ValueSet during package upload).
+- **DiSP egress to build.fhir.org is confirmed**, so packageUrl works on-cluster.
+- Draft config for the directory server: `k8s/base/config/hapi-directory.yaml`.
+- TODO: mount the config via ConfigMap + `spring.config.additional-location`, on both HAPI
+  deployments; then the seed Job's IG-loading role is removed (keep only hapi_dir DB creation, or
+  fold that into an initContainer). Until then, the PUT method (used to load HCPD on DiSP today)
+  works and bypasses Bug 8 (direct create, not package upload).

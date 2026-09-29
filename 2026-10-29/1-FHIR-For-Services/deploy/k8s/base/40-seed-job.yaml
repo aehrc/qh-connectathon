@@ -1,8 +1,18 @@
-# Seed Job — runs once after the servers are up:
-#   1. creates the second Postgres DB (hapi_dir) for the directory server
-#   2. installs the HCPD IG into the directory server and radiology-referral into fhir
-#      (packages are NOT on public registries — fetched from the FHIR CI-build)
-# Idempotent-ish: re-running re-installs packages (harmless) and skips DB create if present.
+# Seed Job — runs after the servers are up. Loads the HCPD IG into the directory
+# server and (when available) radiology-referral into the fhir server.
+#
+# Why PUT, not $install or hapi.fhir.implementationguides:
+#   - HAPI has NO runtime $install operation (returns 400) — confirmed on the cluster.
+#   - hapi.fhir.implementationguides fetches packages BY NAME from a registry, but HCPD
+#     is NOT published to any public registry (only the FHIR CI-build tarball exists).
+#   - The config-based package upload also silently drops non-`active` conformance
+#     resources (hapi.fhir.validate_resource_status_for_package_upload=true; akkadakka Bug 8).
+#   So we extract the CI-build tarball and PUT each conformance resource directly. Direct
+#   resource create bypasses the status filter (drafts load too) and needs no registry.
+#
+# NOTE: the hapi_dir database (for the directory server) must exist first — created by
+# k8s-install.sh / the DiSP runbook via `kubectl exec` into the db pod (psql/createdb are
+# not in this image).
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -15,31 +25,38 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: seed
-          image: curlimages/curl:8.10.1
-          env:
-            - { name: PGPASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
+          image: alpine:3.20      # has sh; we add curl + tar + jq
           command: ["/bin/sh","-c"]
           args:
             - |
               set -e
+              apk add --no-cache curl tar jq >/dev/null 2>&1
               echo "Waiting for FHIR servers..."
-              until curl -sf http://fhir:8080/fhir/metadata >/dev/null; do sleep 5; done
               until curl -sf http://directory:8080/fhir/metadata >/dev/null; do sleep 5; done
-              echo "Fetching IG packages from the FHIR CI-build..."
-              curl -fsSL -o /tmp/hcpd.tgz https://build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz
-              curl -fsSL -o /tmp/rr.tgz  https://build.fhir.org/ig/aehrc/radiology-referral/package.tgz || echo "WARN: radiology-referral package pending"
-              echo "Installing HCPD into directory server..."
-              curl -fsS -X POST http://directory:8080/fhir/\$install \
-                -H 'Content-Type: application/fhir+json' \
-                -d "{\"resourceType\":\"Parameters\",\"parameter\":[{\"name\":\"npmContent\",\"valueBase64Binary\":\"$(base64 -w0 /tmp/hcpd.tgz)\"}]}" \
-                && echo "  HCPD installed" || echo "  WARN: HCPD \$install failed (check au.pd floating dep)"
-              if [ -f /tmp/rr.tgz ]; then
-                echo "Installing radiology-referral into fhir server..."
-                curl -fsS -X POST http://fhir:8080/fhir/\$install \
-                  -H 'Content-Type: application/fhir+json' \
-                  -d "{\"resourceType\":\"Parameters\",\"parameter\":[{\"name\":\"npmContent\",\"valueBase64Binary\":\"$(base64 -w0 /tmp/rr.tgz)\"}]}" \
-                  && echo "  radiology-referral installed" || echo "  WARN: radiology-referral \$install failed"
-              fi
+              until curl -sf http://fhir:8080/fhir/metadata >/dev/null; do sleep 5; done
+
+              load_pkg() {   # $1 = package tgz url, $2 = target fhir base
+                url="$1"; base="$2"
+                echo "Fetching $url"
+                if ! curl -fsSL -o /tmp/pkg.tgz "$url"; then echo "  WARN: fetch failed, skipping"; return 0; fi
+                rm -rf /tmp/pkg && mkdir -p /tmp/pkg && tar -xzf /tmp/pkg.tgz -C /tmp/pkg
+                ok=0; fail=0
+                for f in /tmp/pkg/package/StructureDefinition-*.json \
+                         /tmp/pkg/package/ValueSet-*.json \
+                         /tmp/pkg/package/CodeSystem-*.json \
+                         /tmp/pkg/package/SearchParameter-*.json; do
+                  [ -f "$f" ] || continue
+                  rt=$(jq -r '.resourceType' "$f"); id=$(jq -r '.id // empty' "$f")
+                  [ -z "$id" ] && continue
+                  code=$(curl -s -o /dev/null -w '%{http_code}' -X PUT "$base/$rt/$id" \
+                    -H 'Content-Type: application/fhir+json' --data @"$f")
+                  case "$code" in 200|201) ok=$((ok+1));; *) fail=$((fail+1));; esac
+                done
+                echo "  loaded ok=$ok fail=$fail into $base"
+              }
+
+              echo "Loading HCPD IG into the directory server..."
+              load_pkg "https://build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz" "http://directory:8080/fhir"
+              echo "Loading radiology-referral IG into the fhir server (if published)..."
+              load_pkg "https://build.fhir.org/ig/aehrc/radiology-referral/package.tgz" "http://fhir:8080/fhir"
               echo "Seed complete."
-      # NOTE: creating the hapi_dir database is done by k8s-install.sh via kubectl exec
-      # into the db pod before this Job runs, since it needs psql/createdb not in this image.
