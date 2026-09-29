@@ -56,6 +56,27 @@ make help       # list targets
 Requires `marp`, `plantuml` (+ Java, Graphviz), Chromium, and LibreOffice — all present on the
 CSIRO dev image. Edit `Track2-KickOff-Deck.md` (and the `slides/diagrams/*.puml`) and re-run `make`.
 
+## Keeping SharePoint and GitHub in sync
+
+`scripts/sync-sharepoint-github.sh` syncs this Track 2 content between the SharePoint document
+library (via `shit`) and this repository (via `git`). The sync is directional:
+
+- **pull** — SharePoint → GitHub: refresh shared working materials (the `Daniel Joern Guy Paul
+  Michael O/` folder) into the repo and commit.
+- **push** — GitHub → SharePoint: publish repo-authored artifacts (README, scenario, time plan,
+  agenda, recap, deck) back to the library so the wider team can see them.
+
+```bash
+cd scripts
+./sync-sharepoint-github.sh              # dry-run of both directions (no writes)
+./sync-sharepoint-github.sh pull --apply # refresh repo from SharePoint & commit
+./sync-sharepoint-github.sh push --apply -m "Publish Track 2 updates"
+```
+
+Because `shit push` writes versions to a **shared** SharePoint library, the script defaults to
+**dry-run**; pass `--apply` to make changes. Paths are configurable via the `SHIT_REPO` and
+`GIT_REPO` environment variables.
+
 ## Event schedule (Track 2 blocks)
 
 Times are fixed by the official event program (DRAFT); Track 2 content fills the track sessions.
