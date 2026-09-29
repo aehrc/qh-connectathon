@@ -17,7 +17,8 @@ style: |
     font-size: 26px;
     color: var(--csiro-navy);
     background: #FFFFFF;
-    padding: 60px 70px;
+    padding: 50px 70px;
+    justify-content: flex-start;
   }
   h1 { color: var(--csiro-navy); font-size: 46px; }
   h2 { color: var(--csiro-teal); font-size: 34px; border-bottom: 3px solid var(--csiro-teal); padding-bottom: 6px; }
@@ -91,15 +92,18 @@ An **end-to-end radiology referral** workflow. A referrer:
 
 ## The flow
 
-```
-Referrer ──(1) search──▶ HCPD  (HealthcareService / Location / Endpoint)
-    │
-    ├──(2) POST Bundle (ServiceRequest + Task + info)──▶ Referral Server ◀──(3) poll── Imaging Provider
-    │                                                        ▲                          │
-    ├──(4) search Slot ───────────────────────────────────────┤◀── publishes Schedule/Slot ┤
-    ├──(5) POST Appointment (proposed) ───────────────────────┤                          │
-    └──(6) read Task / Appointment status ────────────────────┘◀── accept Task, book Appt ┘
-```
+The referrer, referral server and imaging provider (filler) interact in six steps:
+
+| # | Step | From → To |
+|---|------|-----------|
+| **1** | **Search** the directory for an imaging service | Referrer → HCPD |
+| **2** | **POST** referral Bundle (ServiceRequest + Task + info) | Referrer → Referral Server |
+| **3** | **Poll / subscribe** for new referrals | Imaging Provider → Referral Server |
+| **4** | **Publish** availability, then **search Slot** | Provider publishes · Referrer searches |
+| **5** | **POST** Appointment (proposed) | Referrer → Referral Server |
+| **6** | **Accept** Task, **book** Appointment, read status | Provider confirms · Referrer tracks |
+
+> Discovery → request → triage → book → track — one continuous thread.
 
 ---
 
