@@ -1,13 +1,15 @@
 # DiSP overlay — internal testing target (before AWS EKS).
-# DiSP runs the Flux/Kustomize GitOps pattern (agentk-connected to GitLab), like
-# disp-gitlab-runner. Uses the base as-is with DiSP-appropriate defaults:
-#   - keep the base nginx-style Ingress (DiSP has an in-cluster ingress, not ALB)
-#   - default StorageClass (no gp3/EBS assumption)
-#   - moderate sizing (internal test, not full event load)
-#   - referrer image from a registry DiSP can pull (set below)
+# DiSP platform automation (confirmed, per disp-flux docs) provides:
+#   - Contour (Envoy-based) as the ingress controller  [the LB impl]
+#   - cert-manager (Let's Encrypt) for automatic TLS
+#   - automatic DNS under the *.dw.csiro.au wildcard
+# So we just declare an Ingress with a dw.csiro.au host; DiSP handles LB + DNS + TLS.
 #
-# TODO before deploy: confirm DiSP's ingress class + host, StorageClass name, and
-# the registry/namespace with the DiSP admin; set the host in ingress-host.yaml.
+# TODO before deploy — confirm with DiSP admin:
+#   - the Contour IngressClass name (assumed "contour" below; some DiSP setups make it default)
+#   - the exact host convention under *.dw.csiro.au
+#   - the StorageClass name (left as cluster default here)
+#   - whether cert-manager needs an annotation or a default ClusterIssuer applies
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: track2
@@ -16,14 +18,25 @@ resources:
   - ../../base
 
 patches:
-  # set a real host on the base ingress for DiSP (edit before deploy)
+  # DiSP ingress: Contour class + dw.csiro.au host + cert-manager TLS
   - patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: contour
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt
       - op: add
         path: /spec/rules/0/host
-        value: track2.REPLACE-WITH-DISP-HOST
+        value: track2.dw.csiro.au
+      - op: add
+        path: /spec/tls
+        value:
+          - hosts: [track2.dw.csiro.au]
+            secretName: track2-tls
     target: { kind: Ingress, name: track2 }
 
-# Referrer image — set to a registry DiSP can pull from (GitLab registry / mirror).
+# Referrer image — a registry DiSP can pull (GitLab registry / mirror).
 images:
   - name: localhost:32000/patient-referral:local
     newName: registry.gitlab.com/australian-e-health-research-centre/patient-referral

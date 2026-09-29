@@ -20,18 +20,28 @@ Render any overlay: `kustomize build deploy/k8s/overlays/<env>`.
 ## Stage 2 — DiSP (internal testing, next)
 
 DiSP runs the Flux/Kustomize GitOps pattern (agentk connected to GitLab), like
-`disp-gitlab-runner`. No cloud keys needed.
+`disp-gitlab-runner`. No cloud keys needed. **DiSP platform automation provides (confirmed via
+disp-flux docs): Contour (the ingress/LB controller) + cert-manager (Let's Encrypt TLS) +
+automatic DNS under `*.dw.csiro.au`.** So the overlay just declares an Ingress with a
+`*.dw.csiro.au` host; DiSP handles the load balancer, DNS, and TLS.
 
-**Before deploy — confirm with the DiSP admin and edit `overlays/disp/kustomization.yaml`:**
-1. **Ingress class + host** — set the real DiSP host (replaces `track2.REPLACE-WITH-DISP-HOST`);
-   confirm DiSP's ingress controller/class matches the base Ingress (adjust `ingressClassName` if
-   not nginx `public`).
-2. **StorageClass** — the base PVC uses the cluster default; confirm DiSP has one (or add a
-   `storageClassName` patch).
-3. **Referrer image** — the overlay points at
-   `registry.gitlab.com/australian-e-health-research-centre/patient-referral:latest`; push the
-   Patient-Referral image there (or set a registry DiSP can pull).
-4. **DB secret** — replace the literal with a sealed/SOPS secret.
+The `overlays/disp` overlay is preset to those defaults:
+- `ingressClassName: contour`, host `track2.dw.csiro.au`, `cert-manager.io/cluster-issuer:
+  letsencrypt`, TLS secret `track2-tls`.
+
+**Before deploy — confirm with the DiSP admin and adjust if needed:**
+1. **Contour IngressClass name** — assumed `contour` (some DiSP setups make Contour the default
+   class, in which case `ingressClassName` can be omitted).
+2. **Host convention** — confirm `track2.dw.csiro.au` is available/correct under the wildcard.
+3. **cert-manager issuer** — confirm the ClusterIssuer name (`letsencrypt`) or whether a default
+   applies without the annotation.
+4. **StorageClass** — base PVC uses the cluster default; confirm DiSP has one.
+5. **Referrer image** — overlay points at
+   `registry.gitlab.com/australian-e-health-research-centre/patient-referral:latest`; push it there.
+6. **DB secret** — replace the literal with a sealed/SOPS secret.
+
+Note: the base carries an `nginx.ingress.kubernetes.io/rewrite-target` annotation (for microk8s);
+Contour ignores it and does prefix routing natively, so it's harmless on DiSP.
 
 **Apply** (Flux):
 ```bash
