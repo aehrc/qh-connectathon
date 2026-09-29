@@ -1,0 +1,60 @@
+# kro ResourceGraphDefinition — packages the Track 2 AWS-side prerequisites (ECR + ACM)
+# into ONE higher-level CRD: Track2AwsInfra. Platform-team abstraction with guardrails.
+#
+# How it works (per kro.run): the `schema` defines a new CRD (Track2AwsInfra) with the fields
+# a user fills in; `resources` are templates wired with CEL (${schema.spec.*}, ${res.status.*});
+# kro infers the dependency graph, generates the CRD, and runs a controller for it.
+#
+# Requires: kro installed (EKS "kro capability" / add-on) + the ACK ecr & acm controllers.
+# Apply this RGD once; then create a single Track2AwsInfra instance (see the example below).
+---
+apiVersion: kro.run/v1alpha1
+kind: ResourceGraphDefinition
+metadata:
+  name: track2-aws-infra
+spec:
+  schema:
+    apiVersion: v1alpha1
+    kind: Track2AwsInfra
+    spec:
+      # fields the platform user provides
+      domainName: string
+      repositoryName: string | default="patient-referral"
+    status:
+      # surfaced from the underlying ACK resources
+      certificateARN: ${cert.status.ackResourceMetadata.arn}
+      repositoryURI:  ${repo.status.repositoryURI}
+  resources:
+    - id: repo
+      template:
+        apiVersion: ecr.services.k8s.aws/v1alpha1
+        kind: Repository
+        metadata:
+          name: ${schema.spec.repositoryName}
+        spec:
+          name: ${schema.spec.repositoryName}
+          imageScanningConfiguration:
+            scanOnPush: true
+    - id: cert
+      template:
+        apiVersion: acm.services.k8s.aws/v1alpha1
+        kind: Certificate
+        metadata:
+          name: track2-cert
+        spec:
+          domainName: ${schema.spec.domainName}
+          validationMethod: DNS
+          tags:
+            - key: Project
+              value: qh-connectathon-track2
+---
+# Example instance — one line of intent creates the ECR repo + ACM cert together.
+# The generated status.certificateARN can then feed the Auto Mode IngressClassParams.
+apiVersion: kro.run/v1alpha1
+kind: Track2AwsInfra
+metadata:
+  name: track2
+  namespace: track2
+spec:
+  domainName: track2.REPLACE-ME.example
+  repositoryName: patient-referral

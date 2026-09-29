@@ -1,0 +1,35 @@
+# ACK (AWS Controllers for Kubernetes) resources for the Track 2 EKS stage.
+# These let us provision the AWS-side prerequisites declaratively from the cluster,
+# instead of console/CLI/Terraform. Requires the ACK ecr + acm controllers installed
+# (on EKS Auto Mode, via the EKS add-ons / Capability). API versions per ACK docs.
+#
+# What they create:
+#   - an ECR repository to hold the Patient-Referral image (referrer)
+#   - an ACM certificate for the Track 2 domain (used by the Auto Mode ALB IngressClassParams)
+#
+# NOTE: ACM DNS validation still needs the validation CNAME published; with DiSP-style auto DNS
+# this is manual on AWS unless Route53 + external-dns is wired. Track as a deploy step.
+---
+apiVersion: ecr.services.k8s.aws/v1alpha1
+kind: Repository
+metadata:
+  name: patient-referral
+  namespace: track2
+spec:
+  name: patient-referral
+  imageTagMutability: MUTABLE
+  imageScanningConfiguration:
+    scanOnPush: true
+---
+apiVersion: acm.services.k8s.aws/v1alpha1
+kind: Certificate
+metadata:
+  name: track2-cert
+  namespace: track2
+spec:
+  # TODO: the real Track 2 domain (infra issue #13)
+  domainName: track2.REPLACE-ME.example
+  validationMethod: DNS
+  tags:
+    - key: Project
+      value: qh-connectathon-track2

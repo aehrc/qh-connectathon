@@ -82,3 +82,32 @@ the workload (2 HAPI × ~4 Gi + Postgres + referrer + headroom → ~16 GB across
 - **disp: manifests + Flux ready**, validated with `kustomize build` (14 resources). Awaiting DiSP
   admin details (ingress/storage/registry) to deploy.
 - **aws: manifests + Flux ready**, validated (15 resources incl. ALB + gp3). Awaiting cloud keys.
+
+## Optional — ACK + kro for the AWS-side prerequisites (EKS Auto Mode)
+
+Instead of provisioning the ECR repo and ACM cert by console/CLI, do it declaratively from the
+cluster:
+
+- **ACK (AWS Controllers for Kubernetes):** `k8s/overlays/aws/ack-resources.yaml` — an
+  `ecr.services.k8s.aws/Repository` (for the Patient-Referral image) and an
+  `acm.services.k8s.aws/Certificate` (for the Track 2 domain). Requires the ACK **ecr** and
+  **acm** controllers installed. **Not** wired into the default kustomization (it references CRDs
+  that only exist once the controllers are installed) — apply it separately after installing ACK.
+
+- **kro (Kube Resource Orchestrator):** `kro/track2-aws-infra-rgd.yaml` — a
+  `ResourceGraphDefinition` that packages the ECR repo + ACM cert into a **single composite CRD**
+  `Track2AwsInfra`. One instance (`kind: Track2AwsInfra`, a few fields) creates both, and surfaces
+  `status.certificateARN` + `status.repositoryURI`. On EKS this can use the managed **kro
+  capability**; the ACK controllers back the templated resources.
+
+**How it slots in:** apply the kro RGD (or the raw ACK resources) → get the ACM **certificate ARN**
+→ put it in the Auto Mode `IngressClassParams.certificateARNs` (`ingressclass-automode.yaml`) and
+push the referrer image to the created **ECR repo** (matching the overlay `images:` ref). This
+removes the two manual "REPLACE-ME" edits (cert ARN, ECR ref) from the AWS overlay by generating
+them from Kubernetes.
+
+Sequence on EKS Auto Mode:
+1. Install ACK (ecr, acm) + kro (or the EKS kro capability).
+2. `kubectl apply -f kro/track2-aws-infra-rgd.yaml`; create a `Track2AwsInfra` instance.
+3. Read `status.certificateARN` / `status.repositoryURI`; wire into the aws overlay.
+4. Deploy the workload overlay via Flux (`flux/track2-aws.yaml`).
