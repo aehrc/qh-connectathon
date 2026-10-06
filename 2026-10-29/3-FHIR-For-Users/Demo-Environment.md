@@ -1,6 +1,6 @@
 # Demo and sandbox environment
 
-Status: **in progress** — to be working before the 8 Oct webinar.
+Status: **working** — all three webinar demos run from the Meld sandbox (checked 6 Oct).
 
 ## Components
 
@@ -8,10 +8,10 @@ Status: **in progress** — to be working before the 8 Oct webinar.
 |---|---|---|
 | FHIR server + SMART launcher | [Meld](https://meld.interop.community) sandbox `QHConnectathon2026` (under evaluation) | Created |
 | Open (unauthenticated) endpoint | `https://gw.interop.community/QHConnectathon2026/open` | Working |
-| Forms renderer | CSIRO Smart Forms, patched for a sub-path and hosted on GitHub Pages: https://aehrc.github.io/qh-connectathon/smart-forms/ ([`apps/smart-forms`](apps/smart-forms/)) | Deployed; Meld registration to update |
+| Forms renderer | CSIRO Smart Forms, patched for Meld and hosted on GitHub Pages: https://aehrc.github.io/qh-connectathon/smart-forms/ ([`apps/smart-forms`](apps/smart-forms/)) | Working: launch, pre-population, calculations, write-back |
 | Terminology | Ontoserver `https://r4.ontoserver.csiro.au/fhir` (SNOMED CT-AU, AMT, LOINC) | Available |
-| `$assemble` | `@aehrc/sdc-assemble` / `assemble-express` | Not yet deployed |
-| Dashboard app | fhirclient.js SMART app (B6 outcomes first) | Not started |
+| PAM questionnaire | Modular SDC form, assembled locally and stored on the Meld open endpoint, which is Smart Forms' forms server ([`questionnaires/`](questionnaires/)) | Loaded |
+| Dashboard app | fhirclient.js SMART app, PAM 15/16 outcomes: https://aehrc.github.io/qh-connectathon/pam-dashboard/ ([`apps/pam-dashboard`](apps/pam-dashboard/)) | Working |
 | Synthetic PAM data | 40 patients, waitlist, referrals, labs, treatment ([`data/`](data/)) | Loaded in Meld |
 
 ## Meld: things we learned

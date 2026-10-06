@@ -26,9 +26,10 @@ Track 3 slot, about 40 minutes.
 
 ## Still to do before the webinar
 
-- [x] Public HTTPS hosting for Smart Forms (GitHub Pages); dashboard app to follow ([environment](Demo-Environment.md))
+- [x] Public HTTPS hosting for Smart Forms and the dashboard app (GitHub Pages) ([environment](Demo-Environment.md))
 - [x] Synthetic PAM data in the sandbox
-- [ ] PAM module Questionnaires + root form
-- [ ] Dashboard app (B6)
+- [x] PAM module Questionnaires + root form (partial, with scaffolding)
+- [x] Dashboard app (B6)
+- [ ] Demo patient: Grace Jensen (`pam-034`); clear test write-backs before the session
 - [ ] Fill slide placeholders: scenario-list link, track-materials link, demo URLs
 - [ ] Dry run with Leon
