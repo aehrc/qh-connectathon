@@ -1,8 +1,19 @@
 diff --git a/apps/smart-forms-app/src/features/configChecker/utils/config.ts b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
-index 01a1e93..ceea30e 100644
+index 01a1e93..cba1b9a 100644
 --- a/apps/smart-forms-app/src/features/configChecker/utils/config.ts
 +++ b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
-@@ -108,7 +108,7 @@ export function isValidRegisteredClientIds(value: unknown): value is Record<stri
+@@ -39,6 +39,10 @@ export interface ConfigFile {
+   // }
+   registeredClientIdsUrl: string | null;
+ 
++  // Optional: canonical URL of a Questionnaire to open at launch when the EHR does not supply one
++  // in fhirContext (e.g. servers without launch/questionnaire). A ?questionnaire= launch parameter overrides it.
++  launchQuestionnaire?: string;
++
+   // Controls whether developer-focused messages are shown.
+   // Set to false for clinical/production deployments to hide technical messages.
+   // Defaults to true if not specified (shows messages for backward compatibility).
+@@ -108,7 +112,7 @@ export function isValidRegisteredClientIds(value: unknown): value is Record<stri
  }
  
  export async function loadConfigFile(): Promise<ConfigFile> {
@@ -12,10 +23,30 @@ index 01a1e93..ceea30e 100644
    if (!response.ok) {
      throw new Error('Failed to load config.json. It might be missing or malformed.');
 diff --git a/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx b/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
-index 1a2e7c1..f753807 100644
+index 1a2e7c1..0aaa37c 100644
 --- a/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
 +++ b/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
-@@ -201,7 +201,7 @@ function Authorisation() {
+@@ -137,7 +137,18 @@ function Authorisation() {
+ 
+           // Get Questionnaire context from fhirContext array
+           // the set questionnaire launch context if available
+-          const questionnaireReferences = getQuestionnaireReferences(fhirContext ?? []);
++          let questionnaireReferences = getQuestionnaireReferences(fhirContext ?? []);
++          const fallbackQuestionnaire =
++            sessionStorage.getItem('launchQuestionnaire') ?? config.launchQuestionnaire;
++          if (questionnaireReferences.length === 0 && fallbackQuestionnaire) {
++            questionnaireReferences = [
++              {
++                role: 'http://ns.electronichealth.net.au/smart/role/new',
++                type: 'Questionnaire',
++                canonical: fallbackQuestionnaire
++              }
++            ];
++          }
+           if (questionnaireReferences.length > 0) {
+             readQuestionnaireContext(client, questionnaireReferences, config.formsServerUrl)
+               .then((response) => {
+@@ -201,7 +212,7 @@ function Authorisation() {
              error.message.includes("No 'state' parameter found") ||
              error.message.includes('No state found')
            ) {
@@ -25,10 +56,23 @@ index 1a2e7c1..f753807 100644
                  action: <GoToTestLauncher />,
                  autoHideDuration: 7500,
 diff --git a/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx b/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx
-index f9bfd5f..5b5d19d 100644
+index f9bfd5f..21a377e 100644
 --- a/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx
 +++ b/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx
-@@ -61,7 +61,7 @@ function Launch() {
+@@ -35,6 +35,12 @@ function Launch() {
+   const [searchParams] = useSearchParams();
+   const iss = searchParams.get('iss');
+   const launch = searchParams.get('launch');
++  const questionnaireParam = searchParams.get('questionnaire');
++  if (questionnaireParam) {
++    sessionStorage.setItem('launchQuestionnaire', questionnaireParam);
++  } else if (iss && launch) {
++    sessionStorage.removeItem('launchQuestionnaire');
++  }
+ 
+   // Get clientId from path params (if exists)
+   const { clientId: clientIdFromPath } = useParams();
+@@ -61,7 +67,7 @@ function Launch() {
          iss,
          clientId: currentClientId,
          scope: launchScopes,

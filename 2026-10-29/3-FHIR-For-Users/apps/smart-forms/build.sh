@@ -11,7 +11,7 @@ if [ ! -d "$WORK/smart-forms" ]; then
 fi
 cd "$WORK/smart-forms"
 git fetch -q origin && git checkout -q -f "$SF_REF"
-git apply "$HERE/smart-forms-base-path.patch"
+git apply "$HERE/smart-forms-sandbox.patch"
 
 npm install
 npm run build-all-deps-first-run
