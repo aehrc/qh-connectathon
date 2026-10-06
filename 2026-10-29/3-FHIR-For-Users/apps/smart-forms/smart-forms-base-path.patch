@@ -1,0 +1,65 @@
+diff --git a/apps/smart-forms-app/src/features/configChecker/utils/config.ts b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
+index 01a1e93..ceea30e 100644
+--- a/apps/smart-forms-app/src/features/configChecker/utils/config.ts
++++ b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
+@@ -108,7 +108,7 @@ export function isValidRegisteredClientIds(value: unknown): value is Record<stri
+ }
+ 
+ export async function loadConfigFile(): Promise<ConfigFile> {
+-  const response = await fetch('/config.json');
++  const response = await fetch(import.meta.env.BASE_URL + 'config.json');
+ 
+   if (!response.ok) {
+     throw new Error('Failed to load config.json. It might be missing or malformed.');
+diff --git a/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx b/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
+index 1a2e7c1..f753807 100644
+--- a/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
++++ b/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
+@@ -201,7 +201,7 @@ function Authorisation() {
+             error.message.includes("No 'state' parameter found") ||
+             error.message.includes('No state found')
+           ) {
+-            if (!window.location.pathname.startsWith('/launch')) {
++            if (!window.location.pathname.startsWith(import.meta.env.BASE_URL + 'launch')) {
+               enqueueSnackbar('Intending to launch from a CMS? Try it out here!', {
+                 action: <GoToTestLauncher />,
+                 autoHideDuration: 7500,
+diff --git a/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx b/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx
+index f9bfd5f..5b5d19d 100644
+--- a/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx
++++ b/apps/smart-forms-app/src/features/smartAppLaunch/components/Launch.tsx
+@@ -61,7 +61,7 @@ function Launch() {
+         iss,
+         clientId: currentClientId,
+         scope: launchScopes,
+-        redirectUri: window.location.origin
++        redirectUri: window.location.origin + import.meta.env.BASE_URL
+       })
+       .catch((err) => {
+         console.error(err);
+diff --git a/apps/smart-forms-app/src/router/Router.tsx b/apps/smart-forms-app/src/router/Router.tsx
+index dc36440..c8db4a0 100644
+--- a/apps/smart-forms-app/src/router/Router.tsx
++++ b/apps/smart-forms-app/src/router/Router.tsx
+@@ -81,7 +81,7 @@ export default function Router() {
+       path: '*',
+       element: <NotFound />
+     }
+-  ]);
++  ], { basename: import.meta.env.BASE_URL });
+ 
+   return <RouterProvider router={router} />;
+ }
+diff --git a/apps/smart-forms-app/vite.config.ts b/apps/smart-forms-app/vite.config.ts
+index e88ad23..b00deb8 100644
+--- a/apps/smart-forms-app/vite.config.ts
++++ b/apps/smart-forms-app/vite.config.ts
+@@ -9,6 +9,8 @@ export default ({ mode }) => {
+   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
+ 
+   return defineConfig({
++    // Serve from a sub-path (e.g. GitHub Pages) by setting SF_BASE_PATH=/repo/smart-forms/
++    base: process.env.SF_BASE_PATH ?? '/',
+     plugins: [react(), svgr()],
+     define: {
+       RENDERER_VERSION: JSON.stringify(packageJson.dependencies['@aehrc/smart-forms-renderer']),

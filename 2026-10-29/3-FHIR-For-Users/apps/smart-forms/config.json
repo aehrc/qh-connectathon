@@ -1,0 +1,7 @@
+{
+  "terminologyServerUrl": "https://r4.ontoserver.csiro.au/fhir",
+  "formsServerUrl": "https://smartforms.csiro.au/api/fhir",
+  "defaultClientId": "bf813573-900d-41f1-89a5-08f8fe79662c",
+  "launchScopes": "launch openid fhirUser online_access patient/*.read patient/*.write user/*.read",
+  "registeredClientIdsUrl": null
+}

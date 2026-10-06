@@ -8,7 +8,7 @@ Status: **in progress** — to be working before the 8 Oct webinar.
 |---|---|---|
 | FHIR server + SMART launcher | [Meld](https://meld.interop.community) sandbox `QHConnectathon2026` (under evaluation) | Created |
 | Open (unauthenticated) endpoint | `https://gw.interop.community/QHConnectathon2026/open` | Working |
-| Forms renderer | CSIRO Smart Forms, self-built (see below) | Builds; launch from Meld blocked locally |
+| Forms renderer | CSIRO Smart Forms, patched for a sub-path and hosted on GitHub Pages: https://aehrc.github.io/qh-connectathon/smart-forms/ ([`apps/smart-forms`](apps/smart-forms/)) | Deployed; Meld registration to update |
 | Terminology | Ontoserver `https://r4.ontoserver.csiro.au/fhir` (SNOMED CT-AU, AMT, LOINC) | Available |
 | `$assemble` | `@aehrc/sdc-assemble` / `assemble-express` | Not yet deployed |
 | Dashboard app | fhirclient.js SMART app (B6 outcomes first) | Not started |
@@ -58,13 +58,13 @@ Launching from Meld (public HTTPS) to Smart Forms on `http://localhost` is block
 *"The connection is blocked because it was initiated by a public page to connect to devices
 or servers on your local network."* Allowing it in site settings didn't help. Options:
 
-1. Host Smart Forms (and the dashboard app) at a public HTTPS address — **preferred**.
+1. Host Smart Forms (and the dashboard app) at a public HTTPS address — **done: GitHub Pages**.
 2. Disable `chrome://flags/#local-network-access-check` on the presenter's machine (demo only).
 
 ## Open decisions
 
-* Where to host the track 3 apps: track 1's DiSP deployment, GitHub Pages / static hosting,
-  or elsewhere?
+* ~~Where to host the track 3 apps~~ — **GitHub Pages** (`gh-pages` branch, published by
+  [`apps/deploy-pages.sh`](apps/deploy-pages.sh)).
 * Meld vs our own stack (HAPI + Smart Forms + assemble service + SMART launcher) for the
   connectathon itself.
 * A REDCap instance that allows external modules, for strand D.
