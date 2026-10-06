@@ -140,23 +140,28 @@ index 4fb2df2..6320ecd 100644
  }
  
 diff --git a/apps/smart-forms-app/src/main.tsx b/apps/smart-forms-app/src/main.tsx
-index 004d130..daf0e79 100644
+index 004d130..9b7bdac 100644
 --- a/apps/smart-forms-app/src/main.tsx
 +++ b/apps/smart-forms-app/src/main.tsx
-@@ -25,6 +25,20 @@ import ConfigContextProvider from './features/configChecker/contexts/ConfigConte
+@@ -25,6 +25,25 @@ import ConfigContextProvider from './features/configChecker/contexts/ConfigConte
  import { CssBaseline } from '@mui/material';
  import ThemeProvider from './theme/Theme';
  
 +// Some FHIR gateways (e.g. Meld) reject a raw '|' in the query string with a 400 that has no CORS
 +// headers. Browsers don't encode '|', so encode it here for every request (token|system, url|version).
 +const originalFetch = window.fetch.bind(window);
++const encodePipes = (url: string) => {
++  const q = url.indexOf('?');
++  return q !== -1 && url.indexOf('|', q) !== -1 ? url.slice(0, q) + url.slice(q).replace(/\|/g, '%7C') : url;
++};
 +window.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
-+  if (typeof input === 'string' || input instanceof URL) {
-+    const url = input.toString();
-+    const q = url.indexOf('?');
-+    if (q !== -1 && url.indexOf('|', q) !== -1) {
-+      input = url.slice(0, q) + url.slice(q).replace(/\|/g, '%7C');
++  if (input instanceof Request) {
++    const url = encodePipes(input.url);
++    if (url !== input.url) {
++      input = new Request(url, input);
 +    }
++  } else {
++    input = encodePipes(input.toString());
 +  }
 +  return originalFetch(input, init);
 +};
