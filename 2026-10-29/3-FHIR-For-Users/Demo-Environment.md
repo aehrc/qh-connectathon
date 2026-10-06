@@ -24,6 +24,11 @@ Status: **in progress** — to be working before the 8 Oct webinar.
   hence a self-built Smart Forms with its own config.
 * **Redirect URIs in the app registration are comma-separated**, not space-separated.
 * The scopes the app requests must be a subset of those registered for the app.
+* **The secured endpoint rejects a raw `|` in the query string** (e.g. `code=http://loinc.org|718-7`,
+  `questionnaire=url|version`) with HTTP 400 and no CORS headers, which browsers report as a CORS
+  error. Browsers don't encode `|`, so apps must send it as `%7C`. The open endpoint accepts both.
+* **No `launch/questionnaire` / `fhirContext`**, so Smart Forms can't be told which form to open;
+  our patched build falls back to a configured default (see [`apps/smart-forms`](apps/smart-forms/)).
 
 ## Smart Forms build
 
