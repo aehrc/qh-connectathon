@@ -69,17 +69,41 @@ index 01a1e93..4d2cc9d 100644
    if (!response.ok) {
      throw new Error('Failed to load config.json. It might be missing or malformed.');
 diff --git a/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx b/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
-index 1a2e7c1..0aaa37c 100644
+index 1a2e7c1..bfa3e31 100644
 --- a/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
 +++ b/apps/smart-forms-app/src/features/smartAppLaunch/components/Authorisation.tsx
-@@ -137,7 +137,18 @@ function Authorisation() {
+@@ -119,7 +119,15 @@ function Authorisation() {
+ 
+           // Read FhirContext from the token response
+           const tokenResponse = client.state.tokenResponse as tokenResponseCustomised;
+-          const fhirContext = tokenResponse?.fhirContext ?? null;
++          // Sandboxes with "custom context" (e.g. Meld) pass values as strings: accept fhirContext as a JSON string
++          let fhirContext = tokenResponse?.fhirContext ?? null;
++          if (typeof fhirContext === 'string') {
++            try {
++              fhirContext = JSON.parse(fhirContext);
++            } catch {
++              fhirContext = null;
++            }
++          }
+           if (fhirContext) {
+             setFhirContext(fhirContext);
+           }
+@@ -137,7 +145,25 @@ function Authorisation() {
  
            // Get Questionnaire context from fhirContext array
            // the set questionnaire launch context if available
 -          const questionnaireReferences = getQuestionnaireReferences(fhirContext ?? []);
 +          let questionnaireReferences = getQuestionnaireReferences(fhirContext ?? []);
++          // Fallbacks, in order: a "questionnaire" custom-context value in the token response,
++          // ?questionnaire= on the launch URL, then config.json
++          const tokenQuestionnaire = (tokenResponse as Record<string, unknown> | undefined)?.[
++            'questionnaire'
++          ];
 +          const fallbackQuestionnaire =
-+            sessionStorage.getItem('launchQuestionnaire') ?? config.launchQuestionnaire;
++            (typeof tokenQuestionnaire === 'string' && tokenQuestionnaire) ||
++            sessionStorage.getItem('launchQuestionnaire') ||
++            config.launchQuestionnaire;
 +          if (questionnaireReferences.length === 0 && fallbackQuestionnaire) {
 +            questionnaireReferences = [
 +              {
@@ -92,7 +116,7 @@ index 1a2e7c1..0aaa37c 100644
            if (questionnaireReferences.length > 0) {
              readQuestionnaireContext(client, questionnaireReferences, config.formsServerUrl)
                .then((response) => {
-@@ -201,7 +212,7 @@ function Authorisation() {
+@@ -201,7 +227,7 @@ function Authorisation() {
              error.message.includes("No 'state' parameter found") ||
              error.message.includes('No state found')
            ) {

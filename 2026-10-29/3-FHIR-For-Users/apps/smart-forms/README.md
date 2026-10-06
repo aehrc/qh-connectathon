@@ -23,10 +23,16 @@ Redirect URIs are comma-separated in Meld.
 
 ## Choosing the questionnaire at launch
 
-Meld can't put a questionnaire in the launch context, so the patched app opens
-`launchQuestionnaire` from `config.json`, fetched from the forms server by canonical URL. To
-open a different form from a particular Meld app registration or scenario, add it to the
-launch URI:
+Meld can't put a questionnaire in the standard launch context (`fhirContext`), so the patched app
+falls back, in order, to:
+
+1. a **`questionnaire` custom-context value** in the token response — in Meld, add it under
+   *Custom Context* on the launch scenario (key `questionnaire`, value a canonical URL, optionally
+   `|version`);
+2. a `?questionnaire=` parameter on the launch URI;
+3. `launchQuestionnaire` from `config.json` (the PAM starter form).
+
+The questionnaire is fetched from the forms server by canonical URL. Launch URI form of option 2:
 
 `https://aehrc.github.io/qh-connectathon/smart-forms/launch?questionnaire=<canonical url>`
 
