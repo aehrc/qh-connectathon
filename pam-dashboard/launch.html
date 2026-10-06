@@ -10,7 +10,8 @@
   FHIR.oauth2.authorize({
     clientId: CLIENT_ID,
     // A dashboard is about a population, so it asks for user-level read access (SMART v1 scopes for Meld)
-    scope: 'launch openid fhirUser online_access user/*.read',
+    // 'launch' only for an EHR launch (with a launch parameter); a launch without a patient may be standalone
+    scope: (new URLSearchParams(location.search).has('launch') ? 'launch ' : '') + 'openid fhirUser online_access user/*.read',
     redirectUri: './'
   });
 </script>
