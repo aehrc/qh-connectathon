@@ -23,3 +23,12 @@ The rest of the dashboard is scaffolding for scenarios B1–B9.
 * Put the client ID in `launch.html` (`CLIENT_ID`) and redeploy with `../deploy-pages.sh`.
 
 Note: `|` in search parameters is sent as `%7C` because Meld's gateway rejects a raw `|`.
+
+## Known issues (worth a connectathon discussion)
+
+* **Launch with a patient selected.** Meld's launcher stops (blank page at
+  `iol2ehr-app.interop.community/launch`) if the app is launched without a patient. The patient
+  context is ignored — the app reads the whole population with `user/*.read`.
+* A standalone launch (`launch.html?iss=https://gw.interop.community/QHConnectathon2026/data`)
+  doesn't work yet either. How a population dashboard should be launched and authorised — EHR
+  launch, standalone, or Bulk Data / backend services — is an open design question (scenario B9).
