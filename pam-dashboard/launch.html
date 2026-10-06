@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>PAM outcomes — launching</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script></head>
+<body>
+<p>Launching…</p>
+<script>
+  // Register this app in the sandbox with launch URI .../pam-dashboard/launch.html and redirect URI .../pam-dashboard/
+  const CLIENT_ID = 'REPLACE_WITH_MELD_CLIENT_ID';
+  FHIR.oauth2.authorize({
+    clientId: CLIENT_ID,
+    // A dashboard is about a population, so it asks for user-level read access (SMART v1 scopes for Meld)
+    scope: 'launch openid fhirUser online_access user/*.read',
+    redirectUri: './'
+  });
+</script>
+</body>
+</html>
