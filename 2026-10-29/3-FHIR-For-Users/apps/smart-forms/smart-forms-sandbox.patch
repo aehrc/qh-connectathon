@@ -1,3 +1,34 @@
+diff --git a/apps/smart-forms-app/index.html b/apps/smart-forms-app/index.html
+index 487110a..b98499c 100644
+--- a/apps/smart-forms-app/index.html
++++ b/apps/smart-forms-app/index.html
+@@ -12,6 +12,26 @@
+     <!-- Inter font -->
+     <link rel="preconnect" href="https://rsms.me/" />
+     <link rel="stylesheet" crossorigin="anonymous" href="https://rsms.me/inter/inter.css" />
++    <script>
++      // Some FHIR gateways (e.g. Meld) reject a raw '|' in the query string with a 400 that has no
++      // CORS headers. Browsers don't encode '|', so encode it for every request (token|system, url|version).
++      (function () {
++        var originalFetch = window.fetch.bind(window);
++        function encodePipes(url) {
++          var q = url.indexOf('?');
++          return q !== -1 && url.indexOf('|', q) !== -1 ? url.slice(0, q) + url.slice(q).replace(/\|/g, '%7C') : url;
++        }
++        window.fetch = function (input, init) {
++          if (input instanceof Request) {
++            var url = encodePipes(input.url);
++            if (url !== input.url) input = new Request(url, input);
++          } else {
++            input = encodePipes(String(input));
++          }
++          return originalFetch(input, init);
++        };
++      })();
++    </script>
+   </head>
+   <body>
+     <div id="root"></div>
 diff --git a/apps/smart-forms-app/src/api/headers.ts b/apps/smart-forms-app/src/api/headers.ts
 index 04b6fc2..b495010 100644
 --- a/apps/smart-forms-app/src/api/headers.ts
@@ -139,36 +170,6 @@ index 4fb2df2..6320ecd 100644
    }, [navigate, authIsSuccessful, questionnaireContextExist]);
  }
  
-diff --git a/apps/smart-forms-app/src/main.tsx b/apps/smart-forms-app/src/main.tsx
-index 004d130..9b7bdac 100644
---- a/apps/smart-forms-app/src/main.tsx
-+++ b/apps/smart-forms-app/src/main.tsx
-@@ -25,6 +25,25 @@ import ConfigContextProvider from './features/configChecker/contexts/ConfigConte
- import { CssBaseline } from '@mui/material';
- import ThemeProvider from './theme/Theme';
- 
-+// Some FHIR gateways (e.g. Meld) reject a raw '|' in the query string with a 400 that has no CORS
-+// headers. Browsers don't encode '|', so encode it here for every request (token|system, url|version).
-+const originalFetch = window.fetch.bind(window);
-+const encodePipes = (url: string) => {
-+  const q = url.indexOf('?');
-+  return q !== -1 && url.indexOf('|', q) !== -1 ? url.slice(0, q) + url.slice(q).replace(/\|/g, '%7C') : url;
-+};
-+window.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
-+  if (input instanceof Request) {
-+    const url = encodePipes(input.url);
-+    if (url !== input.url) {
-+      input = new Request(url, input);
-+    }
-+  } else {
-+    input = encodePipes(input.toString());
-+  }
-+  return originalFetch(input, init);
-+};
-+
- const integration = browserTracingIntegration();
- 
- if (process.env.NODE_ENV === 'production') {
 diff --git a/apps/smart-forms-app/src/router/Router.tsx b/apps/smart-forms-app/src/router/Router.tsx
 index dc36440..c8db4a0 100644
 --- a/apps/smart-forms-app/src/router/Router.tsx
@@ -183,10 +184,10 @@ index dc36440..c8db4a0 100644
    return <RouterProvider router={router} />;
  }
 diff --git a/apps/smart-forms-app/vite.config.ts b/apps/smart-forms-app/vite.config.ts
-index e88ad23..b00deb8 100644
+index e88ad23..55cb5f5 100644
 --- a/apps/smart-forms-app/vite.config.ts
 +++ b/apps/smart-forms-app/vite.config.ts
-@@ -9,6 +9,8 @@ export default ({ mode }) => {
+@@ -9,8 +9,12 @@ export default ({ mode }) => {
    process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
  
    return defineConfig({
@@ -194,4 +195,8 @@ index e88ad23..b00deb8 100644
 +    base: process.env.SF_BASE_PATH ?? '/',
      plugins: [react(), svgr()],
      define: {
++      // Make fhirclient use window.fetch (so the '|'-encoding wrapper in index.html applies)
++      FHIRCLIENT_PURE: 'true',
        RENDERER_VERSION: JSON.stringify(packageJson.dependencies['@aehrc/smart-forms-renderer']),
+       POPULATE_VERSION: JSON.stringify(packageJson.dependencies['@aehrc/sdc-populate']),
+       TEMPLATE_EXTRACT_VERSION: JSON.stringify(
