@@ -46,6 +46,7 @@ Jim Steel (CSIRO AEHRC) · Leon Cavalli (Metro North Health)
 | [`FHIR-Mapping-DRAFT.md`](FHIR-Mapping-DRAFT.md) | Proposed shared FHIR mapping of the PAM data, so questionnaires and apps work against the same resources. **Needs agreement.** |
 | [`Demo-Environment.md`](Demo-Environment.md) | Sandbox (Meld), Smart Forms build and config, known issues, and open hosting decisions. |
 | [`Webinar-Plan.md`](Webinar-Plan.md) | Running order and demo list for the 8 Oct webinar. |
+| [`data/`](data/) | Synthetic PAM patients (generator, FHIR bundle, load script). |
 | [`apps/`](apps/) | Apps hosted on GitHub Pages at https://aehrc.github.io/qh-connectathon/ (Smart Forms build + deploy scripts). |
 
 The webinar slide deck is not in the repo for now (it is kept locally in `slides/`, which is

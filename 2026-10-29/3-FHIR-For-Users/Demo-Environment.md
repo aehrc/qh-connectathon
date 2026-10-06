@@ -12,7 +12,7 @@ Status: **in progress** — to be working before the 8 Oct webinar.
 | Terminology | Ontoserver `https://r4.ontoserver.csiro.au/fhir` (SNOMED CT-AU, AMT, LOINC) | Available |
 | `$assemble` | `@aehrc/sdc-assemble` / `assemble-express` | Not yet deployed |
 | Dashboard app | fhirclient.js SMART app (B6 outcomes first) | Not started |
-| Synthetic PAM data | Patients, waitlist, referrals, labs, treatment | Not started |
+| Synthetic PAM data | 40 patients, waitlist, referrals, labs, treatment ([`data/`](data/)) | Loaded in Meld |
 
 ## Meld: things we learned
 
