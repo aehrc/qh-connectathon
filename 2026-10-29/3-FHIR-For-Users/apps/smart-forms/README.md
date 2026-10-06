@@ -7,8 +7,8 @@ sandbox (SMART v1 scopes) and served from GitHub Pages:
 
 | File | Purpose |
 |---|---|
-| `smart-forms-sandbox.patch` | (1) Lets Smart Forms run under a sub-path (Vite `base`, router `basename`, `config.json` URL, SMART redirect URI) — upstream assumes the domain root. (2) Opens a default questionnaire at launch when the server can't supply one in `fhirContext` (Meld has no `launch/questionnaire` scope). (3) Encodes `\|` as `%7C` in every request URL — Meld's gateway rejects a raw `\|` with a CORS-less 400. |
-| `config.json` | Runtime config: Ontoserver, CSIRO forms server, Meld client ID, v1 launch scopes, and `launchQuestionnaire` (canonical URL, optionally `\|version`) to open at launch. |
+| `smart-forms-sandbox.patch` | (1) Lets Smart Forms run under a sub-path (Vite `base`, router `basename`, `config.json` URL, SMART redirect URI) — upstream assumes the domain root. (2) Opens a default questionnaire at launch when the server can't supply one in `fhirContext` (Meld has no `launch/questionnaire` scope). (3) Optionally opens a new response straight after launch, skipping the existing-responses page. (4) Encodes `\|` as `%7C` in every request URL — Meld's gateway rejects a raw `\|` with a CORS-less 400. |
+| `config.json` | Runtime config: Ontoserver, CSIRO forms server, Meld client ID, v1 launch scopes, `launchQuestionnaire` (canonical URL, optionally `\|version`) to open at launch, and `openNewResponseOnLaunch` to go straight into a new pre-populated response. |
 | `build.sh` | Clones Smart Forms at a pinned commit, applies the patch, builds into `dist/`. |
 
 Deploy with [`../deploy-pages.sh`](../deploy-pages.sh).
@@ -29,3 +29,9 @@ open a different form from a particular Meld app registration or scenario, add i
 launch URI:
 
 `https://aehrc.github.io/qh-connectathon/smart-forms/launch?questionnaire=<canonical url>`
+
+## Known issue
+
+With Meld, the *existing responses* list fails (preflight 400, reported as CORS). Not yet
+diagnosed; `openNewResponseOnLaunch` bypasses that page. Creating, pre-populating and saving
+responses work.

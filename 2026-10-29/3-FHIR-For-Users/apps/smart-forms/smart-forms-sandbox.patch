@@ -1,8 +1,8 @@
 diff --git a/apps/smart-forms-app/src/features/configChecker/utils/config.ts b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
-index 01a1e93..cba1b9a 100644
+index 01a1e93..4d2cc9d 100644
 --- a/apps/smart-forms-app/src/features/configChecker/utils/config.ts
 +++ b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
-@@ -39,6 +39,10 @@ export interface ConfigFile {
+@@ -39,6 +39,14 @@ export interface ConfigFile {
    // }
    registeredClientIdsUrl: string | null;
  
@@ -10,10 +10,14 @@ index 01a1e93..cba1b9a 100644
 +  // in fhirContext (e.g. servers without launch/questionnaire). A ?questionnaire= launch parameter overrides it.
 +  launchQuestionnaire?: string;
 +
++  // Optional: when a questionnaire is supplied at launch, open a new (pre-populated) response straight away
++  // instead of the existing responses page.
++  openNewResponseOnLaunch?: boolean;
++
    // Controls whether developer-focused messages are shown.
    // Set to false for clinical/production deployments to hide technical messages.
    // Defaults to true if not specified (shows messages for backward compatibility).
-@@ -108,7 +112,7 @@ export function isValidRegisteredClientIds(value: unknown): value is Record<stri
+@@ -108,7 +116,7 @@ export function isValidRegisteredClientIds(value: unknown): value is Record<stri
  }
  
  export async function loadConfigFile(): Promise<ConfigFile> {
@@ -81,6 +85,49 @@ index f9bfd5f..21a377e 100644
        })
        .catch((err) => {
          console.error(err);
+diff --git a/apps/smart-forms-app/src/features/smartAppLaunch/hooks/useAuthRedirectHook.ts b/apps/smart-forms-app/src/features/smartAppLaunch/hooks/useAuthRedirectHook.ts
+index 4fb2df2..6320ecd 100644
+--- a/apps/smart-forms-app/src/features/smartAppLaunch/hooks/useAuthRedirectHook.ts
++++ b/apps/smart-forms-app/src/features/smartAppLaunch/hooks/useAuthRedirectHook.ts
+@@ -15,12 +15,17 @@
+  * limitations under the License.
+  */
+ 
+-import { useEffect } from 'react';
++import { useContext, useEffect } from 'react';
+ import { useNavigate } from 'react-router-dom';
+ import type { AuthState } from '../interfaces/authorisation.interface.ts';
++import useSmartClient from '../../../hooks/useSmartClient.ts';
++import { resetAndBuildForm } from '../../../utils/manageForm.ts';
++import { ConfigContext } from '../../configChecker/contexts/ConfigContext.tsx';
+ 
+ function useAuthRedirectHook(authState: AuthState) {
+   const navigate = useNavigate();
++  const { launchQuestionnaire } = useSmartClient();
++  const { config } = useContext(ConfigContext);
+ 
+   const authIsSuccessful =
+     authState.hasClient &&
+@@ -32,12 +37,18 @@ function useAuthRedirectHook(authState: AuthState) {
+ 
+   useEffect(() => {
+     if (authIsSuccessful) {
+-      if (questionnaireContextExist) {
++      if (questionnaireContextExist && config.openNewResponseOnLaunch && launchQuestionnaire) {
++        resetAndBuildForm(
++          { questionnaire: launchQuestionnaire, terminologyServerUrl: config.terminologyServerUrl },
++          true
++        ).then(() => navigate('/renderer'));
++      } else if (questionnaireContextExist) {
+         navigate('/dashboard/existing');
+       } else {
+         navigate('/dashboard/questionnaires');
+       }
+     }
++    // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [navigate, authIsSuccessful, questionnaireContextExist]);
+ }
+ 
 diff --git a/apps/smart-forms-app/src/main.tsx b/apps/smart-forms-app/src/main.tsx
 index 004d130..daf0e79 100644
 --- a/apps/smart-forms-app/src/main.tsx

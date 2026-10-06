@@ -4,5 +4,6 @@
   "defaultClientId": "bf813573-900d-41f1-89a5-08f8fe79662c",
   "launchScopes": "launch openid fhirUser online_access patient/*.read patient/*.write user/*.read",
   "registeredClientIdsUrl": null,
-  "launchQuestionnaire": "http://www.health.gov.au/assessments/mbs/715|0.4.0-assembled"
+  "launchQuestionnaire": "http://www.health.gov.au/assessments/mbs/715|0.4.0-assembled",
+  "openNewResponseOnLaunch": true
 }
