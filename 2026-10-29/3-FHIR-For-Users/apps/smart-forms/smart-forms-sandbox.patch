@@ -1,3 +1,14 @@
+diff --git a/apps/smart-forms-app/src/api/headers.ts b/apps/smart-forms-app/src/api/headers.ts
+index 04b6fc2..b495010 100644
+--- a/apps/smart-forms-app/src/api/headers.ts
++++ b/apps/smart-forms-app/src/api/headers.ts
+@@ -1,5 +1,5 @@
+ export const HEADERS = {
+-  'Cache-Control': 'no-cache',
++  // 'Cache-Control' removed: Meld's CORS policy doesn't allow it, so every preflight failed
+   'Content-Type': 'application/fhir+json;charset=utf-8',
+   Accept: 'application/json;charset=utf-8'
+ };
 diff --git a/apps/smart-forms-app/src/features/configChecker/utils/config.ts b/apps/smart-forms-app/src/features/configChecker/utils/config.ts
 index 01a1e93..4d2cc9d 100644
 --- a/apps/smart-forms-app/src/features/configChecker/utils/config.ts

@@ -273,6 +273,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00001"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000011"
      }
     ],
     "name": [
@@ -1005,6 +1019,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00002"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000021"
      }
     ],
     "name": [
@@ -1737,6 +1765,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00003"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000031"
      }
     ],
     "name": [
@@ -2469,6 +2511,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00004"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000041"
      }
     ],
     "name": [
@@ -2903,6 +2959,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00005"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000051"
      }
     ],
     "name": [
@@ -3337,6 +3407,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00006"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000061"
      }
     ],
     "name": [
@@ -3771,6 +3855,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00007"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000071"
      }
     ],
     "name": [
@@ -4503,6 +4601,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00008"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000081"
      }
     ],
     "name": [
@@ -5176,6 +5288,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00009"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000091"
      }
     ],
     "name": [
@@ -5610,6 +5736,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00010"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000101"
      }
     ],
     "name": [
@@ -6342,6 +6482,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00011"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000111"
      }
     ],
     "name": [
@@ -7074,6 +7228,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00012"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000121"
      }
     ],
     "name": [
@@ -7806,6 +7974,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00013"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000131"
      }
     ],
     "name": [
@@ -8538,6 +8720,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00014"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000141"
      }
     ],
     "name": [
@@ -9211,6 +9407,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00015"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000151"
      }
     ],
     "name": [
@@ -9884,6 +10094,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00016"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000161"
      }
     ],
     "name": [
@@ -10318,6 +10542,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00017"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000171"
      }
     ],
     "name": [
@@ -10752,6 +10990,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00018"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000181"
      }
     ],
     "name": [
@@ -11484,6 +11736,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00019"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000191"
      }
     ],
     "name": [
@@ -12216,6 +12482,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00020"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000201"
      }
     ],
     "name": [
@@ -12948,6 +13228,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00021"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000211"
      }
     ],
     "name": [
@@ -13680,6 +13974,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00022"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000221"
      }
     ],
     "name": [
@@ -14412,6 +14720,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00023"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000231"
      }
     ],
     "name": [
@@ -15144,6 +15466,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00024"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000241"
      }
     ],
     "name": [
@@ -15876,6 +16212,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00025"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000251"
      }
     ],
     "name": [
@@ -16310,6 +16660,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00026"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000261"
      }
     ],
     "name": [
@@ -17042,6 +17406,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00027"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000271"
      }
     ],
     "name": [
@@ -17715,6 +18093,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00028"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000281"
      }
     ],
     "name": [
@@ -18447,6 +18839,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00029"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000291"
      }
     ],
     "name": [
@@ -19179,6 +19585,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00030"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000301"
      }
     ],
     "name": [
@@ -19911,6 +20331,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00031"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000311"
      }
     ],
     "name": [
@@ -20643,6 +21077,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00032"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000321"
      }
     ],
     "name": [
@@ -21239,6 +21687,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00033"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000331"
      }
     ],
     "name": [
@@ -21971,6 +22433,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00034"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000341"
      }
     ],
     "name": [
@@ -22567,6 +23043,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00035"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000351"
      }
     ],
     "name": [
@@ -23163,6 +23653,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00036"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000361"
      }
     ],
     "name": [
@@ -23759,6 +24263,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00037"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000371"
      }
     ],
     "name": [
@@ -24355,6 +24873,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00038"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000381"
      }
     ],
     "name": [
@@ -24892,6 +25424,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00039"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000391"
      }
     ],
     "name": [
@@ -25488,6 +26034,20 @@
      {
       "system": "https://aehrc.github.io/qh-connectathon/track3/patient-id",
       "value": "SYN00040"
+     },
+     {
+      "type": {
+       "coding": [
+        {
+         "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+         "code": "MC",
+         "display": "Patient's Medicare number"
+        }
+       ],
+       "text": "Patient's Medicare number"
+      },
+      "system": "http://ns.electronichealth.net.au/id/medicare-number",
+      "value": "0000000401"
      }
     ],
     "name": [

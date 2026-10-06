@@ -149,7 +149,12 @@ for n in range(1, N_PATIENTS + 1):
 
     patient = add({
         "resourceType": "Patient", "id": pid,
-        "identifier": [{"system": ID_SYS, "value": f"SYN{n:05d}"}],
+        "identifier": [
+            {"system": ID_SYS, "value": f"SYN{n:05d}"},
+            # Clearly fake: real Medicare numbers never start with 0
+            {"type": coding("http://terminology.hl7.org/CodeSystem/v2-0203", "MC", "Patient's Medicare number"),
+             "system": "http://ns.electronichealth.net.au/id/medicare-number", "value": f"0{n:08d}1"},
+        ],
         "name": [{"use": "official", "given": [given], "family": family}],
         "gender": sex, "birthDate": birth.isoformat(),
         "address": [{"use": "home", "city": suburb, "state": "QLD", "postalCode": postcode, "country": "AU"}],

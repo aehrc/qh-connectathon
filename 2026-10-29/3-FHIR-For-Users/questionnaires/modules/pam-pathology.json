@@ -1,0 +1,349 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pam-pathology",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track3/Questionnaire/pam-pathology",
+  "version": "0.1.0",
+  "name": "PAMPathology",
+  "title": "PAM module — Pathology results",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-06",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 3 (synthetic demo, not for clinical use)",
+  "item": [
+    {
+      "linkId": "pam-pathology",
+      "text": "Pathology",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "latestHb",
+            "language": "application/x-fhir-query",
+            "expression": "Observation?code=http://loinc.org|718-7&patient={{%patient.id}}&_sort=-date&_count=1"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "latestFerritin",
+            "language": "application/x-fhir-query",
+            "expression": "Observation?code=http://loinc.org|2276-4&patient={{%patient.id}}&_sort=-date&_count=1"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "latestTsat",
+            "language": "application/x-fhir-query",
+            "expression": "Observation?code=http://loinc.org|2502-3&patient={{%patient.id}}&_sort=-date&_count=1"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "latestCrp",
+            "language": "application/x-fhir-query",
+            "expression": "Observation?code=http://loinc.org|1988-5&patient={{%patient.id}}&_sort=-date&_count=1"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-pathology-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-pathology|0.1.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "g/L",
+                "display": "g/L"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestHb.entry.resource.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ferritin",
+          "text": "Ferritin",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "ug/L",
+                "display": "µg/L"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestFerritin.entry.resource.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-tsat",
+          "text": "Transferrin saturation (TSAT)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "%",
+                "display": "%"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestTsat.entry.resource.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-crp",
+          "text": "C-reactive protein (CRP)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mg/L",
+                "display": "mg/L"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestCrp.entry.resource.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb-date",
+          "text": "Date of latest Hb",
+          "type": "date",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestHb.entry.resource.effective.toString().substring(0, 10)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ext",
+          "text": "Results from an external lab",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMExternalResultTemplate"
+                  }
+                }
+              ]
+            }
+          ],
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "pam-ext-test",
+              "text": "Test",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "718-7",
+                    "display": "Haemoglobin (Hb)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "2276-4",
+                    "display": "Ferritin"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "2502-3",
+                    "display": "Transferrin saturation (TSAT)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "1988-5",
+                    "display": "C-reactive protein (CRP)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-value",
+              "text": "Result",
+              "type": "decimal"
+            },
+            {
+              "linkId": "pam-ext-date",
+              "text": "Collected",
+              "type": "date"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pathology-todo",
+          "type": "display",
+          "text": "To be built at the connectathon — scenario A5: the rest of Pathology. MCV, B12, folate and eGFR; Repeating time points: initial vs post-treatment results side by side; Show the result date and lab for every pre-populated value",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/3-FHIR-For-Users/Scenarios.md\">scenario A5</a>: the rest of Pathology</p><ul style=\"margin:0;padding-left:20px\"><li>MCV, B12, folate and eGFR</li><li>Repeating time points: initial vs post-treatment results side by side</li><li>Show the result date and lab for every pre-populated value</li></ul></div></div>"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "PAMExternalResultTemplate",
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "laboratory",
+              "display": "Laboratory"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-ext-test').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_effectiveDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-ext-date').answer.value.toString()"
+          }
+        ]
+      },
+      "valueQuantity": {
+        "_value": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-ext-value').answer.value"
+            }
+          ]
+        },
+        "system": "http://unitsofmeasure.org",
+        "_code": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"
+            }
+          ]
+        },
+        "_unit": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
