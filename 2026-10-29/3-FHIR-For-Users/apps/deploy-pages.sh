@@ -16,6 +16,7 @@ else
 fi
 
 rm -rf "$SITE/smart-forms" && cp -R "$HERE/smart-forms/dist" "$SITE/smart-forms"
+rm -rf "$SITE/pam-dashboard" && mkdir -p "$SITE/pam-dashboard" && cp "$HERE/pam-dashboard/"*.html "$SITE/pam-dashboard/"
 # Pages has no SPA fallback: serve Smart Forms' index.html for unknown paths (e.g. /launch)
 cp "$SITE/smart-forms/index.html" "$SITE/404.html"
 cp "$HERE/site-index.html" "$SITE/index.html"
