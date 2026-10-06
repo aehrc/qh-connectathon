@@ -12,7 +12,27 @@
     <!-- Inter font -->
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" crossorigin="anonymous" href="https://rsms.me/inter/inter.css" />
-    <script type="module" crossorigin src="/qh-connectathon/smart-forms/assets/index-BXf3uB-6.js"></script>
+    <script>
+      // Some FHIR gateways (e.g. Meld) reject a raw '|' in the query string with a 400 that has no
+      // CORS headers. Browsers don't encode '|', so encode it for every request (token|system, url|version).
+      (function () {
+        var originalFetch = window.fetch.bind(window);
+        function encodePipes(url) {
+          var q = url.indexOf('?');
+          return q !== -1 && url.indexOf('|', q) !== -1 ? url.slice(0, q) + url.slice(q).replace(/\|/g, '%7C') : url;
+        }
+        window.fetch = function (input, init) {
+          if (input instanceof Request) {
+            var url = encodePipes(input.url);
+            if (url !== input.url) input = new Request(url, input);
+          } else {
+            input = encodePipes(String(input));
+          }
+          return originalFetch(input, init);
+        };
+      })();
+    </script>
+    <script type="module" crossorigin src="/qh-connectathon/smart-forms/assets/index-Caa_7PyF.js"></script>
     <link rel="stylesheet" crossorigin href="/qh-connectathon/smart-forms/assets/index-Bc6vjs7g.css">
   </head>
   <body>
