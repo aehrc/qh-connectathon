@@ -1,0 +1,266 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pam-patient-details",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-patient-details",
+  "version": "0.1.0",
+  "name": "PAMPatientDetails",
+  "title": "PAM module — Patient details",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-06",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "item": [
+    {
+      "linkId": "pam-patient",
+      "text": "Patient details",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "obsHeight",
+            "language": "application/x-fhir-query",
+            "expression": "Observation?code=http://loinc.org|8302-2&patient={{%patient.id}}&_sort=-date&_count=1"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/variable",
+          "valueExpression": {
+            "name": "obsWeight",
+            "language": "application/x-fhir-query",
+            "expression": "Observation?code=http://loinc.org|29463-7&patient={{%patient.id}}&_sort=-date&_count=1"
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-patient-details-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-patient-details|0.1.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-name",
+          "text": "Name",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%patient.name.first().given.first() + ' ' + %patient.name.first().family"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-dob",
+          "text": "Date of birth",
+          "type": "date",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%patient.birthDate"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-age",
+          "text": "Age",
+          "type": "integer",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "a",
+                "display": "years"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "today().toString().substring(0,4).toInteger() - %dob.toString().substring(0,4).toInteger() - iif(today().toString().substring(5,5) < %dob.toString().substring(5,5), 1, 0)"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-sex",
+          "text": "Sex",
+          "type": "choice",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%patient.gender"
+              }
+            }
+          ],
+          "answerOption": [
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "female",
+                "display": "Female"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "male",
+                "display": "Male"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "other",
+                "display": "Other"
+              }
+            },
+            {
+              "valueCoding": {
+                "system": "http://hl7.org/fhir/administrative-gender",
+                "code": "unknown",
+                "display": "Unknown"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-medicare",
+          "text": "Medicare number",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%patient.identifier.where(system='http://ns.electronichealth.net.au/id/medicare-number').value.first()"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-height",
+          "text": "Height",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "cm",
+                "display": "cm"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%obsHeight.entry.resource.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-weight",
+          "text": "Weight",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg",
+                "display": "kg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%obsWeight.entry.resource.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-bmi",
+          "text": "BMI",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg/m2",
+                "display": "kg/m²"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "(%weightKg / ((%heightCm / 100).power(2))).round(1)"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-patient-todo",
+          "type": "display",
+          "text": "To be built at the connectathon — scenario A1: the rest of Patient details. Indigenous status, interpreter required, preferred language, address and contacts — from the Patient; Write height and weight back as Observations when they are measured in clinic; Next of kin / emergency contact (RelatedPerson)",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A1</a>: the rest of Patient details</p><ul style=\"margin:0;padding-left:20px\"><li>Indigenous status, interpreter required, preferred language, address and contacts — from the Patient</li><li>Write height and weight back as Observations when they are measured in clinic</li><li>Next of kin / emergency contact (RelatedPerson)</li></ul></div></div>"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

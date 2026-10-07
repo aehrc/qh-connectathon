@@ -1,0 +1,1369 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pam-assembled",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "sexCode",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-sex').answer.value.code"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "dob",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-dob').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "heightCm",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-height').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "weightKg",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-weight').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "hb",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-hb').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ferritin",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-ferritin').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "tsat",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-tsat').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "crp",
+        "language": "text/fhirpath",
+        "expression": "%resource.repeat(item).where(linkId='pam-crp').answer.value"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "hbThreshold",
+        "language": "text/fhirpath",
+        "expression": "iif(%sexCode = 'male', 130, 120)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "actualHb",
+        "language": "text/fhirpath",
+        "expression": "%hb"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "idealWeight",
+        "language": "text/fhirpath",
+        "expression": "iif(%sexCode = 'male', 50, 45.5) + 0.9 * (%heightCm - 152.4)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "weight",
+        "language": "text/fhirpath",
+        "expression": "iif(%weightKg < %idealWeight, %weightKg, %idealWeight)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "targetHb",
+        "language": "text/fhirpath",
+        "expression": "iif(%weight < 35, 130, 150)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ironStores",
+        "language": "text/fhirpath",
+        "expression": "iif(%weight < 35, 15 * %weight, 500)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-patient-details|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-gp-details|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-proposed-surgery|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-history|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-pathology|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-diagnosis|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-treatment|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-education|0.1.0"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assembledFrom",
+      "valueCanonical": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-follow-up|0.1.0"
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam",
+  "version": "0.1.0-assembled",
+  "name": "PreoperativeAnaemiaManagement",
+  "title": "Preoperative Anaemia Management (connectathon starter)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-06",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Starter form for track 1: a few working items per module, with scaffolding for the rest.",
+  "item": [
+    {
+      "linkId": "pam-tabs",
+      "text": "Preoperative anaemia management",
+      "type": "group",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "tab-container"
+              }
+            ]
+          }
+        }
+      ],
+      "item": [
+        {
+          "linkId": "pam-patient",
+          "text": "Patient details",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "obsHeight",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|8302-2&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "obsWeight",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|29463-7&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-patient-details-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-patient-details|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-name",
+              "text": "Name",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.name.first().given.first() + ' ' + %patient.name.first().family"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-dob",
+              "text": "Date of birth",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.birthDate"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-age",
+              "text": "Age",
+              "type": "integer",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a",
+                    "display": "years"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "today().toString().substring(0,4).toInteger() - %dob.toString().substring(0,4).toInteger() - iif(today().toString().substring(5,5) < %dob.toString().substring(5,5), 1, 0)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-sex",
+              "text": "Sex",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.gender"
+                  }
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "female",
+                    "display": "Female"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "male",
+                    "display": "Male"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "other",
+                    "display": "Other"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://hl7.org/fhir/administrative-gender",
+                    "code": "unknown",
+                    "display": "Unknown"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-medicare",
+              "text": "Medicare number",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%patient.identifier.where(system='http://ns.electronichealth.net.au/id/medicare-number').value.first()"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-height",
+              "text": "Height",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "cm",
+                    "display": "cm"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%obsHeight.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-weight",
+              "text": "Weight",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%obsWeight.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-bmi",
+              "text": "BMI",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg/m2",
+                    "display": "kg/m²"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "(%weightKg / ((%heightCm / 100).power(2))).round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-patient-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A1: the rest of Patient details. Indigenous status, interpreter required, preferred language, address and contacts — from the Patient; Write height and weight back as Observations when they are measured in clinic; Next of kin / emergency contact (RelatedPerson)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A1</a>: the rest of Patient details</p><ul style=\"margin:0;padding-left:20px\"><li>Indigenous status, interpreter required, preferred language, address and contacts — from the Patient</li><li>Write height and weight back as Observations when they are measured in clinic</li><li>Next of kin / emergency contact (RelatedPerson)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-gp",
+          "text": "GP details",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-gp-details-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-gp-details|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-gp-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A2: GP details. Pre-populate the GP from Patient.generalPractitioner (Practitioner / PractitionerRole); Choose the source: referring doctor, GP from the latest admission, or manual entry (enableWhen); Write back an updated Patient.generalPractitioner",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A2</a>: GP details</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate the GP from Patient.generalPractitioner (Practitioner / PractitionerRole)</li><li>Choose the source: referring doctor, GP from the latest admission, or manual entry (enableWhen)</li><li>Write back an updated Patient.generalPractitioner</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-surgery",
+          "text": "Proposed surgery",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-proposed-surgery-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-proposed-surgery|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-surgery-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A3: Proposed surgery and referral. Pre-populate procedure, surgeon, unit, category and booked date from the waitlist ServiceRequest; Calculate days until surgery; Write back the referral to the blood management service (ServiceRequest)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A3</a>: Proposed surgery and referral</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate procedure, surgeon, unit, category and booked date from the waitlist ServiceRequest</li><li>Calculate days until surgery</li><li>Write back the referral to the blood management service (ServiceRequest)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-history",
+          "text": "History",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-history-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-history|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-history-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A4: Past medical and surgical history. Pre-populate Conditions, Procedures, medications and allergies; SNOMED CT-AU value sets bound with ECL on Ontoserver; enableWhen trees for follow-up questions (e.g. GI symptoms → gastroscopy / colonoscopy)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A4</a>: Past medical and surgical history</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate Conditions, Procedures, medications and allergies</li><li>SNOMED CT-AU value sets bound with ECL on Ontoserver</li><li>enableWhen trees for follow-up questions (e.g. GI symptoms → gastroscopy / colonoscopy)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-pathology",
+          "text": "Pathology",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestHb",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|718-7&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestFerritin",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|2276-4&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestTsat",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|2502-3&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/variable",
+              "valueExpression": {
+                "name": "latestCrp",
+                "language": "application/x-fhir-query",
+                "expression": "Observation?code=http://loinc.org|1988-5&patient={{%patient.id}}&_sort=-date&_count=1"
+              }
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-pathology-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-pathology|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-hb",
+              "text": "Haemoglobin (Hb)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "g/L",
+                    "display": "g/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%latestHb.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ferritin",
+              "text": "Ferritin",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "ug/L",
+                    "display": "µg/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%latestFerritin.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-tsat",
+              "text": "Transferrin saturation (TSAT)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "%",
+                    "display": "%"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%latestTsat.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-crp",
+              "text": "C-reactive protein (CRP)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg/L",
+                    "display": "mg/L"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%latestCrp.entry.resource.value.value"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-hb-date",
+              "text": "Date of latest Hb",
+              "type": "date",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%latestHb.entry.resource.effective.toString().substring(0, 10)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext",
+              "text": "Results from an external lab",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMExternalResultTemplate"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "repeats": true,
+              "item": [
+                {
+                  "linkId": "pam-ext-test",
+                  "text": "Test",
+                  "type": "choice",
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "718-7",
+                        "display": "Haemoglobin (Hb)"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "2276-4",
+                        "display": "Ferritin"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "2502-3",
+                        "display": "Transferrin saturation (TSAT)"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://loinc.org",
+                        "code": "1988-5",
+                        "display": "C-reactive protein (CRP)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-ext-value",
+                  "text": "Result",
+                  "type": "decimal"
+                },
+                {
+                  "linkId": "pam-ext-date",
+                  "text": "Collected",
+                  "type": "date"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-pathology-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A5: the rest of Pathology. MCV, B12, folate and eGFR; Repeating time points: initial vs post-treatment results side by side; Show the result date and lab for every pre-populated value",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A5</a>: the rest of Pathology</p><ul style=\"margin:0;padding-left:20px\"><li>MCV, B12, folate and eGFR</li><li>Repeating time points: initial vs post-treatment results side by side</li><li>Show the result date and lab for every pre-populated value</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-diagnosis-section",
+          "text": "Diagnosis",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-diagnosis-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-diagnosis|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-findings-intro",
+              "type": "display",
+              "text": "Findings, calculated from the pathology results",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Findings</b>, calculated from the pathology results (thresholds to confirm with Metro North)</p></div>"
+                  }
+                ]
+              }
+            },
+            {
+              "linkId": "pam-anaemia",
+              "text": "Anaemia (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%hb <= %hbThreshold"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iron-deficiency",
+              "text": "Iron deficiency (ferritin < 100, or TSAT < 20% with ferritin 100–300 and CRP > 10)",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%ferritin < 100 or (%tsat < 20 and %ferritin >= 100 and %ferritin <= 300 and %crp > 10)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-inflammation",
+              "text": "Inflammation (CRP > 10 mg/L)",
+              "type": "boolean",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%crp > 10"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-diagnosis",
+              "text": "Diagnosis",
+              "type": "choice",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMDiagnosisTemplate"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "87522002",
+                    "display": "Iron deficiency anaemia"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "35240004",
+                    "display": "Iron deficiency"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "234347009",
+                    "display": "Anaemia of chronic disease"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "271737000",
+                    "display": "Anaemia"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-diagnosis-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A6: the rest of Diagnosis. Suggest the diagnosis from the findings, so the nurse confirms rather than chooses; A SNOMED CT-AU value set on Ontoserver instead of four hard-coded options; Limited consent or refusal of blood products → Flag; requested target Hb → Goal",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A6</a>: the rest of Diagnosis</p><ul style=\"margin:0;padding-left:20px\"><li>Suggest the diagnosis from the findings, so the nurse confirms rather than chooses</li><li>A SNOMED CT-AU value set on Ontoserver instead of four hard-coded options</li><li>Limited consent or refusal of blood products → Flag; requested target Hb → Goal</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-treatment",
+          "text": "Treatment",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-treatment-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-treatment|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ganzoni-intro",
+              "type": "display",
+              "text": "Total iron dose (Ganzoni)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Total iron dose (Ganzoni)</b> = weight × (target Hb − actual Hb) × 0.24 + iron stores</p></div>"
+                  }
+                ]
+              }
+            },
+            {
+              "linkId": "pam-ideal-weight",
+              "text": "Ideal body weight",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%idealWeight.round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-dosing-weight",
+              "text": "Dosing weight (lower of actual and ideal body weight)",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "kg",
+                    "display": "kg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%weight.round(1)"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-ganzoni",
+              "text": "Calculated total iron dose",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                },
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "iif(%actualHb >= %targetHb, 0, (%weight * (%targetHb - %actualHb) * 0.24 + %ironStores).round(0))"
+                  }
+                }
+              ],
+              "readOnly": true
+            },
+            {
+              "linkId": "pam-iv-iron",
+              "text": "IV iron order",
+              "type": "group",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+                  "extension": [
+                    {
+                      "url": "template",
+                      "valueReference": {
+                        "reference": "#PAMIVIronTemplate"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "item": [
+                {
+                  "linkId": "pam-iron-product",
+                  "text": "Product",
+                  "type": "choice",
+                  "answerOption": [
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "1312141000168105",
+                        "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+                      }
+                    },
+                    {
+                      "valueCoding": {
+                        "system": "http://snomed.info/sct",
+                        "code": "1086251000168104",
+                        "display": "Iron (as ferric derisomaltose) 100 mg/mL injection, vial"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "linkId": "pam-iron-dose",
+                  "text": "Prescribed dose",
+                  "type": "decimal",
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                      "valueCoding": {
+                        "system": "http://unitsofmeasure.org",
+                        "code": "mg",
+                        "display": "mg"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "linkId": "pam-treatment-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A7: the rest of Treatment. Confirm the dosing-weight rule against the REDCap specification; Cap the dose per infusion and split into infusions; book the day-unit infusion (ServiceRequest / Appointment); AMT value set from Ontoserver; oral iron, ESA and transfusion options",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A7</a>: the rest of Treatment</p><ul style=\"margin:0;padding-left:20px\"><li>Confirm the dosing-weight rule against the REDCap specification</li><li>Cap the dose per infusion and split into infusions; book the day-unit infusion (ServiceRequest / Appointment)</li><li>AMT value set from Ontoserver; oral iron, ESA and transfusion options</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-education",
+          "text": "Patient education",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-education-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-education|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-education-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A8: Patient education. Delivery method and materials given (multi-select); Write back what was given (Communication or Procedure)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A8</a>: Patient education</p><ul style=\"margin:0;padding-left:20px\"><li>Delivery method and materials given (multi-select)</li><li>Write back what was given (Communication or Procedure)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-follow-up",
+          "text": "Follow-up and status",
+          "type": "group",
+          "item": [
+            {
+              "linkId": "pam-follow-up-module",
+              "text": "Module",
+              "type": "string",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                  "valueBoolean": true
+                }
+              ],
+              "initial": [
+                {
+                  "valueString": "pam-follow-up|0.1.0"
+                }
+              ]
+            },
+            {
+              "linkId": "pam-follow-up-todo",
+              "type": "display",
+              "text": "To be built at the connectathon — scenario A9: Follow-up and status. Pre-populate previous notes, status and referral date; Days with the blood management team; follow-up due date; Write back a follow-up Task and the EpisodeOfCare status (being managed / cleared)",
+              "_text": {
+                "extension": [
+                  {
+                    "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                    "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A9</a>: Follow-up and status</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate previous notes, status and referral date</li><li>Days with the blood management team; follow-up due date</li><li>Write back a follow-up Task and the EpisodeOfCare status (being managed / cleared)</li></ul></div></div>"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "PAMExternalResultTemplate",
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "laboratory",
+              "display": "Laboratory"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-ext-test').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_effectiveDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='pam-ext-date').answer.value.toString()"
+          }
+        ]
+      },
+      "valueQuantity": {
+        "_value": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='pam-ext-value').answer.value"
+            }
+          ]
+        },
+        "system": "http://unitsofmeasure.org",
+        "_code": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"
+            }
+          ]
+        },
+        "_unit": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "PAMDiagnosisTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active",
+            "display": "Active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed",
+            "display": "Confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-diagnosis').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_recordedDate": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "MedicationRequest",
+      "id": "PAMIVIronTemplate",
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-iron-product').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "dosageInstruction": [
+        {
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "item.where(linkId='pam-iron-dose').answer.value"
+                    }
+                  ]
+                },
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

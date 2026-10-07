@@ -1,0 +1,278 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pam-treatment",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-treatment",
+  "version": "0.1.0",
+  "name": "PAMTreatment",
+  "title": "PAM module — Treatment and iron dose",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-06",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "item": [
+    {
+      "linkId": "pam-treatment",
+      "text": "Treatment",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "pam-treatment-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-treatment|0.1.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ganzoni-intro",
+          "type": "display",
+          "text": "Total iron dose (Ganzoni)",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Total iron dose (Ganzoni)</b> = weight × (target Hb − actual Hb) × 0.24 + iron stores</p></div>"
+              }
+            ]
+          }
+        },
+        {
+          "linkId": "pam-ideal-weight",
+          "text": "Ideal body weight",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg",
+                "display": "kg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%idealWeight.round(1)"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-dosing-weight",
+          "text": "Dosing weight (lower of actual and ideal body weight)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "kg",
+                "display": "kg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%weight.round(1)"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-ganzoni",
+          "text": "Calculated total iron dose",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "mg",
+                "display": "mg"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "iif(%actualHb >= %targetHb, 0, (%weight * (%targetHb - %actualHb) * 0.24 + %ironStores).round(0))"
+              }
+            }
+          ],
+          "readOnly": true
+        },
+        {
+          "linkId": "pam-iv-iron",
+          "text": "IV iron order",
+          "type": "group",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#PAMIVIronTemplate"
+                  }
+                }
+              ]
+            }
+          ],
+          "item": [
+            {
+              "linkId": "pam-iron-product",
+              "text": "Product",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1312141000168105",
+                    "display": "Iron (as ferric carboxymaltose) 1 g/20 mL injection, vial"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://snomed.info/sct",
+                    "code": "1086251000168104",
+                    "display": "Iron (as ferric derisomaltose) 100 mg/mL injection, vial"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-iron-dose",
+              "text": "Prescribed dose",
+              "type": "decimal",
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+                  "valueCoding": {
+                    "system": "http://unitsofmeasure.org",
+                    "code": "mg",
+                    "display": "mg"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "linkId": "pam-treatment-todo",
+          "type": "display",
+          "text": "To be built at the connectathon — scenario A7: the rest of Treatment. Confirm the dosing-weight rule against the REDCap specification; Cap the dose per infusion and split into infusions; book the day-unit infusion (ServiceRequest / Appointment); AMT value set from Ontoserver; oral iron, ESA and transfusion options",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A7</a>: the rest of Treatment</p><ul style=\"margin:0;padding-left:20px\"><li>Confirm the dosing-weight rule against the REDCap specification</li><li>Cap the dose per infusion and split into infusions; book the day-unit infusion (ServiceRequest / Appointment)</li><li>AMT value set from Ontoserver; oral iron, ESA and transfusion options</li></ul></div></div>"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "MedicationRequest",
+      "id": "PAMIVIronTemplate",
+      "status": "active",
+      "intent": "order",
+      "medicationCodeableConcept": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "item.where(linkId='pam-iron-product').answer.value"
+              }
+            ]
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_authoredOn": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "now().toString()"
+          }
+        ]
+      },
+      "dosageInstruction": [
+        {
+          "route": {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "47625008",
+                "display": "Intravenous route"
+              }
+            ]
+          },
+          "doseAndRate": [
+            {
+              "doseQuantity": {
+                "_value": {
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                      "valueString": "item.where(linkId='pam-iron-dose').answer.value"
+                    }
+                  ]
+                },
+                "unit": "mg",
+                "system": "http://unitsofmeasure.org",
+                "code": "mg"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

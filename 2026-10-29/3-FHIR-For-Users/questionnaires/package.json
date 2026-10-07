@@ -1,7 +1,0 @@
-{
-  "name": "qh-connectathon-track3-questionnaires",
-  "private": true,
-  "type": "module",
-  "scripts": { "build": "python3 build.py && node assemble.mjs" },
-  "dependencies": { "@aehrc/sdc-assemble": "^2.0.0" }
-}

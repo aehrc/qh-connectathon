@@ -1,0 +1,72 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pam-follow-up",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-assemble-expectation",
+      "valueCode": "assemble-child"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    }
+  ],
+  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pam-follow-up",
+  "version": "0.1.0",
+  "name": "PAMFollowUp",
+  "title": "PAM module — Follow-up and status",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-06",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "item": [
+    {
+      "linkId": "pam-follow-up",
+      "text": "Follow-up and status",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "pam-follow-up-module",
+          "text": "Module",
+          "type": "string",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+              "valueBoolean": true
+            }
+          ],
+          "initial": [
+            {
+              "valueString": "pam-follow-up|0.1.0"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-follow-up-todo",
+          "type": "display",
+          "text": "To be built at the connectathon — scenario A9: Follow-up and status. Pre-populate previous notes, status and referral date; Days with the blood management team; follow-up due date; Write back a follow-up Task and the EpisodeOfCare status (being managed / cleared)",
+          "_text": {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+                "valueString": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><div style=\"border:2px dashed #B9531A;border-radius:8px;padding:12px 16px;background:#FFF6EF\"><p style=\"margin:0 0 6px;font-weight:600;color:#B9531A\">&#x1F6A7; To be built at the connectathon — <a href=\"https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md\">scenario A9</a>: Follow-up and status</p><ul style=\"margin:0;padding-left:20px\"><li>Pre-populate previous notes, status and referral date</li><li>Days with the blood management team; follow-up due date</li><li>Write back a follow-up Task and the EpisodeOfCare status (being managed / cleared)</li></ul></div></div>"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
