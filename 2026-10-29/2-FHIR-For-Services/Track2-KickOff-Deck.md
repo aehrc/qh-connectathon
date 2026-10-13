@@ -48,9 +48,9 @@ style: |
   section.split > h2 { grid-column: 1 / -1; }
   section.split > p:has(img) { grid-column: 1; grid-row: 2; margin: 0; }
   section.split > p:has(img) img { max-width: 100%; }
-  section.split > ul { grid-column: 2; grid-row: 2; font-size: 23px; margin: 0; align-self: center; }
-  section.split > ul li { margin-bottom: 10px; }
-  section.split > ul code { white-space: nowrap; }
+  section.split > ul { grid-column: 2; grid-row: 2; font-size: 18px; margin: 0; align-self: center; }
+  section.split > ul li { margin-bottom: 8px; }
+  section.split > ul code { white-space: nowrap; font-size: 16px; }
 footer: "FHIR in Queensland Health Connectathon · 29–30 October 2026"
 ---
 
@@ -109,11 +109,11 @@ An **end-to-end radiology referral** workflow. A referrer:
 
 ![h:500](slides/diagrams/architecture.svg)
 
-- **Referrer** — Patient-Referral at `patient-referral.efiq.org`: the browser-core path for discover → refer → track
-- **Directory** — Qld Health Provider Directory on FHIR at `qhpd.efiq.org`
-- **Referral Server** — HAPI + QH IG at `qhreferral.efiq.org`
-- **Filler / RIS** — imaging provider at `ris.efiq.org`
-- **Terminology** — shared Ontoserver at `tx.efiq.org`, used by every server and app for `$expand` / `$validate-code`
+- **Referrer** — Patient-Referral at `patient-referral.jgsuess.dev`: the browser-core path for discover → refer → track
+- **Directory** — Qld Health Provider Directory on FHIR at `qhpd.jgsuess.dev`, loaded from the [ADHA HCPD test environment (SIT)](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir) via [HCPD bulk data extraction](https://implementer.digitalhealth.gov.au/fhir/hcpd/current/bulk-data-extraction.html)
+- **Referral Server** — HAPI + QH IG at `qhreferral.jgsuess.dev`
+- **Filler / RIS** — imaging provider at `ris.jgsuess.dev`
+- **Terminology** — external open sandbox Ontoserver at [`r4.ontoserver.csiro.au/fhir`](https://r4.ontoserver.csiro.au/fhir), used for `$expand` / `$validate-code`
 
 ---
 
@@ -202,19 +202,20 @@ Track status through to **Booked**; report return closes the Task (stretch).
 
 ## Getting started
 
-- **Servers** *(confirm 2026 URLs)* — secured & open FHIR endpoints on the shared HAPI server
-- **Every Qld Health Provider Directory on FHIR request** sends header `X-Request-ID: <UUID v4>`
-- Validate against the QH IG / AU eRequesting with `$validate`
+- **Servers** To be confirmed — open FHIR endpoints with some test data
 - Bring your laptop, synthetic data, and your ideas — nothing sensitive!
+- Validate against the QH IG or AU eRequesting with `$validate` operation
+
 
 ---
 
-## Open decisions (before we start)
+## Open for debate
 
-- **Qld Health Provider Directory on FHIR access** — SIT credentials & onboarding for participants
-- **Directory ↔ referral server** — test Endpoints in the Qld Health Provider Directory on FHIR, or a local mirror
+- **Are we solving an already solved problem?** - What about QH Smart Referrals and the Healthdirect (NHSD) API?
+- **Qld Health Provider Directory on FHIR** — Test out models for HealthcareService / Provider details in a Qld jurisdictional context. 
+- **What kinds of service have an endpoint?** — test endpoints in the Qld Health Provider Directory on FHIR: V2, FHIR other.
 - **Who books?** — referrer directly, or filler after triage (support both?)
-- **Transport & security** — shared HAPI vs push to discovered endpoint; open vs SMART
+- **Transport & security** — shared HAPI vs push to discovered endpoint; open vs SMART on FHIR.
 
 > Tracked as GitHub issues on the `track:services` label.
 
@@ -231,6 +232,6 @@ Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/2-FHIR-For-Servic
 
 IG: `github.com/aehrc/radiology-referral`
 
-Referrer app: `patient-referral.efiq.org`
+Referrer app: `patient-referral.jgsuess.dev`
 
-Servers: directory `qhpd.efiq.org` · referral `qhreferral.efiq.org` · RIS `ris.efiq.org` · terminology `tx.efiq.org`
+Servers: directory `qhpd.jgsuess.dev` · referral `qhreferral.jgsuess.dev` · RIS `ris.jgsuess.dev` · terminology `r4.ontoserver.csiro.au/fhir`

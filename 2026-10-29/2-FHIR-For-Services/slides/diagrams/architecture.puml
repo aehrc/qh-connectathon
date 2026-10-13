@@ -17,12 +17,14 @@ skinparam ArrowColor #001D34
 skinparam ArrowFontColor #757579
 
 actor "Referrer (Placer)\nPatient-Referral app" as R
-component "Qld Health\nProvider Directory\non FHIR\nqhpd.efiq.org" as D
-component "Referral Server\n(HAPI + QH IG)\nqhreferral.efiq.org" as S
-component "Imaging Provider (Filler / RIS)\nPatient-Referral Filler view\nris.efiq.org" as F
+component "Qld Health\nProvider Directory\non FHIR\nqhpd.jgsuess.dev" as D
+component "ADHA HCPD\ntest environment (SIT)" as H
+component "Referral Server\n(HAPI + QH IG)\nqhreferral.jgsuess.dev" as S
+component "Imaging Provider (Filler / RIS)\nPatient-Referral Filler view\nris.jgsuess.dev" as F
 actor "Patient app\n(stretch)" as P
-component "Terminology Server\n(Ontoserver)\ntx.efiq.org" as T
+component "Terminology Server\n(open sandbox Ontoserver)\nr4.ontoserver.csiro.au/fhir" as T
 
+H --> D : bulk data extraction\n($export)
 R --> D : discover service + Endpoint
 R --> S : create referral\n(ServiceRequest + Task)
 R --> S : search Slot / book Appointment
@@ -35,6 +37,7 @@ S ..> T
 F ..> T
 
 note right of T
+  External — not deployed.
   Shared by every server and app
   ($expand / $validate-code)
 end note
@@ -46,7 +49,7 @@ end note
 
 note top of R
   Patient-Referral —
-  live at patient-referral.efiq.org,
+  live at patient-referral.jgsuess.dev,
   pointed at the
   Qld Health Provider Directory on FHIR
 end note

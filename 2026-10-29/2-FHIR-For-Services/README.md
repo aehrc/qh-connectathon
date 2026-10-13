@@ -79,7 +79,7 @@ git submodule update --remote 2026-10-29/2-FHIR-For-Services/ig
 
 The **Referrer** role in the scenario is implemented by **Patient-Referral**, a Flask app
 built for **Sparked Connected Testing Scenario 1 (eRequest/eReferral)** — the same scenario
-lineage as our IG. The live instance runs at **https://patient-referral.efiq.org/** and is
+lineage as our IG. The live instance runs at **https://patient-referral.jgsuess.dev/** and is
 already pointed at the Qld Health Provider Directory on FHIR.
 
 It covers most of our flow out of the box:
