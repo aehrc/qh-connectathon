@@ -2,6 +2,11 @@
 
 **2A: Provider Directory and Workflow Services · FHIR in Queensland Health Connectathon · 29–30 October 2026**
 
+> **Scope note:** the Track 2A example (including the directory service replica) is a FHIR
+> referral/workflow scenario. It is **unrelated to the radiology / HL7v2 example for the
+> breakout** (`ris-hl7v2-tutorial`, "Caret"). The two share no infrastructure, namespaces, data or
+> hostnames.
+
 Led by Michael Osborne, this stream focuses on referral and workflow orchestration patterns
 using FHIR services. Activities may include:
 

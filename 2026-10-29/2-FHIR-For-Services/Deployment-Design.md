@@ -1,5 +1,11 @@
 # Services Track — Deployment Design (self-contained stack + external tx, staged)
 
+> **Scope note:** this deployment is the Track 2 services example, which includes the directory
+> service replica (HCPD-profiled HAPI). It is **unrelated to the radiology / HL7v2 example for the
+> breakout** (`ris-hl7v2-tutorial`), which is cited below only as a prior staging pattern. The
+> "radiology-referral" IG and scenario here are a FHIR referral workflow, not HL7v2. No
+> infrastructure, namespaces, data or hostnames are shared between the two.
+
 **Goal:** stand up the radiology-referral scenario as a **self-contained stack** — with a single,
 deliberate exception: **terminology is served by an external tx server**. Everything else runs
 inside the deployment so it can be tested independently, and the same source promotes unchanged
