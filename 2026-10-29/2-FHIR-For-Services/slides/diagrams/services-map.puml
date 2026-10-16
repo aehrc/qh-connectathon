@@ -1,0 +1,41 @@
+@startuml services-map
+' Capability map: the service kinds an architect picks from, grouped by the question they answer.
+' No arrows on purpose: six items in four groups, coloured by where the effort goes.
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam defaultFontSize 17
+skinparam rectangle {
+  FontColor #001D34
+  RoundCorner 8
+}
+skinparam legend {
+  BackgroundColor #FFFFFF
+  BorderColor #757579
+}
+
+rectangle "Find" as G1 #FFFFFF;line:757579 {
+  rectangle "Directory\nwho offers what, where" as DIR #E8E9FA;line:1E22AA
+  rectangle "Terminology\nagreed codes" as TX #E6F6FA;line:00A9CE
+}
+rectangle "Do" as G2 #FFFFFF;line:757579 {
+  rectangle "Referral and booking\nrequest, track, schedule" as SRV #E8E9FA;line:1E22AA
+  rectangle "Eventing\nnotify and decouple" as EVT #E6F6FA;line:00A9CE
+}
+rectangle "Connect" as G3 #FFFFFF;line:757579 {
+  rectangle "Legacy adapter\nHL7 v2 in, FHIR out" as ADP #FDEBD3;line:D9822B
+}
+rectangle "Prove" as G4 #FFFFFF;line:757579 {
+  rectangle "Conformance\nvalidate and test" as CON #E6F6FA;line:00A9CE
+}
+G1 -[hidden]right- G2
+G2 -[hidden]right- G3
+G3 -[hidden]right- G4
+
+legend bottom
+  |= Level |= What it takes |
+  |<#E6F6FA> 1 | Stock server + configuration |
+  |<#E8E9FA> 2 | Plus an Implementation Guide (no code) |
+  |<#FDEBD3> 3 | Plus bespoke code, only where there is no standard shape |
+endlegend
+@enduml

@@ -1,0 +1,24 @@
+@startuml services-families
+' Zoom level 0: four families of service, each answering one question an architect asks.
+' Level 1 is services-map.puml (the six services), level 2 is services-architecture.puml.
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam defaultFontSize 20
+skinparam rectangle {
+  FontColor #001D34
+  RoundCorner 10
+  BorderColor #00A9CE
+  BackgroundColor #E6F6FA
+}
+left to right direction
+
+rectangle "**Find**\n\nWho offers what,\nand which codes\ndo we agree on?" as F
+rectangle "**Do**\n\nHow is work requested,\ntracked and scheduled?" as D
+rectangle "**Connect**\n\nHow does the legacy\nestate join in?" as C #FDEBD3;line:D9822B
+rectangle "**Prove**\n\nHow do I know\nit works?" as P
+
+F -[hidden]right- D
+D -[hidden]right- C
+C -[hidden]right- P
+@enduml

@@ -1,20 +1,14 @@
 @startuml services-architecture
-' Illustrative architecture for the architects' deck: which FHIR services combine, and where the
-' effort goes (configuration, IG, or bespoke code). The two demo stacks are separate.
+' Illustrative architecture, reduced to six boxes and no crossing lines. Eventing, conformance and the
+' imaging provider are on the service map (services-map.puml) and left out here to keep this readable.
 skinparam backgroundColor transparent
 skinparam shadowing false
 skinparam defaultFontName Calibri
-skinparam defaultFontSize 15
+skinparam defaultFontSize 17
 skinparam componentStyle rectangle
 skinparam ArrowColor #001D34
 skinparam ArrowFontColor #757579
-skinparam ArrowFontSize 13
-skinparam packageStyle rectangle
-skinparam package {
-  BorderColor #757579
-  FontColor #001D34
-  BackgroundColor #FFFFFF
-}
+skinparam ArrowFontSize 14
 skinparam component {
   FontColor #001D34
   BorderColor #757579
@@ -23,43 +17,31 @@ skinparam legend {
   BackgroundColor #FFFFFF
   BorderColor #757579
 }
+left to right direction
 
-package "Clinical and participant systems" as CL {
-  component "Legacy RIS / PAS\nHL7 v2: ADT, ORM, ORU, SIU\nover MLLP" as RIS #F2F2F2
-  component "Imaging provider\n(filler)" as FIL #F2F2F2
-  component "Referrer app\n(browser / EMR)" as REF #F2F2F2
-}
+component "Referrer app\n(browser / EMR)" as REF #F2F2F2
+component "Legacy RIS\nHL7 v2 over MLLP" as RIS #F2F2F2
+component "Directory\nHCPD / Qld PD on FHIR" as DIR #E8E9FA;line:1E22AA
+component "Referral and\nbooking server" as SRV #E8E9FA;line:1E22AA
+component "Legacy adapter\nv2 to FHIR maps" as ADP #FDEBD3;line:D9822B
+component "Terminology\nOntoserver" as TX #E6F6FA;line:00A9CE
 
-package "Illustrative architecture: the services" as AR {
-  component "Directory\nHealthcareService, Location,\nEndpoint (HCPD / Qld PD on FHIR)" as DIR #E8E9FA;line:1E22AA
-  component "Referral and booking server\nServiceRequest, Task,\nSchedule, Slot, Appointment" as SRV #E8E9FA;line:1E22AA
-  component "Legacy adapter\nv2 listener, parser and FML maps\n(about 155 + 68 lines + maps)" as ADP #FDEBD3;line:D9822B
-  component "Eventing\nSubscriptions, messaging,\nasync requests" as EVT #E6F6FA;line:00A9CE
-  component "Terminology\nValueSets, code validation\n(Ontoserver)" as TX #E6F6FA;line:00A9CE
-  component "Conformance\n$validate, fhir-frog / frog-runner" as CON #E6F6FA;line:00A9CE
-}
+REF --> DIR : 1 discover
+REF --> SRV : 2 refer, 3 book
+RIS --> ADP : HL7 v2
+ADP --> SRV : FHIR
+DIR --> TX
+SRV --> TX
 
-REF -down-> DIR : 1 discover
-REF -down-> SRV : 2 refer, 3 book
-FIL -down-> SRV : triage, publish\nslots, confirm
-RIS -down-> ADP : HL7 v2 (MLLP)
-ADP -right-> SRV : FHIR\nresources
-SRV -down-> EVT : notify
-EVT -up-> FIL : new Task
-DIR -down-> TX
-SRV -down-> TX
-CON -up-> SRV : tests
-CON -up-> DIR : tests
-
-SRV -[hidden]right-> DIR
-ADP -[hidden]down-> CON
+REF -[hidden]down-> RIS
+DIR -[hidden]down-> SRV
+SRV -[hidden]down-> ADP
 
 legend bottom
   |= Level |= What it takes |
-  |<#E6F6FA> 1 | Stock server + configuration (akkadakka) |
-  |<#E8E9FA> 2 | Plus an Implementation Guide: profiles, ValueSets, CapabilityStatement (no code) |
-  |<#FDEBD3> 3 | Plus bespoke code, only where there is no standard shape |
-  Illustrative: the two demo stacks (Track 2A directory + referral, and Caret, the v2 adapter) are separate
-  and share no infrastructure, namespaces or data.
+  |<#E6F6FA> 1 | Stock server + configuration |
+  |<#E8E9FA> 2 | Plus an Implementation Guide (no code) |
+  |<#FDEBD3> 3 | Plus bespoke code |
+  Illustrative. The two demo stacks (Track 2A and Caret) are separate and share no infrastructure or data.
 endlegend
 @enduml
