@@ -137,16 +137,16 @@ Building Caret exposed two real faults, both fixed in the plugin (merged). An un
 
 ## Which pattern answers which question
 
-Source: fhirpatterns.net
-
 | Question | Pattern |
 |---|---|
-| Directory | Naming and Trading Service |
-| Referral | Asynchronous Invocation |
-| Eventing | Event Observer, Broker |
-| Legacy adapter | Legacy Adapter |
-| Terminology | PL-09, PL-10 |
-| Conformance | PL-15, PL-17 |
+| Who offers this service, and where? | Naming and Trading Service |
+| How do I request work and track it? | Asynchronous Invocation |
+| How do I tell others something changed? | Event Observer, Broker |
+| How does the legacy system join in? | Legacy Adapter |
+| Do we mean the same codes? | PL-09, PL-10 |
+| How do I know it works? | PL-15, PL-17 |
+
+Source: fhirpatterns.net
 
 <!--
 fhirpatterns.net publishes three pattern languages: FHIR Implementation Patterns, FHIR Authoring Patterns and IG Authoring Patterns. This table is the mapping used in this deck. Other implementation patterns on the site include Capability Facade and Imaging Bridge.
