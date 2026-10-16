@@ -1,0 +1,10 @@
+@startuml effort-legend
+' The effort key used by the services diagrams, as a separate strip so it can be shown large under any of them.
+!include palette.iuml
+skinparam defaultFontSize 22
+rectangle "1  Configure a stock server" as K1 #$L1
+rectangle "2  Add an Implementation Guide" as K2 #$L2
+rectangle "<color:white>3  Write code</color>" as K3 #$L3
+K1 -[hidden]right- K2
+K2 -[hidden]right- K3
+@enduml

@@ -1,41 +1,26 @@
 @startuml services-map
-' Capability map: the service kinds an architect picks from, grouped by the question they answer.
-' No arrows on purpose: six items in four groups, coloured by where the effort goes.
-skinparam backgroundColor transparent
-skinparam shadowing false
-skinparam defaultFontName Calibri
-skinparam defaultFontSize 17
-skinparam rectangle {
-  FontColor #001D34
-  RoundCorner 8
-}
-skinparam legend {
-  BackgroundColor #FFFFFF
-  BorderColor #757579
-}
+' Zoom level 1: the six services in four groups, no arrows. Colour = effort (darker = more custom work).
+' The effort key is a separate strip: effort-legend.puml.
+!include palette.iuml
 
-rectangle "Find" as G1 #FFFFFF;line:757579 {
-  rectangle "Directory\nwho offers what, where" as DIR #E8E9FA;line:1E22AA
-  rectangle "Terminology\nagreed codes" as TX #E6F6FA;line:00A9CE
+rectangle "**1  Find**" as G1 #FFFFFF;line:757579 {
+  rectangle "Terminology\nagreed codes" as TX #$L1
+  rectangle "Directory\nwho offers what, where" as DIR #$L2
 }
-rectangle "Do" as G2 #FFFFFF;line:757579 {
-  rectangle "Referral and booking\nrequest, track, schedule" as SRV #E8E9FA;line:1E22AA
-  rectangle "Eventing\nnotify and decouple" as EVT #E6F6FA;line:00A9CE
+rectangle "**2  Do**" as G2 #FFFFFF;line:757579 {
+  rectangle "Eventing\nnotify and decouple" as EVT #$L1
+  rectangle "Referral and booking\nrequest, track, schedule" as SRV #$L2
 }
-rectangle "Connect" as G3 #FFFFFF;line:757579 {
-  rectangle "Legacy adapter\nHL7 v2 in, FHIR out" as ADP #FDEBD3;line:D9822B
+rectangle "**3  Connect**" as G3 #FFFFFF;line:757579 {
+  rectangle "<color:white>Legacy adapter</color>\n<color:white>HL7 v2 in, FHIR out</color>" as ADP #$L3
 }
-rectangle "Prove" as G4 #FFFFFF;line:757579 {
-  rectangle "Conformance\nvalidate and test" as CON #E6F6FA;line:00A9CE
+rectangle "**4  Prove**" as G4 #FFFFFF;line:757579 {
+  rectangle "Conformance\nvalidate and test" as CON #$L1
 }
 G1 -[hidden]right- G2
 G2 -[hidden]right- G3
 G3 -[hidden]right- G4
+TX -[hidden]right- DIR
+EVT -[hidden]right- SRV
 
-legend bottom
-  |= Level |= What it takes |
-  |<#E6F6FA> 1 | Stock server + configuration |
-  |<#E8E9FA> 2 | Plus an Implementation Guide (no code) |
-  |<#FDEBD3> 3 | Plus bespoke code, only where there is no standard shape |
-endlegend
 @enduml
