@@ -106,3 +106,92 @@ Pale services are configuration, mid-tone ones need an IG, the dark one needs a 
 ![h:380 center](slides/diagrams/services-architecture.svg)
 
 Illustrative: the two demo stacks (Track 2A and Caret) are separate and share no infrastructure or data.
+
+---
+
+## Worked example: Caret
+
+**Stock:** HAPI server, validator, mapping engine, storage, Postgres.
+
+**Ours:** a small plugin (listener 155 lines, parser 68) and maps of 45 to 105 lines each.
+
+Apache-2.0. Synthetic data.
+
+<!--
+Caret is a hands-on tutorial: send a real HL7 v2 message over MLLP, watch a real FHIR server turn it into FHIR resources, then read the map that did it. A small sender stands in for the RIS. Maps are written in FHIR Mapping Language. Message types: ADT A04 and A08, ORM O01, ORU R01, MDM T02, OMI O23. Source: gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial.
+-->
+
+---
+
+## Limits of Caret
+
+- Reference, not a product: five message types, no authentication or TLS, one fictional hospital.
+- Two defects fixed in the plugin: unescaped "^" gave AE with no audit record; contained Observation showed an object name.
+- Failures now get a rejected acknowledgement and AuditEvent.
+
+<!--
+Building Caret exposed two real faults, both fixed in the plugin (merged). An unescaped caret in a text report made the server answer AE with no audit record. A contained Observation showed an object name instead of the report text. Failed messages now get a rejected acknowledgement with a reason and an AuditEvent. Production needs authentication, TLS, more message types and monitoring; Layer 6 of the tutorial lists what. The lesson: a reader of a map can find and fix this kind of fault.
+-->
+
+---
+
+## Which pattern answers which question
+
+Source: fhirpatterns.net
+
+| Question | Pattern |
+|---|---|
+| Directory | Naming and Trading Service |
+| Referral | Asynchronous Invocation |
+| Eventing | Event Observer, Broker |
+| Legacy adapter | Legacy Adapter |
+| Terminology | PL-09, PL-10 |
+| Conformance | PL-15, PL-17 |
+
+<!--
+fhirpatterns.net publishes three pattern languages: FHIR Implementation Patterns, FHIR Authoring Patterns and IG Authoring Patterns. This table is the mapping used in this deck. Other implementation patterns on the site include Capability Facade and Imaging Bridge.
+-->
+
+---
+
+## Experiments: akkadakka
+
+- Wiki, snippets and tutorial trail for the HAPI FHIR JPA Starter.
+- Configuration and reuse; no HAPI code held.
+- More than a dozen snippets. Not yet covered: terminology, directory, legacy adapter.
+- "Activate IPS" leads to the AU Patient Summary plugin.
+- gitlab.com/australian-e-health-research-centre/akkadakka
+
+<!--
+The snippets are GitLab snippets. Each has a stock hapiproject/hapi container, an application.yaml, seed and example scripts, and a README. PSGC (geographic codes) and Duke UCUM (units) are worked examples of custom terminology plugins. The akkadakka.dev website is coming.
+-->
+
+---
+
+## Conformance checks
+
+- Two layers: HAPI $validate for resources, fhir-frog for conformance test scripts.
+- frog-runner is public (early trial): gitlab.com/fhirfrog/frog-runner
+- Track 2 repo: directory bundle and referral bundle recorded as passing (referral 6 of 6).
+- akkadakka: validator snippets. Patterns: PL-15, PL-17.
+
+<!--
+Two layers: HAPI $validate for resources, then fhir-frog test scripts. frog-runner describes itself as an early trial. Track 2 bundles are recorded as passing. Validator Gate in CI is PL-15. TestScript / Inferno / Touchstone Alignment is PL-17.
+-->
+
+---
+
+## Where to look
+
+| Topic | Advice | Try it | Run it |
+|---|---|---|---|
+| Terminology | [PL-09](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-09/), PL-10 | gap | [Ontoserver](https://r4.ontoserver.csiro.au) |
+| Directory | [Naming and Trading](https://fhirpatterns.net/fhir-implementation-patterns/patterns/naming-trading/) | gap | [repo](https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-Services/deploy) |
+| Referral and booking | [Async Invocation](https://fhirpatterns.net/fhir-implementation-patterns/patterns/async-invocation/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/6008642) | [repo](https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-Services/deploy), [IG](https://github.com/aehrc/radiology-referral) |
+| Eventing | [Event Observer](https://fhirpatterns.net/fhir-implementation-patterns/patterns/event-observer/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/6008651) | same snippets |
+| Legacy adapter | [Legacy Adapter](https://fhirpatterns.net/fhir-implementation-patterns/patterns/legacy-adapter/) | gap | [Caret](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial) |
+| Conformance | [PL-15](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-15/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/4879496) | [repo](https://gitlab.com/fhirfrog/frog-runner) |
+
+<!--
+Every topic has advice. Three have no try-it snippet yet: terminology, directory and legacy adapter. Run-it for directory and referral is the Track 2 deploy folder; the IG is the Radiology Referral IG; conformance run-it is frog-runner.
+-->
