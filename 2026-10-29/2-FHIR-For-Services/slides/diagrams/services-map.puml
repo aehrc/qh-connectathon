@@ -1,0 +1,26 @@
+@startuml services-map
+' Zoom level 1: the six services in four groups, no arrows. Colour = effort (darker = more custom work).
+' The effort key is a separate strip: effort-legend.puml.
+!include palette.iuml
+
+rectangle "**1  Find**" as G1 #FFFFFF;line:757579 {
+  rectangle "Terminology\nagreed codes" as TX #$L1
+  rectangle "Directory\nwho offers what, where" as DIR #$L2
+}
+rectangle "**2  Do**" as G2 #FFFFFF;line:757579 {
+  rectangle "Eventing\nnotify and decouple" as EVT #$L1
+  rectangle "Referral and booking\nrequest, track, schedule" as SRV #$L2
+}
+rectangle "**3  Connect**" as G3 #FFFFFF;line:757579 {
+  rectangle "<color:white>Legacy adapter</color>\n<color:white>HL7 v2 in, FHIR out</color>" as ADP #$L3
+}
+rectangle "**4  Prove**" as G4 #FFFFFF;line:757579 {
+  rectangle "Conformance\nvalidate and test" as CON #$L1
+}
+G1 -[hidden]right- G2
+G3 -[hidden]right- G4
+G1 -[hidden]down- G3
+TX -[hidden]right- DIR
+EVT -[hidden]right- SRV
+
+@enduml

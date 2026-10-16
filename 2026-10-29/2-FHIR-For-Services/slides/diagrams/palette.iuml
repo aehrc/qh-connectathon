@@ -1,0 +1,22 @@
+' Shared look for the services diagrams. Effort is one colour ramp: the darker, the more custom work.
+!$L1 = "E6F6FA"
+!$L2 = "8AD8EA"
+!$L3 = "007A9A"
+skinparam svgDimensionStyle false
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam defaultFontName Calibri
+skinparam defaultFontSize 20
+skinparam ArrowColor #001D34
+skinparam ArrowFontColor #4D4D50
+skinparam ArrowFontSize 16
+skinparam ArrowThickness 1.5
+skinparam rectangle {
+  FontColor #001D34
+  BorderColor #00A9CE
+  RoundCorner 10
+}
+skinparam component {
+  FontColor #001D34
+  BorderColor #00A9CE
+}
