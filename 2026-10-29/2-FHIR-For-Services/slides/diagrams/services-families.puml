@@ -11,7 +11,6 @@ skinparam rectangle {
   BorderColor #00A9CE
   BackgroundColor #E6F6FA
 }
-left to right direction
 
 rectangle "**Find**\n\nWho offers what,\nand which codes\ndo we agree on?" as F
 rectangle "**Do**\n\nHow is work requested,\ntracked and scheduled?" as D
