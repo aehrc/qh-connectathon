@@ -97,7 +97,7 @@ The colour follows the effort: the darker, the more custom work. Most of an arch
 
 ![h:380 center](slides/diagrams/services-map.svg)
 
-Pale services are configuration, mid-tone ones need an IG, the dark one needs code.
+Pale services are configuration, mid-tone ones need an IG, the dark one needs a little code.
 
 ---
 
