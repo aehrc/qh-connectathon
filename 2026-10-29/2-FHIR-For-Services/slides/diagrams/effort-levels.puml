@@ -1,0 +1,11 @@
+@startuml effort-levels
+' Defines the effort colour ramp used by the other services diagrams: darker = more custom work.
+!include palette.iuml
+skinparam defaultFontSize 22
+
+rectangle "**1  Configure**\n\nA stock server\nand settings\n\n__e.g.__ HAPI FHIR set up\nfrom akkadakka snippets" as K1 #$L1
+rectangle "**2  Add an IG**\n\nProfiles, ValueSets,\nCapabilityStatement.\nNo code.\n\n__e.g.__ the Radiology Referral\nand Booking IG" as K2 #$L2
+rectangle "<color:white>**3  Write code**</color>\n\n<color:white>Only where there is</color>\n<color:white>no standard shape</color>\n\n<color:white>__e.g.__ the HL7 v2 adapter:</color>\n<color:white>about 155 + 68 lines of Java</color>" as K3 #$L3
+K1 -[hidden]right- K2
+K2 -[hidden]right- K3
+@enduml

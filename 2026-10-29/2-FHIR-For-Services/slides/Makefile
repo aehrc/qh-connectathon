@@ -45,6 +45,11 @@ diagrams: $(DIAGRAM_SVG)
 
 diagrams/%.svg: diagrams/%.puml
 	$(PLANTUML) -tsvg $<
+	@# PlantUML writes preserveAspectRatio="none", which stretches text when Marp sizes by height only
+	@sed -i 's/preserveAspectRatio="none"/preserveAspectRatio="xMidYMid meet"/' $@
+	@# PlantUML also pins each text run to the width of the font it had at render time (textLength), which
+	@# stretches or squeezes text when the slide renderer uses a different font; let the browser lay text out
+	@sed -i -E 's/ (textLength|lengthAdjust)="[^"]*"//g' $@
 
 ## Build the editable PowerPoint deck
 pptx: diagrams

@@ -2,6 +2,8 @@
 ' Zoom level 2: illustrative architecture, six boxes, no crossing lines. Eventing, conformance and the
 ' imaging provider are on the map (services-map.puml) and left off here to keep this readable.
 !include palette.iuml
+skinparam defaultFontSize 24
+skinparam ArrowFontSize 20
 skinparam componentStyle rectangle
 left to right direction
 

@@ -85,30 +85,24 @@ Each family has a few ready-made services. We look at what is in each, and what 
 
 ---
 
-## Six services, and where the effort goes
+## Three levels of effort
 
-![h:360 center](slides/diagrams/services-map.svg)
+![h:380 center](slides/diagrams/effort-levels.svg)
 
-![h:60 center](slides/diagrams/effort-legend.svg)
+The colour follows the effort: the darker, the more custom work. Most of an architecture is levels 1 and 2.
 
 ---
 
-## Three levels of effort
+## Six services across the four families
 
-| | What it takes | Example |
-|---|---|---|
-| **1. Configure** | A stock server and settings | A HAPI FHIR server set up from akkadakka snippets |
-| **2. Add an IG** | Profiles, ValueSets, a CapabilityStatement; no code | The Radiology Referral and Booking IG on the same server |
-| **3. Write code** | Only where there is no standard shape | The HL7 v2 adapter: about 155 + 68 lines of Java, plus maps |
+![h:380 center](slides/diagrams/services-map.svg)
 
-Most of an architecture is levels 1 and 2.
+Pale services are configuration, mid-tone ones need an IG, the dark one needs code.
 
 ---
 
 ## How they combine (illustrative)
 
-![h:340 center](slides/diagrams/services-architecture.svg)
-
-![h:50 center](slides/diagrams/effort-legend.svg)
+![h:380 center](slides/diagrams/services-architecture.svg)
 
 Illustrative: the two demo stacks (Track 2A and Caret) are separate and share no infrastructure or data.

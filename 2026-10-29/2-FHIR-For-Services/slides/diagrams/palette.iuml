@@ -2,6 +2,7 @@
 !$L1 = "E6F6FA"
 !$L2 = "8AD8EA"
 !$L3 = "007A9A"
+skinparam svgDimensionStyle false
 skinparam backgroundColor transparent
 skinparam shadowing false
 skinparam defaultFontName Calibri

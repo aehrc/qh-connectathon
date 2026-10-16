@@ -9,9 +9,9 @@ skinparam rectangle {
 skinparam defaultFontSize 22
 
 rectangle "**1  Find**\n\nWho offers what,\nand which codes\ndo we agree on?" as F
-rectangle "**2  Do**\n\nHow is work requested,\ntracked and scheduled?" as D
-rectangle "**3  Connect**\n\nHow does the legacy\nestate join in?" as C
-rectangle "**4  Prove**\n\nHow do I know\nit works?" as P
+rectangle "**2  Do**\n\nHow is work requested,\ntracked and\nscheduled?" as D
+rectangle "**3  Connect**\n\nHow does the\nlegacy estate\njoin in?" as C
+rectangle "**4  Prove**\n\nHow do I\nknow it\nworks?" as P
 F -[hidden]right- D
 D -[hidden]right- C
 C -[hidden]right- P
