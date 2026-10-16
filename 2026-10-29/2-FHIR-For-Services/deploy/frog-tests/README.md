@@ -1,7 +1,7 @@
 # Track 2 — fhir-frog conformance tests
 
 FHIR conformance tests for the radiology-referral scenario, run with
-**[frog-runner](https://github.com/aehrc/frog-runner)** on the **`org.fhirfrog`** engine
+**[frog-runner](https://gitlab.com/fhirfrog/frog-runner)** on the **`org.fhirfrog`** engine
 (fhirfrog.org lineage — `fhir-frog-library 0-SNAPSHOT`, resolved from the fhirfrog GitLab group
 Maven registry). These reuse/adapt the TestScripts from the HL7 AU Sparked Testing Event
 (`sparked-testing-2026-07-08`, Connected Scenario 1); only the *engine* differs (frog-runner /
