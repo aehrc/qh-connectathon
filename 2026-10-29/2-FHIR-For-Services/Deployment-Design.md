@@ -153,7 +153,7 @@ counts, `$validate` clean (against the `radiology-referral` IG), and directory s
 seeded providers. Exits non-zero on any failure. Runs in CI and before each event day.
 
 ### 5b. Conformance testing — fhir-frog / frog-runner
-Use **[frog-runner](https://github.com/aehrc/frog-runner)** (IG-agnostic fhir-frog conformance
+Use **[frog-runner](https://gitlab.com/fhirfrog/frog-runner)** (IG-agnostic fhir-frog conformance
 runner + web UI — "fhir-frog's answer to Inferno") to check the deployed servers against the IGs:
 
 - **Directory server** → the **ADHA Provider Directory IG** (does the seeded directory conform to
