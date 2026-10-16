@@ -18,8 +18,8 @@ rectangle "**4  Prove**" as G4 #FFFFFF;line:757579 {
   rectangle "Conformance\nvalidate and test" as CON #$L1
 }
 G1 -[hidden]right- G2
-G2 -[hidden]right- G3
 G3 -[hidden]right- G4
+G1 -[hidden]down- G3
 TX -[hidden]right- DIR
 EVT -[hidden]right- SRV
 
