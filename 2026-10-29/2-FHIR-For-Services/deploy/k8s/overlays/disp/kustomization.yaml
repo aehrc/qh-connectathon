@@ -25,7 +25,15 @@ patches:
         value: contour
       - op: add
         path: /metadata/annotations/cert-manager.io~1cluster-issuer
-        value: letsencrypt
+        value: cluster-issuer-csiro   # "letsencrypt" never issued on DiSP (cert stuck Ready=False); this is the issuer the RIS tutorial uses successfully
+      # Contour: the base's nginx-style regex paths shadow the ACME HTTP-01 solver route
+      # (referrer's /()(.*) answered the challenge with 404). Use plain Prefix paths.
+      - op: replace
+        path: /spec/rules/0/http/paths
+        value:
+          - { path: /fhir, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
+          - { path: /directory, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
+          - { path: /, pathType: Prefix, backend: { service: { name: referrer, port: { number: 5000 } } } }
       - op: add
         path: /spec/rules/0/host
         value: aehrc-qh-connectathon-track-2.dw.csiro.au
