@@ -1,0 +1,894 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-ref1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-ref1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003621566684455"
+          }
+        ],
+        "active": true,
+        "name": "Riverside Family Practice",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505001"
+          }
+        ],
+        "address": [
+          {
+            "city": "Brisbane",
+            "state": "QLD",
+            "postalCode": "4000",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-ref1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-qhc-prac-1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhc-prac-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National provider identifier"
+                }
+              ],
+              "text": "HPI-I"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619900015717"
+          }
+        ],
+        "name": [
+          {
+            "family": "Chen",
+            "given": [
+              "Alex"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhc-prac-1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitionerrole-qhc-role-1",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "qhc-role-1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitionerrole"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "UPIN",
+                  "display": "Medicare Provider Number"
+                }
+              ],
+              "text": "Medicare Provider Number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "2426621B"
+          }
+        ],
+        "practitioner": {
+          "reference": "Practitioner/qhc-prac-1",
+          "display": "Dr Alex Chen"
+        },
+        "organization": {
+          "reference": "Organization/qhc-org-ref1",
+          "display": "Riverside Family Practice"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505001"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/qhc-role-1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-ref2",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-ref2",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000023"
+          }
+        ],
+        "active": true,
+        "name": "Wattle Grove Medical Centre",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505002"
+          }
+        ],
+        "address": [
+          {
+            "city": "Ipswich",
+            "state": "QLD",
+            "postalCode": "4305",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-ref2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-qhc-prac-2",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhc-prac-2",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National provider identifier"
+                }
+              ],
+              "text": "HPI-I"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619900000024"
+          }
+        ],
+        "name": [
+          {
+            "family": "Joshi",
+            "given": [
+              "Meera"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhc-prac-2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitionerrole-qhc-role-2",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "qhc-role-2",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitionerrole"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "UPIN",
+                  "display": "Medicare Provider Number"
+                }
+              ],
+              "text": "Medicare Provider Number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "29990201"
+          }
+        ],
+        "practitioner": {
+          "reference": "Practitioner/qhc-prac-2",
+          "display": "Dr Meera Joshi"
+        },
+        "organization": {
+          "reference": "Organization/qhc-org-ref2",
+          "display": "Wattle Grove Medical Centre"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505002"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/qhc-role-2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-ref3",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-ref3",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000031"
+          }
+        ],
+        "active": true,
+        "name": "Reef View Medical Practice",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505003"
+          }
+        ],
+        "address": [
+          {
+            "city": "Cairns",
+            "state": "QLD",
+            "postalCode": "4870",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-ref3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-qhc-prac-3",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhc-prac-3",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National provider identifier"
+                }
+              ],
+              "text": "HPI-I"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619900000032"
+          }
+        ],
+        "name": [
+          {
+            "family": "O'Connell",
+            "given": [
+              "Liam"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhc-prac-3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitionerrole-qhc-role-3",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "qhc-role-3",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitionerrole"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "UPIN",
+                  "display": "Medicare Provider Number"
+                }
+              ],
+              "text": "Medicare Provider Number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "29990301"
+          }
+        ],
+        "practitioner": {
+          "reference": "Practitioner/qhc-prac-3",
+          "display": "Dr Liam O'Connell"
+        },
+        "organization": {
+          "reference": "Organization/qhc-org-ref3",
+          "display": "Reef View Medical Practice"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505003"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/qhc-role-3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-ref4",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-ref4",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000049"
+          }
+        ],
+        "active": true,
+        "name": "Cane Valley Family Clinic",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505004"
+          }
+        ],
+        "address": [
+          {
+            "city": "Mackay",
+            "state": "QLD",
+            "postalCode": "4740",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-ref4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-qhc-prac-4",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhc-prac-4",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National provider identifier"
+                }
+              ],
+              "text": "HPI-I"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619900000040"
+          }
+        ],
+        "name": [
+          {
+            "family": "Hartmann",
+            "given": [
+              "Beatrice"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhc-prac-4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitionerrole-qhc-role-4",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "qhc-role-4",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitionerrole"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "UPIN",
+                  "display": "Medicare Provider Number"
+                }
+              ],
+              "text": "Medicare Provider Number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "29990401"
+          }
+        ],
+        "practitioner": {
+          "reference": "Practitioner/qhc-prac-4",
+          "display": "Dr Beatrice Hartmann"
+        },
+        "organization": {
+          "reference": "Organization/qhc-org-ref4",
+          "display": "Cane Valley Family Clinic"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505004"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/qhc-role-4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-ref5",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-ref5",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000056"
+          }
+        ],
+        "active": true,
+        "name": "Toowoomba Range Medical",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505005"
+          }
+        ],
+        "address": [
+          {
+            "city": "Toowoomba",
+            "state": "QLD",
+            "postalCode": "4350",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-ref5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-qhc-prac-5",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhc-prac-5",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National provider identifier"
+                }
+              ],
+              "text": "HPI-I"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619900000057"
+          }
+        ],
+        "name": [
+          {
+            "family": "Okoro",
+            "given": [
+              "Samuel"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhc-prac-5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitionerrole-qhc-role-5",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "qhc-role-5",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitionerrole"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "UPIN",
+                  "display": "Medicare Provider Number"
+                }
+              ],
+              "text": "Medicare Provider Number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "29990501"
+          }
+        ],
+        "practitioner": {
+          "reference": "Practitioner/qhc-prac-5",
+          "display": "Dr Samuel Okoro"
+        },
+        "organization": {
+          "reference": "Organization/qhc-org-ref5",
+          "display": "Toowoomba Range Medical"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "62247001",
+                "display": "General practitioner"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505005"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/qhc-role-5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-ref6",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-ref6",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629900000064"
+          }
+        ],
+        "active": true,
+        "name": "Bayside Community Hospital Outpatients",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505006"
+          }
+        ],
+        "address": [
+          {
+            "city": "Wynnum",
+            "state": "QLD",
+            "postalCode": "4178",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-ref6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-qhc-prac-6",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhc-prac-6",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitioner"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI",
+                  "display": "National provider identifier"
+                }
+              ],
+              "text": "HPI-I"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619900000065"
+          }
+        ],
+        "name": [
+          {
+            "family": "Whitfield",
+            "given": [
+              "Hannah"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhc-prac-6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitionerrole-qhc-role-6",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "qhc-role-6",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-practitionerrole"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "UPIN",
+                  "display": "Medicare Provider Number"
+                }
+              ],
+              "text": "Medicare Provider Number"
+            },
+            "system": "http://ns.electronichealth.net.au/id/medicare-provider-number",
+            "value": "29990601"
+          }
+        ],
+        "practitioner": {
+          "reference": "Practitioner/qhc-prac-6",
+          "display": "Dr Hannah Whitfield"
+        },
+        "organization": {
+          "reference": "Organization/qhc-org-ref6",
+          "display": "Bayside Community Hospital Outpatients"
+        },
+        "code": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "309343006",
+                "display": "Physician"
+              }
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0755505006"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/qhc-role-6"
+      }
+    }
+  ]
+}

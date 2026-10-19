@@ -22,7 +22,7 @@ spec:
             - { name: PORT,       value: "5000" }
             - { name: USE_AUTH,   value: "false" }
             - { name: FHIR_SERVER, value: "http://fhir:8080/fhir" }
-            - { name: PD_SERVER,   value: "http://directory:8080/fhir" }
+            - { name: PD_SERVER,   value: "http://directory:8080/directory/fhir" }
           ports: [ { containerPort: 5000 } ]
           resources:
             requests: { cpu: "100m", memory: "256Mi" }

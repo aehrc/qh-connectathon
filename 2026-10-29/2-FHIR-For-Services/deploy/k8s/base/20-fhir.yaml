@@ -97,6 +97,10 @@ spec:
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # Serve under /directory (ingress cannot rewrite paths): Spring context path.
+            # FHIR base becomes /directory/fhir; referral server stays at /fhir.
+            # See deploy/DIRECTORY-CONTEXT-PATH.md (probes, overlays' server_address).
+            - { name: SERVER_SERVLET_CONTEXT_PATH, value: /directory }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
             # --- ADHA Provider Directory IG (HAPI-native packageUrl auto-install) ---
@@ -111,7 +115,7 @@ spec:
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
-            httpGet: { path: /fhir/metadata, port: 8080 }
+            httpGet: { path: /directory/fhir/metadata, port: 8080 }
             initialDelaySeconds: 45
             periodSeconds: 15
             failureThreshold: 20

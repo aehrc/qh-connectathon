@@ -44,6 +44,13 @@ patches:
             secretName: track2-tls
     target: { kind: Ingress, name: track2 }
 
+  # Directory HAPI: advertise the public https base in links/Location headers.
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir" }
+    target: { kind: Deployment, name: directory }
+
   # Referrer pulls from a public registry on DiSP (base uses IfNotPresent for the
   # microk8s local import; DiSP must actually pull it).
   - patch: |-
