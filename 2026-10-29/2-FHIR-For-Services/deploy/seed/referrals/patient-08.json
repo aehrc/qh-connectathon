@@ -165,9 +165,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003623233370062"
+              "value": "8003629999000017"
             },
-            "display": "Northside Imaging"
+            "display": "Tropic Coast Health Service"
           }
         ],
         "reasonCode": [
@@ -257,9 +257,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003623233370062"
+            "value": "8003629999000017"
           },
-          "display": "Northside Imaging"
+          "display": "Tropic Coast Health Service"
         }
       },
       "request": {
@@ -356,9 +356,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003623233370062"
+            "value": "8003629999000017"
           },
-          "display": "Northside Imaging"
+          "display": "Tropic Coast Health Service"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0009"
@@ -385,8 +385,8 @@
             "coding": [
               {
                 "system": "http://snomed.info/sct",
-                "code": "310125001",
-                "display": "Radiology service"
+                "code": "933537131000036109",
+                "display": "X-ray service"
               }
             ]
           }
@@ -416,10 +416,10 @@
             "actor": {
               "type": "Location",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key",
-                "value": "QHC-LOC-F1"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-LOC-01"
               },
-              "display": "Northside Imaging - Chermside"
+              "display": "Tropic Coast Base Hospital - Medical Imaging"
             },
             "status": "accepted"
           },
@@ -427,10 +427,10 @@
             "actor": {
               "type": "HealthcareService",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key",
-                "value": "QHC-HCS-F1-XR"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-HCS-02"
               },
-              "display": "Northside Imaging - Radiology"
+              "display": "Cairns General X-ray"
             },
             "status": "accepted"
           }

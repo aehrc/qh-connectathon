@@ -175,9 +175,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001062"
+              "value": "8003629999000033"
             },
-            "display": "Sunshine Coast Radiology"
+            "display": "Darling Plains Health Service"
           }
         ],
         "reasonCode": [
@@ -254,9 +254,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001062"
+            "value": "8003629999000033"
           },
-          "display": "Sunshine Coast Radiology"
+          "display": "Darling Plains Health Service"
         }
       },
       "request": {
@@ -345,9 +345,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001062"
+            "value": "8003629999000033"
           },
-          "display": "Sunshine Coast Radiology"
+          "display": "Darling Plains Health Service"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0018"

@@ -136,9 +136,9 @@ if [ "$DIR_OK" = 1 ]; then
     HCS_ORG=$(jq -r '[.entry[].resource | select(.resourceType=="HealthcareService")][0].providedBy.reference // empty' "$BODY")
     HCS_NAME=$(jq -r '[.entry[].resource | select(.resourceType=="HealthcareService")][0].name // empty' "$BODY")
   else fail "directory search returns seeded HealthcareService" "$(err_detail), found=${hs:-0}"; HCS_ID=""; fi
-  http GET "$DIR/HealthcareService?service-type=http://snomed.info/sct%7C708175000&_summary=count"
+  http GET "$DIR/HealthcareService?service-type=http://snomed.info/sct%7C310128004&_summary=count"
   [ "$CODE" = "200" ] && [ "$(jq -r '.total // 0' "$BODY")" -ge 1 ] \
-    && pass "directory search by service-type (SNOMED 708175000) matches" || fail "directory search by service-type 708175000" "$(err_detail)"
+    && pass "directory search by service-type (SNOMED 310128004) matches" || fail "directory search by service-type 310128004" "$(err_detail)"
 else
   for s in "directory HCPD StructureDefinitions" "directory HealthcareService search"; do skip "$s" "directory metadata failed"; done
   HCS_ID=""

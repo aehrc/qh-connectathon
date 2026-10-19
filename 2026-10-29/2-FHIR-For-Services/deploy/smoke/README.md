@@ -24,7 +24,7 @@ BASE_URL=https://track2.example.org ./smoke.sh
 2. Referrer UI `GET /` is 200
 3. `/fhir/metadata` and directory `metadata` are 200
 4. Directory has HCPD StructureDefinitions (and `hcpd-healthcareservice`); search returns a seeded
-   HealthcareService (with `_include`); `service-type` search matches SNOMED 708175000
+   HealthcareService (with `_include`); `service-type` search matches SNOMED 310128004
 5. Referral flow on the referral server: fixtures (Patient, 2 Organizations, Practitioner,
    PractitionerRole) -> ServiceRequest + Group Task + Referral Task (`requested`) -> triage
    (Task `accepted`) -> Schedule + free Slot -> Appointment `proposed` against the Slot -> filler

@@ -212,9 +212,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001047"
+              "value": "8003629999000066"
             },
-            "display": "Darling Downs Medical Imaging"
+            "display": "Southern Cross Diagnostic Imaging"
           }
         ],
         "reasonCode": [
@@ -304,9 +304,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001047"
+            "value": "8003629999000066"
           },
-          "display": "Darling Downs Medical Imaging"
+          "display": "Southern Cross Diagnostic Imaging"
         }
       },
       "request": {
@@ -403,9 +403,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001047"
+            "value": "8003629999000066"
           },
-          "display": "Darling Downs Medical Imaging"
+          "display": "Southern Cross Diagnostic Imaging"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0007"
@@ -443,7 +443,7 @@
         "created": "2026-10-10",
         "slot": [
           {
-            "reference": "Slot/qhc-slot-f4-ct-20261102-0800"
+            "reference": "Slot/qhc-slot-f5-ct-20261102-0800"
           }
         ],
         "basedOn": [
@@ -463,10 +463,10 @@
             "actor": {
               "type": "Location",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key",
-                "value": "QHC-LOC-F4"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-LOC-10"
               },
-              "display": "Darling Downs Medical Imaging - Toowoomba"
+              "display": "Southern Cross Diagnostic Imaging - Southport"
             },
             "status": "accepted"
           },
@@ -474,10 +474,10 @@
             "actor": {
               "type": "HealthcareService",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key",
-                "value": "QHC-HCS-F4-CT"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-HCS-22"
               },
-              "display": "Darling Downs Medical Imaging - Computed tomography"
+              "display": "Southport CT"
             },
             "status": "accepted"
           }

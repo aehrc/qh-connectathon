@@ -165,9 +165,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001039"
+              "value": "8003629999000066"
             },
-            "display": "Dry Tropics Radiology"
+            "display": "Southern Cross Diagnostic Imaging"
           }
         ],
         "reasonCode": [
@@ -252,9 +252,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001039"
+            "value": "8003629999000066"
           },
-          "display": "Dry Tropics Radiology"
+          "display": "Southern Cross Diagnostic Imaging"
         }
       },
       "request": {
@@ -351,9 +351,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001039"
+            "value": "8003629999000066"
           },
-          "display": "Dry Tropics Radiology"
+          "display": "Southern Cross Diagnostic Imaging"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0020"

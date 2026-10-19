@@ -165,9 +165,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001047"
+              "value": "8003629999000058"
             },
-            "display": "Darling Downs Medical Imaging"
+            "display": "Moreton Bay Imaging Partners"
           }
         ],
         "reasonCode": [
@@ -252,9 +252,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001047"
+            "value": "8003629999000058"
           },
-          "display": "Darling Downs Medical Imaging"
+          "display": "Moreton Bay Imaging Partners"
         }
       },
       "request": {
@@ -351,9 +351,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001047"
+            "value": "8003629999000058"
           },
-          "display": "Darling Downs Medical Imaging"
+          "display": "Moreton Bay Imaging Partners"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0014"
@@ -380,8 +380,8 @@
             "coding": [
               {
                 "system": "http://snomed.info/sct",
-                "code": "310125001",
-                "display": "Radiology service"
+                "code": "933537131000036109",
+                "display": "X-ray service"
               }
             ]
           }
@@ -391,7 +391,7 @@
         "created": "2026-08-13",
         "slot": [
           {
-            "reference": "Slot/qhc-slot-f4-xr-20260820-0900"
+            "reference": "Slot/qhc-slot-f6-xr-20260820-0900"
           }
         ],
         "basedOn": [
@@ -411,10 +411,10 @@
             "actor": {
               "type": "Location",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key",
-                "value": "QHC-LOC-F4"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-LOC-08"
               },
-              "display": "Darling Downs Medical Imaging - Toowoomba"
+              "display": "Moreton Bay Imaging - Caboolture"
             },
             "status": "accepted"
           },
@@ -422,10 +422,10 @@
             "actor": {
               "type": "HealthcareService",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key",
-                "value": "QHC-HCS-F4-XR"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-HCS-20"
               },
-              "display": "Darling Downs Medical Imaging - Radiology"
+              "display": "Caboolture X-ray"
             },
             "status": "accepted"
           }
@@ -523,9 +523,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001047"
+              "value": "8003629999000058"
             },
-            "display": "Darling Downs Medical Imaging"
+            "display": "Moreton Bay Imaging Partners"
           }
         ],
         "reasonCode": [
@@ -602,9 +602,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001047"
+            "value": "8003629999000058"
           },
-          "display": "Darling Downs Medical Imaging"
+          "display": "Moreton Bay Imaging Partners"
         }
       },
       "request": {
@@ -693,9 +693,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001047"
+            "value": "8003629999000058"
           },
-          "display": "Darling Downs Medical Imaging"
+          "display": "Moreton Bay Imaging Partners"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0015"

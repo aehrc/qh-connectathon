@@ -165,9 +165,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001039"
+              "value": "8003629999000025"
             },
-            "display": "Dry Tropics Radiology"
+            "display": "Capricorn Bay Health Service"
           }
         ]
       },
@@ -241,9 +241,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001039"
+            "value": "8003629999000025"
           },
-          "display": "Dry Tropics Radiology"
+          "display": "Capricorn Bay Health Service"
         }
       },
       "request": {
@@ -340,9 +340,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001039"
+            "value": "8003629999000025"
           },
-          "display": "Dry Tropics Radiology"
+          "display": "Capricorn Bay Health Service"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0013"
@@ -369,8 +369,8 @@
             "coding": [
               {
                 "system": "http://snomed.info/sct",
-                "code": "310125001",
-                "display": "Radiology service"
+                "code": "933536641000036105",
+                "display": "Mammography service"
               }
             ]
           }
@@ -400,10 +400,10 @@
             "actor": {
               "type": "Location",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key",
-                "value": "QHC-LOC-F3"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-LOC-03"
               },
-              "display": "Dry Tropics Radiology - Townsville"
+              "display": "Capricorn Bay Hospital - Radiology"
             },
             "status": "accepted"
           },
@@ -411,10 +411,10 @@
             "actor": {
               "type": "HealthcareService",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key",
-                "value": "QHC-HCS-F3-MAM"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-HCS-09"
               },
-              "display": "Dry Tropics Radiology - Radiology"
+              "display": "Rockhampton Mammography"
             },
             "status": "accepted"
           }

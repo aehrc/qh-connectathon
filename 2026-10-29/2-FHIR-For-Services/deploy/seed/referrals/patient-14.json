@@ -253,9 +253,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003623233370062"
+              "value": "8003629999000017"
             },
-            "display": "Northside Imaging"
+            "display": "Tropic Coast Health Service"
           }
         ],
         "reasonCode": [
@@ -355,9 +355,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003623233370062"
+            "value": "8003629999000017"
           },
-          "display": "Northside Imaging"
+          "display": "Tropic Coast Health Service"
         }
       },
       "request": {
@@ -454,9 +454,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003623233370062"
+            "value": "8003629999000017"
           },
-          "display": "Northside Imaging"
+          "display": "Tropic Coast Health Service"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0016"
@@ -514,10 +514,10 @@
             "actor": {
               "type": "Location",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key",
-                "value": "QHC-LOC-F1"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-LOC-01"
               },
-              "display": "Northside Imaging - Chermside"
+              "display": "Tropic Coast Base Hospital - Medical Imaging"
             },
             "status": "accepted"
           },
@@ -525,10 +525,10 @@
             "actor": {
               "type": "HealthcareService",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key",
-                "value": "QHC-HCS-F1-CT"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-HCS-01"
               },
-              "display": "Northside Imaging - Computed tomography"
+              "display": "Cairns CT"
             },
             "status": "accepted"
           }

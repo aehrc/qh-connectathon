@@ -18,8 +18,6 @@ HPII = "http://ns.electronichealth.net.au/id/hi/hpii/1.0"
 IHI = "http://ns.electronichealth.net.au/id/hi/ihi/1.0"
 MEDICARE = "http://ns.electronichealth.net.au/id/medicare-number"
 MPN = "http://ns.electronichealth.net.au/id/medicare-provider-number"
-HCS_ID = "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key"
-LOC_ID = "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key"
 P = "http://hl7.org.au/fhir/ereq/StructureDefinition/"
 RR = "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/"
 CORE = "http://hl7.org.au/fhir/core/StructureDefinition/"
@@ -75,15 +73,46 @@ def write(name, entries):
 
 
 # ---------------------------------------------------------------- fillers (directory side, referenced LOGICALLY)
-FILLERS = {
-    1: ("Northside Imaging", "Chermside", "4032", "8003623233370062", ["CT", "US", "XR"]),  # HPI-O from the IG example
-    2: ("Far North Reef Imaging", "Cairns", "4870", hpio(102), ["CT", "MRI", "US", "XR"]),
-    3: ("Dry Tropics Radiology", "Townsville", "4810", hpio(103), ["CT", "MRI", "XR", "MAM"]),
-    4: ("Darling Downs Medical Imaging", "Toowoomba", "4350", hpio(104), ["CT", "US", "XR"]),
-    5: ("Capricornia Imaging", "Rockhampton", "4700", hpio(105), ["CT", "US", "XR"]),
-    6: ("Sunshine Coast Radiology", "Maroochydore", "4558", hpio(106), ["CT", "MRI", "US"]),
-    7: ("Bayside Southport Imaging", "Southport", "4215", hpio(107), ["MRI", "XR", "US"]),
+# Fillers are taken from the directory seed (../directory/*.json) so every referral reference resolves there.
+# filler number -> (directory org, directory location, {modality: directory HealthcareService number})
+DIRSEED = os.path.join(OUT, "..", "directory")
+FILLER_MAP = {
+    1: ("01", "01", {"CT": "01", "MRI": "03", "US": "04", "XR": "02"}),   # Cairns
+    2: ("04", "07", {"CT": "15", "MRI": "16"}),                           # Herston
+    3: ("02", "03", {"CT": "08", "XR": "07", "MAM": "09"}),               # Rockhampton
+    4: ("03", "05", {"MRI": "11"}),                                       # Toowoomba
+    5: ("06", "10", {"CT": "22", "MRI": "23"}),                           # Southport
+    6: ("05", "08", {"US": "19", "XR": "20"}),                            # Caboolture
 }
+# (old filler, modality) -> filler: the referral table below was drafted before the directory existed
+REMAP = {(1, "CT"): 1, (1, "US"): 1, (1, "XR"): 1, (2, "CT"): 2, (2, "MRI"): 2, (2, "US"): 1,
+         (3, "CT"): 5, (3, "MAM"): 3, (3, "MRI"): 5, (3, "XR"): 3, (4, "CT"): 5, (4, "US"): 6,
+         (4, "XR"): 6, (6, "MRI"): 4}
+
+
+def _dir(name):
+    with open(os.path.join(DIRSEED, name)) as fh:
+        return {e["resource"]["id"]: e["resource"] for e in json.load(fh)["entry"]}
+
+
+_ORG, _LOC, _HCS = _dir("02-organizations.json"), _dir("03-locations.json"), _dir("04-healthcareservices.json")
+SEED_SRC = "https://github.com/aehrc/qh-connectathon/id/track2-seed-source"
+
+
+def _key(res):
+    return [i["value"] for i in res["identifier"] if i["system"] == SEED_SRC][0]
+
+
+FILLERS, FILLER_ORG, FILLER_LOC, FILLER_HCS = {}, {}, {}, {}
+for _f, (_o, _l, _m) in FILLER_MAP.items():
+    _org, _loc = _ORG["qhd-org-" + _o], _LOC["qhd-loc-" + _l]
+    _hpio = [i["value"] for i in _org["identifier"] if i["system"] == HPIO][0]
+    FILLERS[_f] = (_org["name"], _loc["address"]["city"].title(), _loc["address"]["postalCode"], _hpio, list(_m))
+    FILLER_ORG[_f], FILLER_LOC[_f] = _org, _loc
+    for _mod, _h in _m.items():
+        assert _HCS["qhd-hcs-" + _h]["providedBy"]["reference"] == "Organization/qhd-org-" + _o
+        assert _HCS["qhd-hcs-" + _h]["location"][0]["reference"] == "Location/qhd-loc-" + _l
+        FILLER_HCS[(_f, _mod)] = _HCS["qhd-hcs-" + _h]
 MOD = {  # modality -> (service type code, display, slot minutes)
     "CT": ("310128004", "Computed tomography service", 30),
     "MRI": ("310127009", "Magnetic resonance imaging service", 45),
@@ -99,16 +128,19 @@ def filler_org(f):
 
 
 def filler_hcs(f, m):
-    n = FILLERS[f][0]
-    return {"type": "HealthcareService",
-            "identifier": {"system": HCS_ID, "value": "QHC-HCS-F%d-%s" % (f, m)},
-            "display": "%s - %s" % (n, MOD[m][1].replace(" service", ""))}
+    h = FILLER_HCS[(f, m)]
+    return {"type": "HealthcareService", "identifier": {"system": SEED_SRC, "value": _key(h)}, "display": h["name"]}
 
 
 def filler_loc(f):
-    n, city, _, _, _ = FILLERS[f]
-    return {"type": "Location", "identifier": {"system": LOC_ID, "value": "QHC-LOC-F%d" % f},
-            "display": "%s - %s" % (n, city)}
+    loc = FILLER_LOC[f]
+    return {"type": "Location", "identifier": {"system": SEED_SRC, "value": _key(loc)}, "display": loc["name"]}
+
+
+def svc_type(f, m):
+    """Service type of the directory HealthcareService, so Schedule/Slot match the directory entry."""
+    c = FILLER_HCS[(f, m)]["type"][0]["coding"][0]
+    return cc(SCT, c["code"], c["display"])
 
 
 # ---------------------------------------------------------------- referrers (live on the referral server)
@@ -256,6 +288,7 @@ REFERRALS = [
     (21, 19, 5, 4, "CTCHEST", "cough", "urgent", "req", "2026-10-18", None, False),
     (22, 20, 6, 1, "USABD", "abd", "routine", "book", "2026-10-07", "2026-11-02", False),
 ]
+REFERRALS = [r[:3] + (REMAP[(r[3], PROC[r[4]][2])],) + r[4:] for r in REFERRALS]  # fillers now come from the directory seed
 TASKSTATUS = {"req": "requested", "rec": "received", "acc": "accepted", "book": "in-progress", "done": "completed", "donebk": "completed"}
 
 
@@ -361,7 +394,7 @@ def referral_entries(row):
         booked = state == "book"
         ap = {"resourceType": "Appointment", "id": "qhc-appt-%04d" % n, "meta": {"profile": [RR + "referral-appointment"]},
               "status": "booked" if booked else "fulfilled",
-              "serviceType": [cc(SCT, st[0], st[1])],
+              "serviceType": [svc_type(f, mod)],
               "start": tz(apday, hh, mm), "end": end_time(apday, hh, mm, st[2]),
               "created": (dt.date.fromisoformat(auth) + dt.timedelta(days=1)).isoformat(),
               "slot": [ref("Slot/" + sid)], "basedOn": [ref("ServiceRequest/" + sr_id)],
@@ -382,7 +415,7 @@ def schedules_and_slots():
             st = MOD[m]
             sid = sched_id(f, m)
             es.append({"resourceType": "Schedule", "id": sid, "meta": {"profile": [RR + "booking-schedule"]},
-                       "active": True, "serviceType": [cc(SCT, st[0], st[1])],
+                       "active": True, "serviceType": [svc_type(f, m)],
                        "actor": [filler_hcs(f, m), filler_loc(f)],
                        "planningHorizon": {"start": "2026-08-01T00:00:00+10:00", "end": "2026-12-31T23:59:59+10:00"}})
             # free slots: two days, 3 each  (08:00 is reserved for the pre-booked demo appointments)
@@ -401,7 +434,7 @@ def schedules_and_slots():
 def _slot(f, m, day, hh, mm, status):
     st = MOD[m]
     return {"resourceType": "Slot", "id": slot_id(f, m, day, hh, mm), "meta": {"profile": [RR + "booking-slot"]},
-            "serviceType": [cc(SCT, st[0], st[1])], "schedule": ref("Schedule/" + sched_id(f, m)),
+            "serviceType": [svc_type(f, m)], "schedule": ref("Schedule/" + sched_id(f, m)),
             "status": status, "start": tz(day, hh, mm), "end": end_time(day, hh, mm, st[2])}
 
 

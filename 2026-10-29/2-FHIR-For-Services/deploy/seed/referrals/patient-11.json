@@ -212,9 +212,9 @@
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-              "value": "8003629900001021"
+              "value": "8003629999000041"
             },
-            "display": "Far North Reef Imaging"
+            "display": "Brisbane River Health Service"
           }
         ],
         "reasonCode": [
@@ -304,9 +304,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001021"
+            "value": "8003629999000041"
           },
-          "display": "Far North Reef Imaging"
+          "display": "Brisbane River Health Service"
         }
       },
       "request": {
@@ -403,9 +403,9 @@
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
-            "value": "8003629900001021"
+            "value": "8003629999000041"
           },
-          "display": "Far North Reef Imaging"
+          "display": "Brisbane River Health Service"
         },
         "focus": {
           "reference": "ServiceRequest/qhc-sr-0012"
@@ -463,10 +463,10 @@
             "actor": {
               "type": "Location",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/location-key",
-                "value": "QHC-LOC-F2"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-LOC-07"
               },
-              "display": "Far North Reef Imaging - Cairns"
+              "display": "Brisbane River Hospital Complex - Imaging and Nuclear Medicine"
             },
             "status": "accepted"
           },
@@ -474,10 +474,10 @@
             "actor": {
               "type": "HealthcareService",
               "identifier": {
-                "system": "http://aehrc.csiro.au/fhir/qh-connectathon/sid/healthcareservice-key",
-                "value": "QHC-HCS-F2-MRI"
+                "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+                "value": "QHD-HCS-16"
               },
-              "display": "Far North Reef Imaging - Magnetic resonance imaging"
+              "display": "Herston MRI"
             },
             "status": "accepted"
           }
