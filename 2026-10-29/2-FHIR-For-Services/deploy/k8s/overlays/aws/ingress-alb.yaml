@@ -8,7 +8,7 @@ metadata:
   name: track2
   namespace: track2
   annotations:
-    alb.ingress.kubernetes.io/healthcheck-path: /fhir/metadata
+    alb.ingress.kubernetes.io/healthcheck-path: /referral/fhir/metadata
 spec:
   ingressClassName: track2-alb
   rules:
@@ -16,7 +16,7 @@ spec:
     - host: track2.REPLACE-ME.example
       http:
         paths:
-          - path: /fhir
+          - path: /referral
             pathType: Prefix
             backend: { service: { name: fhir, port: { number: 8080 } } }
           - path: /directory

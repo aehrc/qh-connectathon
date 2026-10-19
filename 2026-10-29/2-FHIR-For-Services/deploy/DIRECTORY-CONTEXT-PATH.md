@@ -38,3 +38,23 @@ DiSP host: `https://aehrc-qh-connectathon-track-2.dw.csiro.au`. Local: `http://<
 - `deploy/install.sh:189` (VM, plain docker) uses the same PD_SERVER; the VM directory container is separate, only change if it also gets a context path.
 - Docs/scripts: `deploy/README.md:56`, `deploy/k8s-install.sh:82` print `/directory/metadata` -> `/directory/fhir/metadata`; `deploy/smoke/smoke.sh` set `DIRECTORY_BASE=/directory/fhir` (default `/directory` is wrong now); `DISP-DEPLOY.md:74` is already right; frog-tests' `fhir.server.url` for the directory -> `.../directory/fhir`.
 - Apply by rolling the directory Deployment (env change triggers it); HCPD IG reinstalls from the DB state as before.
+
+## Update 2026-10-19: the referral server also moves, to /referral/fhir
+
+The Patient-Referral UI (mjosborne1/Patient-Referral) serves about 30 of its own routes under `/fhir/...`
+(`/fhir/Dashboard`, `/fhir/Patients`, `/fhir/RequesterOrganisations`, `/fhir/OrderSets`, `/fhir/search_patients`,
+`/fhir/Patient/<id>`, ... plus the value-set typeahead endpoints). Routing `/fhir` to HAPI therefore returned
+"HAPI-0302 Unknown resource type" for every UI call (all dialogues broken), and `/fhir/Patient/<id>` is a direct collision
+with FHIR's own read, so per-route exceptions cannot fix it. The referral HAPI now serves under `/referral`:
+
+| Service | Public base |
+|---|---|
+| Referral FHIR server | `https://<host>/referral/fhir` |
+| Directory FHIR server | `https://<host>/directory/fhir` |
+| Patient-Referral UI | `https://<host>/` (including its own `/fhir/*` and `/directory/import*` routes) |
+
+Mechanism as for the directory: `SERVER_SERVLET_CONTEXT_PATH=/referral` on the `fhir` Deployment, readiness probe
+`/referral/fhir/metadata`, `HAPI_FHIR_SERVER_ADDRESS` in the disp overlays, per-Service ALB health check in the aws overlay,
+and the in-cluster `FHIR_SERVER` of the UI is `http://fhir:8080/referral/fhir`. `smoke.sh` defaults and
+`load-directory.sh` (referral Endpoint addresses) follow. Not updated: `frog-tests/` (they take an explicit
+`serverUrl`), the VM scripts `install.sh` / `k8s-install.sh`, and older docs that still mention `/fhir`.

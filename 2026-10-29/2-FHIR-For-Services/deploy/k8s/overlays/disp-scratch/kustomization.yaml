@@ -26,7 +26,8 @@ patches:
       kind: Deployment
       metadata: { name: fhir, namespace: aehrc-qh-connectathon-track-2 }
       spec: { template: { spec: { containers: [ { name: hapi, env: [
-        { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://scratch-db:5432/hapi" } ] } ] } } }
+        { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://scratch-db:5432/hapi" },
+        { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://qh-fhir-test.dw.csiro.au/referral/fhir" } ] } ] } } }
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment
@@ -39,7 +40,7 @@ patches:
       kind: Deployment
       metadata: { name: referrer, namespace: aehrc-qh-connectathon-track-2 }
       spec: { template: { spec: { containers: [ { name: referrer, env: [
-        { name: FHIR_SERVER, value: "http://scratch-fhir:8080/fhir" },
+        { name: FHIR_SERVER, value: "http://scratch-fhir:8080/referral/fhir" },
         { name: PD_SERVER, value: "http://scratch-directory:8080/directory/fhir" } ] } ] } } }
   - patch: |-
       apiVersion: batch/v1

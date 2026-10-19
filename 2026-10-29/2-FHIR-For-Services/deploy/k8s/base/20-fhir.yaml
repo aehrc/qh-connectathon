@@ -24,6 +24,9 @@ spec:
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # Serve under /referral: the Patient-Referral UI owns /fhir/* for its own ~30 routes (/fhir/Patients,
+            # /fhir/Patient/<id>, ...). FHIR base becomes /referral/fhir. Same mechanism as /directory.
+            - { name: SERVER_SERVLET_CONTEXT_PATH, value: /referral }
             # The terminology/AU packages bring ~2,600 ValueSets; HAPI's background PRE_EXPAND_VALUESET task
             # otherwise works through all of them and pins CPU at the container limit (slow UI). Not needed:
             # validation expands on demand and typeahead uses the remote tx server.
@@ -75,7 +78,7 @@ spec:
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
-            httpGet: { path: /fhir/metadata, port: 8080 }
+            httpGet: { path: /referral/fhir/metadata, port: 8080 }
             initialDelaySeconds: 45
             periodSeconds: 15
             failureThreshold: 20

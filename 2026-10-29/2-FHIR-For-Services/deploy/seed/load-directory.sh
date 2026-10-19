@@ -30,7 +30,7 @@ SEED_DIR="$HERE/directory"
 # Default referral base = same scheme+authority as the directory, path /fhir.
 if [ -z "${REFERRAL_FHIR_BASE:-}" ]; then
   authority="$(printf '%s' "$DIR" | sed -E 's#^(https?://[^/]+).*#\1#')"
-  REFERRAL_FHIR_BASE="$authority/fhir"
+  REFERRAL_FHIR_BASE="$authority/referral/fhir"
 fi
 REFERRAL_FHIR_BASE="${REFERRAL_FHIR_BASE%/}"
 

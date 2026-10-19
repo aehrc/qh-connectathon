@@ -14,7 +14,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /fhir
+          - path: /referral
             pathType: Prefix
             backend: { service: { name: fhir, port: { number: 8080 } } }
           - path: /directory

@@ -6,7 +6,7 @@ set -u
 
 BASE_URL="${BASE_URL:-https://aehrc-qh-connectathon-track-2.dw.csiro.au}"
 BASE_URL="${BASE_URL%/}"
-REFERRAL_BASE="${REFERRAL_BASE:-/fhir}"
+REFERRAL_BASE="${REFERRAL_BASE:-/referral/fhir}"
 DIRECTORY_BASE="${DIRECTORY_BASE:-/directory/fhir}"
 TX_URL="${TX_URL:-https://r4.ontoserver.csiro.au/fhir}"
 TX_URL="${TX_URL%/}"
@@ -19,7 +19,7 @@ usage() {
   cat <<USAGE
 Usage: BASE_URL=... [DIRECTORY_BASE=/directory/fhir] [TX_URL=...] $0 [--no-cleanup] [--help]
   BASE_URL        default https://aehrc-qh-connectathon-track-2.dw.csiro.au
-  REFERRAL_BASE   default /fhir
+  REFERRAL_BASE   default /referral/fhir
   DIRECTORY_BASE  default /directory/fhir (the directory HAPI serves under /directory)
   DIRECTORY_URL   full directory FHIR base; overrides BASE_URL+DIRECTORY_BASE (e.g. a port-forward)
   TX_URL          default https://r4.ontoserver.csiro.au/fhir
