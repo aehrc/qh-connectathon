@@ -155,7 +155,7 @@ is needed for the live DiSP servers to pick up the new packages). Applying this 
 
 ## 8. Fresh-database scratch deploy on DiSP (2026-10-19)
 
-`overlays/disp-scratch` (name prefix `scratch-`, own Postgres/PVC, host `scratch-aehrc-qh-connectathon-track-2.dw.csiro.au`),
+`overlays/disp-scratch` (name prefix `scratch-`, own Postgres/PVC, host `qh-fhir-test.dw.csiro.au`),
 applied by the user beside the live stack. Results on a fresh database with the pinned image digest, the pinned
 IG set and the real 2Gi/3Gi limits:
 

@@ -1,5 +1,5 @@
 # Scratch copy of the DiSP stack, side by side with the live one in the same tenant namespace
-# (tenants cannot create namespaces). Own Postgres + PVC, own hostname. Delete with:
+# (tenants cannot create namespaces). Own Postgres + PVC, own hostname (qh-fhir-test.dw.csiro.au; *.dw.csiro.au is a wildcard so any free name works). Delete with:
 #   kustomize build overlays/disp-scratch | kubectl delete -f -
 # Used to test a fresh-database boot (full pinned IG set, /directory/fhir, seeds, smoke.sh) before
 # touching the live deployment. NOT the event host.
@@ -26,7 +26,7 @@ patches:
       metadata: { name: directory, namespace: aehrc-qh-connectathon-track-2 }
       spec: { template: { spec: { containers: [ { name: hapi, env: [
         { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://scratch-db:5432/hapi_dir" },
-        { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://scratch-aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir" } ] } ] } } }
+        { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://qh-fhir-test.dw.csiro.au/directory/fhir" } ] } ] } } }
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment
@@ -42,11 +42,11 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/rules/0/host
-        value: scratch-aehrc-qh-connectathon-track-2.dw.csiro.au
+        value: qh-fhir-test.dw.csiro.au
       - op: replace
         path: /spec/tls/0/hosts/0
-        value: scratch-aehrc-qh-connectathon-track-2.dw.csiro.au
+        value: qh-fhir-test.dw.csiro.au
       - op: replace
         path: /spec/tls/0/secretName
-        value: scratch-track2-tls
+        value: qh-fhir-test-tls
     target: { kind: Ingress, name: track2 }
