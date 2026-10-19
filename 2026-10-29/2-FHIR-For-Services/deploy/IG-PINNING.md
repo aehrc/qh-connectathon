@@ -191,3 +191,19 @@ identical to the full package: `validate-referrals.py` 182 clean, 44 known-HAPI-
 Manifests now load: v2-0203 extract, extensions.r4, AU Base, AU Core, (eReq, radiology-referral | HCPD).
 `hl7.terminology.r4-7.0.1.tgz` stays vendored for reference only and is NOT referenced by any manifest.
 Also set (section 9): `HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS=false`.
+
+## 11. Fresh DiSP boot with the trimmed set (2026-10-19)
+
+Scratch stack (`overlays/disp-scratch`, `qh-fhir-test.dw.csiro.au`), fresh database, pinned image digest, trimmed
+package set, pre-expansion off, explicit small CPU limits on Postgres/referrer/seed job:
+
+- Apply to both HAPIs ready: about 2.5 min (was 5+ min with the full terminology package).
+- ValueSets: 127 (referral) / 124 (directory), was about 2,600. No `PRE_EXPAND` / "concept saving deferred" log lines.
+- CPU 3 min after boot: Postgres 0.33, directory 0.23-0.34, referral 0.23-0.30 (was 2.0 each).
+- `load-directory.sh` 174 resources; `load-referrals.sh` 20 patients / 22 referrals / 93 slots.
+- `seed/validate-referrals.py`: 182 clean, 44 known-HAPI-limitation only, 0 other.
+- `smoke/smoke.sh`: 28 passed, 0 failed (it now retries the first `$validate` after boot, which can 504 at the ingress
+  while HAPI builds its validation cache; warm up before an event day).
+- Page timings: `/` 0.11 s; directory Organization (50) 0.14 s; with services `_revinclude` 0.25 s; Task/Slot searches 0.14-0.18 s.
+  `/fhir/metadata` and `/directory/fhir/metadata` about 1.0-1.3 s (CapabilityStatement build).
+- Response links now carry `https://qh-fhir-test.dw.csiro.au/directory/fhir`.

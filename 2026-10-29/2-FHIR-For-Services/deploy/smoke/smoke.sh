@@ -289,6 +289,8 @@ else
     # POST the resource itself: it claims the profile in meta.profile. (Passing the profile as a
     # Parameters valueCanonical makes HAPI fail with "Failed to retrieve profile url=CanonicalType[...]".)
     http POST "$REF/$rt/\$validate" "$f"
+    # The first $validate after a boot can 504 at the ingress while HAPI builds its validation cache: retry.
+    for _try in 1 2 3; do [ "$CODE" = "504" ] || break; sleep 10; http POST "$REF/$rt/\$validate" "$f"; done
     # Known HAPI limitation: its built-in v2-0203 table lacks PGN, so Task.groupIdentifier.type fails the
     # 'Order Identifier Type' binding; the HL7 validator accepts it. Ignored here, see deploy/IG-PINNING.md s6.
     KNOWN_RE="None of the codings provided are in the value set 'Order Identifier Type'"
