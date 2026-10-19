@@ -117,3 +117,26 @@ Both servers (image pin, applies to `fhir`, `directory`):
 - The live `directory` server never loads AU Base/Core (fetchDependencies=false); validation against HCPD
   profiles that derive from AU Core relies on whatever is already in the DB or on the remote terminology/validation
   paths. Frog tests pass today, so left as is.
+
+## 6. radiology-referral built and load-tested (2026-10-19)
+
+- **Built** from `ig/` (`d200cdd`) with the IG Publisher in a scratch copy; tarball vendored as
+  `ig-packages/au.csiro.aehrc.referral-0.1.0.tgz` (79,603 B; 5 profiles + 16 examples). The publisher's QA reports
+  6 errors, all the same environmental one (r4.ontoserver returns an ambiguous version for the ISO 3166
+  CodeSystem used in `jurisdiction`), none in the IG content. `package.json` `url` is the scratch path; harmless.
+- **Also vendored** (needed so HAPI's `$validate` can resolve the AU profiles and extensions):
+  `hl7.fhir.uv.extensions.r4-5.3.0.tgz`, `hl7.terminology.r4-7.0.1.tgz`.
+- **Load test** (scratch HAPI at the live image digest, tarballs over plain HTTP, no other network needed for the
+  packages): all six load. HAPI does **not** fetch dependencies for IGs given by `packageUrl`, so **every package
+  must be listed explicitly** (`FETCHDEPENDENCIES=false`), in this order: terminology.r4, extensions.r4, au.base,
+  au.core, au.ereq, referral. With only ereq + referral, 92 of the seed's resources failed with "Unknown profile
+  au-ihi / au-medicarecardnumber ...". The live `fhir` server currently has only the 21 eReq profiles, so
+  the live referral server cannot validate AU Core Patients either.
+- **Result with the full set:** `seed/validate-referrals.py` -> 182 resources clean, 44 Task group resources
+  fail only on a HAPI built-in-table quirk (`v2-0203#PGN` in 'Order Identifier Type'; HAPI's built-in v2-0203 lacks
+  PGN and shadows the package copy). The HL7 validator accepts the same data (see `seed/referrals/REVIEW.md`).
+- **Config bug found:** `k8s/base/01-config.yaml` had `TX_URL=https://tx.ontoserver.csiro.au/fhir`; decision B1 is
+  `https://r4.ontoserver.csiro.au/fhir`. Fixed in the repo (not yet applied to DiSP).
+- **Hosting decision (C vs B):** `aehrc/qh-connectathon` is **public**, so option C works: serve the tarballs as
+  `https://raw.githubusercontent.com/aehrc/qh-connectathon/<commit-sha>/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/<file>`.
+  Not wired into `20-fhir.yaml` yet: it needs the SHA of the commit that contains the tarballs, i.e. a push.
