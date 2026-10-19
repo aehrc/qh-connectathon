@@ -13,6 +13,13 @@ labels:
   - pairs: { track2-instance: scratch }
     includeSelectors: true
 patches:
+  # frog-runner on the scratch stack is OFF by default: the namespace sits at its limits.cpu cap with two stacks plus RIS, and
+  # cert-manager's ACME solver pods then cannot start (certificates stay pending). Set replicas to 1 to test it here.
+  - patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 0
+    target: { kind: Deployment, name: frog }
   # frog-runner gets its own host here too (hosts must be unique per cluster)
   - patch: |-
       - op: replace
