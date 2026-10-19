@@ -58,3 +58,13 @@ Mechanism as for the directory: `SERVER_SERVLET_CONTEXT_PATH=/referral` on the `
 and the in-cluster `FHIR_SERVER` of the UI is `http://fhir:8080/referral/fhir`. `smoke.sh` defaults and
 `load-directory.sh` (referral Endpoint addresses) follow. Not updated: `frog-tests/` (they take an explicit
 `serverUrl`), the VM scripts `install.sh` / `k8s-install.sh`, and older docs that still mention `/fhir`.
+
+## Update 2026-10-19 (later): the UI must be given FHIR_SERVER_URL
+
+Patient-Referral's code reads `FHIR_SERVER_URL` (fhirutils.py, bundler.py); its DEPLOYMENT.md documents `FHIR_SERVER`,
+which the code ignores. With only `FHIR_SERVER` set, every server-side call (dashboard, patients, organisations,
+demographics, the dialogue lookups) went to the public default `https://aucore.aidbox.beda.software/fhir`: slow, wrong data,
+and dialogues that hang. Both variables are now set to the in-cluster referral base. The app's Settings page also
+pre-fills `https://smile.sparked-fhir.com/aucore/fhir/DEFAULT`; that is only used if someone presses Save (it is then
+kept in the browser's localStorage and sent as `X-FHIR-Server-URL`). Tell participants not to change it, or to set it to
+`https://<host>/referral/fhir`. (`PD_SERVER` is correctly named and unchanged.)
