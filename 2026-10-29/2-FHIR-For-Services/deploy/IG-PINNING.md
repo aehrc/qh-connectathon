@@ -140,3 +140,15 @@ Both servers (image pin, applies to `fhir`, `directory`):
 - **Hosting decision (C vs B):** `aehrc/qh-connectathon` is **public**, so option C works: serve the tarballs as
   `https://raw.githubusercontent.com/aehrc/qh-connectathon/<commit-sha>/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/<file>`.
   Not wired into `20-fhir.yaml` yet: it needs the SHA of the commit that contains the tarballs, i.e. a push.
+
+## 7. Wired into the manifests (2026-10-19)
+
+`k8s/base/20-fhir.yaml` now lists the full ordered package set on both servers (referral: terminology, extensions,
+AU Base, AU Core, eReq, radiology-referral; directory: terminology, extensions, AU Base, AU Core, HCPD), each with
+`FETCHDEPENDENCIES=false` and a `packageUrl` pinned to commit `a6385ae` of the public repo (raw.githubusercontent.com).
+Both HAPI images are pinned to digest `sha256:d7f38d36...0fb0`. `kustomize build` passes for local, disp and aws.
+
+**Not yet tested:** a boot on Postgres with the real `-Xmx2g` / 3Gi limit (the load test used an unconstrained JVM and
+H2). The terminology package (4.7 MB) is the heavy one; watch boot time and memory on first deploy, and note that
+HAPI will not re-install an already-installed `name#version` into an existing DB (a fresh DB or a new version string
+is needed for the live DiSP servers to pick up the new packages). Applying this to DiSP needs the user's go-ahead.
