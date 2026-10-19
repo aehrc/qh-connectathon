@@ -17,7 +17,11 @@ spec:
         - name: hapi
           image: hapiproject/hapi@sha256:d7f38d3676900b07e8a7d3500426eaf8d90ea9ced9a6726416f080f68e230fb0
           env:
-            - { name: JAVA_OPTS, value: "-Xmx2g" }
+            # The hapiproject/hapi entrypoint is a bare `java ... PropertiesLauncher` and ignores JAVA_OPTS, so the old
+            # -Xmx2g never applied: the JVM used its default heap (25 percent of the memory limit, about 750 MB) and the
+            # referral server ran out of heap under load (java.lang.OutOfMemoryError, then GC thrash at 2 CPU).
+            # JAVA_TOOL_OPTIONS is read by the JVM itself.
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms512m -Xmx2560m" }
             - { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://db:5432/hapi" }
             - { name: SPRING_DATASOURCE_USERNAME, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
             - { name: SPRING_DATASOURCE_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
@@ -82,9 +86,10 @@ spec:
             initialDelaySeconds: 45
             periodSeconds: 15
             failureThreshold: 20
+            timeoutSeconds: 5   # the default 1 s fails the probe under load and drops the pod from the Service (503)
           resources:
-            requests: { cpu: "500m", memory: "2Gi" }
-            limits:   { memory: "3Gi" }
+            requests: { cpu: "1", memory: "3Gi" }
+            limits:   { cpu: "3", memory: "4Gi" }   # 2.5 GB heap + metaspace/threads; CPU limit explicit (LimitRange default is 2)
 ---
 apiVersion: v1
 kind: Service
@@ -108,7 +113,11 @@ spec:
         - name: hapi
           image: hapiproject/hapi@sha256:d7f38d3676900b07e8a7d3500426eaf8d90ea9ced9a6726416f080f68e230fb0
           env:
-            - { name: JAVA_OPTS, value: "-Xmx2g" }
+            # The hapiproject/hapi entrypoint is a bare `java ... PropertiesLauncher` and ignores JAVA_OPTS, so the old
+            # -Xmx2g never applied: the JVM used its default heap (25 percent of the memory limit, about 750 MB) and the
+            # referral server ran out of heap under load (java.lang.OutOfMemoryError, then GC thrash at 2 CPU).
+            # JAVA_TOOL_OPTIONS is read by the JVM itself.
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms256m -Xmx1536m" }
             - { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://db:5432/hapi_dir" }
             - { name: SPRING_DATASOURCE_USERNAME, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
             - { name: SPRING_DATASOURCE_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
@@ -165,9 +174,10 @@ spec:
             initialDelaySeconds: 45
             periodSeconds: 15
             failureThreshold: 20
+            timeoutSeconds: 5   # the default 1 s fails the probe under load and drops the pod from the Service (503)
           resources:
             requests: { cpu: "500m", memory: "2Gi" }
-            limits:   { memory: "3Gi" }
+            limits:   { cpu: "2", memory: "3Gi" }   # 1.5 GB heap
 ---
 apiVersion: v1
 kind: Service
