@@ -1,0 +1,58 @@
+# EFIQ EKS overlay: Track 2 on the shared cluster (the RIS tutorial runs beside it). The cluster, ALB (group "efiq"),
+# wildcard certificate, gp3 default StorageClass and external-dns already exist (efiq-configuration / efiq-flux), so this
+# overlay adds only the workload: namespace, the Track 2 ingress, ALB health checks, sizing and public addresses.
+# Flux deploys it from this repo (see deploy/EKS-PLAN.md). Images come from Docker Hub (Patient-Referral, nginx, HAPI).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: track2
+
+resources:
+  - ../../base
+  - namespace.yaml
+
+patches:
+  - path: ingress-alb.yaml
+    target: { kind: Ingress, name: track2 }
+  - path: patch-sizing.yaml
+  # ALB target-group health checks are per backend Service
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /referral/fhir/metadata }
+    target: { kind: Service, name: fhir }
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /directory/fhir/metadata }
+    target: { kind: Service, name: directory }
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /health }
+    target: { kind: Service, name: banner }
+  # TLS ends at the ALB: tell HAPI its public https base so links and Location headers are right
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://track2.efiq.jgsuess.dev/referral/fhir" }
+    target: { kind: Deployment, name: fhir }
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://track2.efiq.jgsuess.dev/directory/fhir" }
+    target: { kind: Deployment, name: directory }
+
+images:
+  - name: localhost:32000/patient-referral:local
+    newName: joernguysuess/patient-referral
+    newTag: track2
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      # The database is reachable only inside the cluster and holds fictional test data. Replace with an External
+      # Secret / SOPS value if that ever changes.
+      - POSTGRES_PASSWORD=track2-eks-internal-only
+generatorOptions:
+  disableNameSuffixHash: true

@@ -1,0 +1,33 @@
+# Production sizing for the event (35-40 concurrent users). Bumps HAPI heap and
+# requests vs the base; assumes EKS nodes sized accordingly (see EKS-DEPLOY.md).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fhir
+  namespace: track2
+spec:
+  template:
+    spec:
+      containers:
+        - name: hapi
+          env:
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms1g -Xmx3g" }
+          resources:
+            requests: { cpu: "1", memory: "4Gi" }
+            limits:   { cpu: "4", memory: "5Gi" }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory
+  namespace: track2
+spec:
+  template:
+    spec:
+      containers:
+        - name: hapi
+          env:
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms1g -Xmx3g" }
+          resources:
+            requests: { cpu: "1", memory: "4Gi" }
+            limits:   { cpu: "4", memory: "5Gi" }

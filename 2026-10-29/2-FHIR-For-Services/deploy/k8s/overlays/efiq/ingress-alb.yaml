@@ -1,0 +1,28 @@
+# Track 2 Ingress on the shared EFIQ ALB (IngressGroup "efiq", wildcard certificate *.efiq.jgsuess.dev, default
+# IngressClass "alb": see efiq-flux clusters/efiq/infrastructure/ingress-class.yaml). DNS comes from external-dns.
+# The hostname is ONE label under the root (decision D12 of efiq-configuration): change it here only.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: track2
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health      # default; the HAPI Services override it below
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=120
+    external-dns.alpha.kubernetes.io/hostname: track2.efiq.jgsuess.dev
+spec:
+  ingressClassName: alb
+  rules:
+    - host: track2.efiq.jgsuess.dev
+      http:
+        paths:
+          - path: /referral/fhir
+            pathType: Prefix
+            backend: { service: { name: fhir, port: { number: 8080 } } }
+          - path: /directory/fhir
+            pathType: Prefix
+            backend: { service: { name: directory, port: { number: 8080 } } }
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: banner, port: { number: 8080 } } }
