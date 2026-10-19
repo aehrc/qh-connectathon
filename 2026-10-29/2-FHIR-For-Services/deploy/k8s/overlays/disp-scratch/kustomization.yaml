@@ -1,0 +1,52 @@
+# Scratch copy of the DiSP stack, side by side with the live one in the same tenant namespace
+# (tenants cannot create namespaces). Own Postgres + PVC, own hostname. Delete with:
+#   kustomize build overlays/disp-scratch | kubectl delete -f -
+# Used to test a fresh-database boot (full pinned IG set, /directory/fhir, seeds, smoke.sh) before
+# touching the live deployment. NOT the event host.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: aehrc-qh-connectathon-track-2
+namePrefix: scratch-
+resources:
+  - ../disp
+labels:
+  - pairs: { track2-instance: scratch }
+    includeSelectors: true
+patches:
+  # in-cluster hostnames are hard-coded in the base; kustomize only prefixes object names
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: fhir, namespace: aehrc-qh-connectathon-track-2 }
+      spec: { template: { spec: { containers: [ { name: hapi, env: [
+        { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://scratch-db:5432/hapi" } ] } ] } } }
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: directory, namespace: aehrc-qh-connectathon-track-2 }
+      spec: { template: { spec: { containers: [ { name: hapi, env: [
+        { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://scratch-db:5432/hapi_dir" },
+        { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://scratch-aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir" } ] } ] } } }
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: referrer, namespace: aehrc-qh-connectathon-track-2 }
+      spec: { template: { spec: { containers: [ { name: referrer, env: [
+        { name: FHIR_SERVER, value: "http://scratch-fhir:8080/fhir" },
+        { name: PD_SERVER, value: "http://scratch-directory:8080/directory/fhir" } ] } ] } } }
+  - patch: |-
+      apiVersion: batch/v1
+      kind: Job
+      metadata: { name: seed, namespace: aehrc-qh-connectathon-track-2 }
+      spec: { template: { spec: { containers: [ { name: createdb, env: [ { name: PGHOST, value: scratch-db } ] } ] } } }
+  - patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: scratch-aehrc-qh-connectathon-track-2.dw.csiro.au
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: scratch-aehrc-qh-connectathon-track-2.dw.csiro.au
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: scratch-track2-tls
+    target: { kind: Ingress, name: track2 }
