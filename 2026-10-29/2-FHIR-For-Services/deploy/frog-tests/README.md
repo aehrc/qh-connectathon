@@ -121,3 +121,8 @@ which the runner's JVM does not trust, and the call would fail as a "500"):
 In the scratch stack the services are `scratch-directory` and `scratch-fhir`. The first referral run downloads the AU IG and its
 dependencies from packages.fhir.org (several hundred MB; minutes on a slow link); the PVC keeps them afterwards, so warm it once
 before the event. Start only one run at a time on a cold cache.
+
+**Timing and side effects (measured 2026-10-19 on the scratch stack):** the directory bundle takes seconds; the referral bundle takes
+about 5-10 minutes (every test validates against the AU IG with remote terminology calls), cold or warm, and passed 6/6 both times.
+The referral runs leave a few resources behind (the `s1-*` fixtures and 2-3 ServiceRequests). Run `cleanup-fixtures.py` afterwards
+to return to the seed: `python3 -I cleanup-fixtures.py https://<host>/referral/fhir`.
