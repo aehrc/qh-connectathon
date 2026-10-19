@@ -1,0 +1,18 @@
+# frog-runner UI on its own host (one label under the DNS root, like the Track 2 host). The host comes from hostname.yaml.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frog
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /api/version
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300   # a first run downloads packages
+    external-dns.alpha.kubernetes.io/hostname: HOST.REPLACED-BY-KUSTOMIZE
+spec:
+  ingressClassName: alb
+  rules:
+    - host: HOST.REPLACED-BY-KUSTOMIZE
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: frog, port: { number: 8080 } } } }

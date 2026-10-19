@@ -103,3 +103,21 @@ akkadakka name/version pattern (registry, no packageUrl), `enforce_referential_i
 Note: steps 2–6 model fulfilment status directly via `ServiceRequest.status` (a documented
 Sparked simplification, not the fuller AU eRequesting Task-based model) — a candidate to extend
 with real Task/Appointment steps for the connectathon.
+
+## frog-runner as a service (issue #49)
+
+`k8s/base/60-frog.yaml` deploys frog-runner (public image, pinned by digest) in the Track 2 namespace, with these bundles fetched by
+an init container from this repo at a pinned commit, and the FHIR package cache on a 3 Gi PVC. Hosts: DiSP
+`frog-aehrc-qh-connectathon-track-2.dw.csiro.au`, scratch `qh-fhir-test-frog.dw.csiro.au`, EKS from `overlays/efiq/hostname.yaml`.
+
+Use the **in-cluster** server URLs in the UI or `POST /api/v1/runs` (the public https URLs on DiSP are signed by CSIRO's internal CA,
+which the runner's JVM does not trust, and the call would fail as a "500"):
+
+| Bundle | bundlePath | serverUrl | other fields |
+|---|---|---|---|
+| Directory step 1 (HealthcareService by city, Cairns) | `/bundles/scenario1/step1` | `http://directory:8080/directory/fhir` | none |
+| Referral steps 2-6 | `/bundles/scenario1-referral` | `http://fhir:8080/referral/fhir` | `igPackage` `hl7.fhir.au.ereq#1.0.1`, `terminologyServerUrl` `https://r4.ontoserver.csiro.au/fhir` |
+
+In the scratch stack the services are `scratch-directory` and `scratch-fhir`. The first referral run downloads the AU IG and its
+dependencies from packages.fhir.org (several hundred MB; minutes on a slow link); the PVC keeps them afterwards, so warm it once
+before the event. Start only one run at a time on a cold cache.

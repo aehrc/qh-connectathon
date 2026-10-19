@@ -13,6 +13,18 @@ labels:
   - pairs: { track2-instance: scratch }
     includeSelectors: true
 patches:
+  # frog-runner gets its own host here too (hosts must be unique per cluster)
+  - patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: qh-fhir-test-frog.dw.csiro.au
+      - op: replace
+        path: /spec/tls/0/hosts/0
+        value: qh-fhir-test-frog.dw.csiro.au
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: qh-fhir-test-frog-tls
+    target: { kind: Ingress, name: frog }
   # Quota is tight (limits.cpu), so never surge: replace a pod in place (brief downtime per rollout)
   # instead of starting the new pod beside the old one, which fails with "exceeded quota".
   - patch: |-

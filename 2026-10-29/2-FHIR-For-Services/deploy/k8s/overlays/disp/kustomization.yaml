@@ -16,6 +16,7 @@ namespace: aehrc-qh-connectathon-track-2
 
 resources:
   - ../../base
+  - frog-ingress.yaml
 
 patches:
   # DiSP ingress: Contour class + dw.csiro.au host + cert-manager TLS

@@ -8,5 +8,6 @@ resources:
   - 20-fhir.yaml
   - 30-referrer.yaml
   - 35-banner.yaml
+  - 60-frog.yaml
   - 40-seed-job.yaml
   - 50-ingress.yaml

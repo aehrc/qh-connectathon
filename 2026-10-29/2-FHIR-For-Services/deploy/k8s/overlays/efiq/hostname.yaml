@@ -11,3 +11,4 @@ metadata:
     config.kubernetes.io/local-config: "true"   # used only as the replacement source; not applied to the cluster
 data:
   host: track2.efiq.jgsuess.dev
+  frogHost: track2-frog.efiq.jgsuess.dev   # frog-runner UI (also one label under the root)
