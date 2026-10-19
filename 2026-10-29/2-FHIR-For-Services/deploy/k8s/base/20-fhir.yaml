@@ -37,17 +37,17 @@ spec:
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
             # Pinned IG set. HAPI does NOT fetch dependencies for packageUrl IGs, so every package is listed
-            # (order matters: terminology, extensions, AU Base, AU Core ...). Tarballs are vendored in
+            # (order matters: v2-0203 extract, extensions, AU Base, AU Core ...; NOT the full hl7.terminology.r4, which pins CPU: see IG-PINNING.md s10). Tarballs are vendored in
             # deploy/ig-packages (SHA256SUMS) and served by commit SHA from the public repo.
             # See deploy/IG-PINNING.md section 6.
             # akkadakka "Bug 8": HAPI silently drops non-active CodeSystem/ValueSet on package
             # upload unless status validation is disabled.
             - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_NAME, value: hl7.terminology.r4 }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_VERSION, value: "7.0.1" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.terminology.r4-7.0.1.tgz" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_INSTALLMODE, value: STORE_AND_INSTALL }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_NAME, value: au.csiro.aehrc.track2-v2-0203 }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_VERSION, value: "0.1.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/aba38a6cd95aa0717599099946b9c7ef232cf6ce/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.track2-v2-0203-0.1.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_FETCHDEPENDENCIES, value: "false" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_NAME, value: hl7.fhir.uv.extensions.r4 }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_VERSION, value: "5.3.0" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.uv.extensions.r4-5.3.0.tgz" }
@@ -128,14 +128,14 @@ spec:
             # draft CodeSystem/ValueSet resources on package upload.
             - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
             # Pinned IG set. HAPI does NOT fetch dependencies for packageUrl IGs, so every package is listed
-            # (order matters: terminology, extensions, AU Base, AU Core ...). Tarballs are vendored in
+            # (order matters: v2-0203 extract, extensions, AU Base, AU Core ...; NOT the full hl7.terminology.r4, which pins CPU: see IG-PINNING.md s10). Tarballs are vendored in
             # deploy/ig-packages (SHA256SUMS) and served by commit SHA from the public repo.
             # See deploy/IG-PINNING.md section 6.
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_NAME, value: hl7.terminology.r4 }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_VERSION, value: "7.0.1" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.terminology.r4-7.0.1.tgz" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_INSTALLMODE, value: STORE_AND_INSTALL }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_TERM_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_NAME, value: au.csiro.aehrc.track2-v2-0203 }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_VERSION, value: "0.1.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/aba38a6cd95aa0717599099946b9c7ef232cf6ce/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.track2-v2-0203-0.1.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_FETCHDEPENDENCIES, value: "false" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_NAME, value: hl7.fhir.uv.extensions.r4 }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_VERSION, value: "5.3.0" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.uv.extensions.r4-5.3.0.tgz" }

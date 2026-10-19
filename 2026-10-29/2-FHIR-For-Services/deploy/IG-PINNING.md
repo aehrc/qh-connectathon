@@ -176,3 +176,18 @@ With the full package set each HAPI holds about 2,600 ValueSets (mostly `hl7.ter
 servers and Postgres at their 2 CPU limits while idle and making the UI slow (directory "orgs" load). Disabled with
 `HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS=false` on both servers (validation expands on demand; typeahead uses r4.ontoserver).
 Verify after rollout: `kubectl top pods` should drop to near idle and the `PRE_EXPAND` log lines should stop.
+
+## 10. Do not load the full hl7.terminology.r4 (2026-10-19)
+
+Loading `hl7.terminology.r4` 7.0.1 (4.7 MB) makes HAPI save thousands of CodeSystem concepts and reindex in the
+background: about 2,600 ValueSets, both servers at their 2 CPU limit for 10+ minutes after boot (and still at 8+ min
+in the DiSP scratch test), `$validate` timing out at the ingress meanwhile. Without it HAPI boots in about 65-75 s
+with 127 ValueSets and idles at 7-18% CPU (local test, same image digest, `--cpus 2`, `-Xmx2g`).
+
+The only thing the seed needs from it is CodeSystem v2-0203 (for `PGN`): extracted into a 20 KB package,
+`ig-packages/au.csiro.aehrc.track2-v2-0203-0.1.0.tgz` (v2-0203 5.0.0, 147 concepts, unmodified). Validation result is
+identical to the full package: `validate-referrals.py` 182 clean, 44 known-HAPI-limitation only, 0 other.
+
+Manifests now load: v2-0203 extract, extensions.r4, AU Base, AU Core, (eReq, radiology-referral | HCPD).
+`hl7.terminology.r4-7.0.1.tgz` stays vendored for reference only and is NOT referenced by any manifest.
+Also set (section 9): `HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS=false`.
