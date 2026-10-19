@@ -78,7 +78,7 @@ microk8s kubectl -n track2 wait --for=condition=complete job/seed --timeout=300s
 IP=$(hostname -I | awk '{print $1}')
 say "Stack up on microk8s. Ingress (add /etc/hosts or use the node IP):"
 say "  Referrer   : http://${IP}/"
-say "  Referral   : http://${IP}/fhir/metadata"
-say "  Directory  : http://${IP}/directory/metadata  (ADHA Provider Directory IG)"
+say "  Referral   : http://${IP}/referral/fhir/metadata"
+say "  Directory  : http://${IP}/directory/fhir/metadata  (ADHA Provider Directory IG)"
 say "Inspect:  microk8s kubectl -n track2 get pods,svc,ingress"
 say "Verify :  ./smoke/smoke.sh  (functional) and frog-runner (conformance) — see ../Deployment-Design.md §5"

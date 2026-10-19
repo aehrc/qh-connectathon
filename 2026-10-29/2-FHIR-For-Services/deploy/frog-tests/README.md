@@ -65,7 +65,7 @@ So a run against our AU eRequesting referral server must supply **both** `server
 
 ```bash
 FR=https://frog-runner.dw.csiro.au   # existing in-cluster frog-runner (another DiSP namespace)
-SVC=http://fhir.aehrc-qh-connectathon-track-2.svc.cluster.local:8080/fhir  # cluster-internal DNS
+SVC=http://fhir.aehrc-qh-connectathon-track-2.svc.cluster.local:8080/referral/fhir  # cluster-internal DNS (the referral HAPI serves under /referral)
 curl -s -X POST "$FR/api/v1/runs" -H 'Content-Type: application/json' -d '{
   "testPackage":"fhirfrog.au-erequesting-tests#0.1.0",
   "serverUrl":"'"$SVC"'",

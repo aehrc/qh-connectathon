@@ -7,5 +7,6 @@ resources:
   - 10-db.yaml
   - 20-fhir.yaml
   - 30-referrer.yaml
+  - 35-banner.yaml
   - 40-seed-job.yaml
   - 50-ingress.yaml

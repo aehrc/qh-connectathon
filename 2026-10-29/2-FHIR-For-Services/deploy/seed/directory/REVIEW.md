@@ -145,3 +145,6 @@ DRY_RUN=1 DIRECTORY_URL=http://x/fhir deploy/seed/load-directory.sh             
 
 Optional: `REFERRAL_FHIR_BASE=https://<event-host>/fhir` to point the in-cluster FHIR referral Endpoints at the
 referral server explicitly; `CURL_OPTS` for auth headers. Requires `curl` and `jq`.
+
+
+Regenerate the bundles with `python3 generate.py` (deterministic; run in this directory).

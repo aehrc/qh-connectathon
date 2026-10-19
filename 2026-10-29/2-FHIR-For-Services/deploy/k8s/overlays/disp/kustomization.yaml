@@ -33,7 +33,7 @@ patches:
         value:
           - { path: /referral/fhir, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
           - { path: /directory/fhir, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
-          - { path: /, pathType: Prefix, backend: { service: { name: referrer, port: { number: 5000 } } } }
+          - { path: /, pathType: Prefix, backend: { service: { name: banner, port: { number: 8080 } } } }
       - op: add
         path: /spec/rules/0/host
         value: aehrc-qh-connectathon-track-2.dw.csiro.au

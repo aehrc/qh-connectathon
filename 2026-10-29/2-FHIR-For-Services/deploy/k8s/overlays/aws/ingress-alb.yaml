@@ -24,4 +24,4 @@ spec:
             backend: { service: { name: directory, port: { number: 8080 } } }
           - path: /
             pathType: Prefix
-            backend: { service: { name: referrer, port: { number: 5000 } } }
+            backend: { service: { name: banner, port: { number: 8080 } } }

@@ -52,8 +52,8 @@ newgrp microk8s              # so the group applies
 
 Endpoints (via the microk8s ingress, on the node IP):
 - Referrer  `http://<vm-ip>/`
-- Referral  `http://<vm-ip>/fhir/metadata`
-- Directory `http://<vm-ip>/directory/metadata` (ADHA Provider Directory IG)
+- Referral  `http://<vm-ip>/referral/fhir/metadata`
+- Directory `http://<vm-ip>/directory/fhir/metadata` (ADHA Provider Directory IG)
 
 Inspect: `microk8s kubectl -n track2 get pods,svc,ingress`.
 The overlay renders to 14 resources (`kustomize build k8s/overlays/local`) — validated.
