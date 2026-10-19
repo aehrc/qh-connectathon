@@ -13,6 +13,13 @@ labels:
   - pairs: { track2-instance: scratch }
     includeSelectors: true
 patches:
+  # Quota is tight (limits.cpu), so never surge: replace a pod in place (brief downtime per rollout)
+  # instead of starting the new pod beside the old one, which fails with "exceeded quota".
+  - patch: |-
+      - op: add
+        path: /spec/strategy
+        value: { type: RollingUpdate, rollingUpdate: { maxSurge: 0, maxUnavailable: 1 } }
+    target: { kind: Deployment }
   # in-cluster hostnames are hard-coded in the base; kustomize only prefixes object names
   - patch: |-
       apiVersion: apps/v1
