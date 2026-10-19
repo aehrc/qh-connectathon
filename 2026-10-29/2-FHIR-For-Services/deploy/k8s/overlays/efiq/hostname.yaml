@@ -1,0 +1,13 @@
+# THE place to set the public hostname of Track 2 on EKS (decision F1 is still open).
+# One label under the DNS root (efiq-configuration D12), so the wildcard certificate covers it. The root is either
+# efiq.jgsuess.dev or efiq.org (undecided); a different root also needs its Route 53 zone and wildcard ACM certificate in
+# efiq-configuration (persistent layer, human gate) and the certificateARNs in efiq-flux's IngressClassParams.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: track2-hostname
+  namespace: track2
+  annotations:
+    config.kubernetes.io/local-config: "true"   # used only as the replacement source; not applied to the cluster
+data:
+  host: track2.efiq.jgsuess.dev

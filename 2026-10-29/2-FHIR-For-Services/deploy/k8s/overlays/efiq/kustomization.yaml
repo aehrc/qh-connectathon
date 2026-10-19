@@ -9,6 +9,7 @@ namespace: track2
 resources:
   - ../../base
   - namespace.yaml
+  - hostname.yaml
 
 patches:
   - path: ingress-alb.yaml
@@ -34,12 +35,12 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
-        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://track2.efiq.jgsuess.dev/referral/fhir" }
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://HOST.REPLACED-BY-KUSTOMIZE/referral/fhir" }
     target: { kind: Deployment, name: fhir }
   - patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
-        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://track2.efiq.jgsuess.dev/directory/fhir" }
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://HOST.REPLACED-BY-KUSTOMIZE/directory/fhir" }
     target: { kind: Deployment, name: directory }
 
 images:
@@ -56,3 +57,21 @@ secretGenerator:
       - POSTGRES_PASSWORD=track2-eks-internal-only
 generatorOptions:
   disableNameSuffixHash: true
+
+# The public hostname lives ONLY in hostname.yaml. These replacements copy it into the ingress host, the external-dns
+# annotation and the two HAPI public addresses.
+replacements:
+  - source: { kind: ConfigMap, name: track2-hostname, fieldPath: data.host }
+    targets:
+      - select: { kind: Ingress, name: track2 }
+        fieldPaths:
+          - spec.rules.0.host
+          - "metadata.annotations.[external-dns.alpha.kubernetes.io/hostname]"
+      - select: { kind: Deployment, name: fhir }
+        fieldPaths:
+          - "spec.template.spec.containers.[name=hapi].env.[name=HAPI_FHIR_SERVER_ADDRESS].value"
+        options: { delimiter: "/", index: 2 }
+      - select: { kind: Deployment, name: directory }
+        fieldPaths:
+          - "spec.template.spec.containers.[name=hapi].env.[name=HAPI_FHIR_SERVER_ADDRESS].value"
+        options: { delimiter: "/", index: 2 }

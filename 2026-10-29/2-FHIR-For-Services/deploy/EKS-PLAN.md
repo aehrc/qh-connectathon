@@ -12,8 +12,8 @@ overlay tried to create, so Track 2 only adds a workload to it.
 
 ## What this repo adds
 
-`deploy/k8s/overlays/efiq`: namespace `track2`, ingress on the shared ALB with host `track2.efiq.jgsuess.dev` (the only
-place the name lives), per-Service ALB health checks, sized HAPI servers (3 GB heap; 4 CPU / 5 Gi each), the "test data only"
+`deploy/k8s/overlays/efiq`: namespace `track2`, ingress on the shared ALB with host from `hostname.yaml` (the only
+place the name lives; placeholder `track2.efiq.jgsuess.dev`), per-Service ALB health checks, sized HAPI servers (3 GB heap; 4 CPU / 5 Gi each), the "test data only"
 banner proxy, HAPI public addresses. Images come from Docker Hub (Patient-Referral, nginx, HAPI at a pinned digest); IG
 packages come from this public repo by commit SHA. Nothing needs ECR or ACM changes.
 
@@ -61,9 +61,14 @@ The existing `apps` Kustomization only covers `./apps/ris-tutorial`, so Track 2 
 
 ## Things to decide or watch
 
-- **Hostname** (decision F1): `track2.efiq.jgsuess.dev` is a placeholder. D12 warns against track-specific names for an app that
-  may move; something like `fhir-services.efiq.jgsuess.dev` would survive a re-organisation. One edit in `ingress-alb.yaml`
-  plus the two `HAPI_FHIR_SERVER_ADDRESS` values (they are in the same overlay).
+- **Hostname and DNS root** (decision F1, open). The root is either `jgsuess.dev` (today's `efiq.jgsuess.dev` zone and wildcard
+  certificate) or `efiq.org`. Track 2 is ready for either: the public hostname is a single value in
+  `overlays/efiq/hostname.yaml`, copied by kustomize `replacements` into the ingress host, the external-dns annotation and both
+  HAPI public addresses (verified by rendering with another value). Changing the root is NOT a change in this repo: it needs the
+  new Route 53 zone and wildcard ACM certificate in efiq-configuration (persistent layer, human gate), the new
+  `certificateARNs` in efiq-flux's `IngressClassParams`, and external-dns pointed at the zone. Nothing else depends on the name
+  (the directory Endpoints are written from the URL you pass to `load-directory.sh`; DiSP stays on `*.dw.csiro.au`).
+  D12 asks for one label under the root and warns against track-specific names, for example `fhir-services.<root>`.
 - **Teardown date.** The efiq checkpoint sets `EFIQ_TEARDOWN_AFTER=2026-11-01`; our plan (G4) is to keep it up for up to a week
   after the event and export the data first. Reconcile the two.
 - **Cost / timing.** Bring-up around 26 Oct saves about US$100 (efiq notes). That is the same day as our freeze, so do a full
