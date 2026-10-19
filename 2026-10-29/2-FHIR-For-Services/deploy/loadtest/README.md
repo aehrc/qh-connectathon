@@ -23,3 +23,18 @@ removed the pod from the Service. The live DiSP stack has the same latent proble
 
 Fix (this commit): `JAVA_TOOL_OPTIONS` (`-Xmx2560m` referral, `-Xmx1536m` directory), referral limits 3 CPU / 4 Gi,
 readiness `timeoutSeconds: 5`. AWS overlay: `-Xmx3g`, 4 CPU / 5 Gi.
+
+## Run 2 (2026-10-19, same stack after the heap fix: JAVA_TOOL_OPTIONS, referral 3 CPU / 4 Gi): PASS
+
+5,740 requests in 480 s (12.0 req/s) from 40 virtual users, 2 errors (0.03%); cleanup deleted all 352 tagged resources.
+
+| Criterion | Result |
+|---|---|
+| error rate < 1% | PASS, 0.03% (two `$validate` 504s at the 15 s ingress timeout, in the first minute while HAPI built its validation cache) |
+| UI p95 < 2 s | PASS, 1.89 s (driven by provider search: p50 1.6 s, p95 2.05 s; every other UI call p95 < 0.2 s) |
+| FHIR read p95 < 1.5 s | PASS, 0.11 s |
+| FHIR write p95 < 2 s | PASS, 0.04 s |
+
+Peaks: referral HAPI 2.0 CPU (during the first-minute validation warm-up; 0.3-0.5 CPU in the hold) and 2.48 Gi; directory 0.36 CPU / 1.4 Gi; Postgres 0.16 CPU; UI 0.1 CPU / 58 Mi. The typeahead (forwarded to r4.ontoserver) ran at about 0.2 req/s with p95 0.69 s and p99 4.5 s.
+
+Watch: provider search is the slowest UI call (about 1.6 s median under load) and sits close to the 2 s p95 criterion; the first `$validate` after a restart can 504, so warm the servers before the event. The test is a lower bound on write volume (about 3 writes per API user every 10 s) and was run from one workstation over the CSIRO network.
