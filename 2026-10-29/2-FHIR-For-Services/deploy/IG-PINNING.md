@@ -168,3 +168,11 @@ IG set and the real 2Gi/3Gi limits:
   parameter, which HAPI fails to resolve; it now POSTs the resource and relies on `meta.profile`. The first
   `$validate` calls after boot can 504 at the ingress while HAPI builds its validation cache; warm up first.)
 - Teardown: `kustomize build overlays/disp-scratch | kubectl-dw delete -f -`.
+
+## 9. Background pre-expansion pins the CPU (2026-10-19)
+
+With the full package set each HAPI holds about 2,600 ValueSets (mostly `hl7.terminology.r4`). HAPI's background
+`PRE_EXPAND_VALUESET` task works through all of them (about 700 jobs per 2 minutes in the logs), leaving the
+servers and Postgres at their 2 CPU limits while idle and making the UI slow (directory "orgs" load). Disabled with
+`HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS=false` on both servers (validation expands on demand; typeahead uses r4.ontoserver).
+Verify after rollout: `kubectl top pods` should drop to near idle and the `PRE_EXPAND` log lines should stop.

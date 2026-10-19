@@ -24,6 +24,10 @@ spec:
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # The terminology/AU packages bring ~2,600 ValueSets; HAPI's background PRE_EXPAND_VALUESET task
+            # otherwise works through all of them and pins CPU at the container limit (slow UI). Not needed:
+            # validation expands on demand and typeahead uses the remote tx server.
+            - { name: HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS, value: "false" }
             # Conformance-test target: the AU eRequesting test fixtures are isolated
             # resources with references to other conformant instances that are not
             # co-loaded (each TestScript PUTs only its own fixture). Disable write-time
@@ -108,6 +112,10 @@ spec:
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # The terminology/AU packages bring ~2,600 ValueSets; HAPI's background PRE_EXPAND_VALUESET task
+            # otherwise works through all of them and pins CPU at the container limit (slow UI). Not needed:
+            # validation expands on demand and typeahead uses the remote tx server.
+            - { name: HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS, value: "false" }
             # Serve under /directory (ingress cannot rewrite paths): Spring context path.
             # FHIR base becomes /directory/fhir; referral server stays at /fhir.
             # See deploy/DIRECTORY-CONTEXT-PATH.md (probes, overlays' server_address).
