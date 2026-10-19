@@ -16,10 +16,10 @@ spec:
     - host: track2.REPLACE-ME.example
       http:
         paths:
-          - path: /referral
+          - path: /referral/fhir
             pathType: Prefix
             backend: { service: { name: fhir, port: { number: 8080 } } }
-          - path: /directory
+          - path: /directory/fhir
             pathType: Prefix
             backend: { service: { name: directory, port: { number: 8080 } } }
           - path: /

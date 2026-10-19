@@ -31,8 +31,8 @@ patches:
       - op: replace
         path: /spec/rules/0/http/paths
         value:
-          - { path: /referral, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
-          - { path: /directory, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
+          - { path: /referral/fhir, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
+          - { path: /directory/fhir, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
           - { path: /, pathType: Prefix, backend: { service: { name: referrer, port: { number: 5000 } } } }
       - op: add
         path: /spec/rules/0/host

@@ -34,6 +34,12 @@ patches:
         path: /metadata/annotations
         value: { alb.ingress.kubernetes.io/healthcheck-path: /referral/fhir/metadata }
     target: { kind: Service, name: fhir }
+  # The UI target group must not inherit the Ingress-level (HAPI) path: the app has a /health route.
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /health }
+    target: { kind: Service, name: referrer }
 
 # Referrer image: push the Patient-Referral image to ECR and set the ref here.
 images:
