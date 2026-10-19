@@ -38,3 +38,11 @@ readiness `timeoutSeconds: 5`. AWS overlay: `-Xmx3g`, 4 CPU / 5 Gi.
 Peaks: referral HAPI 2.0 CPU (during the first-minute validation warm-up; 0.3-0.5 CPU in the hold) and 2.48 Gi; directory 0.36 CPU / 1.4 Gi; Postgres 0.16 CPU; UI 0.1 CPU / 58 Mi. The typeahead (forwarded to r4.ontoserver) ran at about 0.2 req/s with p95 0.69 s and p99 4.5 s.
 
 Watch: provider search is the slowest UI call (about 1.6 s median under load) and sits close to the 2 s p95 criterion; the first `$validate` after a restart can 504, so warm the servers before the event. The test is a lower bound on write volume (about 3 writes per API user every 10 s) and was run from one workstation over the CSIRO network.
+
+## Run 3 (2026-10-19, LIVE DiSP stack redeployed from the committed manifests: banner proxy, explicit CPU limits, fresh database): PASS
+
+5,763 requests in 480 s (12.0 req/s), 40 virtual users, **0 errors**; cleanup deleted all 362 tagged resources.
+Error rate 0.00%, UI p95 1.88 s (provider search p50 1.55 s, p95 2.05 s; all other UI calls p95 < 0.2 s), FHIR read p95 0.11 s,
+FHIR write p95 0.04 s, `$validate` p95 0.13 s (no cold-start 504s: the smoke test had warmed the validation cache first).
+Peaks from `kubectl top`: referral HAPI 0.63 CPU / 1.98 Gi (mean 0.22 CPU), directory 0.23 CPU / 1.27 Gi, UI 0.05 CPU, banner proxy
+0.01 CPU. (The Postgres samples look implausibly low at 6m; treat the database figure as unverified.)
