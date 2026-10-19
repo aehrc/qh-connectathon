@@ -152,3 +152,19 @@ Both HAPI images are pinned to digest `sha256:d7f38d36...0fb0`. `kustomize build
 H2). The terminology package (4.7 MB) is the heavy one; watch boot time and memory on first deploy, and note that
 HAPI will not re-install an already-installed `name#version` into an existing DB (a fresh DB or a new version string
 is needed for the live DiSP servers to pick up the new packages). Applying this to DiSP needs the user's go-ahead.
+
+## 8. Fresh-database scratch deploy on DiSP (2026-10-19)
+
+`overlays/disp-scratch` (name prefix `scratch-`, own Postgres/PVC, host `scratch-aehrc-qh-connectathon-track-2.dw.csiro.au`),
+applied by the user beside the live stack. Results on a fresh database with the pinned image digest, the pinned
+IG set and the real 2Gi/3Gi limits:
+
+- Both HAPI servers reach 1/1 (about 5 min from apply, including a Postgres-not-ready restart of `directory`, benign);
+  certificate issued by `cluster-issuer-csiro`; `/`, `/fhir/metadata`, `/directory/fhir/metadata` all 200 over HTTPS.
+- Loaded: referral 26 AU Core / 21 eReq / 5 radiology-referral profiles; directory 19 HCPD profiles.
+- Seeds: `load-directory.sh` 174 resources, `load-referrals.sh` 20 patients / 22 referrals / 93 slots.
+- `seed/validate-referrals.py`: 182 clean, 44 known-HAPI-limitation only, 0 other.
+- `smoke/smoke.sh`: **28 passed, 0 failed**. (Fixed on the way: the script passed the profile as a `valueCanonical`
+  parameter, which HAPI fails to resolve; it now POSTs the resource and relies on `meta.profile`. The first
+  `$validate` calls after boot can 504 at the ingress while HAPI builds its validation cache; warm up first.)
+- Teardown: `kustomize build overlays/disp-scratch | kubectl-dw delete -f -`.
