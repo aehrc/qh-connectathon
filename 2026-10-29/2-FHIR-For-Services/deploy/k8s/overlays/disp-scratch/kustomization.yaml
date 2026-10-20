@@ -13,6 +13,87 @@ labels:
   - pairs: { track2-instance: scratch }
     includeSelectors: true
 patches:
+  # ISOLATION: the live Services select on app=<name> only, so scratch pods that also carried app=<name> were added to the LIVE
+  # Services' endpoints (traffic and database connections were split across both stacks). Give every scratch pod, and its
+  # Service selector, a distinct app label.
+  - patch: |-
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: scratch-db
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: scratch-db
+    target: { kind: Deployment, name: db }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: scratch-db
+    target: { kind: Service, name: db }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: scratch-fhir
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: scratch-fhir
+    target: { kind: Deployment, name: fhir }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: scratch-fhir
+    target: { kind: Service, name: fhir }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: scratch-directory
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: scratch-directory
+    target: { kind: Deployment, name: directory }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: scratch-directory
+    target: { kind: Service, name: directory }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: scratch-referrer
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: scratch-referrer
+    target: { kind: Deployment, name: referrer }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: scratch-referrer
+    target: { kind: Service, name: referrer }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: scratch-banner
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: scratch-banner
+    target: { kind: Deployment, name: banner }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: scratch-banner
+    target: { kind: Service, name: banner }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/matchLabels/app
+        value: scratch-frog
+      - op: replace
+        path: /spec/template/metadata/labels/app
+        value: scratch-frog
+    target: { kind: Deployment, name: frog }
+  - patch: |-
+      - op: replace
+        path: /spec/selector/app
+        value: scratch-frog
+    target: { kind: Service, name: frog }
   # frog-runner on the scratch stack is OFF by default: the namespace sits at its limits.cpu cap with two stacks plus RIS, and
   # cert-manager's ACME solver pods then cannot start (certificates stay pending). Set replicas to 1 to test it here.
   - patch: |-
