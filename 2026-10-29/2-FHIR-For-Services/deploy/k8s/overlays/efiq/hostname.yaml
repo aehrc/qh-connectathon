@@ -1,7 +1,8 @@
-# THE place to set the public hostname of Track 2 on EKS (decision F1 is still open).
-# One label under the DNS root (efiq-configuration D12), so the wildcard certificate covers it. The root is either
-# efiq.jgsuess.dev or efiq.org (undecided); a different root also needs its Route 53 zone and wildcard ACM certificate in
-# efiq-configuration (persistent layer, human gate) and the certificateARNs in efiq-flux's IngressClassParams.
+# THE place to set the public hostnames of Track 2 on EKS. One label under the DNS root (efiq-configuration D12), so the wildcard
+# certificate covers them. The root is efiq.hospservices.net (decided 2026-10-20: the Route 53 zone, the wildcard certificate and the
+# Cloudflare delegation all exist). Changing the root again needs a new zone and certificate in efiq-configuration (persistent layer,
+# human gate) and the certificate ARN in efiq-flux's IngressClassParams. The labels (track2, track2-frog) are placeholders until the
+# event naming is settled.
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -10,5 +11,5 @@ metadata:
   annotations:
     config.kubernetes.io/local-config: "true"   # used only as the replacement source; not applied to the cluster
 data:
-  host: track2.efiq.jgsuess.dev
-  frogHost: track2-frog.efiq.jgsuess.dev   # frog-runner UI (also one label under the root)
+  host: track2.efiq.hospservices.net
+  frogHost: track2-frog.efiq.hospservices.net   # frog-runner UI (also one label under the root)
