@@ -1,0 +1,55 @@
+# One Ingress per function host on the shared EFIQ ALB (see ingress-alb.yaml for the group rules). Hosts come from hostname.yaml;
+# health checks are per Ingress here (the HAPI servers answer /fhir/metadata at the host root).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ui
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300
+    external-dns.alpha.kubernetes.io/hostname: HOST.REPLACED-BY-KUSTOMIZE
+spec:
+  ingressClassName: alb
+  rules:
+    - host: HOST.REPLACED-BY-KUSTOMIZE
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: banner, port: { number: 8080 } } } }
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: referrals
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /fhir/metadata
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300
+    external-dns.alpha.kubernetes.io/hostname: HOST.REPLACED-BY-KUSTOMIZE
+spec:
+  ingressClassName: alb
+  rules:
+    - host: HOST.REPLACED-BY-KUSTOMIZE
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: directory
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/healthcheck-path: /fhir/metadata
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300
+    external-dns.alpha.kubernetes.io/hostname: HOST.REPLACED-BY-KUSTOMIZE
+spec:
+  ingressClassName: alb
+  rules:
+    - host: HOST.REPLACED-BY-KUSTOMIZE
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }

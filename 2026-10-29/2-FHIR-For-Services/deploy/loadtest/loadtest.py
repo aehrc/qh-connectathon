@@ -18,7 +18,9 @@ import argparse, http.client, json, random, ssl, sys, threading, time, urllib.pa
 from collections import defaultdict
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--base", default="https://qh-fhir-test.dw.csiro.au")
+ap.add_argument("--base", default="https://qh-fhir-test.dw.csiro.au", help="the UI origin (and, with path routing, the FHIR servers too)")
+ap.add_argument("--referral-url", default="", help="referral FHIR base when it has its own host, e.g. https://referrals.efiq.hospservices.net/fhir (default: BASE/referral/fhir)")
+ap.add_argument("--directory-url", default="", help="directory FHIR base when it has its own host (default: BASE/directory/fhir)")
 ap.add_argument("--users", type=int, default=40)
 ap.add_argument("--warm", type=int, default=45, help="seconds at 3 users before the ramp (validation/JIT warm-up)")
 ap.add_argument("--ramp", type=int, default=90)
@@ -30,7 +32,9 @@ ap.add_argument("--out", default="")
 args = ap.parse_args()
 
 U = urllib.parse.urlsplit(args.base)
-REF, DIR = "/referral/fhir", "/directory/fhir"
+# full URLs: the UI, referral and directory may sit on different hosts
+REF = (args.referral_url or args.base + "/referral/fhir").rstrip("/")
+DIR = (args.directory_url or args.base + "/directory/fhir").rstrip("/")
 RUN = time.strftime("%Y%m%d%H%M%S", time.gmtime())
 TAG = {"system": "urn:qh-connectathon:loadtest", "code": RUN}
 TOWNS = ["Cairns", "Moreton", "Townsville", "Toowoomba", "Southport", "Rockhampton", "Bundaberg", "Herston", "Tropic"]
@@ -46,30 +50,33 @@ active = [0]
 
 class Client:
     def __init__(self):
-        self.c = None
+        self.cs = {}   # one keep-alive connection per host
 
     def req(self, name, kind, method, path, body=None, headers=None):
         t0 = time.perf_counter()
         ok, status, data = False, 0, b""
+        host, port = U.hostname, U.port or 443
+        if path.startswith("http"):   # an absolute URL (a FHIR server on its own host)
+            pu = urllib.parse.urlsplit(path)
+            host, port, path = pu.hostname, pu.port or 443, pu.path + ("?" + pu.query if pu.query else "")
         for attempt in (1, 2):
             try:
-                if self.c is None:
-                    self.c = http.client.HTTPSConnection(U.hostname, U.port or 443, timeout=60, context=CTX)
+                if (host, port) not in self.cs:
+                    self.cs[(host, port)] = http.client.HTTPSConnection(host, port, timeout=60, context=CTX)
                 h = {"Accept": "application/fhir+json, text/html;q=0.8", "Connection": "keep-alive"}
                 if body is not None:
                     h["Content-Type"] = (headers or {}).get("Content-Type", "application/fhir+json")
-                self.c.request(method, path, body=body, headers=h)
-                r = self.c.getresponse()
+                self.cs[(host, port)].request(method, path, body=body, headers=h)
+                r = self.cs[(host, port)].getresponse()
                 data = r.read()
                 status = r.status
                 ok = status < 400
                 break
             except Exception as e:  # reconnect once on a broken keep-alive connection
                 try:
-                    self.c.close()
+                    self.cs.pop((host, port)).close()
                 except Exception:
                     pass
-                self.c = None
                 if attempt == 2:
                     with lock:
                         errors["exc:" + type(e).__name__] += 1

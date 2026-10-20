@@ -1,6 +1,7 @@
-# Track 2 Ingress on the shared EFIQ ALB (IngressGroup "efiq", wildcard certificate *.efiq.jgsuess.dev, default
+# Landing-page Ingress on the shared EFIQ ALB (IngressGroup "efiq", wildcard certificate *.efiq.hospservices.net, default
 # IngressClass "alb": see efiq-flux clusters/efiq/infrastructure/ingress-class.yaml). DNS comes from external-dns.
-# The hostname is NOT set here: it comes from hostname.yaml (one value) via the replacements in kustomization.yaml.
+# It patches the base "track2" Ingress (path-routed, used by the other overlays) into the landing host; the functions have
+# their own hosts in ingress-hosts.yaml. The hostname is NOT set here: it comes from hostname.yaml via the replacements in kustomization.yaml.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -8,8 +9,8 @@ metadata:
   namespace: track2
   annotations:
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/healthcheck-path: /health      # default; the HAPI Services override it below
-    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300   # one ALB per IngressGroup: must equal frog-ingress.yaml, or the group fails to build
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300   # one ALB per IngressGroup: every Ingress must set the same value, or the group fails to build
     external-dns.alpha.kubernetes.io/hostname: HOST.REPLACED-BY-KUSTOMIZE
 spec:
   ingressClassName: alb
@@ -17,12 +18,4 @@ spec:
     - host: HOST.REPLACED-BY-KUSTOMIZE
       http:
         paths:
-          - path: /referral/fhir
-            pathType: Prefix
-            backend: { service: { name: fhir, port: { number: 8080 } } }
-          - path: /directory/fhir
-            pathType: Prefix
-            backend: { service: { name: directory, port: { number: 8080 } } }
-          - path: /
-            pathType: Prefix
-            backend: { service: { name: banner, port: { number: 8080 } } }
+          - { path: /, pathType: Prefix, backend: { service: { name: landing, port: { number: 8080 } } } }

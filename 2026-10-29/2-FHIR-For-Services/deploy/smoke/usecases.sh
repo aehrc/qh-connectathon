@@ -9,7 +9,8 @@
 # imaging filler, booking and /version features of Patient-Referral 1.0.0, which an older UI image predates), never "could not check".
 set -u
 BASE_URL="${BASE_URL:-https://aehrc-qh-connectathon-track-2.dw.csiro.au}"; BASE_URL="${BASE_URL%/}"
-REF="$BASE_URL${REFERRAL_BASE:-/referral/fhir}"; DIR="$BASE_URL${DIRECTORY_BASE:-/directory/fhir}"
+# FHIR bases: path-routed under BASE_URL by default; REFERRAL_URL / DIRECTORY_URL give them when they have their own hosts
+REF="${REFERRAL_URL:-$BASE_URL${REFERRAL_BASE:-/referral/fhir}}"; REF="${REF%/}"; DIR="${DIRECTORY_URL:-$BASE_URL${DIRECTORY_BASE:-/directory/fhir}}"; DIR="${DIR%/}"
 FROG=""; [ "${1:-}" = "--frog" ] && FROG="${2:-}"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 PASSN=0; FAILN=0; SKIPN=0
@@ -42,12 +43,12 @@ n=$(total "$DIR/Organization?_summary=count"); [ "${n:-0}" -ge 11 ] && pass "dir
 get "$DIR/HealthcareService?service-type=http://snomed.info/sct%7C310128004&_include=HealthcareService:organization&_include=HealthcareService:location&_count=5"
 jq -e '[.entry[].resource.resourceType]|(index("Organization")!=null and index("Location")!=null)' "$WORK/body" >/dev/null 2>&1 && pass "directory: _include returns the organisation and location with the service" || fail "directory _include organisation+location"
 # resolve the Endpoint that identifies the receiving referral server
-get "$DIR/Endpoint?_count=100"; ep=$(jq -r '[.entry[].resource|select(.address|test("/referral/fhir"))|.address]|first // empty' "$WORK/body" 2>/dev/null)
+get "$DIR/Endpoint?_count=100"; ep=$(jq -r '[.entry[].resource|select(.address|test("/fhir$"))|.address]|first // empty' "$WORK/body" 2>/dev/null)
 if [ -n "$ep" ]; then
   # an Endpoint address may name another host than the one under test (for example seeded for a different stack): report which
   [ "$ep" = "$REF" ] && pass "Endpoint resolution: a directory Endpoint points at this stack's referral server" \
     || { get "$ep/metadata"; [ "$CODE" = 200 ] && pass "Endpoint resolution: a directory Endpoint ($ep) answers /metadata" || fail "Endpoint resolution" "directory Endpoint $ep does not answer (HTTP $CODE); reseed with load-directory.sh from this URL"; }
-else fail "Endpoint resolution" "no directory Endpoint with a /referral/fhir address"; fi
+else fail "Endpoint resolution" "no directory Endpoint with a FHIR base address (ending /fhir)"; fi
 
 echo "--- Day 1 Mid: browsing providers and patients in the UI"
 for q in Cairns Moreton Toowoomba; do ui "$BASE_URL/provider-search?pdUnifiedQuery=$q"; c=$(grep -c 'list-group-item' "$WORK/body"); [ "$CODE" = 200 ] && [ "$c" -ge 1 ] && pass "UI provider search '$q': $c results" || fail "UI provider search '$q'" "HTTP $CODE, $c results"; done

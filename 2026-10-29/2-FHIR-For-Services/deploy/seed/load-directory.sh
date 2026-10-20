@@ -10,12 +10,14 @@
 # Usage:
 #   DIRECTORY_URL=http://localhost:28081/fhir deploy/seed/load-directory.sh
 #   DIRECTORY_URL=https://<host>/directory/fhir deploy/seed/load-directory.sh
+#   per-function hosts (AWS):  DIRECTORY_URL=https://directory.<root>/fhir REFERRAL_FHIR_BASE=https://referrals.<root>/fhir deploy/seed/load-directory.sh
 #
 # Env:
 #   DIRECTORY_URL    (required) FHIR base URL of the directory server, no trailing slash needed
 #   REFERRAL_FHIR_BASE  base URL written into the "FHIR Referral Endpoint" Endpoint.address values
-#                    (default: <scheme>://<authority of DIRECTORY_URL>/fhir, i.e. the referral
-#                    server is assumed to sit next to the directory behind the same ingress)
+#                    (default: <scheme>://<authority of DIRECTORY_URL>/referral/fhir, i.e. the referral
+#                    server is assumed to sit next to the directory behind the same ingress; set it when
+#                    the referral server has its own host)
 #   CURL_OPTS        extra curl options (e.g. an Authorization header: -H "Authorization: Bearer ...")
 #   DRY_RUN=1        print what would be POSTed, send nothing
 #

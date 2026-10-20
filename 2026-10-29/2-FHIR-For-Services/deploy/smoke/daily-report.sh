@@ -2,7 +2,9 @@
 # Timestamped Track 2 smoke report: run before each event day (issue #14).
 # Runs smoke.sh and usecases.sh against one stack and writes a Markdown report; exit 1 if either fails.
 #
-#   BASE_URL=https://track2.efiq.hospservices.net ./daily-report.sh [--frog https://track2-frog.efiq.hospservices.net] [--out DIR]
+#   BASE_URL=https://ui.efiq.hospservices.net REFERRAL_URL=https://referrals.efiq.hospservices.net/fhir \
+#   DIRECTORY_URL=https://directory.efiq.hospservices.net/fhir ./daily-report.sh [--frog https://conformance.efiq.hospservices.net] [--out DIR]
+#   (DiSP, path-routed: just BASE_URL=https://aehrc-qh-connectathon-track-2.dw.csiro.au)
 #
 # Reports go to ./reports/<UTC time>-<host>.md by default (commit the ones worth keeping). Needs bash, curl, jq.
 set -u
@@ -39,6 +41,8 @@ verdict=PASS; [ "$s1" = 0 ] && [ "$s2" = 0 ] || verdict=FAIL
   echo "| | |"; echo "|---|---|"
   echo "| Time (UTC) | $(date -u '+%Y-%m-%d %H:%M:%S') (local $(date '+%H:%M %Z')) |"
   echo "| Stack | $BASE_URL |"
+  [ -n "${REFERRAL_URL:-}" ] && echo "| Referral FHIR | $REFERRAL_URL |"
+  [ -n "${DIRECTORY_URL:-}" ] && echo "| Directory FHIR | $DIRECTORY_URL |"
   echo "| UI version | $ver |"
   echo "| Repo commit | $repo |"
   echo "| smoke.sh | $(sum "$T/smoke.txt") |"

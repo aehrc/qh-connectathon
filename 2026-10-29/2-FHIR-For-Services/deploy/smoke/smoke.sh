@@ -21,7 +21,8 @@ Usage: BASE_URL=... [DIRECTORY_BASE=/directory/fhir] [TX_URL=...] $0 [--no-clean
   BASE_URL        default https://aehrc-qh-connectathon-track-2.dw.csiro.au
   REFERRAL_BASE   default /referral/fhir
   DIRECTORY_BASE  default /directory/fhir (the directory HAPI serves under /directory)
-  DIRECTORY_URL   full directory FHIR base; overrides BASE_URL+DIRECTORY_BASE (e.g. a port-forward)
+  DIRECTORY_URL   full directory FHIR base; overrides BASE_URL+DIRECTORY_BASE (e.g. a port-forward, or https://directory.<root>/fhir)
+  REFERRAL_URL    full referral FHIR base; overrides BASE_URL+REFERRAL_BASE (e.g. https://referrals.<root>/fhir)
   TX_URL          default https://r4.ontoserver.csiro.au/fhir
   --no-cleanup    leave the tagged test resources on the referral server
 Exit code: 0 all steps passed, 1 any failure, 2 usage error.
@@ -36,7 +37,7 @@ for a in "$@"; do
 done
 for t in curl jq; do command -v "$t" >/dev/null || { echo "missing required tool: $t" >&2; exit 2; }; done
 
-REF="$BASE_URL$REFERRAL_BASE"
+REF="${REFERRAL_URL:-$BASE_URL$REFERRAL_BASE}"; REF="${REF%/}"
 DIR="${DIRECTORY_URL:-$BASE_URL$DIRECTORY_BASE}"
 RUN_ID="smoke-$(date +%Y%m%d%H%M%S)-$$"
 TAG_SYS="urn:qh-connectathon:smoke-test"
@@ -109,9 +110,9 @@ http GET "$BASE_URL/"
 # ---- 3. Metadata ---------------------------------------------------------
 http GET "$REF/metadata"
 if [ "$CODE" = "200" ] && [ "$(jq -r .resourceType "$BODY")" = "CapabilityStatement" ]; then
-  pass "referral $REFERRAL_BASE/metadata -> 200 ($(jq -r '.software.name+" "+.software.version+", FHIR "+.fhirVersion' "$BODY"))"
+  pass "referral $REF/metadata -> 200 ($(jq -r '.software.name+" "+.software.version+", FHIR "+.fhirVersion' "$BODY"))"
   REF_OK=1
-else fail "referral $REFERRAL_BASE/metadata" "$(err_detail)"; REF_OK=0; fi
+else fail "referral $REF/metadata" "$(err_detail)"; REF_OK=0; fi
 
 http GET "$DIR/metadata"
 if [ "$CODE" = "200" ] && [ "$(jq -r .resourceType "$BODY")" = "CapabilityStatement" ]; then
