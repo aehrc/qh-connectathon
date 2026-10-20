@@ -10,6 +10,49 @@ Quick orientation:
 
 ## 1. Where the parts come from
 
+How a part gets from its source to a running pod (the table below gives the detail for each):
+
+```mermaid
+flowchart LR
+  subgraph src["Sources"]
+    mo["mjosborne1/Patient-Referral<br/>(UI source, Michael)"]
+    hs["hapifhir/hapi-fhir-jpaserver-starter"]
+    ff["gitlab.com/fhirfrog/frog-runner"]
+    rr["aehrc/radiology-referral<br/>(IG source, built by us)"]
+    pk["packages.fhir.org<br/>AU Base, Core, eReq, extensions"]
+    bf["build.fhir.org<br/>ADHA HCPD IG (CI build)"]
+    off["Docker official images<br/>postgres, nginx, alpine"]
+  end
+  subgraph reg["Registries"]
+    dh1["Docker Hub<br/>joernguysuess/patient-referral"]
+    dh2["Docker Hub<br/>hapiproject/hapi"]
+    gl["registry.gitlab.com<br/>fhirfrog/frog-runner"]
+    dh3["Docker Hub<br/>postgres, nginx, alpine"]
+  end
+  subgraph repo["github.com/aehrc/qh-connectathon (this repo)"]
+    tgz["ig-packages/*.tgz<br/>vendored, sha256 listed"]
+    man["k8s manifests"]
+    seed["seed data + generators"]
+    bun["frog-tests bundles"]
+  end
+  cl["Cluster pods<br/>(images pinned by digest)"]
+  mo -->|"built 2026-09-29"| dh1
+  hs --> dh2
+  ff --> gl
+  off --> dh3
+  rr -->|"built"| tgz
+  pk -->|"vendored"| tgz
+  bf -->|"vendored"| tgz
+  dh1 --> cl
+  dh2 --> cl
+  gl --> cl
+  dh3 --> cl
+  man -->|"kustomize apply"| cl
+  tgz -->|"raw.githubusercontent.com<br/>pinned by commit SHA, at HAPI boot"| cl
+  bun -->|"repo archive at SHA,<br/>init container"| cl
+  seed -->|"load scripts over HTTPS"| cl
+```
+
 | Part | What it is | Comes from | Pinned to | Licence |
 |---|---|---|---|---|
 | **Patient-Referral UI** ("the app") | Flask web app: referrer and filler screens, provider search, dashboards | Source: [github.com/mjosborne1/Patient-Referral](https://github.com/mjosborne1/Patient-Referral) (Michael Osborne). Image we run: `docker.io/joernguysuess/patient-referral:track2`, built on 2026-09-29 | digest `sha256:adc5d5f5…` | MIT |
@@ -63,6 +106,21 @@ imaging-typed Organizations, and a referral's `Task.owner` must be a resolvable 
 The directory's referral `Endpoint` addresses are written at load time from the URL you give `load-directory.sh`, so each stack
 advertises its own referral server.
 
+How the two seeds are generated and loaded, and how the two servers refer to each other:
+
+```mermaid
+flowchart TD
+  gd["seed/directory/generate.py"] --> db["directory bundles<br/>01..07-*.json"]
+  db --> ld["load-directory.sh<br/>writes this stack's referral URL<br/>into the Endpoints"]
+  ld --> dirsrv["directory HAPI<br/>11 orgs, 31 services, 25 endpoints"]
+  db -->|"imaging providers, same HPI-O"| gr["seed/referrals/generate.py"]
+  gr --> rb["referral bundles<br/>referrers, schedules and slots,<br/>20 patient bundles"]
+  rb --> lr["load-referrals.sh"]
+  lr --> refsrv["referral HAPI<br/>20 patients, 22 referrals,<br/>12 organisations, 93 slots"]
+  dirsrv -. "Endpoint.address points at" .-> refsrv
+  refsrv -. "Task.owner = Organization/qhc-org-fillN,<br/>same HPI-O as the directory" .-> dirsrv
+```
+
 Caveats: the ABNs in the directory are fictional but checksum-valid, so about 1% of them could match a real business (not yet
 checked on ABN Lookup). SNOMED `432370003` used in a few referrals is not in the bound RANZCR ValueSet. Both go to Michael.
 
@@ -76,6 +134,30 @@ checked on ABN Lookup). SNOMED `432370003` used in a few referrals is not in the
 | `qh-fhir-test-frog.dw.csiro.au` | test frog-runner (off by default, see quota) | DiSP |
 | `caret-aehrc-qh-connectathon-track-2.dw.csiro.au` | RIS HL7v2 tutorial (a separate project; shares the namespace) | DiSP |
 | `track2.efiq.jgsuess.dev` (placeholder) | event host, **planned**, hostname and DNS root (`jgsuess.dev` or `efiq.org`) undecided | AWS EKS, shared EFIQ cluster |
+
+What talks to what inside one Track 2 stack (the same on DiSP and on EKS):
+
+```mermaid
+flowchart LR
+  user["Browser or API client"] --> ing["Ingress<br/>Contour on DiSP, ALB on EKS<br/>one hostname, TLS"]
+  ing -->|"/"| banner["Banner proxy<br/>nginx"]
+  banner --> ui["Patient-Referral UI<br/>Flask"]
+  ing -->|"/referral/fhir"| ref["HAPI<br/>referral server"]
+  ing -->|"/directory/fhir"| dir["HAPI<br/>directory server"]
+  ui -->|"in-cluster http"| ref
+  ui -->|"provider search"| dir
+  ui -->|"typeahead"| tx[("Ontoserver<br/>r4.ontoserver.csiro.au")]
+  ref -.->|"terminology"| tx
+  dir -.->|"terminology"| tx
+  subgraph pg["Postgres (one instance)"]
+    db1[("db: hapi")]
+    db2[("db: hapi_dir")]
+  end
+  ref --> db1
+  dir --> db2
+  frog["frog-runner<br/>(own hostname)"] -->|"in-cluster http"| ref
+  frog --> dir
+```
 
 Paths on each Track 2 host (one hostname, no CORS):
 
@@ -117,6 +199,20 @@ its cap, and the LimitRange gives every container a 2 CPU default limit unless o
 | `efiq` | **planned event host**: shared EKS cluster, ALB group, hostname from `hostname.yaml` (see `EKS-PLAN.md`) |
 | `local`, `aws` | earlier microk8s and standalone-AWS variants, kept for reference |
 
+How the overlays relate and where each one goes:
+
+```mermaid
+flowchart TD
+  base["base<br/>Postgres, 2x HAPI, UI, banner, frog, seed job, ingress"]
+  base --> disp["overlay: disp<br/>live, Contour + cert-manager"]
+  disp --> scratch["overlay: disp-scratch<br/>test copy: scratch- prefix, own hostname,<br/>distinct app labels, frog off"]
+  base --> efiq["overlay: efiq<br/>shared EKS cluster, ALB group, hostname.yaml"]
+  base --> local["overlays: local, aws<br/>earlier variants"]
+  disp -->|"ops/apply-live.sh, reset-live.sh"| live["DiSP live<br/>aehrc-qh-connectathon-track-2.dw.csiro.au"]
+  scratch -->|"ops/apply-scratch.sh, reset-scratch.sh"| test["DiSP test<br/>qh-fhir-test.dw.csiro.au"]
+  efiq -->|"Flux, pinned commit (planned)"| eks["AWS EKS event host<br/>hostname undecided"]
+```
+
 Applied with the scripts in `ops/` (`kustomize build overlays/<x> | kubectl-dw apply -f -`); no GitOps on DiSP. On EKS the plan is Flux,
 pointing at the `efiq` overlay of this repo at a pinned commit.
 
@@ -132,7 +228,45 @@ Techniques worth knowing:
 
 ## 7. How it is verified
 
+The use cases the suite follows come from Michael's two-day agenda (`Services-Track-Two-Day-Agenda.md`):
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor R as Referrer
+  participant D as Directory server
+  participant T as Terminology server
+  participant S as Referral server
+  actor F as Filler
+  Note over R,S: Day 1 - discover and request
+  R->>D: search services by city or type (with organisation and location)
+  D-->>R: matches and the Endpoint of the referral server
+  R->>T: suggest the reason for request
+  R->>S: create ServiceRequest, group Task and Task
+  S-->>R: validated against the radiology-referral IG
+  Note over R,S: Day 2 - triage, book and track
+  F->>S: find Tasks owned by my organisation (requested)
+  F->>S: update Task to accepted
+  F->>S: publish Schedule and free Slots
+  R->>S: find a free Slot, create Appointment (proposed)
+  F->>S: confirm: Appointment booked, Slot busy, Task service-booked
+  R->>S: track Task and Appointment status to completion
+```
+
 Run after every deployment, in this order. All are in `smoke/`, `loadtest/` and `frog-tests/`.
+
+The order to run things after any deployment or reset:
+
+```mermaid
+flowchart LR
+  rs["reset or apply<br/>(ops scripts)"] --> w["wait about 3 min<br/>for both HAPI servers"]
+  w --> sd["load seeds<br/>(a reset empties the database)"]
+  sd --> uc["usecases.sh<br/>agenda use cases, UI + API"]
+  uc --> sm["smoke.sh<br/>full API workflow + $validate"]
+  sm --> fr["frog-runner bundles<br/>directory 1/1, referral 6/6"]
+  fr --> lt["loadtest.py<br/>40 users"]
+  fr --> cl["cleanup-fixtures.py"]
+```
 
 | Check | What it proves | Last result (live, 2026-10-20) |
 |---|---|---|
