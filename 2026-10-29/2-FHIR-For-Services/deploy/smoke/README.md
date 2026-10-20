@@ -72,3 +72,13 @@ BASE_URL=https://<host> ./usecases.sh [--frog https://<frog-host>]
 `SKIP` means the deployed UI build does not have that screen (today: the imaging filler and booking screens, which the deployed
 `patient-referral` image predates); it never means "could not check". Run it, then `smoke.sh`, after every deployment and reseed.
 It would have caught the empty organisation dropdown and the empty filler list that Michael found on 2026-10-20.
+
+## Daily report (issue #14)
+
+`daily-report.sh` runs `smoke.sh` and `usecases.sh` against one stack and writes a timestamped Markdown report
+(`reports/<UTC time>-<host>.md`: stack, UI version and commit, repo commit, both summaries, every FAIL or SKIP line, and the full output).
+Run it before each event day and commit the reports worth keeping; it exits 1 if either suite fails.
+
+```bash
+BASE_URL=https://track2.efiq.hospservices.net ./daily-report.sh --frog https://track2-frog.efiq.hospservices.net
+```
