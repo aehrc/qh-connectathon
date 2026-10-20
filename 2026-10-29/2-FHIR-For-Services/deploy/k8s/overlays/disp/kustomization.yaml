@@ -72,7 +72,7 @@ patches:
 images:
   - name: localhost:32000/patient-referral:local
     newName: joernguysuess/patient-referral
-    newTag: track2
+    digest: sha256:adc5d5f5916929fb33511236d12c62f5c30e86c53697c3e06125d9621060174c   # joernguysuess/patient-referral:track2, built 2026-09-29
 
 secretGenerator:
   - name: db-secret

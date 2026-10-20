@@ -21,7 +21,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: createdb
-          image: postgres:16-alpine   # provides psql/createdb
+          image: postgres:16   # same image as the database; provides psql/createdb/pg_isready (pinned by digest in kustomization.yaml)
           env:
             - { name: PGHOST, value: db }
             - { name: PGPORT, value: "5432" }
