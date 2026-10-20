@@ -139,6 +139,23 @@ if [ "$DIR_OK" = 1 ]; then
   http GET "$DIR/HealthcareService?service-type=http://snomed.info/sct%7C310128004&_summary=count"
   [ "$CODE" = "200" ] && [ "$(jq -r '.total // 0' "$BODY")" -ge 1 ] \
     && pass "directory search by service-type (SNOMED 310128004) matches" || fail "directory search by service-type 310128004" "$(err_detail)"
+  # Bulk $export (kick-off, poll, download), filtered the way the HCPD guide does it with _typeFilter
+  xloc=$(curl -s -m "$CURL_TIMEOUT" -D - -o /dev/null -H 'Prefer: respond-async' \
+    "$DIR/\$export?_type=HealthcareService&_typeFilter=HealthcareService%3Fservice-type%3D310128004&_outputFormat=application/fhir%2Bndjson" \
+    | tr -d '\r' | awk 'tolower($1)=="content-location:" {print $2}')
+  xurl=""; xc=202
+  if [ -n "$xloc" ]; then
+    for _ in $(seq 1 24); do
+      xc=$(curl -s -m "$CURL_TIMEOUT" -o "$BODY.x" -w '%{http_code}' -H 'Accept: application/fhir+json' "$xloc")
+      [ "$xc" != 202 ] && break; sleep 5
+    done
+    [ "$xc" = 200 ] && xurl=$(jq -r '.output[0].url // empty' "$BODY.x")
+  fi
+  if [ -n "$xurl" ]; then
+    xn=$(curl -s -m "$CURL_TIMEOUT" "$xurl" | grep -c .)
+    [ "$xn" -ge 1 ] && pass "directory bulk \$export with _typeFilter returned $xn HealthcareService rows" || fail "directory bulk \$export" "empty export file"
+  else fail "directory bulk \$export (kick-off, poll, download)" "no export file (poll status ${xc:-none})"; fi
+  rm -f "$BODY.x"
 else
   for s in "directory HCPD StructureDefinitions" "directory HealthcareService search"; do skip "$s" "directory metadata failed"; done
   HCS_ID=""

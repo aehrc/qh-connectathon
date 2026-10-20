@@ -138,6 +138,9 @@ spec:
             # The ADHA Provider Directory IG is not on any public registry, so we point at the CI-build tarball.
             # akkadakka "Bug 8": disable status validation or HAPI silently drops the
             # draft CodeSystem/ValueSet resources on package upload.
+            # Bulk $export on the directory (issue #38): the export files are stored as Binary resources
+            - { name: HAPI_FHIR_BULK_EXPORT_ENABLED, value: "true" }
+            - { name: HAPI_FHIR_BINARY_STORAGE_ENABLED, value: "true" }
             - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
             # Pinned IG set. HAPI does NOT fetch dependencies for packageUrl IGs, so every package is listed
             # (order matters: v2-0203 extract, extensions, AU Base, AU Core ...; NOT the full hl7.terminology.r4, which pins CPU: see IG-PINNING.md s10). Tarballs are vendored in
