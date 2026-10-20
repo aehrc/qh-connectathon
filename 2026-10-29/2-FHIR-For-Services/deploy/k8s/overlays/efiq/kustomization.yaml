@@ -32,6 +32,13 @@ patches:
         path: /metadata/annotations
         value: { alb.ingress.kubernetes.io/healthcheck-path: /health }
     target: { kind: Service, name: banner }
+  # EBS volumes arrive with a lost+found directory, which initdb refuses; keep the cluster in a subdirectory (DiSP's volume has none,
+  # so the base stays as it is and the live data there is untouched)
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: PGDATA, value: /var/lib/postgresql/data/pgdata }
+    target: { kind: Deployment, name: db }
   # TLS ends at the ALB: tell HAPI its public https base so links and Location headers are right
   - patch: |-
       - op: add

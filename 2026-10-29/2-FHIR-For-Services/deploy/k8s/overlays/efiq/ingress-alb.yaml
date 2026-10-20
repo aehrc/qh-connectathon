@@ -9,7 +9,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/healthcheck-path: /health      # default; the HAPI Services override it below
-    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=120
+    alb.ingress.kubernetes.io/load-balancer-attributes: idle_timeout.timeout_seconds=300   # one ALB per IngressGroup: must equal frog-ingress.yaml, or the group fails to build
     external-dns.alpha.kubernetes.io/hostname: HOST.REPLACED-BY-KUSTOMIZE
 spec:
   ingressClassName: alb
