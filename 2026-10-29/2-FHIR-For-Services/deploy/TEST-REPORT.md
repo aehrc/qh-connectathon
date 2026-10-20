@@ -7,13 +7,13 @@ How the stack is built is in [DEPLOYMENT.md](DEPLOYMENT.md); the test tools are 
 
 | What | AWS (EKS, from 2026-10-21) | DiSP live (CSIRO network only) |
 |---|---|---|
-| Patient-Referral UI | https://track2.efiq.hospservices.net/ | https://aehrc-qh-connectathon-track-2.dw.csiro.au/ |
-| Referral FHIR server (R4) | https://track2.efiq.hospservices.net/referral/fhir | https://aehrc-qh-connectathon-track-2.dw.csiro.au/referral/fhir |
-| Provider directory FHIR server (R4) | https://track2.efiq.hospservices.net/directory/fhir | https://aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir |
-| Conformance runner (frog-runner) | https://track2-frog.efiq.hospservices.net/ | https://frog-aehrc-qh-connectathon-track-2.dw.csiro.au/ |
-| Caret (RIS HL7v2 tutorial, separate) | https://caret.efiq.hospservices.net/ | n/a |
+| Patient-Referral UI | https://ui.efiq.hospservices.net/ (landing page with all links: https://track2.efiq.hospservices.net/) | https://aehrc-qh-connectathon-track-2.dw.csiro.au/ |
+| Referral FHIR server (R4) | https://referrals.efiq.hospservices.net/fhir | https://aehrc-qh-connectathon-track-2.dw.csiro.au/referral/fhir |
+| Provider directory FHIR server (R4) | https://directory.efiq.hospservices.net/fhir | https://aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir |
+| Conformance runner (frog-runner) | https://conformance.efiq.hospservices.net/ | https://frog-aehrc-qh-connectathon-track-2.dw.csiro.au/ |
+| Caret (RIS HL7v2 tutorial, separate) | https://v2.efiq.hospservices.net/ | n/a |
 
-A DiSP scratch copy (`qh-fhir-test.dw.csiro.au`) exists for rehearsing changes. The AWS stack is torn down on or after 2026-11-06.
+The AWS hosts are one per function (from 2026-10-2x; before that everything sat under `track2.efiq...` with path routing, which is still how DiSP works). A DiSP scratch copy (`qh-fhir-test.dw.csiro.au`) exists for rehearsing changes. The AWS stack is torn down on or after 2026-11-06.
 All data is fictional; the UI shows a "test data only" banner.
 
 ## 2. What is deployed

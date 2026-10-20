@@ -115,8 +115,8 @@ which the runner's JVM does not trust, and the call would fail as a "500"):
 
 | Bundle | bundlePath | serverUrl | other fields |
 |---|---|---|---|
-| Directory step 1 (HealthcareService by city, Cairns) | `/bundles/scenario1/step1` | `http://directory:8080/directory/fhir` | none |
-| Referral steps 2-6 | `/bundles/scenario1-referral` | `http://fhir:8080/referral/fhir` | `igPackage` `hl7.fhir.au.ereq#1.0.1`, `terminologyServerUrl` `https://r4.ontoserver.csiro.au/fhir` |
+| Directory step 1 (HealthcareService by city, Cairns) | `/bundles/scenario1/step1` | `http://directory:8080/directory/fhir` (AWS: `http://directory:8080/fhir`) | none |
+| Referral steps 2-6 | `/bundles/scenario1-referral` | `http://fhir:8080/referral/fhir` (AWS: `http://fhir:8080/fhir`) | `igPackage` `hl7.fhir.au.ereq#1.0.1`, `terminologyServerUrl` `https://r4.ontoserver.csiro.au/fhir` |
 
 In the scratch stack the services are `scratch-directory` and `scratch-fhir`. The first referral run downloads the AU IG and its
 dependencies from packages.fhir.org (several hundred MB; minutes on a slow link); the PVC keeps them afterwards, so warm it once

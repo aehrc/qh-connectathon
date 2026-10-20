@@ -12,8 +12,8 @@ overlay tried to create, so Track 2 only adds a workload to it.
 
 ## What this repo adds
 
-`deploy/k8s/overlays/efiq`: namespace `track2`, ingress on the shared ALB with host from `hostname.yaml` (the only
-place the name lives; placeholder `track2.efiq.jgsuess.dev`), per-Service ALB health checks, sized HAPI servers (3 GB heap; 4 CPU / 5 Gi each), the "test data only"
+`deploy/k8s/overlays/efiq`: namespace `track2`, one ingress per function on the shared ALB (hosts `ui`, `referrals`, `directory`, `conformance` under `efiq.hospservices.net`, and a
+landing page at `track2`), all from `hostname.yaml` (the only place the names live), per-Ingress ALB health checks, sized HAPI servers (3 GB heap; 4 CPU / 5 Gi each), the "test data only"
 banner proxy, HAPI public addresses. Images come from Docker Hub (Patient-Referral, nginx, HAPI at a pinned digest); IG
 packages come from this public repo by commit SHA. Nothing needs ECR or ACM changes.
 
@@ -53,10 +53,10 @@ The existing `apps` Kustomization only covers `./apps/ris-tutorial`, so Track 2 
 2. `scripts/up.sh` (dry run first): vpc, eks, flux, external-dns association. About 12 min; about US$8-12 per day.
 3. Flux reconciles `apps-track2`. HAPI boots in about 2.5 min on a fresh database (the IG packages come from GitHub raw by SHA).
 4. Load the seeds against the public URL (idempotent; the directory seed needs the referral base for its Endpoints):
-   `DIRECTORY_URL=https://track2.efiq.jgsuess.dev/directory/fhir ./seed/load-directory.sh`
-   `FHIR_BASE=https://track2.efiq.jgsuess.dev/referral/fhir ./seed/load-referrals.sh`
-5. Warm up, then verify: `BASE_URL=https://track2.efiq.jgsuess.dev ./smoke/smoke.sh` (28/28 expected), then
-   `python3 -I loadtest/loadtest.py --base https://track2.efiq.jgsuess.dev --users 40`.
+   `DIRECTORY_URL=https://directory.efiq.hospservices.net/fhir REFERRAL_FHIR_BASE=https://referrals.efiq.hospservices.net/fhir ./seed/load-directory.sh`
+   `FHIR_BASE=https://referrals.efiq.hospservices.net/fhir ./seed/load-referrals.sh`
+5. Warm up, then verify with `BASE_URL=https://ui.efiq.hospservices.net REFERRAL_URL=https://referrals.efiq.hospservices.net/fhir DIRECTORY_URL=https://directory.efiq.hospservices.net/fhir ./smoke/smoke.sh`
+   (29/29 expected), then `python3 -I loadtest/loadtest.py --base https://ui.efiq.hospservices.net --referral-url https://referrals.efiq.hospservices.net/fhir --directory-url https://directory.efiq.hospservices.net/fhir --users 40`.
 6. Freeze: record the commit SHA and image digests in the Flux GitRepository pin.
 
 ## Things to decide or watch

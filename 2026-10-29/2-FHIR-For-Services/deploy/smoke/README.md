@@ -14,6 +14,7 @@ BASE_URL=https://track2.example.org ./smoke.sh
 | `BASE_URL` | `https://aehrc-qh-connectathon-track-2.dw.csiro.au` | ingress root |
 | `REFERRAL_BASE` | `/fhir` | referral HAPI path |
 | `DIRECTORY_BASE` | `/directory` | use `/directory/fhir` if the directory serves there |
+| `REFERRAL_URL` | (unset) | full referral FHIR base when it has its own host (AWS: `https://referrals.<root>/fhir`); overrides `BASE_URL` + `REFERRAL_BASE` |
 | `DIRECTORY_URL` | (unset) | full directory FHIR base, overrides the two above (e.g. a `kubectl port-forward` to `http://localhost:28081/fhir`) |
 | `TX_URL` | `https://r4.ontoserver.csiro.au/fhir` | terminology server |
 | `IG_CANON` | `http://aehrc.csiro.au/fhir/radiology-referral` | profile URLs are `$IG_CANON/StructureDefinition/<id>` |
@@ -80,5 +81,6 @@ It would have caught the empty organisation dropdown and the empty filler list t
 Run it before each event day and commit the reports worth keeping; it exits 1 if either suite fails.
 
 ```bash
-BASE_URL=https://track2.efiq.hospservices.net ./daily-report.sh --frog https://track2-frog.efiq.hospservices.net
+BASE_URL=https://ui.efiq.hospservices.net REFERRAL_URL=https://referrals.efiq.hospservices.net/fhir \
+DIRECTORY_URL=https://directory.efiq.hospservices.net/fhir ./daily-report.sh --frog https://conformance.efiq.hospservices.net
 ```

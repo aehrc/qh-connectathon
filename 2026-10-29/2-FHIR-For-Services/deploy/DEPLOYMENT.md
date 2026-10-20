@@ -133,7 +133,12 @@ checked on ABN Lookup). SNOMED `432370003` used in a few referrals is not in the
 | `qh-fhir-test.dw.csiro.au` | **test stack** (what Michael works against; resettable) | DiSP, same namespace, `scratch-*` objects |
 | `qh-fhir-test-frog.dw.csiro.au` | test frog-runner (off by default, see quota) | DiSP |
 | `caret-aehrc-qh-connectathon-track-2.dw.csiro.au` | RIS HL7v2 tutorial (a separate project; shares the namespace) | DiSP |
-| `track2.efiq.jgsuess.dev` (placeholder) | event host, **planned**, hostname and DNS root (`jgsuess.dev` or `efiq.org`) undecided | AWS EKS, shared EFIQ cluster |
+| `track2.efiq.hospservices.net` | **AWS event host**: landing page pointing at the function hosts below | AWS EKS, shared EFIQ cluster (cluster `efiq`) |
+| `ui.efiq.hospservices.net` | AWS: Patient-Referral UI behind the banner proxy | same |
+| `referrals.efiq.hospservices.net` | AWS: referral FHIR server, base `/fhir` | same |
+| `directory.efiq.hospservices.net` | AWS: provider directory FHIR server, base `/fhir` | same |
+| `conformance.efiq.hospservices.net` | AWS: frog-runner | same |
+| `v2.efiq.hospservices.net` | AWS: Caret, the HL7v2 tutorial (separate project) | same |
 
 What talks to what inside one Track 2 stack (the same on DiSP and on EKS):
 
@@ -159,7 +164,7 @@ flowchart LR
   frog --> dir
 ```
 
-Paths on each Track 2 host (one hostname, no CORS):
+Paths on the DiSP hosts (one hostname per stack, so no CORS; Contour has no path rewrite):
 
 | Path | Goes to | Notes |
 |---|---|---|
@@ -167,8 +172,13 @@ Paths on each Track 2 host (one hostname, no CORS):
 | `/referral/fhir` | referral HAPI | HAPI runs with `SERVER_SERVLET_CONTEXT_PATH=/referral` |
 | `/directory/fhir` | directory HAPI | context path `/directory` |
 
-Not `/fhir` for the API: the UI owns `/fhir/*` (about 30 routes, including `/fhir/Patient/<id>`). Inside the cluster the servers are
+Not `/fhir` for the API on a shared host: the UI owns `/fhir/*` (about 30 routes, including `/fhir/Patient/<id>`). Inside a DiSP stack the servers are
 `http://fhir:8080/referral/fhir` and `http://directory:8080/directory/fhir`.
+
+**On AWS every function has its own host** (`hostname.yaml`), so the context paths are not needed: each HAPI serves at the host root with base `/fhir`
+(`SERVER_SERVLET_CONTEXT_PATH=/`), the ALB routes by host, and inside the cluster the servers are `http://fhir:8080/fhir` and
+`http://directory:8080/fhir` (the efiq overlay patches the UI's `FHIR_SERVER_URL` and `PD_SERVER` to match). The scripts therefore take
+`REFERRAL_URL` and `DIRECTORY_URL` (`--referral-url`, `--directory-url` for the load test) besides `BASE_URL` (the UI host).
 
 DiSP specifics: Contour ingress (class `contour`; no path rewrite, which is why HAPI serves under its own prefix); cert-manager with
 the `cluster-issuer-csiro` ClusterIssuer (an **internal CSIRO CA**: browsers on the CSIRO network trust it, but Java clients such as
@@ -284,6 +294,14 @@ H=https://qh-fhir-test.dw.csiro.au
 DIRECTORY_URL=$H/directory/fhir ./seed/load-directory.sh
 FHIR_BASE=$H/referral/fhir     ./seed/load-referrals.sh
 BASE_URL=$H ./smoke/usecases.sh && BASE_URL=$H ./smoke/smoke.sh
+```
+On AWS (per-function hosts):
+```
+R=efiq.hospservices.net
+DIRECTORY_URL=https://directory.$R/fhir REFERRAL_FHIR_BASE=https://referrals.$R/fhir ./seed/load-directory.sh
+FHIR_BASE=https://referrals.$R/fhir ./seed/load-referrals.sh
+export BASE_URL=https://ui.$R REFERRAL_URL=https://referrals.$R/fhir DIRECTORY_URL=https://directory.$R/fhir
+./smoke/usecases.sh && ./smoke/smoke.sh
 ```
 The same with `reset-live.sh` / the live host for the live stack. An in-place update (keep the data) is `apply-*.sh`. A reset **empties the
 database**, so always reload the seeds; an empty stack is what the use-case suite is there to catch. After frog or load runs, remove their
