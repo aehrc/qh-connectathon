@@ -60,3 +60,10 @@ FHIR write p95 0.07 s, `$validate` p95 0.18 s.
 
 Peaks from `kubectl top` (all load now on the one live stack): referral HAPI **0.90 CPU peak, 0.53 mean**, 2.0 Gi; directory HAPI 0.54 peak,
 0.40 mean, 1.57 Gi; Postgres 0.30 peak, 0.25 mean; UI 0.10 peak; banner proxy 0.01. These are the figures to size from.
+
+## Run 5 (2026-10-21, AWS EKS stack, seeded, UI v1.0.0): PASS
+
+5,853 requests in 480 s (12.2 req/s), 40 virtual users, **0 errors**; cleanup deleted all 364 tagged resources.
+UI p95 1.84 s (provider search p50 1.52 s, p95 2.00 s; every other UI call p95 < 0.2 s), FHIR read p95 0.07 s, FHIR write p95 0.04 s,
+`$validate` p95 0.11 s, terminology typeahead p95 0.06 s (p99 0.53 s). Run from a CSIRO workstation over the public internet. No per-pod CPU
+figures were taken on AWS. Provider search stays the slowest call and sits right at the 2 s criterion.

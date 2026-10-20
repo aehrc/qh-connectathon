@@ -32,7 +32,7 @@ All data is fictional; the UI shows a "test data only" banner.
 
 | Suite | What it checks | AWS | DiSP live | DiSP scratch |
 |---|---|---|---|---|
-| `smoke.sh` | 28 checks: TLS and metadata on both servers, IG profiles and HCPD structure definitions loaded, directory search by service type (SNOMED 310128004) with `_include`, create a referral (ServiceRequest + Task), `$validate` against the AU eRequesting profiles (0 errors), publish availability (Schedule, free Slot), book (Appointment against Slot), filler finds the Task and confirms the booking, tracking (Appointment search, Slot busy); cleans up what it creates | 28/28 PASS | 28/28 PASS | 28/28 PASS |
+| `smoke.sh` | 28 checks (29 with the bulk `$export` step, DiSP only so far): TLS and metadata on both servers, IG profiles and HCPD structure definitions loaded, directory search by service type (SNOMED 310128004) with `_include`, create a referral (ServiceRequest + Task), `$validate` against the AU eRequesting profiles (0 errors), publish availability (Schedule, free Slot), book (Appointment against Slot), filler finds the Task and confirms the booking, tracking (Appointment search, Slot busy); cleans up what it creates | 28/28 PASS | 28/28 PASS | 28/28 PASS |
 | `usecases.sh` | The agenda use cases through the UI and the API (39 checks on AWS): environment banner and `/version`; browsing the directory; UI patient list, search, detail and demographics; provider search; "Select Provider Organisation" (imaging) list; reason-for-request typeahead (terminology server); referral listing; filler triage by owner and organisation list; imaging filler screen; booking panel and slot picker offering free slots; booked appointments; statistics; directory Endpoint resolution pointing at this stack; frog-runner reachable | 39/39 PASS | 38/38 PASS (before the AWS-only frog check) | 38/38 PASS |
 | frog-runner, directory bundle (`scenario1/step1`, HealthcareService by city) | HCPD search on the directory | 1/1 PASS | 1/1 PASS | not run (runner off to save quota) |
 | frog-runner, referral bundle (`scenario1-referral`, steps 2 to 6) | create/submit eRequest, retrieve, update fulfilment, monitor, patient view; validated against `hl7.fhir.au.ereq#1.0.1` 6/6 PASS (2026-10-21; fixtures cleaned up afterwards) | 6/6 PASS | 6/6 PASS (2026-10-19) |
@@ -42,7 +42,7 @@ All data is fictional; the UI shows a "test data only" banner.
 Run on DiSP live (run 4, 2026-10-20): 5,740 requests, 0 errors; UI p95 1.89 s (provider search is the slow call, median 1.55 s), FHIR read p95 0.14 s,
 write p95 0.07 s, `$validate` p95 0.18 s; referral HAPI peaked at 0.90 CPU. Criteria (error rate < 1 %, UI p95 < 2 s, read p95 < 1.5 s, write p95 < 2 s) all met.
 Earlier runs found and fixed a heap setting that HAPI was ignoring (`JAVA_OPTS` vs `JAVA_TOOL_OPTIONS`); see `loadtest/README.md`.
-**Not run on AWS.** The AWS stack has larger limits (4 CPU / 5 Gi for the referral HAPI) than DiSP, so DiSP is the conservative case, but this is an inference, not a measurement.
+Run on AWS (run 5, 2026-10-21): 5,853 requests, 0 errors; UI p95 1.84 s (provider search p95 2.00 s, right at the limit), FHIR read p95 0.07 s, write p95 0.04 s. All criteria met. No per-pod CPU figures were taken on AWS.
 
 ### 3.3 Defects found and fixed while testing
 
@@ -62,12 +62,11 @@ Earlier runs found and fixed a heap setting that HAPI was ignoring (`JAVA_OPTS` 
 
 - **A person using it in a browser on AWS.** All AWS checks went through scripts. Nobody has clicked through the screens on the AWS hostnames yet.
 - **Caret** was only checked to return HTTP 200 with a valid certificate.
-- **Load on AWS** (see 3.2).
 - **Slot picker window:** the UI searches 14 days ahead. Free slots run 4 to 10 Nov, so on 29/30 Oct the picker shows slots, but the seed would need extending for any test after about 26 Nov. Loading the seed again re-creates them.
 - **Seed re-load resets** seeded resources that participants have edited; it never deletes participant-created data.
 - **SNOMED `432370003`** is not in the bound ValueSet (known, left as is).
-- **Bulk `$export` on the directory** (decision C4) is not set up.
 - **First `$validate` after a restart** can return a 504; run smoke once to warm the servers before participants arrive.
+- **Bulk `$export`** on the directory is enabled (issue #38) and checked by `smoke.sh` on DiSP; AWS gets it when Flux picks up the commit.
 - **Provider search** is the slowest UI call (about 1.6 s median under load) and sits near the 2 s criterion.
 - The AWS data lives on an EBS volume with no backup; export anything worth keeping before the teardown.
 - **Terminology** calls (typeahead, `$validate`) use the shared public `r4.ontoserver.csiro.au`, which we do not control.
