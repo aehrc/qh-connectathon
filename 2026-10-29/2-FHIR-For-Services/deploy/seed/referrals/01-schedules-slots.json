@@ -26,6 +26,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f1-ct",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -34,6 +35,7 @@
             "display": "Cairns CT"
           },
           {
+            "reference": "Location/qhc-loc-fill1",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -251,6 +253,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-ct-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-ct-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-ct-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f1-mri",
       "resource": {
         "resourceType": "Schedule",
@@ -274,6 +573,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f1-mri",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -282,6 +582,7 @@
             "display": "Cairns MRI"
           },
           {
+            "reference": "Location/qhc-loc-fill1",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -499,6 +800,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-mri-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-mri-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-mri-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f1-us",
       "resource": {
         "resourceType": "Schedule",
@@ -522,6 +1120,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f1-us",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -530,6 +1129,7 @@
             "display": "Cairns General Ultrasound"
           },
           {
+            "reference": "Location/qhc-loc-fill1",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -747,6 +1347,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-us-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-us-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-us"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-us-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f1-xr",
       "resource": {
         "resourceType": "Schedule",
@@ -770,6 +1667,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f1-xr",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -778,6 +1676,7 @@
             "display": "Cairns General X-ray"
           },
           {
+            "reference": "Location/qhc-loc-fill1",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -995,6 +1894,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f1-xr-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f1-xr-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f1-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f1-xr-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f2-ct",
       "resource": {
         "resourceType": "Schedule",
@@ -1018,6 +2214,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f2-ct",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1026,6 +2223,7 @@
             "display": "Herston CT"
           },
           {
+            "reference": "Location/qhc-loc-fill2",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1243,6 +2441,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-ct-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-ct-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-ct-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f2-mri",
       "resource": {
         "resourceType": "Schedule",
@@ -1266,6 +2761,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f2-mri",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1274,6 +2770,7 @@
             "display": "Herston MRI"
           },
           {
+            "reference": "Location/qhc-loc-fill2",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1491,6 +2988,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f2-mri-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f2-mri-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f2-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f2-mri-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f3-ct",
       "resource": {
         "resourceType": "Schedule",
@@ -1514,6 +3308,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f3-ct",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1522,6 +3317,7 @@
             "display": "Rockhampton CT"
           },
           {
+            "reference": "Location/qhc-loc-fill3",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1739,6 +3535,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-ct-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-ct-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-ct-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f3-xr",
       "resource": {
         "resourceType": "Schedule",
@@ -1762,6 +3855,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f3-xr",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1770,6 +3864,7 @@
             "display": "Rockhampton Radiology"
           },
           {
+            "reference": "Location/qhc-loc-fill3",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -1987,6 +4082,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-xr-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-xr-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-xr-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f3-mam",
       "resource": {
         "resourceType": "Schedule",
@@ -2010,6 +4402,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f3-mam",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2018,6 +4411,7 @@
             "display": "Rockhampton Mammography"
           },
           {
+            "reference": "Location/qhc-loc-fill3",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2235,6 +4629,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:20:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:05:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T10:50:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:20:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:05:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T10:50:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:20:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:05:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f3-mam-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f3-mam-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f3-mam"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T10:50:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f3-mam-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f4-mri",
       "resource": {
         "resourceType": "Schedule",
@@ -2258,6 +4949,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f4-mri",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2266,6 +4958,7 @@
             "display": "Toowoomba MRI"
           },
           {
+            "reference": "Location/qhc-loc-fill4",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2483,6 +5176,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f4-mri-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f4-mri-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f4-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f4-mri-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f5-ct",
       "resource": {
         "resourceType": "Schedule",
@@ -2506,6 +5496,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f5-ct",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2514,6 +5505,7 @@
             "display": "Southport CT"
           },
           {
+            "reference": "Location/qhc-loc-fill5",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2731,6 +5723,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-ct-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-ct-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-ct"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-ct-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f5-mri",
       "resource": {
         "resourceType": "Schedule",
@@ -2754,6 +6043,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f5-mri",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2762,6 +6052,7 @@
             "display": "Southport MRI"
           },
           {
+            "reference": "Location/qhc-loc-fill5",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -2979,6 +6270,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f5-mri-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f5-mri-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f5-mri"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f5-mri-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f6-us",
       "resource": {
         "resourceType": "Schedule",
@@ -3002,6 +6590,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f6-us",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -3010,6 +6599,7 @@
             "display": "Caboolture Ultrasound"
           },
           {
+            "reference": "Location/qhc-loc-fill6",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -3227,6 +6817,303 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:30:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-us-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-us-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-us"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T11:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-us-20261110-1030"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:schedule-qhc-sched-f6-xr",
       "resource": {
         "resourceType": "Schedule",
@@ -3250,6 +7137,7 @@
         ],
         "actor": [
           {
+            "reference": "HealthcareService/qhc-hcs-f6-xr",
             "type": "HealthcareService",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -3258,6 +7146,7 @@
             "display": "Caboolture X-ray"
           },
           {
+            "reference": "Location/qhc-loc-fill6",
             "type": "Location",
             "identifier": {
               "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -3472,6 +7361,303 @@
       "request": {
         "method": "PUT",
         "url": "Slot/qhc-slot-f6-xr-20261105-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261106-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261106-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:00:00+10:00",
+        "end": "2026-11-06T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261106-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261106-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261106-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T09:45:00+10:00",
+        "end": "2026-11-06T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261106-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261106-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261106-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-06T10:30:00+10:00",
+        "end": "2026-11-06T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261106-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261109-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261109-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:00:00+10:00",
+        "end": "2026-11-09T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261109-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261109-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261109-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T09:45:00+10:00",
+        "end": "2026-11-09T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261109-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261109-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261109-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-09T10:30:00+10:00",
+        "end": "2026-11-09T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261109-1030"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261110-0900",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261110-0900",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:00:00+10:00",
+        "end": "2026-11-10T09:15:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261110-0900"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261110-0945",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261110-0945",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T09:45:00+10:00",
+        "end": "2026-11-10T10:00:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261110-0945"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-qhc-slot-f6-xr-20261110-1030",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "qhc-slot-f6-xr-20261110-1030",
+        "meta": {
+          "profile": [
+            "http://aehrc.csiro.au/fhir/radiology-referral/StructureDefinition/booking-slot"
+          ]
+        },
+        "serviceType": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "schedule": {
+          "reference": "Schedule/qhc-sched-f6-xr"
+        },
+        "status": "free",
+        "start": "2026-11-10T10:30:00+10:00",
+        "end": "2026-11-10T10:45:00+10:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/qhc-slot-f6-xr-20261110-1030"
       }
     },
     {

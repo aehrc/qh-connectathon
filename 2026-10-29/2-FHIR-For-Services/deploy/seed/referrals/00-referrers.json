@@ -944,6 +944,168 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:location-qhc-loc-fill1",
+      "resource": {
+        "resourceType": "Location",
+        "id": "qhc-loc-fill1",
+        "status": "active",
+        "name": "Tropic Coast Base Hospital - Medical Imaging",
+        "managingOrganization": {
+          "reference": "Organization/qhc-org-fill1",
+          "display": "Tropic Coast Health Service"
+        },
+        "address": {
+          "line": [
+            "165 Sheridan Street"
+          ],
+          "city": "Cairns",
+          "state": "QLD",
+          "postalCode": "4870",
+          "country": "AU"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/qhc-loc-fill1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f1-ct",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f1-ct",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill1",
+          "display": "Tropic Coast Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "name": "Cairns CT",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill1",
+            "display": "Tropic Coast Base Hospital - Medical Imaging"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f1-ct"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f1-mri",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f1-mri",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill1",
+          "display": "Tropic Coast Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "name": "Cairns MRI",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill1",
+            "display": "Tropic Coast Base Hospital - Medical Imaging"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f1-mri"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f1-us",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f1-us",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill1",
+          "display": "Tropic Coast Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "name": "Cairns General Ultrasound",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill1",
+            "display": "Tropic Coast Base Hospital - Medical Imaging"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f1-us"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f1-xr",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f1-xr",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill1",
+          "display": "Tropic Coast Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "name": "Cairns General X-ray",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill1",
+            "display": "Tropic Coast Base Hospital - Medical Imaging"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f1-xr"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:organization-qhc-org-fill2",
       "resource": {
         "resourceType": "Organization",
@@ -994,6 +1156,100 @@
       "request": {
         "method": "PUT",
         "url": "Organization/qhc-org-fill2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:location-qhc-loc-fill2",
+      "resource": {
+        "resourceType": "Location",
+        "id": "qhc-loc-fill2",
+        "status": "active",
+        "name": "Brisbane River Hospital Complex - Imaging and Nuclear Medicine",
+        "managingOrganization": {
+          "reference": "Organization/qhc-org-fill2",
+          "display": "Brisbane River Health Service"
+        },
+        "address": {
+          "line": [
+            "Butterfield Street"
+          ],
+          "city": "Herston",
+          "state": "QLD",
+          "postalCode": "4006",
+          "country": "AU"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/qhc-loc-fill2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f2-ct",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f2-ct",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill2",
+          "display": "Brisbane River Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "name": "Herston CT",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill2",
+            "display": "Brisbane River Hospital Complex - Imaging and Nuclear Medicine"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f2-ct"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f2-mri",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f2-mri",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill2",
+          "display": "Brisbane River Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "name": "Herston MRI",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill2",
+            "display": "Brisbane River Hospital Complex - Imaging and Nuclear Medicine"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f2-mri"
       }
     },
     {
@@ -1050,6 +1306,134 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:location-qhc-loc-fill3",
+      "resource": {
+        "resourceType": "Location",
+        "id": "qhc-loc-fill3",
+        "status": "active",
+        "name": "Capricorn Bay Hospital - Radiology",
+        "managingOrganization": {
+          "reference": "Organization/qhc-org-fill3",
+          "display": "Capricorn Bay Health Service"
+        },
+        "address": {
+          "line": [
+            "50 Canning Street"
+          ],
+          "city": "Rockhampton",
+          "state": "QLD",
+          "postalCode": "4700",
+          "country": "AU"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/qhc-loc-fill3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f3-ct",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f3-ct",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill3",
+          "display": "Capricorn Bay Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "name": "Rockhampton CT",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill3",
+            "display": "Capricorn Bay Hospital - Radiology"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f3-ct"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f3-xr",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f3-xr",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill3",
+          "display": "Capricorn Bay Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "name": "Rockhampton Radiology",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill3",
+            "display": "Capricorn Bay Hospital - Radiology"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f3-xr"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f3-mam",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f3-mam",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill3",
+          "display": "Capricorn Bay Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "name": "Rockhampton Mammography",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill3",
+            "display": "Capricorn Bay Hospital - Radiology"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f3-mam"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:organization-qhc-org-fill4",
       "resource": {
         "resourceType": "Organization",
@@ -1100,6 +1484,66 @@
       "request": {
         "method": "PUT",
         "url": "Organization/qhc-org-fill4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:location-qhc-loc-fill4",
+      "resource": {
+        "resourceType": "Location",
+        "id": "qhc-loc-fill4",
+        "status": "active",
+        "name": "Darling Plains Base Hospital - Medical Imaging",
+        "managingOrganization": {
+          "reference": "Organization/qhc-org-fill4",
+          "display": "Darling Plains Health Service"
+        },
+        "address": {
+          "line": [
+            "120 Margaret Street"
+          ],
+          "city": "Toowoomba",
+          "state": "QLD",
+          "postalCode": "4350",
+          "country": "AU"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/qhc-loc-fill4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f4-mri",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f4-mri",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill4",
+          "display": "Darling Plains Health Service"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "name": "Toowoomba MRI",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill4",
+            "display": "Darling Plains Base Hospital - Medical Imaging"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f4-mri"
       }
     },
     {
@@ -1156,6 +1600,100 @@
       }
     },
     {
+      "fullUrl": "urn:uuid:location-qhc-loc-fill5",
+      "resource": {
+        "resourceType": "Location",
+        "id": "qhc-loc-fill5",
+        "status": "active",
+        "name": "Southern Cross Diagnostic Imaging - Southport",
+        "managingOrganization": {
+          "reference": "Organization/qhc-org-fill5",
+          "display": "Southern Cross Diagnostic Imaging"
+        },
+        "address": {
+          "line": [
+            "45 Nerang Street"
+          ],
+          "city": "Southport",
+          "state": "QLD",
+          "postalCode": "4215",
+          "country": "AU"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/qhc-loc-fill5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f5-ct",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f5-ct",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill5",
+          "display": "Southern Cross Diagnostic Imaging"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "name": "Southport CT",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill5",
+            "display": "Southern Cross Diagnostic Imaging - Southport"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f5-ct"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f5-mri",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f5-mri",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill5",
+          "display": "Southern Cross Diagnostic Imaging"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "name": "Southport MRI",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill5",
+            "display": "Southern Cross Diagnostic Imaging - Southport"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f5-mri"
+      }
+    },
+    {
       "fullUrl": "urn:uuid:organization-qhc-org-fill6",
       "resource": {
         "resourceType": "Organization",
@@ -1206,6 +1744,100 @@
       "request": {
         "method": "PUT",
         "url": "Organization/qhc-org-fill6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:location-qhc-loc-fill6",
+      "resource": {
+        "resourceType": "Location",
+        "id": "qhc-loc-fill6",
+        "status": "active",
+        "name": "Moreton Bay Imaging - Caboolture",
+        "managingOrganization": {
+          "reference": "Organization/qhc-org-fill6",
+          "display": "Moreton Bay Imaging Partners"
+        },
+        "address": {
+          "line": [
+            "80 King Street"
+          ],
+          "city": "Caboolture",
+          "state": "QLD",
+          "postalCode": "4510",
+          "country": "AU"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Location/qhc-loc-fill6"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f6-us",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f6-us",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill6",
+          "display": "Moreton Bay Imaging Partners"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "name": "Caboolture Ultrasound",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill6",
+            "display": "Moreton Bay Imaging - Caboolture"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f6-us"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:healthcareservice-qhc-hcs-f6-xr",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhc-hcs-f6-xr",
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhc-org-fill6",
+          "display": "Moreton Bay Imaging Partners"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "name": "Caboolture X-ray",
+        "location": [
+          {
+            "reference": "Location/qhc-loc-fill6",
+            "display": "Moreton Bay Imaging - Caboolture"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhc-hcs-f6-xr"
       }
     }
   ]

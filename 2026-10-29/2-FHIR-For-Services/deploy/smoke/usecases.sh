@@ -6,7 +6,7 @@
 #   BASE_URL=https://host ./usecases.sh [--frog https://frog-host]
 #
 # PASS / FAIL / SKIP per check; exit 1 if any FAIL. SKIP means "this build of the UI does not have that screen" (for example the
-# imaging filler and booking screens, which the deployed Patient-Referral image predates), never "could not check".
+# imaging filler, booking and /version features of Patient-Referral 1.0.0, which an older UI image predates), never "could not check".
 set -u
 BASE_URL="${BASE_URL:-https://aehrc-qh-connectathon-track-2.dw.csiro.au}"; BASE_URL="${BASE_URL%/}"
 REF="$BASE_URL${REFERRAL_BASE:-/referral/fhir}"; DIR="$BASE_URL${DIRECTORY_BASE:-/directory/fhir}"
@@ -28,6 +28,7 @@ echo "Track 2 use-case checks   UI $BASE_URL   referral $REF   directory $DIR"
 
 echo "--- Day 1 AM: environment check and seed data review"
 ui "$BASE_URL/"; [ "$CODE" = 200 ] && grep -q 'TEST ENVIRONMENT' "$WORK/body" && pass "UI loads and shows the 'test data only' banner" || fail "UI loads with the banner" "HTTP $CODE"
+ui "$BASE_URL/version"; if [ "$CODE" = 404 ]; then skip "UI /version endpoint" "UI image predates versioning (Patient-Referral 1.0.0)"; else v=$(jq -r '.version // empty' "$WORK/body" 2>/dev/null); [ -n "$v" ] && pass "UI reports version $v (commit $(jq -r '.commit // "?"' "$WORK/body" | cut -c1-7))" || fail "UI /version" "HTTP $CODE, no version field"; fi
 get "$REF/metadata"; [ "$CODE" = 200 ] && pass "referral server metadata" || fail "referral server metadata" "HTTP $CODE"
 get "$DIR/metadata"; [ "$CODE" = 200 ] && pass "directory server metadata" || fail "directory server metadata" "HTTP $CODE"
 n=$(total "$REF/Patient?_summary=count"); [ "${n:-0}" -ge 20 ] && pass "seed: $n patients" || fail "seed patients >= 20" "${n:-none}"
@@ -73,11 +74,21 @@ ui "$BASE_URL/filler"; [ "$CODE" = 200 ] && pass "UI specialist filler screen lo
 
 echo "--- Day 2 Mid, Track B: booking"
 ui "$BASE_URL/booking/patient/qhc-pat-01/panel"; if [ "$CODE" = 404 ]; then skip "UI booking panel" "not in the deployed UI image (booking is API-driven here, decision C3); smoke.sh exercises Slot to Appointment"; else [ "$CODE" = 200 ] && pass "UI booking panel loads" || fail "UI booking panel" "HTTP $CODE"; fi
+# the slot picker searches a fortnight ahead from today (or the request's start), so it is only meaningful when free slots fall in that window
+ui "$BASE_URL/booking/sr/qhc-sr-0001/slots"
+if [ "$CODE" = 404 ]; then skip "UI slot picker" "UI image predates the booking screens"
+elif [ "$CODE" != 200 ]; then fail "UI slot picker" "HTTP $CODE"
+else
+  nxt=$(get "$REF/Slot?status=free&_count=1&_sort=start&_elements=start"; jq -r '.entry[0].resource.start // empty' "$WORK/body" 2>/dev/null)
+  if grep -qi 'no free slots' "$WORK/body"; then
+    if [ -n "$nxt" ] && [ "$(date -d "$nxt" +%s)" -gt "$(date -d '+14 days' +%s)" ]; then skip "UI slot picker offers slots" "next free slot ($nxt) is beyond the picker's 14-day window"; else fail "UI slot picker offers slots" "page says no free slots; next free slot: ${nxt:-none}"; fi
+  else pass "UI slot picker offers free slots (next: $nxt)"; fi
+fi
 n=$(total "$REF/Appointment?status=booked&_summary=count"); [ "${n:-0}" -ge 1 ] && pass "booked appointments exist: $n" || fail "booked appointments" "${n:-none}"
 
 echo "--- Day 2 PM: status tracking"
 n=$(total "$REF/Task?status=completed&_summary=count"); [ "${n:-0}" -ge 1 ] && pass "completed referrals to track: $n tasks" || fail "completed referrals" "${n:-none}"
-ui "$BASE_URL/fhir/Stats"; [ "$CODE" = 200 ] && text | grep -qE '22 total' && pass "UI statistics page counts the referrals" || fail "UI statistics page" "HTTP $CODE"
+ui "$BASE_URL/fhir/Stats"; [ "$CODE" = 200 ] && [ "$(text | grep -oE 'ServiceRequests Summary [0-9]+ total' | grep -oE '[0-9]+')" -ge 22 ] 2>/dev/null && pass "UI statistics page counts the referrals" || fail "UI statistics page" "HTTP $CODE"
 ui "$BASE_URL/fhir/Demographics"; [ "$CODE" = 200 ] && text | grep -q 'Male' && pass "UI demographics page renders from our data" || fail "UI demographics page" "HTTP $CODE"
 ui "$BASE_URL/fhir/Dashboard"; [ "$CODE" = 200 ] && pass "UI dashboard loads" || fail "UI dashboard" "HTTP $CODE"
 

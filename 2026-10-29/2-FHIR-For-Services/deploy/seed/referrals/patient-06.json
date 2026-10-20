@@ -464,6 +464,7 @@
           },
           {
             "actor": {
+              "reference": "Location/qhc-loc-fill5",
               "type": "Location",
               "identifier": {
                 "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
@@ -475,6 +476,7 @@
           },
           {
             "actor": {
+              "reference": "HealthcareService/qhc-hcs-f5-ct",
               "type": "HealthcareService",
               "identifier": {
                 "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",

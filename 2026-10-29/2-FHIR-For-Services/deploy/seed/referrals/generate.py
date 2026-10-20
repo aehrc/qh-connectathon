@@ -130,13 +130,17 @@ def filler_org(f):
 
 
 def filler_hcs(f, m):
+    # literal reference to the HealthcareService on THIS server (the booking screens search it by organisation and service
+    # type and find Slots through it), plus the directory identifier it mirrors
     h = FILLER_HCS[(f, m)]
-    return {"type": "HealthcareService", "identifier": {"system": SEED_SRC, "value": _key(h)}, "display": h["name"]}
+    return {"reference": "HealthcareService/qhc-hcs-f%d-%s" % (f, m.lower()), "type": "HealthcareService",
+            "identifier": {"system": SEED_SRC, "value": _key(h)}, "display": h["name"]}
 
 
 def filler_loc(f):
     loc = FILLER_LOC[f]
-    return {"type": "Location", "identifier": {"system": SEED_SRC, "value": _key(loc)}, "display": loc["name"]}
+    return {"reference": "Location/qhc-loc-fill%d" % f, "type": "Location",
+            "identifier": {"system": SEED_SRC, "value": _key(loc)}, "display": loc["name"]}
 
 
 def svc_type(f, m):
@@ -200,6 +204,22 @@ def referrer_entries():
                    "active": True, "name": name,
                    "type": [cc(SCT, "708175003", "Diagnostic imaging service")],
                    "address": [{"city": city, "state": "QLD", "postalCode": pc, "country": "AU"}]})
+        # ... with the Location and one HealthcareService per modality, copied from the directory seed (same names and service types),
+        # because the app's booking screens expect them on THIS server: Location?organization (publish availability),
+        # HealthcareService?organization&service-type (find the provider's service for a request), Slot?schedule.actor.
+        loc = FILLER_LOC[f]
+        a = loc.get("address", {})
+        es.append({"resourceType": "Location", "id": "qhc-loc-fill%d" % f, "status": "active", "name": loc["name"],
+                   "managingOrganization": ref("Organization/qhc-org-fill%d" % f, name),
+                   "address": {"line": a.get("line", []), "city": a.get("city", city), "state": "QLD",
+                               "postalCode": a.get("postalCode", pc), "country": "AU"}})
+        for m in mods:
+            h = FILLER_HCS[(f, m)]
+            c = h["type"][0]["coding"][0]
+            es.append({"resourceType": "HealthcareService", "id": "qhc-hcs-f%d-%s" % (f, m.lower()), "active": True,
+                       "providedBy": ref("Organization/qhc-org-fill%d" % f, name),
+                       "type": [cc(SCT, c["code"], c["display"])], "name": h["name"],
+                       "location": [ref("Location/qhc-loc-fill%d" % f, loc["name"])]})
     return es
 
 
@@ -432,7 +452,7 @@ def schedules_and_slots():
                        "actor": [filler_hcs(f, m), filler_loc(f)],
                        "planningHorizon": {"start": "2026-08-01T00:00:00+10:00", "end": "2026-12-31T23:59:59+10:00"}})
             # free slots: two days, 3 each  (08:00 is reserved for the pre-booked demo appointments)
-            for day in ("2026-11-04", "2026-11-05"):
+            for day in ("2026-11-04", "2026-11-05", "2026-11-06", "2026-11-09", "2026-11-10"):
                 for hh, mm in ((9, 0), (9, 45), (10, 30)):
                     es.append(_slot(f, m, day, hh, mm, "free"))
     # busy slots backing appointments
