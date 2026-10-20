@@ -124,7 +124,9 @@ MOD = {  # modality -> (service type code, display, slot minutes)
 
 def filler_org(f):
     n, _, _, h, _ = FILLERS[f]
-    return {"type": "Organization", "identifier": {"system": HPIO, "value": h}, "display": n}
+    # literal reference (to the filler Organization on THIS server, see referrer_entries) plus the HPI-O: the UI's filler views
+    # list organisations through Task?_include=Task:owner, which needs a resolvable reference, not just an identifier
+    return {"reference": "Organization/qhc-org-fill%d" % f, "type": "Organization", "identifier": {"system": HPIO, "value": h}, "display": n}
 
 
 def filler_hcs(f, m):
@@ -187,6 +189,17 @@ def referrer_entries():
                    "organization": ref("Organization/qhc-org-ref%d" % k, name),
                    "code": [cc(SCT, rcode, rdisp)],
                    "telecom": [{"system": "phone", "value": ph}]})
+    # The imaging providers (fillers) also exist HERE as Organizations, typed as diagnostic imaging, with the SAME HPI-O as in the
+    # directory seed. The UI's "Select Provider Organisation" dropdown searches THIS server for Organization?type=<imaging codes>,
+    # and a referral's performer/owner is a real Organization on this server. (The referral Tasks still point at the filler by HPI-O.)
+    for f, (name, city, pc, h, mods) in FILLERS.items():
+        es.append({"resourceType": "Organization", "id": "qhc-org-fill%d" % f,
+                   "meta": {"profile": [P + "au-erequesting-organization"]},
+                   "identifier": [{"type": {"coding": [{"system": AUV2, "code": "NOI", "display": "National Organisation Identifier"}], "text": "HPI-O"},
+                                   "system": HPIO, "value": h}],
+                   "active": True, "name": name,
+                   "type": [cc(SCT, "708175003", "Diagnostic imaging service")],
+                   "address": [{"city": city, "state": "QLD", "postalCode": pc, "country": "AU"}]})
     return es
 
 

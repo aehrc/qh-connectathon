@@ -172,6 +172,7 @@
         },
         "performer": [
           {
+            "reference": "Organization/qhc-org-fill4",
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -251,6 +252,7 @@
           "display": "Dr Joshi"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill4",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -342,6 +344,7 @@
           "display": "Dr Joshi"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill4",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",

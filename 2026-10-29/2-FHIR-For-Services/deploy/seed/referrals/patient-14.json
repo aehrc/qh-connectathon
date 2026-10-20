@@ -250,6 +250,7 @@
         },
         "performer": [
           {
+            "reference": "Organization/qhc-org-fill1",
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -352,6 +353,7 @@
           "display": "Dr Whitfield"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill1",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -451,6 +453,7 @@
           "display": "Dr Whitfield"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill1",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",

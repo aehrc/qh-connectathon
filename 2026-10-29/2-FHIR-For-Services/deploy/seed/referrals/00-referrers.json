@@ -889,6 +889,324 @@
         "method": "PUT",
         "url": "PractitionerRole/qhc-role-6"
       }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-fill1",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-fill1",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629999000017"
+          }
+        ],
+        "active": true,
+        "name": "Tropic Coast Health Service",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "city": "Cairns",
+            "state": "QLD",
+            "postalCode": "4870",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-fill1"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-fill2",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-fill2",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629999000041"
+          }
+        ],
+        "active": true,
+        "name": "Brisbane River Health Service",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "city": "Herston",
+            "state": "QLD",
+            "postalCode": "4006",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-fill2"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-fill3",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-fill3",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629999000025"
+          }
+        ],
+        "active": true,
+        "name": "Capricorn Bay Health Service",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "city": "Rockhampton",
+            "state": "QLD",
+            "postalCode": "4700",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-fill3"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-fill4",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-fill4",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629999000033"
+          }
+        ],
+        "active": true,
+        "name": "Darling Plains Health Service",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "city": "Toowoomba",
+            "state": "QLD",
+            "postalCode": "4350",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-fill4"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-fill5",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-fill5",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629999000066"
+          }
+        ],
+        "active": true,
+        "name": "Southern Cross Diagnostic Imaging",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "city": "Southport",
+            "state": "QLD",
+            "postalCode": "4215",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-fill5"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:organization-qhc-org-fill6",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "qhc-org-fill6",
+        "meta": {
+          "profile": [
+            "http://hl7.org.au/fhir/ereq/StructureDefinition/au-erequesting-organization"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                  "code": "NOI",
+                  "display": "National Organisation Identifier"
+                }
+              ],
+              "text": "HPI-O"
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
+            "value": "8003629999000058"
+          }
+        ],
+        "active": true,
+        "name": "Moreton Bay Imaging Partners",
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "address": [
+          {
+            "city": "Caboolture",
+            "state": "QLD",
+            "postalCode": "4510",
+            "country": "AU"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Organization/qhc-org-fill6"
+      }
     }
   ]
 }

@@ -56,3 +56,19 @@ Nothing is written to the directory or the terminology server.
 - Fixtures are minimal and are not validated against AU eRequesting profiles. If the IG's
   profile constraints (for example `requester` must be an `au-erequesting-practitionerrole`) tighten,
   step 6 will report them and the fixtures will need AU-conformant content.
+
+## Use-case acceptance checks (`usecases.sh`)
+
+`smoke.sh` proves the plumbing; `usecases.sh` proves a participant can do what Michael's two-day agenda
+(`Services-Track-Two-Day-Agenda.md`) says, through the UI and the APIs: environment and seed review, directory discovery and
+Endpoint resolution, browsing providers and patients in the UI (including the "Select Provider Organisation" dropdown and the
+filler organisation list), IG profiles loaded, referrals waiting for triage, free slots, booked and completed referrals, and the
+statistics and demographics pages. It is read-only.
+
+```
+BASE_URL=https://<host> ./usecases.sh [--frog https://<frog-host>]
+```
+
+`SKIP` means the deployed UI build does not have that screen (today: the imaging filler and booking screens, which the deployed
+`patient-referral` image predates); it never means "could not check". Run it, then `smoke.sh`, after every deployment and reseed.
+It would have caught the empty organisation dropdown and the empty filler list that Michael found on 2026-10-20.

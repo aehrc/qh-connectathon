@@ -209,6 +209,7 @@
         },
         "performer": [
           {
+            "reference": "Organization/qhc-org-fill5",
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -301,6 +302,7 @@
           "display": "Dr Hartmann"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill5",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -400,6 +402,7 @@
           "display": "Dr Hartmann"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill5",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -577,6 +580,7 @@
         },
         "performer": [
           {
+            "reference": "Organization/qhc-org-fill3",
             "type": "Organization",
             "identifier": {
               "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -656,6 +660,7 @@
           "display": "Dr Hartmann"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill3",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
@@ -747,6 +752,7 @@
           "display": "Dr Hartmann"
         },
         "owner": {
+          "reference": "Organization/qhc-org-fill3",
           "type": "Organization",
           "identifier": {
             "system": "http://ns.electronichealth.net.au/id/hi/hpio/1.0",
