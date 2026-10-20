@@ -1,5 +1,8 @@
 # Track 2 — VM install
 
+> **Current deployment documentation: [`DEPLOYMENT.md`](DEPLOYMENT.md).** This README describes the earlier single-VM install path (`install.sh`, `k8s-install.sh`), which is no longer how Track 2 is deployed.
+
+
 `install.sh` bootstraps the self-contained Track 2 stack on the host VM
 (`aehrc-qh-connectathon-track-2.it.csiro.au`), **after the quota increase**
 (see `../quota-increase-request.md` — ≥ 8 GB for experiments, 16 GB for the event).
