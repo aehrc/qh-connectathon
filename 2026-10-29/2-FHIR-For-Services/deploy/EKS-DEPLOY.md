@@ -111,3 +111,16 @@ Sequence on EKS Auto Mode:
 2. `kubectl apply -f kro/track2-aws-infra-rgd.yaml`; create a `Track2AwsInfra` instance.
 3. Read `status.certificateARN` / `status.repositoryURI`; wire into the aws overlay.
 4. Deploy the workload overlay via Flux (`flux/track2-aws.yaml`).
+
+## AWS notes for the /referral + /directory layout (2026-10-19)
+
+- Ingress paths are now `/referral/fhir` and `/directory/fhir` (HAPI) and `/` (UI). They are deliberately narrow: the UI
+  has its own `/fhir/*` and `/directory/import*` routes, so a broad `/directory` rule would swallow `/directory/import`.
+  ALB evaluates rules in Ingress order, so the specific HAPI rules come before the `/` catch-all.
+- ALB target-group health checks are per Service: directory `/directory/fhir/metadata`, referral `/referral/fhir/metadata`,
+  UI `/health` (the Ingress-level default is not valid for the UI target group).
+- Still to set once the host is known: `HAPI_FHIR_SERVER_ADDRESS` on both HAPI Deployments in the aws overlay
+  (`https://<host>/referral/fhir`, `https://<host>/directory/fhir`) so links and `Location` headers use the public https
+  base; ACM certificate ARN and host in `ingress-alb.yaml`; ECR image.
+- ALB's default idle timeout is 60 s. The first `$validate` after a HAPI restart can take longer (validation cache warm-up),
+  as it did behind Contour; raise the idle timeout (IngressClassParams / load-balancer-attributes) and warm up before the event.

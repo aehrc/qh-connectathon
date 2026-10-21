@@ -21,6 +21,25 @@ patches:
   - path: ingress-alb.yaml
     target: { kind: Ingress, name: track2 }
   - path: patch-sizing.yaml
+  # ALB target-group health check is per backend Service: directory serves under /directory,
+  # so it needs its own path (the Ingress-level /referral/fhir/metadata would 404 there -> unhealthy).
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /directory/fhir/metadata }
+    target: { kind: Service, name: directory }
+  # Same for the referral server (under /referral; the UI on / answers its own /fhir/* routes)
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /referral/fhir/metadata }
+    target: { kind: Service, name: fhir }
+  # The UI (banner proxy -> app) target group must not inherit the Ingress-level (HAPI) path: the app has a /health route.
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /health }
+    target: { kind: Service, name: banner }
 
 # Referrer image: push the Patient-Referral image to ECR and set the ref here.
 images:

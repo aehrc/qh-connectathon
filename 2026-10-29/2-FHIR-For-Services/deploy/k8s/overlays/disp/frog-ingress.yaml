@@ -1,0 +1,18 @@
+# frog-runner UI on its own host (its UI and API serve from "/", so it cannot share the Track 2 host's path space).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frog
+  namespace: track2
+  annotations:
+    cert-manager.io/cluster-issuer: cluster-issuer-csiro
+spec:
+  ingressClassName: contour
+  rules:
+    - host: frog-aehrc-qh-connectathon-track-2.dw.csiro.au
+      http:
+        paths:
+          - { path: /, pathType: Prefix, backend: { service: { name: frog, port: { number: 8080 } } } }
+  tls:
+    - hosts: [frog-aehrc-qh-connectathon-track-2.dw.csiro.au]
+      secretName: frog-tls

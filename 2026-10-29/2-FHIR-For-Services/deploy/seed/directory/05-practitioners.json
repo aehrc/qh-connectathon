@@ -1,0 +1,3441 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:6699c605-abdd-5e6a-aaa4-d5fb0afc5df7",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-01",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000018"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Raman",
+            "given": [
+              "Priya"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990001"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e6fd2ef6-a9ff-593c-9c95-b7ac46107e64",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-02",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000026"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Whitlock",
+            "given": [
+              "Thomas"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990002"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-02"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f2a41f49-caf6-5de8-9b13-9b5f9511f05b",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-03",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000034"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Zhang",
+            "given": [
+              "Mei"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990003"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-03"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d7003e67-7f5d-5753-9232-773c408049e3",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-04",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000042"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Ferris",
+            "given": [
+              "Callum"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990004"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-04"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:166403ca-3055-53a1-8710-88fe2a47c3ee",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-05",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000059"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Okafor",
+            "given": [
+              "Amara"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990005"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-05"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:672db3f6-bd97-5434-b81f-fec8909459e1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-06",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000067"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Lindqvist",
+            "given": [
+              "Jonas"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990006"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-06"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:47639ce6-6a12-51a6-99e6-26b7efd48b04",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-07",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000075"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Marchetti",
+            "given": [
+              "Sienna"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990007"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-07"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ec5dbc9e-50e0-59e4-8829-31c28922be50",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-08",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000083"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Tane",
+            "given": [
+              "Wiremu"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990008"
+              }
+            ],
+            "code": {
+              "text": "Interventional radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-08"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d11e2795-176d-596e-bd88-13285636d254",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-09",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000091"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Brooks",
+            "given": [
+              "Hannah"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990009"
+              }
+            ],
+            "code": {
+              "text": "Nuclear medicine physician"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-09"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8fd1eb4e-c279-5bc7-9ae2-3b6d2314d522",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-10",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000109"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Deshmukh",
+            "given": [
+              "Rohan"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990010"
+              }
+            ],
+            "code": {
+              "text": "Nuclear medicine physician"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-10"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ad641fde-1c14-53af-a7f9-22091e95fcd7",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-11",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000117"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Papadakis",
+            "given": [
+              "Eleni"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990011"
+              }
+            ],
+            "code": {
+              "text": "Nuclear medicine physician"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-11"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6f49af49-87dc-5bfd-8c8d-06c63dd1daec",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-12",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000125"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Murphy",
+            "given": [
+              "Declan"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990012"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-12"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:df3c0be0-37c6-509e-a3d5-15d0f2cf337e",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-13",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000133"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Al-Sayed",
+            "given": [
+              "Fatima"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990013"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-13"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f2b9fca9-e323-5018-8c82-043ec9dc7712",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-14",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000141"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Kowalski",
+            "given": [
+              "Liam"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990014"
+              }
+            ],
+            "code": {
+              "text": "Cardiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-14"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:01e317fe-b409-58bc-b715-f9d7998396ea",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-15",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000158"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Nakamura",
+            "given": [
+              "Grace"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990015"
+              }
+            ],
+            "code": {
+              "text": "General practitioner"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fb725648-2b06-5f67-a3e5-7ac5dd022f9e",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-16",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000166"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Hartigan",
+            "given": [
+              "Ben"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990016"
+              }
+            ],
+            "code": {
+              "text": "General practitioner"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-16"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3d5ab6d1-c347-5055-9af7-92b7cd8dbb9d",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-17",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "other",
+                      "display": "Other"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000174"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Ellery",
+            "given": [
+              "Sam"
+            ],
+            "prefix": [
+              "Mx"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990017"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-17"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7375944c-6054-5879-9a3a-aa972cc62784",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-18",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000182"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Tran",
+            "given": [
+              "Jessica"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990018"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-18"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7ccaddb2-f1b7-52e5-ad66-401a6cc32efc",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-19",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000190"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "O'Donnell",
+            "given": [
+              "Kieran"
+            ],
+            "prefix": [
+              "Mr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990019"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-19"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bdd8cb2a-7737-5464-80b6-7eff7934b9bf",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-20",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000208"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Rahman",
+            "given": [
+              "Aisha"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990020"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-20"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:94537bd6-6634-5e38-a277-9f184689c6d3",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-21",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000216"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Vaea",
+            "given": [
+              "Pita"
+            ],
+            "prefix": [
+              "Mr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990021"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-21"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f1d52909-4538-5208-8e2d-a5c8fa9de955",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-22",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000224"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Barrett",
+            "given": [
+              "Chloe"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990022"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-22"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:98152e0f-a4a7-5732-9bfa-670dca17e539",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-23",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000232"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Pereira",
+            "given": [
+              "Daniel"
+            ],
+            "prefix": [
+              "Mr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990023"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (nuclear medicine technologist)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-23"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6c6ceb84-3dcc-5e5a-b927-66e4c20925ee",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-24",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000240"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Solberg",
+            "given": [
+              "Ingrid"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990024"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (nuclear medicine technologist)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-24"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b6388dae-2e27-5ab4-9ae5-a6921b563c2a",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-25",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000257"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Karimi",
+            "given": [
+              "Nadia"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                      "code": "PRN"
+                    }
+                  ]
+                },
+                "system": "https://github.com/aehrc/qh-connectathon/id/fictional-asar-accreditation",
+                "value": "ASAR-FICT-01025",
+                "assigner": {
+                  "display": "Australasian Sonographer Accreditation Registry (fictional number)"
+                }
+              }
+            ],
+            "code": {
+              "text": "Sonographer"
+            },
+            "issuer": {
+              "display": "ASAR"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-25"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c78860b7-8e18-514f-b3a4-5138344308b1",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-26",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000265"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Fenwick",
+            "given": [
+              "Oscar"
+            ],
+            "prefix": [
+              "Mr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                      "code": "PRN"
+                    }
+                  ]
+                },
+                "system": "https://github.com/aehrc/qh-connectathon/id/fictional-asar-accreditation",
+                "value": "ASAR-FICT-01026",
+                "assigner": {
+                  "display": "Australasian Sonographer Accreditation Registry (fictional number)"
+                }
+              }
+            ],
+            "code": {
+              "text": "Sonographer"
+            },
+            "issuer": {
+              "display": "ASAR"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-26"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:09aaaa7f-d06d-5934-8957-c1b00288547f",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-27",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000273"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Wallace",
+            "given": [
+              "Tamika"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                      "code": "PRN"
+                    }
+                  ]
+                },
+                "system": "https://github.com/aehrc/qh-connectathon/id/fictional-asar-accreditation",
+                "value": "ASAR-FICT-01027",
+                "assigner": {
+                  "display": "Australasian Sonographer Accreditation Registry (fictional number)"
+                }
+              }
+            ],
+            "code": {
+              "text": "Sonographer"
+            },
+            "issuer": {
+              "display": "ASAR"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-27"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2e7c2d3b-7514-5e74-a548-3002ecf9099a",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-28",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000281"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Chen",
+            "given": [
+              "Rebecca"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                      "code": "PRN"
+                    }
+                  ]
+                },
+                "system": "https://github.com/aehrc/qh-connectathon/id/fictional-asar-accreditation",
+                "value": "ASAR-FICT-01028",
+                "assigner": {
+                  "display": "Australasian Sonographer Accreditation Registry (fictional number)"
+                }
+              }
+            ],
+            "code": {
+              "text": "Obstetric and gynaecological sonographer"
+            },
+            "issuer": {
+              "display": "ASAR"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-28"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b3075554-1d2e-5841-bbba-f6b747576dac",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-29",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000299"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Doyle",
+            "given": [
+              "Harvey"
+            ],
+            "prefix": [
+              "Mr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                      "code": "PRN"
+                    }
+                  ]
+                },
+                "system": "https://github.com/aehrc/qh-connectathon/id/fictional-asar-accreditation",
+                "value": "ASAR-FICT-01029",
+                "assigner": {
+                  "display": "Australasian Sonographer Accreditation Registry (fictional number)"
+                }
+              }
+            ],
+            "code": {
+              "text": "Sonographer"
+            },
+            "issuer": {
+              "display": "ASAR"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-29"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:47d63692-8472-5a94-b1fe-b26762a20f30",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-30",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000307"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Mehta",
+            "given": [
+              "Anjali"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990030"
+              }
+            ],
+            "code": {
+              "text": "Orthopaedic surgeon"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-30"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8898732d-23ff-57fd-bc65-e9a24a0c9317",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-31",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000315"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Hale",
+            "given": [
+              "Mitchell"
+            ],
+            "prefix": [
+              "Mr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990031"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-31"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:336e75a7-67ff-5667-8c1b-c40ab5f7d420",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-32",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000323"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Kapoor",
+            "given": [
+              "Lucy"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990032"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (diagnostic radiographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-32"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1cd2cde8-5618-5e3f-83fb-89cbcfddbd66",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-33",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000331"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Eaton",
+            "given": [
+              "Marcus"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990033"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-33"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c15f8e4d-6aec-56e6-b966-da1c8bf7d26b",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-34",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "male",
+                      "display": "Male"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000349"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Hassan",
+            "given": [
+              "Yusuf"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990034"
+              }
+            ],
+            "code": {
+              "text": "Nuclear medicine physician"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-34"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:30291136-4f0f-5fb5-8cd0-5006c02acf97",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-35",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000356"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Grant",
+            "given": [
+              "Olivia"
+            ],
+            "prefix": [
+              "Dr"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MED0009990035"
+              }
+            ],
+            "code": {
+              "text": "Radiologist"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-35"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2845c082-274a-5bfd-9818-551d0f358c70",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "qhd-prac-36",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-practitioner"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/individual-recordedSexOrGender",
+            "extension": [
+              {
+                "url": "value",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/administrative-gender",
+                      "code": "female",
+                      "display": "Female"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "identifier": [
+          {
+            "extension": [
+              {
+                "url": "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hi-services-identifier-status",
+                "valueCoding": {
+                  "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/hi-services-identifier-status-cs",
+                  "code": "A",
+                  "display": "Active"
+                }
+              }
+            ],
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "NPI"
+                }
+              ]
+            },
+            "system": "http://ns.electronichealth.net.au/id/hi/hpii/1.0",
+            "value": "8003619999000364"
+          }
+        ],
+        "name": [
+          {
+            "use": "official",
+            "family": "Nolan",
+            "given": [
+              "Bridget"
+            ],
+            "prefix": [
+              "Ms"
+            ]
+          }
+        ],
+        "qualification": [
+          {
+            "identifier": [
+              {
+                "type": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org.au/CodeSystem/v2-0203",
+                      "code": "AHPRA"
+                    }
+                  ]
+                },
+                "system": "http://hl7.org.au/id/ahpra-registration-number",
+                "value": "MRP0009990036"
+              }
+            ],
+            "code": {
+              "text": "Medical radiation practitioner (mammographer)"
+            },
+            "issuer": {
+              "display": "Ahpra"
+            }
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/qhd-prac-36"
+      }
+    }
+  ]
+}

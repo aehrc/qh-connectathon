@@ -11,10 +11,10 @@ spec:
       containers:
         - name: hapi
           env:
-            - { name: JAVA_OPTS, value: "-Xmx3g" }
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms1g -Xmx3g" }
           resources:
-            requests: { cpu: "1", memory: "3Gi" }
-            limits:   { memory: "4Gi" }
+            requests: { cpu: "1", memory: "4Gi" }
+            limits:   { cpu: "4", memory: "5Gi" }
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -27,7 +27,7 @@ spec:
       containers:
         - name: hapi
           env:
-            - { name: JAVA_OPTS, value: "-Xmx3g" }
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms1g -Xmx3g" }
           resources:
-            requests: { cpu: "1", memory: "3Gi" }
-            limits:   { memory: "4Gi" }
+            requests: { cpu: "1", memory: "4Gi" }
+            limits:   { cpu: "4", memory: "5Gi" }

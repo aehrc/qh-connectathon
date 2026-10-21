@@ -15,15 +15,26 @@ spec:
     spec:
       containers:
         - name: hapi
-          image: hapiproject/hapi:latest
+          image: hapiproject/hapi@sha256:d7f38d3676900b07e8a7d3500426eaf8d90ea9ced9a6726416f080f68e230fb0
           env:
-            - { name: JAVA_OPTS, value: "-Xmx2g" }
+            # The hapiproject/hapi entrypoint is a bare `java ... PropertiesLauncher` and ignores JAVA_OPTS, so the old
+            # -Xmx2g never applied: the JVM used its default heap (25 percent of the memory limit, about 750 MB) and the
+            # referral server ran out of heap under load (java.lang.OutOfMemoryError, then GC thrash at 2 CPU).
+            # JAVA_TOOL_OPTIONS is read by the JVM itself.
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms512m -Xmx2560m" }
             - { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://db:5432/hapi" }
             - { name: SPRING_DATASOURCE_USERNAME, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
             - { name: SPRING_DATASOURCE_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # Serve under /referral: the Patient-Referral UI owns /fhir/* for its own ~30 routes (/fhir/Patients,
+            # /fhir/Patient/<id>, ...). FHIR base becomes /referral/fhir. Same mechanism as /directory.
+            - { name: SERVER_SERVLET_CONTEXT_PATH, value: /referral }
+            # The terminology/AU packages bring ~2,600 ValueSets; HAPI's background PRE_EXPAND_VALUESET task
+            # otherwise works through all of them and pins CPU at the container limit (slow UI). Not needed:
+            # validation expands on demand and typeahead uses the remote tx server.
+            - { name: HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS, value: "false" }
             # Conformance-test target: the AU eRequesting test fixtures are isolated
             # resources with references to other conformant instances that are not
             # co-loaded (each TestScript PUTs only its own fixture). Disable write-time
@@ -32,41 +43,53 @@ spec:
             - { name: HAPI_FHIR_ENFORCE_REFERENTIAL_INTEGRITY_ON_DELETE, value: "false" }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
-            # --- AU eRequesting IG (akkadakka name/version pattern) ---
-            # akkadakka's canonical AU-IG install: registry name + version + STORE_AND_INSTALL,
-            # NO packageUrl (AU IGs are on the FHIR package registry, unlike the ADHA Provider Directory IG). HAPI fetches
-            # it (and its AU Core / AU Base dependencies — fetchDependencies defaults true) from
-            # the registry on boot. This provides the au-erequesting-* profiles AND the conformant
-            # example instances the au-erequesting-tests suite reads/validates.
+            # Pinned IG set. HAPI does NOT fetch dependencies for packageUrl IGs, so every package is listed
+            # (order matters: v2-0203 extract, extensions, AU Base, AU Core ...; NOT the full hl7.terminology.r4, which pins CPU: see IG-PINNING.md s10). Tarballs are vendored in
+            # deploy/ig-packages (SHA256SUMS) and served by commit SHA from the public repo.
+            # See deploy/IG-PINNING.md section 6.
             # akkadakka "Bug 8": HAPI silently drops non-active CodeSystem/ValueSet on package
             # upload unless status validation is disabled.
             - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_NAME, value: au.csiro.aehrc.track2-v2-0203 }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_VERSION, value: "0.1.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/aba38a6cd95aa0717599099946b9c7ef232cf6ce/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.track2-v2-0203-0.1.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_NAME, value: hl7.fhir.uv.extensions.r4 }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_VERSION, value: "5.3.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.uv.extensions.r4-5.3.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_NAME, value: hl7.fhir.au.base }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_VERSION, value: "6.0.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.au.base-6.0.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_NAME, value: hl7.fhir.au.core }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_VERSION, value: "2.0.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.au.core-2.0.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_FETCHDEPENDENCIES, value: "false" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_NAME, value: hl7.fhir.au.ereq }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_VERSION, value: "1.0.1" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.au.ereq-1.0.1.tgz" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_INSTALLMODE, value: STORE_AND_INSTALL }
-            # akkadakka Bug 7 guard: some AU IG versions transitively pull R5 packages
-            # (hl7.terminology.r5 / hl7.fhir.uv.extensions) into an R4 server, which can
-            # break startup. Exclude the R5 packages ONLY — precise Java-regex (escaped
-            # dots), never "hl7.terminology.*" which would also drop the required R4
-            # terminology (Bug 7). These are list entries (indexed env vars).
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_DEPENDENCYEXCLUDES_0, value: "hl7\\.terminology\\.r5" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_DEPENDENCYEXCLUDES_1, value: "hl7\\.fhir\\.uv\\.extensions\\.r5" }
-            # NOTE: enable the radiology-referral IG below once its CI build publishes a
-            # package.tgz (build.fhir.org). It builds on AU eRequesting (installed above). While
-            # the tarball 404s, an enabled packageUrl fails HAPI startup, so it is left inert.
-            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_NAME, value: au.csiro.aehrc.referral }
-            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_VERSION, value: 0.1.0 }
-            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_PACKAGEURL, value: https://build.fhir.org/ig/aehrc/radiology-referral/package.tgz }
-            # - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_NAME, value: au.csiro.aehrc.referral }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_VERSION, value: "0.1.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.referral-0.1.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
-            httpGet: { path: /fhir/metadata, port: 8080 }
+            httpGet: { path: /referral/fhir/metadata, port: 8080 }
             initialDelaySeconds: 45
             periodSeconds: 15
             failureThreshold: 20
+            timeoutSeconds: 5   # the default 1 s fails the probe under load and drops the pod from the Service (503)
           resources:
-            requests: { cpu: "500m", memory: "2Gi" }
-            limits:   { memory: "3Gi" }
+            requests: { cpu: "1", memory: "3Gi" }
+            limits:   { cpu: "3", memory: "4Gi" }   # 2.5 GB heap + metaspace/threads; CPU limit explicit (LimitRange default is 2)
 ---
 apiVersion: v1
 kind: Service
@@ -88,36 +111,76 @@ spec:
     spec:
       containers:
         - name: hapi
-          image: hapiproject/hapi:latest
+          image: hapiproject/hapi@sha256:d7f38d3676900b07e8a7d3500426eaf8d90ea9ced9a6726416f080f68e230fb0
           env:
-            - { name: JAVA_OPTS, value: "-Xmx2g" }
+            # The hapiproject/hapi entrypoint is a bare `java ... PropertiesLauncher` and ignores JAVA_OPTS, so the old
+            # -Xmx2g never applied: the JVM used its default heap (25 percent of the memory limit, about 750 MB) and the
+            # referral server ran out of heap under load (java.lang.OutOfMemoryError, then GC thrash at 2 CPU).
+            # JAVA_TOOL_OPTIONS is read by the JVM itself.
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms256m -Xmx1536m" }
             - { name: SPRING_DATASOURCE_URL, value: "jdbc:postgresql://db:5432/hapi_dir" }
             - { name: SPRING_DATASOURCE_USERNAME, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_USER } } }
             - { name: SPRING_DATASOURCE_PASSWORD, valueFrom: { secretKeyRef: { name: db-secret, key: POSTGRES_PASSWORD } } }
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # The terminology/AU packages bring ~2,600 ValueSets; HAPI's background PRE_EXPAND_VALUESET task
+            # otherwise works through all of them and pins CPU at the container limit (slow UI). Not needed:
+            # validation expands on demand and typeahead uses the remote tx server.
+            - { name: HAPI_FHIR_ENABLE_TASK_PRE_EXPAND_VALUE_SETS, value: "false" }
+            # Serve under /directory (ingress cannot rewrite paths): Spring context path.
+            # FHIR base becomes /directory/fhir; referral server stays at /fhir.
+            # See deploy/DIRECTORY-CONTEXT-PATH.md (probes, overlays' server_address).
+            - { name: SERVER_SERVLET_CONTEXT_PATH, value: /directory }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_SYSTEM, valueFrom: { configMapKeyRef: { name: track2-config, key: TX_SYSTEM } } }
             - { name: HAPI_FHIR_REMOTE_TERMINOLOGY_SERVICES_0_URL,    valueFrom: { configMapKeyRef: { name: track2-config, key: TX_URL } } }
             # --- ADHA Provider Directory IG (HAPI-native packageUrl auto-install) ---
             # The ADHA Provider Directory IG is not on any public registry, so we point at the CI-build tarball.
             # akkadakka "Bug 8": disable status validation or HAPI silently drops the
             # draft CodeSystem/ValueSet resources on package upload.
+            # Bulk $export on the directory (issue #38): the export files are stored as Binary resources
+            - { name: HAPI_FHIR_BULK_EXPORT_ENABLED, value: "true" }
+            - { name: HAPI_FHIR_BINARY_STORAGE_ENABLED, value: "true" }
             - { name: HAPI_FHIR_VALIDATE_RESOURCE_STATUS_FOR_PACKAGE_UPLOAD, value: "false" }
+            # Pinned IG set. HAPI does NOT fetch dependencies for packageUrl IGs, so every package is listed
+            # (order matters: v2-0203 extract, extensions, AU Base, AU Core ...; NOT the full hl7.terminology.r4, which pins CPU: see IG-PINNING.md s10). Tarballs are vendored in
+            # deploy/ig-packages (SHA256SUMS) and served by commit SHA from the public repo.
+            # See deploy/IG-PINNING.md section 6.
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_NAME, value: au.csiro.aehrc.track2-v2-0203 }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_VERSION, value: "0.1.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/aba38a6cd95aa0717599099946b9c7ef232cf6ce/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.track2-v2-0203-0.1.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_V2_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_NAME, value: hl7.fhir.uv.extensions.r4 }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_VERSION, value: "5.3.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.uv.extensions.r4-5.3.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_EXT_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_NAME, value: hl7.fhir.au.base }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_VERSION, value: "6.0.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.au.base-6.0.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUBASE_FETCHDEPENDENCIES, value: "false" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_NAME, value: hl7.fhir.au.core }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_VERSION, value: "2.0.0" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/hl7.fhir.au.core-2.0.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_INSTALLMODE, value: STORE_AND_INSTALL }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUCORE_FETCHDEPENDENCIES, value: "false" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_NAME, value: au.gov.digitalhealth.fhir.hcpd }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_VERSION, value: "26.0.0" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_PACKAGEURL, value: https://build.fhir.org/ig/AuDigitalHealth/HCPD/package.tgz }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.gov.digitalhealth.fhir.hcpd-26.0.0-ci20260908231611.tgz" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_INSTALLMODE, value: STORE_AND_INSTALL }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_HCPD_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
           readinessProbe:
-            httpGet: { path: /fhir/metadata, port: 8080 }
+            httpGet: { path: /directory/fhir/metadata, port: 8080 }
             initialDelaySeconds: 45
             periodSeconds: 15
             failureThreshold: 20
+            timeoutSeconds: 5   # the default 1 s fails the probe under load and drops the pod from the Service (503)
           resources:
             requests: { cpu: "500m", memory: "2Gi" }
-            limits:   { memory: "3Gi" }
+            limits:   { cpu: "2", memory: "3Gi" }   # 1.5 GB heap
 ---
 apiVersion: v1
 kind: Service

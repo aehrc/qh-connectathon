@@ -1,0 +1,60 @@
+# "Test data only" banner (decision G2). The Patient-Referral UI has no banner hook, so a small nginx proxy sits in
+# front of it and injects the banner (a fixed bar) into every full HTML page before </head>. HTMX partials carry no
+# </head>, so they are untouched. The app itself stays unmodified. The ingress sends "/" here.
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: banner-conf, namespace: track2 }
+data:
+  # nginx-unprivileged renders /etc/nginx/templates/*.template with envsubst for DEFINED env vars only (UPSTREAM),
+  # so nginx's own $variables are left alone.
+  default.conf.template: |
+    server {
+      listen 8080;
+      location / {
+        proxy_pass ${UPSTREAM};
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+        proxy_set_header Accept-Encoding "";
+        proxy_read_timeout 60s;
+        sub_filter_types text/html;
+        sub_filter_once on;
+        sub_filter '</head>' '<style>#t2banner{position:sticky;top:0;z-index:99999;background:#b02a00;color:#fff;font:600 14px/1.4 system-ui,sans-serif;text-align:center;padding:6px 12px}</style><script>document.addEventListener("DOMContentLoaded",function(){var d=document.createElement("div");d.id="t2banner";d.textContent="TEST ENVIRONMENT - fictional test data only. Do not enter real patient or personal information.";document.body.prepend(d)})</script></head>';
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: banner, namespace: track2 }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: banner } }
+  template:
+    metadata: { labels: { app: banner } }
+    spec:
+      containers:
+        - name: nginx
+          image: nginxinc/nginx-unprivileged:1.27-alpine
+          env:
+            - { name: UPSTREAM, value: "http://referrer:5000" }
+          ports: [ { containerPort: 8080 } ]
+          readinessProbe:
+            httpGet: { path: /health, port: 8080 }
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - { name: conf, mountPath: /etc/nginx/templates/default.conf.template, subPath: default.conf.template, readOnly: true }
+          resources:
+            requests: { cpu: "25m", memory: "32Mi" }
+            limits:   { cpu: "250m", memory: "128Mi" }
+      volumes:
+        - name: conf
+          configMap: { name: banner-conf }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: banner, namespace: track2 }
+spec:
+  selector: { app: banner }
+  ports: [ { port: 8080, targetPort: 8080 } ]

@@ -16,6 +16,7 @@ namespace: aehrc-qh-connectathon-track-2
 
 resources:
   - ../../base
+  - frog-ingress.yaml
 
 patches:
   # DiSP ingress: Contour class + dw.csiro.au host + cert-manager TLS
@@ -31,9 +32,9 @@ patches:
       - op: replace
         path: /spec/rules/0/http/paths
         value:
-          - { path: /fhir, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
-          - { path: /directory, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
-          - { path: /, pathType: Prefix, backend: { service: { name: referrer, port: { number: 5000 } } } }
+          - { path: /referral/fhir, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
+          - { path: /directory/fhir, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
+          - { path: /, pathType: Prefix, backend: { service: { name: banner, port: { number: 8080 } } } }
       - op: add
         path: /spec/rules/0/host
         value: aehrc-qh-connectathon-track-2.dw.csiro.au
@@ -43,6 +44,20 @@ patches:
           - hosts: [aehrc-qh-connectathon-track-2.dw.csiro.au]
             secretName: track2-tls
     target: { kind: Ingress, name: track2 }
+
+  # Referral HAPI: advertise the public https base in links/Location headers.
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://aehrc-qh-connectathon-track-2.dw.csiro.au/referral/fhir" }
+    target: { kind: Deployment, name: fhir }
+
+  # Directory HAPI: advertise the public https base in links/Location headers.
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir" }
+    target: { kind: Deployment, name: directory }
 
   # Referrer pulls from a public registry on DiSP (base uses IfNotPresent for the
   # microk8s local import; DiSP must actually pull it).
@@ -57,7 +72,7 @@ patches:
 images:
   - name: localhost:32000/patient-referral:local
     newName: joernguysuess/patient-referral
-    newTag: track2
+    digest: sha256:2a1d0ad701f8ccefeb2e70c42230db5110495e30230151cf32ac024a3bbdaeda   # joernguysuess/patient-referral:1.0.0-53eca0d = mjosborne1/Patient-Referral v1.0.0 @ 53eca0d
 
 secretGenerator:
   - name: db-secret

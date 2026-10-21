@@ -1,0 +1,4679 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:663f2006-e723-5441-862e-ab9e53f92180",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-01",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please include clinical question, relevant history and renal function (eGFR) for contrast studies."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-01"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "cd9725be-c9f7-5c22-adf9-8082f88b89bb"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-01"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-01"
+          }
+        ],
+        "name": "Cairns CT",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3001",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-01-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-01-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-01"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0350beac-50ed-5768-bd0a-7263995c53e3",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-02",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral required. Walk-in accepted during opening hours with a valid referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-02"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "d2b33820-c2f8-592d-b33a-02b849c21014"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-01"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-01"
+          }
+        ],
+        "name": "Cairns General X-ray",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3002",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": false,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-01-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-01-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-02"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1be8a4b6-4a91-5404-9184-d5d0570c9aa8",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-03",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please complete the MRI safety questionnaire (implants, pacemakers, claustrophobia) with the referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-03"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "392acd93-9e8a-5342-bf44-9a2ce69d149b"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-01"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-01"
+          }
+        ],
+        "name": "Cairns MRI",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3003",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-01-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-01-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-03"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:2b61402d-8e02-5809-8c97-04de896aae65",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-04",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** State clinical question; pelvic scans need a full bladder."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-04"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "4fd1d240-c103-5f98-aa38-690bd71681c5"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-01"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-01"
+          }
+        ],
+        "name": "Cairns General Ultrasound",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3004",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-01-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-01-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-04"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:414625f8-674d-5388-8bff-46f972871398",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-05",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** All modalities accepted; please specify modality."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-05"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "5755ffad-c763-5070-8281-2d5a34f475ae"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-11"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708175003",
+                "display": "Diagnostic imaging service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-02"
+          }
+        ],
+        "name": "Townsville Diagnostic Imaging",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3005",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-11-rest"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-05"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:be8f9893-fdd2-5dd1-b54f-751a599f24e9",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-06",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required** from a GP or specialist."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-06"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "e51cbfb8-48e8-565c-ab25-141bf14b23c6"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-11"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "789718008",
+                "display": "Cardiology service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-02"
+          }
+        ],
+        "name": "Townsville Cardiology Clinic",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3006",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-11-rest"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-06"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:049e3b84-4c82-5578-923a-26251b646f3f",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-07",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** All general radiology modalities accepted."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-07"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "d5d8031e-4ef8-5ab2-a345-6584f5425d26"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-02"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310125001",
+                "display": "Radiology service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-03"
+          }
+        ],
+        "name": "Rockhampton Radiology",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3007",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-02-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-02-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-07"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3a0a3424-21c5-5560-a860-c4013e3168e1",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-08",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please include clinical question, relevant history and renal function (eGFR) for contrast studies."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-08"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "949eed6e-2689-5b1b-a98c-0997791507eb"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-02"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-03"
+          }
+        ],
+        "name": "Rockhampton CT",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3008",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-02-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-02-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-08"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:92a41554-21dd-5d6b-9eb9-7512671e7765",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-09",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral not required for screening; **required** for diagnostic mammography."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-09"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "2c9e74cd-2486-5f7b-ae22-bad3bbd49011"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-02"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933536641000036105",
+                "display": "Mammography service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-03"
+          }
+        ],
+        "name": "Rockhampton Mammography",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3009",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-02-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-02-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-09"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:456d1198-8d6c-5ce4-be21-285759f97319",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-10",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral required. Walk-in accepted during opening hours with a valid referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-10"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "f6c7f613-b549-58cb-b480-c92f8b74aa31"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-02"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-04"
+          }
+        ],
+        "name": "Gladstone X-ray",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3010",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": false,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-02-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-02-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-10"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:62dabd5b-19b9-56c4-9ada-99248d51f938",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-11",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please complete the MRI safety questionnaire (implants, pacemakers, claustrophobia) with the referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-11"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "9b95fe92-d2a0-5061-936b-59d01d1a7356"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-03"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-05"
+          }
+        ],
+        "name": "Toowoomba MRI",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3011",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-03-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-03-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-11"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ff3fee3f-a43c-52c3-b368-68815d16ee22",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-12",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Specify the study requested; dose scheduling may apply."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-12"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "2a9bd0fc-2561-52cb-8f81-46bcd091c0e7"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-03"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "788009005",
+                "display": "Nuclear medicine service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-05"
+          }
+        ],
+        "name": "Toowoomba Nuclear Medicine",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3012",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-03-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-03-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-12"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:8e0af420-9652-5f5e-8578-5e240227decd",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-13",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required** from a specialist or GP after discussion with the interventional radiologist."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-13"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "cacda87b-76eb-558a-8cda-1de1e8c2f5b5"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-03"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708174004",
+                "display": "Interventional radiology service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-05"
+          }
+        ],
+        "name": "Toowoomba Interventional Radiology",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3013",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-03-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-03-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-13"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dad46d22-7f56-525a-a9cb-71bbaf0c6600",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-14",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral required. Walk-in accepted during opening hours with a valid referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-14"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "c1262c4d-54cd-534a-b4fe-e1c834b8113e"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-03"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-06"
+          }
+        ],
+        "name": "Dalby Rural X-ray",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3014",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": false,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-03-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-03-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-14"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ab6c6e15-085b-55d7-b86e-e584f2f71e99",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-15",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please include clinical question, relevant history and renal function (eGFR) for contrast studies."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-15"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "b1d1fef8-da0b-57a8-95c5-e744ee0b143b"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-04"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-07"
+          }
+        ],
+        "name": "Herston CT",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3015",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-04-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-04-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-15"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0687dedd-2f93-5f9e-9791-cc041516f151",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-16",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please complete the MRI safety questionnaire (implants, pacemakers, claustrophobia) with the referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-16"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "78a48d0f-35f9-527b-b942-a1fd764a3a1c"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-04"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-07"
+          }
+        ],
+        "name": "Herston MRI",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3016",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-04-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-04-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-16"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:033eb9a1-3f69-50c2-887c-f95bce083af3",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-17",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Specify the study requested; dose scheduling may apply."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-17"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "1659a9fa-b1d5-5c56-8e2b-862a7b58ecf6"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-04"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "788009005",
+                "display": "Nuclear medicine service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-07"
+          }
+        ],
+        "name": "Herston Nuclear Medicine",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3017",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-04-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-04-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-17"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3a6e4203-f567-53a0-a75f-e329d383b2ba",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-18",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required** from a paediatrician or specialist."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "notAccepting",
+                  "display": "Not accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-18"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "c9a30562-5917-52ac-9feb-d29a47b624f7"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-04"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "1223251000168108",
+                "display": "Paediatric nuclear medicine service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-07"
+          }
+        ],
+        "name": "Herston Paediatric Nuclear Medicine",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3018",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-04-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-04-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-18"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:940728bb-a107-562b-b7fc-15396213b9c5",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-19",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** State clinical question; pelvic scans need a full bladder."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-19"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "51e99527-36d4-55fa-bdde-0976342cdda8"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-05"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-08"
+          }
+        ],
+        "name": "Caboolture Ultrasound",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3019",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-05-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-05-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-19"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:98e432e5-1a58-58da-97d3-9e1d09efd416",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-20",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral required. Walk-in accepted during opening hours with a valid referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-20"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "a009d5d0-d7d8-5a21-9b40-bc45fb3abe9e"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-05"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-08"
+          }
+        ],
+        "name": "Caboolture X-ray",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3020",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": false,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-05-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-05-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-20"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:dec0ac42-268e-5856-9624-2e84d5341e68",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-21",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** State gestational age and indication."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-21"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "42d85671-c055-5147-857a-80a45fe1a88c"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-05"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "708173005",
+                "display": "Obstetric ultrasound service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-09"
+          }
+        ],
+        "name": "Redcliffe Obstetric Ultrasound",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3021",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-05-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-05-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-21"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ce50cfe4-f833-536f-bb0f-9a509bde5170",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-22",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please include clinical question, relevant history and renal function (eGFR) for contrast studies."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-22"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "9f7c18ab-a38d-5d2c-ba2b-47e544c2074e"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-06"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310128004",
+                "display": "Computed tomography service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-10"
+          }
+        ],
+        "name": "Southport CT",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3022",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-06-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-06-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-22"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a28f6a42-6540-59e6-b3aa-c1a2a4eccd46",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-23",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Please complete the MRI safety questionnaire (implants, pacemakers, claustrophobia) with the referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-23"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "0c0cebc5-bb33-5598-b6c8-ced87c490bbc"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-06"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310127009",
+                "display": "Magnetic resonance imaging service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-10"
+          }
+        ],
+        "name": "Southport MRI",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3023",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "07:30:00",
+            "availableEndTime": "18:30:00"
+          },
+          {
+            "daysOfWeek": [
+              "sat"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "12:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-06-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-06-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-23"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:5b52c059-b4ee-5153-a3bd-2a2c35d00c2e",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-24",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Specify the study requested; dose scheduling may apply."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-24"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "72e53aa2-7412-5ab6-9d01-a459f777c667"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-07"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "788009005",
+                "display": "Nuclear medicine service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-11"
+          }
+        ],
+        "name": "Maroochydore Nuclear Medicine and PET",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3024",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-07-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-07-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-24"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:982937a7-b5f9-56ec-b654-b7d25c4fd41d",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-25",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** Include previous DXA results where available."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-25"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "4a605606-be15-5ceb-8aea-e8a6bde577f0"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-07"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "1579081000168100",
+                "display": "Bone densitometry service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-11"
+          }
+        ],
+        "name": "Maroochydore Bone Densitometry",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3025",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-07-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-07-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-25"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ea9eeca8-ed92-55a2-8582-8560bc3a4f83",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-26",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required.** State clinical question; pelvic scans need a full bladder."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-26"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "f7eff410-2ff2-5572-a34e-d943278be49b"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-08"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310169008",
+                "display": "Ultrasound service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-12"
+          }
+        ],
+        "name": "Bundaberg Ultrasound",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3026",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-08-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-08-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-26"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:209bacc8-dd73-5ebb-a337-f9c71ad23a40",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-27",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral required. Walk-in accepted during opening hours with a valid referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-27"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "dfbc1617-6664-53d8-ae00-b026c41e448c"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-08"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-13"
+          }
+        ],
+        "name": "Hervey Bay X-ray",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3027",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": false,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-08-rest"
+          },
+          {
+            "reference": "Endpoint/qhd-ep-08-smd"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-27"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:40c82418-e3b3-505a-8a0c-97462843001a",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-28",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Referral required. Walk-in accepted during opening hours with a valid referral."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-28"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "6e11a42a-1d77-52c0-a187-4a4a4afd1487"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-09"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "933537131000036109",
+                "display": "X-ray service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-14"
+          }
+        ],
+        "name": "Mount Isa X-ray",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3028",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": false,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-09-rest"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-28"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c7020a01-f78f-5b5b-baf8-4cd24f5a585d",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-29",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "No referral required for screening. Women aged 50-74 are eligible."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-29"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "5dfa8a02-0af5-5098-aa47-7c70bd2398f4"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-09"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310126000",
+                "display": "Breast screening service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-15"
+          }
+        ],
+        "name": "Outback Mobile Breast Screening",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3029",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "NFE",
+                "display": "No Fee"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-09-rest"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-29"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:60b0d517-2ea3-50ed-bdf5-9ab741442941",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-30",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "Not a referral destination for imaging; accepts new patients by appointment."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-30"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "0e3a3fea-9db5-5b26-b50f-85121433e80e"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-10"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "788007007",
+                "display": "General practice service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-16"
+          }
+        ],
+        "name": "Toowong General Practice",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3030",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "MIX",
+                "display": "Mixed Billing"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:30:00",
+            "availableEndTime": "17:30:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-10-rest"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-30"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a8ae3c00-afb1-517d-96c0-2fa892848809",
+      "resource": {
+        "resourceType": "HealthcareService",
+        "id": "qhd-hcs-31",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-healthcareservice"
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/referral-information-for-referrer",
+            "valueMarkdown": "**Referral required** from a GP. Include recent imaging (X-ray/MRI) reports where available."
+          },
+          {
+            "url": "http://digitalhealth.gov.au/fhir/cc/StructureDefinition/new-patient-availability",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "system": "https://healthterminologies.gov.au/fhir/CodeSystem/new-patient-availability-1",
+                  "code": "accepting",
+                  "display": "Accepting new patients"
+                }
+              ]
+            }
+          }
+        ],
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-HCS-31"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "f6a72839-45c3-5d84-857a-056724c143c5"
+          }
+        ],
+        "active": true,
+        "providedBy": {
+          "reference": "Organization/qhd-org-11"
+        },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "310161006",
+                "display": "Orthopaedic service"
+              }
+            ]
+          }
+        ],
+        "location": [
+          {
+            "reference": "Location/qhd-loc-02"
+          }
+        ],
+        "name": "Townsville Orthopaedic Clinic",
+        "telecom": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org.au/fhir/StructureDefinition/contact-purpose",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                      "code": "ADMIN",
+                      "display": "Administrative"
+                    }
+                  ]
+                }
+              }
+            ],
+            "system": "phone",
+            "value": "(07) 5550 3031",
+            "use": "work"
+          }
+        ],
+        "serviceProvisionCode": [
+          {
+            "coding": [
+              {
+                "system": "http://digitalhealth.gov.au/fhir/hcpd/CodeSystem/service-provision-cs",
+                "code": "FAP",
+                "display": "Fees Apply"
+              }
+            ]
+          }
+        ],
+        "communication": [
+          {
+            "coding": [
+              {
+                "system": "urn:ietf:bcp:47",
+                "code": "en",
+                "display": "English"
+              }
+            ]
+          }
+        ],
+        "appointmentRequired": true,
+        "availableTime": [
+          {
+            "daysOfWeek": [
+              "mon",
+              "tue",
+              "wed",
+              "thu",
+              "fri"
+            ],
+            "allDay": false,
+            "availableStartTime": "08:00:00",
+            "availableEndTime": "17:00:00"
+          }
+        ],
+        "endpoint": [
+          {
+            "reference": "Endpoint/qhd-ep-11-rest"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "HealthcareService/qhd-hcs-31"
+      }
+    }
+  ]
+}

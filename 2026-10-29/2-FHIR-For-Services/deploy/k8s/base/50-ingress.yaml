@@ -6,19 +6,20 @@ kind: Ingress
 metadata:
   name: track2
   namespace: track2
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  # No rewrite-target: backends serve under their own prefix (/fhir, /directory/fhir).
+  # (annotations map kept present so overlays can JSON-patch-add keys into it)
+  annotations: {}
 spec:
   ingressClassName: public
   rules:
     - http:
         paths:
-          - path: /fhir(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /referral/fhir
+            pathType: Prefix
             backend: { service: { name: fhir, port: { number: 8080 } } }
-          - path: /directory(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /directory/fhir
+            pathType: Prefix
             backend: { service: { name: directory, port: { number: 8080 } } }
-          - path: /()(.*)
-            pathType: ImplementationSpecific
-            backend: { service: { name: referrer, port: { number: 5000 } } }
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: banner, port: { number: 8080 } } }

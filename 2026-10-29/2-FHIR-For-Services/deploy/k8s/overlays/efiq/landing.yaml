@@ -1,0 +1,64 @@
+# Landing page for the address handed out in comms (track2.efiq...): one static page that points at the function hosts. The links are
+# built in the browser from the page's own host (track2.<root> -> ui.<root>, ...), so the root is set only in hostname.yaml / DNS.
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: landing-site, namespace: track2 }
+data:
+  index.html: |
+    <!doctype html>
+    <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FHIR in QH Connectathon 2026: Track 2, FHIR for Services</title>
+    <style>
+      body{font:16px/1.5 system-ui,sans-serif;max-width:46rem;margin:0 auto;padding:0 1rem 3rem;color:#1b1b1b}
+      #t2banner{position:sticky;top:0;background:#b02a00;color:#fff;font-weight:600;text-align:center;padding:6px 12px;margin:0 -1rem}
+      h1{font-size:1.5rem;margin-top:1.5rem} dt{font-weight:600;margin-top:1rem} dd{margin:0 0 0 0;color:#444}
+      code{background:#f1f1f1;padding:0 .25rem;border-radius:3px}
+    </style></head>
+    <body>
+    <div id="t2banner">TEST ENVIRONMENT - fictional test data only. Do not enter real patient or personal information.</div>
+    <h1>Track 2: FHIR for Services</h1>
+    <p>A radiology referral scenario: find an imaging provider, send a referral, triage it, book it and follow it up.</p>
+    <dl>
+      <dt><a data-host="ui" href="#">Patient-Referral app</a></dt><dd>The web app for the referrer and the imaging filler.</dd>
+      <dt><a data-host="referrals" data-path="/fhir/metadata" href="#">Referral FHIR server</a></dt><dd>R4 base <code data-base="referrals" data-path="/fhir"></code> (ServiceRequest, Task, Slot, Appointment).</dd>
+      <dt><a data-host="directory" data-path="/fhir/metadata" href="#">Provider directory FHIR server</a></dt><dd>R4 base <code data-base="directory" data-path="/fhir"></code> (HealthcareService, Organization, Location; bulk <code>$export</code> is enabled).</dd>
+      <dt><a data-host="conformance" href="#">Conformance runner</a></dt><dd>Run the test bundles against the servers (frog-runner).</dd>
+      <dt><a data-host="v2" href="#">Caret</a></dt><dd>The HL7 v2 side of the referral tutorial.</dd>
+    </dl>
+    <script>
+      var root = location.hostname.replace(/^[^.]+\./, "");
+      document.querySelectorAll("[data-host]").forEach(function (a) { a.href = "https://" + a.dataset.host + "." + root + (a.dataset.path || "/"); });
+      document.querySelectorAll("[data-base]").forEach(function (c) { c.textContent = "https://" + c.dataset.base + "." + root + c.dataset.path; });
+    </script>
+    </body></html>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: landing, namespace: track2 }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: landing } }
+  template:
+    metadata: { labels: { app: landing } }
+    spec:
+      containers:
+        - name: nginx
+          image: nginxinc/nginx-unprivileged:1.27-alpine
+          ports: [ { containerPort: 8080 } ]
+          readinessProbe:
+            httpGet: { path: /, port: 8080 }
+            periodSeconds: 10
+          volumeMounts: [ { name: site, mountPath: /usr/share/nginx/html, readOnly: true } ]
+          resources:
+            requests: { cpu: "10m", memory: "16Mi" }
+            limits:   { cpu: "100m", memory: "64Mi" }
+      volumes:
+        - name: site
+          configMap: { name: landing-site }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: landing, namespace: track2 }
+spec:
+  selector: { app: landing }
+  ports: [ { port: 8080, targetPort: 8080 } ]

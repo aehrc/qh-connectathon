@@ -1,5 +1,8 @@
 # Services Track — Deployment Design (self-contained stack + external tx, staged)
 
+> **Superseded for current facts by [`deploy/DEPLOYMENT.md`](deploy/DEPLOYMENT.md)** (what runs where, where each part comes from, how it is deployed and verified). This file is the original design sketch, kept for the reasoning; its "not yet implemented" notes and the `/fhir` and `/directory` paths are out of date.
+
+
 > **Scope note:** this deployment is the Track 2 services example, which includes the directory
 > service replica (HCPD-profiled HAPI). It is **unrelated to the radiology / HL7v2 example for the
 > breakout** (`ris-hl7v2-tutorial`), which is cited below only as a prior staging pattern. The

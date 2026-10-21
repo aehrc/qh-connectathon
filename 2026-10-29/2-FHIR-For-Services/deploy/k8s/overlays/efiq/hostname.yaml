@@ -1,0 +1,24 @@
+# THE place to set the public hostnames of Track 2 on EKS. One label per function under the DNS root (efiq-configuration D12), so
+# the wildcard certificate *.efiq.hospservices.net covers them. The root is efiq.hospservices.net (decided 2026-10-20: the Route 53
+# zone, the wildcard certificate and the Cloudflare delegation all exist). Changing the root again needs a new zone and certificate in
+# efiq-configuration (persistent layer, human gate) and the certificate ARN in efiq-flux's IngressClassParams.
+#
+#   landing      track2        a small page that points people at the rest (the address handed out in comms)
+#   ui           ui            Patient-Referral (behind the "test data only" banner proxy)
+#   referrals    referrals     referral FHIR server, base /fhir
+#   directory    directory     provider directory FHIR server (HCPD), base /fhir
+#   conformance  conformance   frog-runner
+#   (Caret, the HL7v2 tutorial, is v2.efiq...; its host is set in efiq-flux apps/ris-tutorial/ingress.yaml)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: track2-hostname
+  namespace: track2
+  annotations:
+    config.kubernetes.io/local-config: "true"   # used only as the replacement source; not applied to the cluster
+data:
+  landingHost: track2.efiq.hospservices.net
+  uiHost: ui.efiq.hospservices.net
+  referralsHost: referrals.efiq.hospservices.net
+  directoryHost: directory.efiq.hospservices.net
+  frogHost: conformance.efiq.hospservices.net

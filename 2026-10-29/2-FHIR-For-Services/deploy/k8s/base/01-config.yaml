@@ -5,5 +5,5 @@ metadata:
   namespace: track2
 data:
   # External terminology — the one external dependency. CONFIRM before the event.
-  TX_URL: "https://tx.ontoserver.csiro.au/fhir"
+  TX_URL: "https://r4.ontoserver.csiro.au/fhir"   # decision B1 (infra-questions.md)
   TX_SYSTEM: "http://snomed.info/sct"

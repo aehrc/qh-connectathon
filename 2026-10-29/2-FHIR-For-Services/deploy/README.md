@@ -1,5 +1,8 @@
 # Track 2 — VM install
 
+> **Current deployment documentation: [`DEPLOYMENT.md`](DEPLOYMENT.md).** This README describes the earlier single-VM install path (`install.sh`, `k8s-install.sh`), which is no longer how Track 2 is deployed.
+
+
 `install.sh` bootstraps the self-contained Track 2 stack on the host VM
 (`aehrc-qh-connectathon-track-2.it.csiro.au`), **after the quota increase**
 (see `../quota-increase-request.md` — ≥ 8 GB for experiments, 16 GB for the event).
@@ -52,8 +55,8 @@ newgrp microk8s              # so the group applies
 
 Endpoints (via the microk8s ingress, on the node IP):
 - Referrer  `http://<vm-ip>/`
-- Referral  `http://<vm-ip>/fhir/metadata`
-- Directory `http://<vm-ip>/directory/metadata` (ADHA Provider Directory IG)
+- Referral  `http://<vm-ip>/referral/fhir/metadata`
+- Directory `http://<vm-ip>/directory/fhir/metadata` (ADHA Provider Directory IG)
 
 Inspect: `microk8s kubectl -n track2 get pods,svc,ingress`.
 The overlay renders to 14 resources (`kustomize build k8s/overlays/local`) — validated.
