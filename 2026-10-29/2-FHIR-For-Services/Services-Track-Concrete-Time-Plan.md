@@ -85,7 +85,7 @@ allocates to tracks. Three integration points shape how well it runs:
 ## Notes & dependencies
 
 - **Room:** track sessions run in an "Individual Track Room"; specific room numbers are not yet given in the event program (TBC).
-- **Environments (from 2025 program, confirm for 2026):** Secured FHIR server `https://gw.interop.community/QHConnectathon2025/data`; Open `https://gw.interop.community/QHConnectathon2025/open`.
+- **Environments (confirmed 2026-10-21):** one address per function, all open (no authentication; Track 2 has no secured server): landing page <https://track2.efiq.hospservices.net/>; app <https://ui.efiq.hospservices.net/>; referral FHIR base <https://referrals.efiq.hospservices.net/fhir>; directory FHIR base <https://directory.efiq.hospservices.net/fhir>; conformance runner <https://conformance.efiq.hospservices.net/>; Caret (HL7 v2) <https://v2.efiq.hospservices.net/>. Up for the event (29-30 Oct), switched off between rehearsals. Fallback on the CSIRO network only: <https://aehrc-qh-connectathon-track-2.dw.csiro.au/>. Test results: [test report](https://github.com/aehrc/qh-connectathon/blob/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md).
 - **Pre-event decisions** that affect the plan are tracked in the scenario proposal Section 8 (QH referrals IG version, Qld Health Provider Directory on FHIR access/credentials, directory→referral-server linkage, who books, transport, security, terminology).
 - **Streaming:** run the browser core path and developer deep-dive in parallel within each session; share developer prerequisites via pre-event comms.
 - This plan follows a **DRAFT** event program — adjust if the official program times change.
