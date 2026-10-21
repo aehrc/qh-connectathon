@@ -1,0 +1,11 @@
+# name  url   (QR codes used by Architects-Deck.md)
+track2       https://track2.efiq.hospservices.net/
+ui           https://ui.efiq.hospservices.net/
+conformance  https://conformance.efiq.hospservices.net/
+v2           https://v2.efiq.hospservices.net/
+report       https://github.com/aehrc/qh-connectathon/blob/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md
+repo         https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy
+caret        https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial
+akkadakka    https://gitlab.com/australian-e-health-research-centre/akkadakka
+frogrunner   https://gitlab.com/fhirfrog/frog-runner
+patterns     https://fhirpatterns.net/

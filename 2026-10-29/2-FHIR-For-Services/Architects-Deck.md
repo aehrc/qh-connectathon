@@ -25,7 +25,10 @@ style: |
   h3 { color: var(--csiro-indigo); font-size: 28px; }
   a { color: var(--csiro-teal); }
   strong { color: var(--csiro-indigo); }
-  table { font-size: 22px; }
+  section table { font-size: 22px; display: table; width: 100%; max-width: 100%; table-layout: auto; border-collapse: collapse; }
+  section th, section td { padding: 6px 12px; vertical-align: middle; text-align: left; }
+  section td img { display: block; margin: 0 auto; }
+  section img[alt~="center"] { display: block; margin: 12px auto; }
   th { background: var(--csiro-navy); color: #FFFFFF; }
   code { color: var(--csiro-green); background: #F2F7F9; }
   section.lead {
@@ -95,39 +98,48 @@ The colour follows the effort: the darker, the more custom work. Most of an arch
 
 ## Six services across the four families
 
-![h:380 center](slides/diagrams/services-map.svg)
+![w:1060 center](slides/diagrams/services-map.png)
 
 Pale services are configuration, mid-tone ones need an IG, the dark one needs a little code.
 
 ---
 
-## How they combine (illustrative)
+## How they could combine (illustrative)
 
 ![h:380 center](slides/diagrams/services-architecture.svg)
 
-Illustrative: the two demo stacks (Track 2A and Caret) are separate and share no infrastructure or data.
-
----
-
-## Worked example: Caret
-
-**Stock:** HAPI server, validator, mapping engine, storage, Postgres.
-
-**Ours:** a small plugin (listener 155 lines, parser 68) and maps of 45 to 105 lines each.
-
-Apache-2.0. Synthetic data.
+The demo stacks are separate: Track 2A and Caret share no infrastructure or data. The dashed line is a design option, not something we run.
 
 <!--
-Caret is a hands-on tutorial: send a real HL7 v2 message over MLLP, watch a real FHIR server turn it into FHIR resources, then read the map that did it. A small sender stands in for the RIS. Maps are written in FHIR Mapping Language. Message types: ADT A04 and A08, ORM O01, ORU R01, MDM T02, OMI O23. Source: gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial.
+Illustrative design: how the services could be joined in one architecture. In the demos they are not joined. Track 2A (https://ui.efiq.hospservices.net/) and Caret (https://v2.efiq.hospservices.net/) are separate stacks that share no infrastructure or data; Caret's adapter writes to its own FHIR server. The dashed line from the legacy adapter to the referral server shows what a real design could do.
 -->
 
 ---
 
-## Limits of Caret
+## Worked example: Caret ![h:40](slides/img/caret-icon.svg)
+
+![bg right:42% fit](slides/img/shot-caret-framed.png)
+
+**Stock:** [HAPI FHIR](https://hapifhir.io/) server, validator, [mapping engine](https://hl7.org/fhir/mapping-language.html), storage, [Postgres](https://www.postgresql.org/).
+
+**Ours:** a small plugin (listener 155 lines, parser 68) and maps of 45 to 105 lines each.
+
+Apache-2.0. Synthetic data. [Source](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial) · [Try it live](https://v2.efiq.hospservices.net/)
+
+[![w:170](slides/qr/v2.svg)](https://v2.efiq.hospservices.net/)
+
+<!--
+Caret is a hands-on tutorial: send a real HL7 v2 message over MLLP, watch a real FHIR server turn it into FHIR resources, then read the map that did it. A small sender stands in for the RIS. Maps are written in FHIR Mapping Language. Message types: ADT A04 and A08, ORM O01, ORU R01, MDM T02, OMI O23. Source: https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial . Live: https://v2.efiq.hospservices.net/ (up for the event, 29 and 30 Oct; fictional data only).
+-->
+
+---
+
+## Limits of Caret ![h:40](slides/img/caret-icon.svg)
 
 - Reference, not a product: five message types, no authentication or TLS, one fictional hospital.
-- Two defects fixed in the plugin: unescaped "^" gave AE with no audit record; contained Observation showed an object name.
-- Failures now get a rejected acknowledgement and AuditEvent.
+- Two defects fixed in the plugin: unescaped "^" gave AE with no audit record; a contained [Observation](https://hl7.org/fhir/R4/observation.html) showed an object name.
+- Failures now get a rejected acknowledgement and an [AuditEvent](https://hl7.org/fhir/R4/auditevent.html).
+- Details and code: [Caret on GitLab](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial).
 
 <!--
 Building Caret exposed two real faults, both fixed in the plugin (merged). An unescaped caret in a text report made the server answer AE with no audit record. A contained Observation showed an object name instead of the report text. Failed messages now get a rejected acknowledgement with a reason and an AuditEvent. Production needs authentication, TLS, more message types and monitoring; Layer 6 of the tutorial lists what. The lesson: a reader of a map can find and fix this kind of fault.
@@ -135,18 +147,18 @@ Building Caret exposed two real faults, both fixed in the plugin (merged). An un
 
 ---
 
-## Which pattern answers which question
+## Which pattern answers which question [![h:44](slides/img/fhirpatterns-icon.png)](https://fhirpatterns.net/)
 
 | Question | Pattern |
 |---|---|
-| Who offers this service, and where? | Naming and Trading Service |
-| How do I request work and track it? | Asynchronous Invocation |
-| How do I tell others something changed? | Event Observer, Broker |
-| How does the legacy system join in? | Legacy Adapter |
-| Do we mean the same codes? | PL-09, PL-10 |
-| How do I know it works? | PL-15, PL-17 |
+| Who offers this service, and where? | [Naming and Trading Service](https://fhirpatterns.net/fhir-implementation-patterns/patterns/naming-trading/) |
+| How do I request work and track it? | [Asynchronous Invocation](https://fhirpatterns.net/fhir-implementation-patterns/patterns/async-invocation/) |
+| How do I tell others something changed? | [Event Observer](https://fhirpatterns.net/fhir-implementation-patterns/patterns/event-observer/), [Broker](https://fhirpatterns.net/fhir-implementation-patterns/patterns/broker/) |
+| How does the legacy system join in? | [Legacy Adapter](https://fhirpatterns.net/fhir-implementation-patterns/patterns/legacy-adapter/) |
+| Do we mean the same codes? | [PL-09](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-09/), [PL-10](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-10/) |
+| How do I know it works? | [PL-15](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-15/), [PL-17](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-17/) |
 
-Source: fhirpatterns.net
+Source: [fhirpatterns.net](https://fhirpatterns.net/)
 
 <!--
 fhirpatterns.net publishes three pattern languages: FHIR Implementation Patterns, FHIR Authoring Patterns and IG Authoring Patterns. This table is the mapping used in this deck. Other implementation patterns on the site include Capability Facade and Imaging Bridge.
@@ -154,29 +166,46 @@ fhirpatterns.net publishes three pattern languages: FHIR Implementation Patterns
 
 ---
 
-## Experiments: akkadakka
+## Experiments: akkadakka [![h:44](slides/img/akkadakka-icon.png)](https://gitlab.com/australian-e-health-research-centre/akkadakka)
 
-- Wiki, snippets and tutorial trail for the HAPI FHIR JPA Starter.
+- Wiki, snippets and tutorial trail for the [HAPI FHIR JPA Starter](https://github.com/hapifhir/hapi-fhir-jpaserver-starter).
 - Configuration and reuse; no HAPI code held.
-- More than a dozen snippets. Not yet covered: terminology, directory, legacy adapter.
-- "Activate IPS" leads to the AU Patient Summary plugin.
-- gitlab.com/australian-e-health-research-centre/akkadakka
+- More than a dozen snippets. No snippet yet for terminology, directory or the legacy adapter.
+- When configuration is not enough, small plugins on stock HAPI: [PSGC](https://gitlab.com/australian-e-health-research-centre/psgc/hapi-fhir-psgc-terminology) and [Duke UCUM](https://gitlab.com/australian-e-health-research-centre/duke-ucum/duke-ucum-fhir) (terminology), [AU Patient Summary](https://gitlab.com/australian-e-health-research-centre/au-patient-summary/hapi-fhir-au-ps), and the [HL7 v2 adapter](https://gitlab.com/australian-e-health-research-centre/hl7v2-fhir-facade/hl7v2-fhir-facade) behind Caret.
+- "Activate IPS" ([International Patient Summary](https://hl7.org/fhir/uv/ips/)) leads to the [AU Patient Summary](https://hl7.org.au/fhir/ps/) plugin.
+- [akkadakka on GitLab](https://gitlab.com/australian-e-health-research-centre/akkadakka)
 
 <!--
-The snippets are GitLab snippets. Each has a stock hapiproject/hapi container, an application.yaml, seed and example scripts, and a README. PSGC (geographic codes) and Duke UCUM (units) are worked examples of custom terminology plugins. The akkadakka.dev website is coming.
+The snippets are GitLab snippets. Each has a stock hapiproject/hapi container, an application.yaml, seed and example scripts, and a README. PSGC (geographic codes) and Duke UCUM (units) are worked examples of custom terminology plugins. The akkadakka.dev front page is live (merge request 8). Source: https://gitlab.com/australian-e-health-research-centre/akkadakka
 -->
 
 ---
 
-## Conformance checks
+## Conformance checks [![h:44](slides/img/fhir-frog-icon.png)](https://gitlab.com/fhirfrog/fhir-frog)
 
-- Two layers: HAPI $validate for resources, fhir-frog for conformance test scripts.
-- frog-runner is public (early trial): gitlab.com/fhirfrog/frog-runner
-- Track 2 repo: directory bundle and referral bundle recorded as passing (referral 6 of 6).
-- akkadakka: validator snippets. Patterns: PL-15, PL-17.
+- Two layers: HAPI [$validate](https://hl7.org/fhir/R4/resource-operation-validate.html) for resources, [fhir-frog](https://gitlab.com/fhirfrog/fhir-frog) for conformance test scripts.
+- [frog-runner](https://gitlab.com/fhirfrog/frog-runner) is public (early trial); a [live runner](https://conformance.efiq.hospservices.net/) is up for the event.
+- Track 2 [test report](https://github.com/aehrc/qh-connectathon/blob/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md): directory bundle 1 of 1 and referral bundle 6 of 6 pass on AWS and on DiSP; 40 users for 8 minutes, no errors.
+- AU eRequesting fixtures fixed for 1.0.1 ([merge request](https://gitlab.com/fhirfrog/frog-runner/-/merge_requests/6)): 7 of 7 pass, was 3 of 7.
+- Patterns: [PL-15](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-15/), [PL-17](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-17/).
 
 <!--
-Two layers: HAPI $validate for resources, then fhir-frog test scripts. frog-runner describes itself as an early trial. Track 2 bundles are recorded as passing. Validator Gate in CI is PL-15. TestScript / Inferno / Touchstone Alignment is PL-17.
+Two layers: HAPI $validate for resources, then fhir-frog test scripts. frog-runner describes itself as an early trial. Track 2 bundles pass on the AWS and DiSP stacks (report: REPORT). Validator Gate in CI is PL-15. TestScript / Inferno / Touchstone Alignment is PL-17. The AU eRequesting test package fix is merge request 6 in fhirfrog/frog-runner: https://gitlab.com/fhirfrog/frog-runner/-/merge_requests/6
+-->
+
+---
+
+## Try it live
+
+| [Landing page](https://track2.efiq.hospservices.net/) | [Referral app](https://ui.efiq.hospservices.net/) | [Conformance runner](https://conformance.efiq.hospservices.net/) | [Caret (HL7 v2)](https://v2.efiq.hospservices.net/) |
+|---|---|---|---|
+| [![w:250](slides/img/shot-landing.png)](https://track2.efiq.hospservices.net/) | [![w:250](slides/img/shot-referral-app.png)](https://ui.efiq.hospservices.net/) | [![w:250](slides/img/shot-conformance.png)](https://conformance.efiq.hospservices.net/) | [![w:250](slides/img/shot-caret.png)](https://v2.efiq.hospservices.net/) |
+| [![w:150](slides/qr/track2.svg)](https://track2.efiq.hospservices.net/) | [![w:150](slides/qr/ui.svg)](https://ui.efiq.hospservices.net/) | [![w:150](slides/qr/conformance.svg)](https://conformance.efiq.hospservices.net/) | [![w:150](slides/qr/v2.svg)](https://v2.efiq.hospservices.net/) |
+
+Up for the event, 29 and 30 October. Fictional test data only. FHIR bases: [referrals](https://referrals.efiq.hospservices.net/fhir/metadata) and [directory](https://directory.efiq.hospservices.net/fhir/metadata).
+
+<!--
+Landing page https://track2.efiq.hospservices.net/ links to everything. App https://ui.efiq.hospservices.net/ . Conformance runner https://conformance.efiq.hospservices.net/ . Caret https://v2.efiq.hospservices.net/ . Referral FHIR base https://referrals.efiq.hospservices.net/fhir and directory FHIR base https://directory.efiq.hospservices.net/fhir (both answer /metadata). The stack is switched off between rehearsals; if a link does not answer, ask.
 -->
 
 ---
@@ -185,13 +214,26 @@ Two layers: HAPI $validate for resources, then fhir-frog test scripts. frog-runn
 
 | Topic | Advice | Try it | Run it |
 |---|---|---|---|
-| Terminology | [PL-09](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-09/), PL-10 | gap | [Ontoserver](https://r4.ontoserver.csiro.au) |
-| Directory | [Naming and Trading](https://fhirpatterns.net/fhir-implementation-patterns/patterns/naming-trading/) | gap | [repo](https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-Services/deploy) |
-| Referral and booking | [Async Invocation](https://fhirpatterns.net/fhir-implementation-patterns/patterns/async-invocation/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/6008642) | [repo](https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-Services/deploy), [IG](https://github.com/aehrc/radiology-referral) |
-| Eventing | [Event Observer](https://fhirpatterns.net/fhir-implementation-patterns/patterns/event-observer/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/6008651) | same snippets |
-| Legacy adapter | [Legacy Adapter](https://fhirpatterns.net/fhir-implementation-patterns/patterns/legacy-adapter/) | gap | [Caret](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial) |
-| Conformance | [PL-15](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-15/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/4879496) | [repo](https://gitlab.com/fhirfrog/frog-runner) |
+| Terminology | [PL-09](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-09/), [PL-10](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-10/) | [PSGC](https://gitlab.com/australian-e-health-research-centre/psgc/hapi-fhir-psgc-terminology), [Duke UCUM](https://gitlab.com/australian-e-health-research-centre/duke-ucum/duke-ucum-fhir) | [Ontoserver on Docker Compose](https://github.com/aehrc/ontoserver-deploy/tree/master/docker), [public Ontoserver](https://r4.ontoserver.csiro.au) |
+| Directory | [Naming and Trading](https://fhirpatterns.net/fhir-implementation-patterns/patterns/naming-trading/) | gap | [repo](https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy), [live](https://directory.efiq.hospservices.net/fhir/metadata) |
+| Referral and booking | [Async Invocation](https://fhirpatterns.net/fhir-implementation-patterns/patterns/async-invocation/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/6008642) | [repo](https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy), [IG](https://github.com/aehrc/radiology-referral), [app](https://ui.efiq.hospservices.net/) |
+| Eventing | [Event Observer](https://fhirpatterns.net/fhir-implementation-patterns/patterns/event-observer/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/6008651) | the [akkadakka](https://gitlab.com/australian-e-health-research-centre/akkadakka) snippets |
+| Legacy adapter | [Legacy Adapter](https://fhirpatterns.net/fhir-implementation-patterns/patterns/legacy-adapter/) | [v2 adapter](https://gitlab.com/australian-e-health-research-centre/hl7v2-fhir-facade/hl7v2-fhir-facade) | [Caret](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial), [live](https://v2.efiq.hospservices.net/) |
+| Patient summary | [International Patient Summary](https://hl7.org/fhir/uv/ips/) | [Activate IPS snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/4880301) | [AU-PS sample](https://gitlab.com/australian-e-health-research-centre/au-patient-summary/hapi-fhir-au-ps), [tests](https://gitlab.com/australian-e-health-research-centre/au-patient-summary/au-ps-tests) |
+| Conformance | [PL-15](https://fhirpatterns.net/fhir-authoring-patterns/patterns/pl-15/) | [snippet](https://gitlab.com/australian-e-health-research-centre/akkadakka/-/snippets/4879496) | [frog-runner](https://gitlab.com/fhirfrog/frog-runner), [live](https://conformance.efiq.hospservices.net/) |
 
 <!--
-Every topic has advice. Three have no try-it snippet yet: terminology, directory and legacy adapter. Run-it for directory and referral is the Track 2 deploy folder; the IG is the Radiology Referral IG; conformance run-it is frog-runner.
+Every topic has advice. Three have no try-it snippet yet: terminology, directory and legacy adapter. Run-it for directory and referral is the Track 2 deploy folder (https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy); the IG is the Radiology Referral IG; conformance run-it is frog-runner.
+-->
+
+---
+
+## Scan for the sources
+
+| [Patterns](https://fhirpatterns.net/) | [Track 2 repo](https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy) | [Test report](https://github.com/aehrc/qh-connectathon/blob/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md) | [Caret](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial) | [akkadakka](https://gitlab.com/australian-e-health-research-centre/akkadakka) | [frog-runner](https://gitlab.com/fhirfrog/frog-runner) |
+|---|---|---|---|---|---|
+| [![w:150](slides/qr/patterns.svg)](https://fhirpatterns.net/) | [![w:150](slides/qr/repo.svg)](https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy) | [![w:150](slides/qr/report.svg)](https://github.com/aehrc/qh-connectathon/blob/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md) | [![w:150](slides/qr/caret.svg)](https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial) | [![w:150](slides/qr/akkadakka.svg)](https://gitlab.com/australian-e-health-research-centre/akkadakka) | [![w:150](slides/qr/frogrunner.svg)](https://gitlab.com/fhirfrog/frog-runner) |
+
+<!--
+Every code opens the same page as the link above it: https://fhirpatterns.net/ , the Track 2 deploy folder (https://github.com/aehrc/qh-connectathon/tree/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy), the test report (https://github.com/aehrc/qh-connectathon/blob/track2-prep-wip/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md), https://gitlab.com/jgsuess-csiro/ris-hl7v2-tutorial , https://gitlab.com/australian-e-health-research-centre/akkadakka and https://gitlab.com/fhirfrog/frog-runner .
 -->

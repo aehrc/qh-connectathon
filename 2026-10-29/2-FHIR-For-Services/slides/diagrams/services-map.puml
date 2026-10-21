@@ -1,26 +1,30 @@
 @startuml services-map
 ' Zoom level 1: the six services in four groups, no arrows. Colour = effort (darker = more custom work).
-' The effort key is a separate strip: effort-legend.puml.
+' One row of four equal families, services stacked inside each; the effort key is a separate strip: effort-legend.puml.
 !include palette.iuml
+skinparam defaultFontSize 22
+skinparam RoundCorner 14
+skinparam rectangle {
+  BorderThickness 2
+}
 
-rectangle "**1  Find**" as G1 #FFFFFF;line:757579 {
-  rectangle "Terminology\nagreed codes" as TX #$L1
-  rectangle "Directory\nwho offers what, where" as DIR #$L2
+rectangle "<size:28>**1  Find**</size>\n<color:#757579>agree what things are called\n<color:#757579>and who offers what" as G1 #FFFFFF;line:00A9CE;line.bold {
+  rectangle "**Terminology**\nagreed codes" as TX #$L1
+  rectangle "**Directory**\nwho offers what, where" as DIR #$L2
 }
-rectangle "**2  Do**" as G2 #FFFFFF;line:757579 {
-  rectangle "Eventing\nnotify and decouple" as EVT #$L1
-  rectangle "Referral and booking\nrequest, track, schedule" as SRV #$L2
+rectangle "<size:28>**2  Do**</size>\n<color:#757579>request, track and\n<color:#757579>schedule the work" as G2 #FFFFFF;line:00A9CE;line.bold {
+  rectangle "**Eventing**\nnotify and decouple" as EVT #$L1
+  rectangle "**Referral and booking**\nrequest, track, schedule" as SRV #$L2
 }
-rectangle "**3  Connect**" as G3 #FFFFFF;line:757579 {
-  rectangle "<color:white>Legacy adapter</color>\n<color:white>HL7 v2 in, FHIR out</color>" as ADP #$L3
+rectangle "<size:28>**3  Connect**</size>\n<color:#757579>let the legacy estate\n<color:#757579>join in" as G3 #FFFFFF;line:00A9CE;line.bold {
+  rectangle "<color:white>**Legacy adapter**</color>\n<color:white>HL7 v2 in, FHIR out</color>" as ADP #$L3
 }
-rectangle "**4  Prove**" as G4 #FFFFFF;line:757579 {
-  rectangle "Conformance\nvalidate and test" as CON #$L1
+rectangle "<size:28>**4  Prove**</size>\n<color:#757579>show that it works" as G4 #FFFFFF;line:00A9CE;line.bold {
+  rectangle "**Conformance**\nvalidate and test" as CON #$L1
 }
 G1 -[hidden]right- G2
+G2 -[hidden]right- G3
 G3 -[hidden]right- G4
-G1 -[hidden]down- G3
-TX -[hidden]right- DIR
-EVT -[hidden]right- SRV
-
+TX -[hidden]down- DIR
+EVT -[hidden]down- SRV
 @enduml

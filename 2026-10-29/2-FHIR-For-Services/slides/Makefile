@@ -18,9 +18,10 @@
 
 # ---- Config ---------------------------------------------------------------
 
-DECK        := ../Track2-KickOff-Deck.md
-PPTX        := ../Track2-KickOff-Deck.pptx
-PDF         := ../Track2-KickOff-Deck.pdf
+# the deck to build; the architects' deck is built with:  make architects
+DECK        ?= ../Track2-KickOff-Deck.md
+PPTX        ?= ../Track2-KickOff-Deck.pptx
+PDF         ?= ../Track2-KickOff-Deck.pdf
 
 DIAGRAM_SRC := $(wildcard diagrams/*.puml)
 DIAGRAM_SVG := $(DIAGRAM_SRC:.puml=.svg)
@@ -36,7 +37,7 @@ PLANTUML    := plantuml
 
 # ---- Targets --------------------------------------------------------------
 
-.PHONY: all diagrams pptx pdf preview clean help
+.PHONY: all diagrams qr architects pptx pdf preview clean help
 
 all: diagrams pptx
 
@@ -50,6 +51,14 @@ diagrams/%.svg: diagrams/%.puml
 	@# PlantUML also pins each text run to the width of the font it had at render time (textLength), which
 	@# stretches or squeezes text when the slide renderer uses a different font; let the browser lay text out
 	@sed -i -E 's/ (textLength|lengthAdjust)="[^"]*"//g' $@
+
+## Render the QR codes listed in qr/urls.txt (needs: pip install segno)
+qr:
+	python3 qr/make-qr.py
+
+## Build the architects' deck (PDF and editable PPTX), QR codes included
+architects: diagrams qr
+	$(MAKE) pdf pptx DECK=../Architects-Deck.md PDF=../Architects-Deck.pdf PPTX=../Architects-Deck.pptx
 
 ## Build the editable PowerPoint deck
 pptx: diagrams
