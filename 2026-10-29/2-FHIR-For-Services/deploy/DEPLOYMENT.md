@@ -190,7 +190,7 @@ its cap, and the LimitRange gives every container a 2 CPU default limit unless o
 
 | Repository | Used for |
 |---|---|
-| `github.com/aehrc/qh-connectathon` (public; work on branch `track2-prep-wip`) | everything deployed here: manifests, seeds, IG tarballs, tests, docs. Track 2 lives under `2026-10-29/2-FHIR-For-Services/` |
+| `github.com/aehrc/qh-connectathon` (public; merged to `main` on 2026-10-21; the AWS Flux source still tracks branch `track2-prep-wip` until the freeze, when it is pinned to a commit) | everything deployed here: manifests, seeds, IG tarballs, tests, docs. Track 2 lives under `2026-10-29/2-FHIR-For-Services/` |
 | `github.com/aehrc/radiology-referral` (submodule `ig/`) | the Radiology Referral and Booking IG source |
 | `github.com/mjosborne1/Patient-Referral` | the UI source (Michael); our image is built from it |
 | `gitlab.com/fhirfrog/frog-runner`, `fhir-frog`, `au-core-compiler` | the conformance runner and engine; public image |
