@@ -5,6 +5,7 @@
 # Requirements (all present on the CSIRO dev image):
 #   - marp        (Marp CLI)         https://github.com/marp-team/marp-cli
 #   - plantuml    (+ Java, Graphviz) for diagram rendering
+#   - ImageMagick (convert)          to trim the diagram PNGs
 #   - chromium    for Marp rendering (set CHROME_PATH if not auto-detected)
 #   - libreoffice (soffice)          for the editable PPTX export
 #
@@ -25,6 +26,7 @@ PDF         ?= ../Track2-KickOff-Deck.pdf
 
 DIAGRAM_SRC := $(wildcard diagrams/*.puml)
 DIAGRAM_SVG := $(DIAGRAM_SRC:.puml=.svg)
+DIAGRAM_PNG := $(DIAGRAM_SRC:.puml=.png)
 
 BUILD       := build
 PREVIEW     := $(BUILD)/preview
@@ -42,7 +44,12 @@ PLANTUML    := plantuml
 all: diagrams pptx
 
 ## Render every PlantUML diagram to SVG
-diagrams: $(DIAGRAM_SVG)
+diagrams: $(DIAGRAM_SVG) $(DIAGRAM_PNG)
+
+# The architects' deck uses PNGs: PowerPoint and LibreOffice drop glyphs (for example the 'tti' in 'settings') from SVG text.
+diagrams/%.png: diagrams/%.puml
+	$(PLANTUML) -tpng -Sdpi=200 $<
+	convert $@ -trim +repage -bordercolor none -border 16 $@
 
 diagrams/%.svg: diagrams/%.puml
 	$(PLANTUML) -tsvg $<
@@ -75,7 +82,7 @@ preview: diagrams
 
 ## Remove generated diagrams and build artifacts
 clean:
-	rm -f $(DIAGRAM_SVG)
+	rm -f $(DIAGRAM_SVG) $(DIAGRAM_PNG)
 	rm -rf $(BUILD)
 
 ## Show this help

@@ -82,7 +82,7 @@ And for each one: *what is there to reuse, what is mine to build, and where do I
 
 ## Four families of service
 
-![h:300 center](slides/diagrams/services-families.svg)
+![w:1000 center](slides/diagrams/services-families.png)
 
 Each family has a few ready-made services. We look at what is in each, and what it takes to use it.
 
@@ -90,7 +90,7 @@ Each family has a few ready-made services. We look at what is in each, and what 
 
 ## Three levels of effort
 
-![h:380 center](slides/diagrams/effort-levels.svg)
+![w:1100 center](slides/diagrams/effort-levels.png)
 
 The colour follows the effort: the darker, the more custom work. Most of an architecture is levels 1 and 2.
 
@@ -106,7 +106,7 @@ Pale services are configuration, mid-tone ones need an IG, the dark one needs a 
 
 ## How they could combine (illustrative)
 
-![h:380 center](slides/diagrams/services-architecture.svg)
+![w:1100 center](slides/diagrams/services-architecture.png)
 
 The demo stacks are separate: Track 2A and Caret share no infrastructure or data. The dashed line is a design option, not something we run.
 
