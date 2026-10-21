@@ -1,0 +1,38 @@
+# External availability check for the Track 2 stack on AWS (issue #14).
+# Runs the read-only checks in deploy/smoke/external-check.sh from a GitHub runner, so it sees the stack the way a participant outside CSIRO does.
+# Scheduled only for the event window (28 to 30 October 2026, Brisbane time); it can also be started by hand at any time (Actions tab, "Run workflow").
+# A failed run emails the person who last edited the schedule below.
+name: Track 2 external check
+
+on:
+  schedule:
+    # every 15 minutes on 27 to 30 October (UTC); the window step below stops anything outside the event itself
+    - cron: '*/15 * 27-30 10 *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: 2026-10-29/2-FHIR-For-Services/deploy/smoke
+      - name: Event window
+        id: window
+        run: |
+          now=$(date -u +%s)
+          start=$(date -u -d 2026-10-27T14:00:00Z +%s)   # 00:00 on 28 October, Brisbane
+          end=$(date -u -d 2026-10-30T14:00:00Z +%s)     # 24:00 on 30 October, Brisbane
+          if [ "${{ github.event_name }}" = workflow_dispatch ] || { [ "$now" -ge "$start" ] && [ "$now" -le "$end" ]; }; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Outside the event window (28 to 30 October 2026, Brisbane time): nothing to check." >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Check the stack
+        if: steps.window.outputs.run == 'true'
+        run: bash 2026-10-29/2-FHIR-For-Services/deploy/smoke/external-check.sh
