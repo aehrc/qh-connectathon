@@ -36,7 +36,7 @@ flowchart LR
     bun["frog-tests bundles"]
   end
   cl["Cluster pods<br/>(images pinned by digest)"]
-  mo -->|"v1.0.0 @ 53eca0d, built 2026-10-20"| dh1
+  mo -->|"v1.0.1 @ 54ff8b9, built 2026-10-21"| dh1
   hs --> dh2
   ff --> gl
   off --> dh3
@@ -55,7 +55,7 @@ flowchart LR
 
 | Part | What it is | Comes from | Pinned to | Licence |
 |---|---|---|---|---|
-| **Patient-Referral UI** ("the app") | Flask web app: referrer and filler screens, provider search, dashboards | Source: [github.com/mjosborne1/Patient-Referral](https://github.com/mjosborne1/Patient-Referral) (Michael Osborne). Image we run: `docker.io/joernguysuess/patient-referral:1.0.0-53eca0d` (app v1.0.0, commit `53eca0d`; `/version` reports it), built on 2026-10-20 | digest `sha256:2a1d0ad7…` | MIT |
+| **Patient-Referral UI** ("the app") | Flask web app: referrer and filler screens, provider search, dashboards | Source: [github.com/mjosborne1/Patient-Referral](https://github.com/mjosborne1/Patient-Referral) (Michael Osborne). Image we run: `docker.io/joernguysuess/patient-referral:1.0.1-54ff8b9` (app v1.0.1, commit `54ff8b9`; `/version` reports it), built on 2026-10-21 | digest `sha256:ce539093…` | MIT |
 | **HAPI FHIR server** (x2: referral and directory) | The two FHIR servers (R4), HAPI 8.12.0 | [hapifhir/hapi-fhir-jpaserver-starter](https://github.com/hapifhir/hapi-fhir-jpaserver-starter), image `docker.io/hapiproject/hapi` | digest `sha256:d7f38d36…` | Apache-2.0 |
 | **Postgres** | One instance, two databases (`hapi` for referral, `hapi_dir` for directory) | Docker official image `postgres:16` | digest `sha256:e17e8606…` | PostgreSQL licence |
 | **Terminology server** | `$expand` / `$validate-code` for SNOMED CT-AU and ValueSets; the one external dependency | `https://r4.ontoserver.csiro.au/fhir` (CSIRO Ontoserver, public) | n/a (shared service) | n/a |
