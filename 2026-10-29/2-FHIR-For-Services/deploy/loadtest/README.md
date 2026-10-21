@@ -67,3 +67,14 @@ Peaks from `kubectl top` (all load now on the one live stack): referral HAPI **0
 UI p95 1.84 s (provider search p50 1.52 s, p95 2.00 s; every other UI call p95 < 0.2 s), FHIR read p95 0.07 s, FHIR write p95 0.04 s,
 `$validate` p95 0.11 s, terminology typeahead p95 0.06 s (p99 0.53 s). Run from a CSIRO workstation over the public internet. No per-pod CPU
 figures were taken on AWS. Provider search stays the slowest call and sits right at the 2 s criterion.
+
+## Run 6 (2026-10-21, AWS, per-function hosts): INVALID, pods evicted mid-run
+
+21.2% errors (503 from HAPI, 500 from the UI) because EKS Auto Mode consolidated an "underutilized" node at 10:41 local and evicted the Track 2
+pods (`Evicted pod: Underutilized`) while the test ran. The fix is `karpenter.sh/do-not-disrupt` on every Track 2 workload (efiq overlay). Not a
+capacity result: the same stack passed run 7.
+
+## Run 7 (2026-10-21, AWS, per-function hosts: ui / referrals / directory, `do-not-disrupt` set): PASS
+
+5,828 requests in 480 s (12.1 req/s), 40 virtual users, **0 errors**. UI p95 1.85 s (provider search p95 2.03 s, every other UI call p95 < 0.2 s), FHIR read
+p95 0.07 s, write p95 0.04 s, `$validate` p95 0.05 s, terminology typeahead p95 0.09 s. Run from a CSIRO workstation over the public internet.

@@ -42,7 +42,7 @@ All data is fictional; the UI shows a "test data only" banner.
 Run on DiSP live (run 4, 2026-10-20): 5,740 requests, 0 errors; UI p95 1.89 s (provider search is the slow call, median 1.55 s), FHIR read p95 0.14 s,
 write p95 0.07 s, `$validate` p95 0.18 s; referral HAPI peaked at 0.90 CPU. Criteria (error rate < 1 %, UI p95 < 2 s, read p95 < 1.5 s, write p95 < 2 s) all met.
 Earlier runs found and fixed a heap setting that HAPI was ignoring (`JAVA_OPTS` vs `JAVA_TOOL_OPTIONS`); see `loadtest/README.md`.
-Run on AWS (run 5, 2026-10-21): 5,853 requests, 0 errors; UI p95 1.84 s (provider search p95 2.00 s, right at the limit), FHIR read p95 0.07 s, write p95 0.04 s. All criteria met. No per-pod CPU figures were taken on AWS.
+Run on AWS (run 7, 2026-10-21, per-function hosts; run 5 on the old layout also passed): 5,828 requests, 0 errors; UI p95 1.85 s (provider search p95 2.03 s, right at the limit), FHIR read p95 0.07 s, write p95 0.04 s. All criteria met. No per-pod CPU figures were taken on AWS.
 
 ### 3.3 Defects found and fixed while testing
 
