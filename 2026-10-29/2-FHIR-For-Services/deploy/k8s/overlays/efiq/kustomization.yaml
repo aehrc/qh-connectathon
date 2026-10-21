@@ -19,6 +19,28 @@ patches:
     target: { kind: Ingress, name: track2 }
   - path: patch-sizing.yaml
   - path: patch-hosts.yaml
+  # EKS Auto Mode consolidates "underutilized" nodes and evicts the pods on them with no warning (seen during the 2026-10-21 load test:
+  # 503s and 500s while the HAPI pods were rescheduled). Track 2 is a short-lived demo, so no voluntary disruption.
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: not-used }
+      spec:
+        template:
+          metadata:
+            annotations:
+              karpenter.sh/do-not-disrupt: "true"
+    target: { kind: Deployment }
+  # the database volume is ReadWriteOnce (EBS): a rolling update would start the new pod while the old one still holds it
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: db }
+      spec:
+        strategy:
+          type: Recreate
+          rollingUpdate: null
+    target: { kind: Deployment, name: db }
   # EBS volumes arrive with a lost+found directory, which initdb refuses; keep the cluster in a subdirectory (DiSP's volume has none,
   # so the base stays as it is and the live data there is untouched)
   - patch: |-
