@@ -31,15 +31,14 @@ patches:
             annotations:
               karpenter.sh/do-not-disrupt: "true"
     target: { kind: Deployment }
-  # the database volume is ReadWriteOnce (EBS): a rolling update would start the new pod while the old one still holds it
+  # the database volume is ReadWriteOnce (EBS): a rolling update would start the new pod while the old one still holds it (and Recreate is rejected by Flux's server-side dry run), so surge nothing
   - patch: |-
       apiVersion: apps/v1
       kind: Deployment
       metadata: { name: db }
       spec:
         strategy:
-          type: Recreate
-          rollingUpdate: null
+          rollingUpdate: { maxSurge: 0, maxUnavailable: 1 }
     target: { kind: Deployment, name: db }
   # EBS volumes arrive with a lost+found directory, which initdb refuses; keep the cluster in a subdirectory (DiSP's volume has none,
   # so the base stays as it is and the live data there is untouched)
