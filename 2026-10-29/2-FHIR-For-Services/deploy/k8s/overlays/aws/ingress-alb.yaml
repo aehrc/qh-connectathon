@@ -12,16 +12,23 @@ metadata:
 spec:
   ingressClassName: track2-alb
   rules:
-    # TODO: set the real Track 2 host (CA/ACM DNS name, infra issue #13)
-    - host: track2.REPLACE-ME.example
+    # One subdomain per service under hospservices.net (infra issue #13).
+    # Both HAPI servers serve at /fhir, so their base URLs are https://<host>/fhir.
+    - host: qhreferral.hospservices.net
       http:
         paths:
-          - path: /referral/fhir
+          - path: /
             pathType: Prefix
             backend: { service: { name: fhir, port: { number: 8080 } } }
-          - path: /directory/fhir
+    - host: qhpd.hospservices.net
+      http:
+        paths:
+          - path: /
             pathType: Prefix
             backend: { service: { name: directory, port: { number: 8080 } } }
+    - host: patient-referral.hospservices.net
+      http:
+        paths:
           - path: /
             pathType: Prefix
             backend: { service: { name: banner, port: { number: 8080 } } }

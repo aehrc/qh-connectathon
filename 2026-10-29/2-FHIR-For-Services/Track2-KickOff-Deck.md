@@ -109,10 +109,10 @@ An **end-to-end radiology referral** workflow. A referrer:
 
 ![h:500](slides/diagrams/architecture.svg)
 
-- **Referrer** — Patient-Referral at `patient-referral.jgsuess.dev`: the browser-core path for discover → refer → track
-- **Directory** — Qld Health Provider Directory on FHIR at `qhpd.jgsuess.dev`, loaded from the [ADHA HCPD test environment (SIT)](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir) via [HCPD bulk data extraction](https://implementer.digitalhealth.gov.au/fhir/hcpd/current/bulk-data-extraction.html)
-- **Referral Server** — HAPI + QH IG at `qhreferral.jgsuess.dev`
-- **Filler / RIS** — imaging provider at `ris.jgsuess.dev`
+- **Referrer** — Patient-Referral at `patient-referral.hospservices.net`: the browser-core path for discover → refer → track
+- **Directory** — Qld Health Provider Directory on FHIR at `qhpd.hospservices.net`, loaded from the [ADHA HCPD test environment (SIT)](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir) via [HCPD bulk data extraction](https://implementer.digitalhealth.gov.au/fhir/hcpd/current/bulk-data-extraction.html)
+- **Referral Server** — HAPI + QH IG at `qhreferral.hospservices.net`
+- **Filler / RIS** — imaging provider at `ris.hospservices.net`
 - **Terminology** — external open sandbox Ontoserver at [`r4.ontoserver.csiro.au/fhir`](https://r4.ontoserver.csiro.au/fhir), used for `$expand` / `$validate-code`
 
 ---
@@ -232,6 +232,6 @@ Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/2-FHIR-For-Servic
 
 IG: `github.com/aehrc/radiology-referral`
 
-Referrer app: `patient-referral.jgsuess.dev`
+Referrer app: `patient-referral.hospservices.net`
 
-Servers: directory `qhpd.jgsuess.dev` · referral `qhreferral.jgsuess.dev` · RIS `ris.jgsuess.dev` · terminology `r4.ontoserver.csiro.au/fhir`
+Servers: directory `qhpd.hospservices.net` · referral `qhreferral.hospservices.net` · RIS `ris.hospservices.net` · terminology `r4.ontoserver.csiro.au/fhir`

@@ -19,6 +19,17 @@ The group agreed that a **radiology referral workflow** provides a realistic and
 
 ## Topics
 
+### Topic 0 - What do we mean by services?
+
+### What kinds of services are part of a health ecosystem?
+
+- *Identity* - PAS, EMPI, National e.g. Provider Directory, ServicesAustralia, Heath Direct
+- *Records* - iEMR, LIS (e.g. AUSLAB), RIS (e.g. Karisma), PACS, Pharmacy, Theatre...
+- *Terminology* - QCTS, NCTS, Local codes in other systems
+- *Integration* - Rhapsody, eGate ...
+- *Consent* - Patient consent management for many use cases 
+
+
 ### Topic 1 — Connectathon Services Track Scope and Candidate Scenarios
 
 Discussion began with likely participant interests: radiology referrals, provider discovery, service discovery, bookings, appointment scheduling, and referral workflows. The group explored whether existing implementation guides and prior work could be reused, including e-requesting work, provider directory capabilities, Ontario referral implementation guides, Philippines referral work, and outputs from previous Sparked events. The challenge of delivering meaningful content within the available timeframe was highlighted, given upcoming leave and competing workloads.

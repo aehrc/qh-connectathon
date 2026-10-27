@@ -56,5 +56,5 @@ metadata:
   name: track2
   namespace: track2
 spec:
-  domainName: track2.REPLACE-ME.example
+  domainName: "*.hospservices.net"
   repositoryName: patient-referral

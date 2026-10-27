@@ -27,8 +27,8 @@ metadata:
   name: track2-cert
   namespace: track2
 spec:
-  # TODO: the real Track 2 domain (infra issue #13)
-  domainName: track2.REPLACE-ME.example
+  # Wildcard covers the per-service subdomains (qhreferral., qhpd., patient-referral.) — infra issue #13
+  domainName: "*.hospservices.net"
   validationMethod: DNS
   tags:
     - key: Project

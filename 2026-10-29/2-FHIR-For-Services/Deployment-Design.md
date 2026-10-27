@@ -30,9 +30,9 @@ public Ontoserver — for a small, well-understood cost (an outbound HTTPS call 
 
 | Dependency | Approach |
 |------------|----------|
-| Qld Health Provider Directory on FHIR (`qhpd.jgsuess.dev`) | **In-cluster:** a **seeded FHIR server acting as the directory**, profiled against the **ADHA Provider Directory IG** (`au.gov.digitalhealth.fhir.hcpd`, canonical `http://digitalhealth.gov.au/fhir/hcpd`). Load its profiles/ValueSets and seed conformant HealthcareService, Location, Organization, Practitioner, PractitionerRole, Endpoint (HPI-O/HPI-I identifiers). Same HAPI in a `directory` partition, or a second HAPI. |
+| Qld Health Provider Directory on FHIR (`qhpd.hospservices.net`) | **In-cluster:** a **seeded FHIR server acting as the directory**, profiled against the **ADHA Provider Directory IG** (`au.gov.digitalhealth.fhir.hcpd`, canonical `http://digitalhealth.gov.au/fhir/hcpd`). Load its profiles/ValueSets and seed conformant HealthcareService, Location, Organization, Practitioner, PractitionerRole, Endpoint (HPI-O/HPI-I identifiers). Same HAPI in a `directory` partition, or a second HAPI. |
 | Terminology (`$expand` / `$validate-code`) | **External tx server** — configured via a single `TX_URL` env var. This is the one accepted external dependency. Point it at a shared Ontoserver (e.g. `https://r4.ontoserver.csiro.au/fhir` or Dion's instance); the referral/validation servers call it for imaging ValueSets and SNOMED codes. |
-| Patient-Referral referrer (`patient-referral.jgsuess.dev`) | **In-cluster:** the **Patient-Referral app deployed into the cluster**, pointed at the in-cluster FHIR + directory. |
+| Patient-Referral referrer (`patient-referral.hospservices.net`) | **In-cluster:** the **Patient-Referral app deployed into the cluster**, pointed at the in-cluster FHIR + directory. |
 | SMART auth provider (if used) | Open server by default; optional in-cluster SMART/keycloak only if we choose the secured path. |
 
 Everything except terminology resolves to a service **inside the namespace**. Seed data makes the
@@ -44,9 +44,9 @@ and the public referrer, and the tx endpoint is the single thing to allow-list /
 
 | Service | Image / basis | Role | Notes |
 |---------|---------------|------|-------|
-| `fhir` (Referral Server, `qhreferral.jgsuess.dev`) | `hapiproject/hapi` + `radiology-referral` IG package | Holds ServiceRequest, Task, Schedule, Slot, Appointment; validates against the IG | Load the IG package on startup; enable `$validate`; **remote terminology → `TX_URL`** |
-| `directory` (`qhpd.jgsuess.dev`) | HAPI (seeded) *or* a `directory` partition on `fhir` | Stands in for the Qld Health Provider Directory on FHIR | Seeded HealthcareService/Location/Organization/PractitionerRole/Endpoint |
-| `referrer` (`patient-referral.jgsuess.dev`) | Patient-Referral (Flask) | The Referrer/Filler UI (browser-core path) | Configured to the in-cluster `fhir` + `directory`, and `TX_URL` for coded typeahead |
+| `fhir` (Referral Server, `qhreferral.hospservices.net`) | `hapiproject/hapi` + `radiology-referral` IG package | Holds ServiceRequest, Task, Schedule, Slot, Appointment; validates against the IG | Load the IG package on startup; enable `$validate`; **remote terminology → `TX_URL`** |
+| `directory` (`qhpd.hospservices.net`) | HAPI (seeded) *or* a `directory` partition on `fhir` | Stands in for the Qld Health Provider Directory on FHIR | Seeded HealthcareService/Location/Organization/PractitionerRole/Endpoint |
+| `referrer` (`patient-referral.hospservices.net`) | Patient-Referral (Flask) | The Referrer/Filler UI (browser-core path) | Configured to the in-cluster `fhir` + `directory`, and `TX_URL` for coded typeahead |
 | `db` | Postgres | Persistence for the HAPI server(s) | PVC-backed |
 | `seed` (Job) | small init/loader | Loads directory + sample patients/referrals | Runs once on deploy; idempotent |
 | `reset` (Job/CronJob) | small script | Wipe + reseed between sessions | Manual trigger or scheduled overnight |

@@ -21,3 +21,9 @@ Use referral profiles and implementation guide development as part of the scenar
 Demonstrate workflow state transitions and task management.
 Incorporate terminology requirements and validation concepts.
 Show how workflow status can be communicated between participants and systems.
+
+## Transfer of request 
+
+The AU eRequesting WG is considering transfer of requests between providers and looking
+at custom operations for viewing and transferring ServiceRequests.
+

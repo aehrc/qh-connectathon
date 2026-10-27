@@ -8,7 +8,7 @@ spec:
   scheme: internet-facing
   group:
     name: track2
-  # TLS: ACM cert for the Track 2 domain (infra issue #13). Set before deploy.
+  # TLS: ACM cert for *.hospservices.net (ack-resources.yaml, infra issue #13). Set the ARN before deploy.
   certificateARNs:
     - "arn:aws:acm:REGION:ACCOUNT:certificate/REPLACE-ME"
 ---

@@ -208,3 +208,11 @@ Delete the namespace plus the ALB/ACM/DNS the day after? Do we need any data exp
 Notes / decisions / new issues to raise:
 
 None.
+
+### What kinds of services are part of the ecosystem?
+
+Identity - PAS, EMPI, National e.g. Provider Directory, ServicesAustralia, Heath Direct
+Terminology - QCTS, NCTS, Local codes in other systems
+Records - iEMR, LIS (e.g. AUSLAB), RIS (e.g. Karisma)
+Integration - Rhapsody, eGate ...
+Consent - Patient consent management for many use cases 
