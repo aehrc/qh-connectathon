@@ -77,7 +77,7 @@ spec:
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_AUEREQ_FETCHDEPENDENCIES, value: "false" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_NAME, value: au.csiro.aehrc.referral }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_VERSION, value: "0.1.0" }
-            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/a6385ae024a39560e2228841381bd696163e2b56/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.referral-0.1.0.tgz" }
+            - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_PACKAGEURL, value: "https://raw.githubusercontent.com/aehrc/qh-connectathon/cced15c68eed826d4564f0164d45ad00fb511b43/2026-10-29/2-FHIR-For-Services/deploy/ig-packages/au.csiro.aehrc.referral-0.1.0.tgz" }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_INSTALLMODE, value: STORE_AND_INSTALL }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
