@@ -293,7 +293,8 @@ Write-back, continuing from 6:
 7. *Results from an external lab*: Test = **Haemoglobin (Hb)**, Result **98**, Collected
    **27/10/2026** (type DD/MM/YYYY) (`img/writeback/06-playground-filled.png`). The *Result* field has no unit
    (the template computes it).
-8. **EXTRACT ▾** → **Template-based $extract [^1.0.16]** (`img/writeback/07-playground-extract-menu.png`).
+8. **EXTRACT ▾** → **Template-based $extract [^1.0.16]** (`img/writeback/07-playground-extract-menu.png` was meant to
+   show the open menu but the capture missed it: it shows the filled form, as in 06; not used in the decks).
    Snackbar: *Successful template-based extraction. See Advanced Properties > Extracted to view
    extracted bundle.* (The other entries: Observation-based, Definition-based are greyed out,
    StructureMap-based struck through, plus *Template-based $extract (modified only)*.)
@@ -382,7 +383,7 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
 | `writeback/04-fhirpath-lab-ext-date.png` | `ext-date` → 2026-10-27 |
 | `writeback/05-fhirpath-lab-ext-subject.png` | `%resource.subject.reference` → Patient/pam-demo |
 | `writeback/06-playground-filled.png` | External result Hb 98 on 27/10/2026 entered |
-| `writeback/07-playground-extract-menu.png` | EXTRACT menu |
+| `writeback/07-playground-extract-menu.png` | Meant to be the EXTRACT menu; the menu wasn't captured, so it shows the filled form as in 06 (not used in decks) |
 | `writeback/08-playground-extracted-bundle.png` | TemplateExtractResult: the Observation |
 | `writeback/09-playground-write-back-dialog.png` | Write-back review dialog |
 | `writeback/10-playground-write-back-ok.png` | Write-back success snackbar |

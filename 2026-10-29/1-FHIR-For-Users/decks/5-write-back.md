@@ -14,7 +14,8 @@ style: |
   .flow > div { background: #fff; border: 1px solid #D5DEE4; border-radius: 8px; padding: 10px 12px; font-size: 0.72em; min-height: 150px; }
   .flow > span { text-align: center; color: #00A9CE; font-size: 1.4em; font-weight: 700; }
   .flow h3 { margin: 0 0 0.2em; color: #00738F; }
-  pre.wrap, pre.wrap code { white-space: pre-wrap; overflow-wrap: anywhere; }
+  pre.wrap, pre.wrap code { white-space: pre-wrap; overflow-wrap: normal; word-break: normal; }
+  pre.wrap .nb { white-space: nowrap; }
 ---
 
 <!-- _class: title -->
@@ -78,7 +79,7 @@ The app POSTs the Bundle to the server base URL. The server creates the Observat
 
 - The **form** says what to make: a template plus expressions. No code in the app.
 - The **app** (Smart Forms) runs the extract and sends the Bundle ("write back").
-- SDC also defines **definition-based** and **Observation-based** extract. We use **templates**: they handle any resource type and show exactly what comes out.
+- SDC also defines **Observation-based**, **definition-based** and **StructureMap-based** extract. We use **templates**: what you write is what comes out.
 
 ---
 
@@ -136,24 +137,22 @@ In the Questionnaire's `contained` list. Answer-dependent parts carry a **`templ
 
 ---
 
-<style scoped>pre, pre code { font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }</style>
+<style scoped>pre, pre code { font-size: 14px; }</style>
 
 ## The template (2/2): `valueQuantity`
 
-```json
-"valueQuantity": {
+<pre class="wrap"><code>"valueQuantity": {
   "_value": { "extension": [ {
-    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-    "valueString": "item.where(linkId='pam-ext-value').answer.value" } ] },
+    "url": <span class="nb">"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",</span>
+    "valueString": <span class="nb">"item.where(linkId='pam-ext-value').answer.value"</span> } ] },
   "system": "http://unitsofmeasure.org",
   "_code": { "extension": [ {
-    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-    "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'ug/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))" } ] },
+    "url": <span class="nb">"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",</span>
+    "valueString": <span class="nb">"iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'ug/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2502-3',</span> '%', 'mg/L')))" } ] },
   "_unit": { "extension": [ {
-    "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
-    "valueString": "iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))" } ] }
-}
-```
+    "url": <span class="nb">"http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",</span>
+    "valueString": <span class="nb">"iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'µg/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2502-3',</span> '%', 'mg/L')))" } ] }
+}</code></pre>
 
 - `system` is fixed (UCUM). `_code` gives the UCUM code (`ug/L`), `_unit` the display (`µg/L`): they differ only for ferritin.
 - The unit comes from the **chosen test**, so the Result field in the form has no unit of its own.
@@ -321,6 +320,7 @@ It becomes `valueQuantity.value`.
 ---
 
 <!-- _class: demo -->
+<style scoped>.split { grid-template-columns: 560px minmax(0, 1fr); } .split > div:first-child img { width: 560px; }</style>
 
 ## Unit: a nested `iif`
 
@@ -336,7 +336,7 @@ It becomes `valueQuantity.value`.
 
 Paste the `_unit` expression:
 
-<pre class="wrap"><code>iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))</code></pre>
+<pre class="wrap"><code><span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'718-7',</span> 'g/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2276-4',</span> 'µg/L', <span class="nb">iif(item.where(linkId='pam-ext-test').answer.value.code</span> = <span class="nb">'2502-3',</span> '%', 'mg/L')))</code></pre>
 
 Result: **`g/L`** (String).
 
@@ -475,7 +475,7 @@ The **QR** tab next to it shows the QuestionnaireResponse (same answers as `samp
 
 ## The extracted transaction Bundle
 
-**TemplateExtractResult** for our answers (abridged: fixed `status` and `category` omitted):
+**TemplateExtractResult** for our answers (abridged: `status`, `category` and the entry's `fullUrl`/ids not shown):
 
 ```json
 {
@@ -565,7 +565,7 @@ Same pattern: `templateExtract` on an item, a template in `contained`, `template
 
 ### A6 Diagnosis → Condition
 `questionnaires/modules/pam-diagnosis.json`, on the choice item `pam-diagnosis`, template `#PAMDiagnosisTemplate`.
-Fixed clinical/verification status and category; `code` from the chosen diagnosis; `subject` and `recordedDate` computed.
+A Condition for the chosen diagnosis (SNOMED CT-AU), with fixed clinical/verification status and category. The template's expressions haven't been tested yet: check them first (Gotchas).
 
 </div>
 
@@ -579,7 +579,7 @@ Fixed status, intent and IV route; medication from the chosen product; dose (`do
 
 </div>
 
-The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. A6 and A7 are starting points: test their expressions in fhirpath-lab, with the right context, before relying on them.
+The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. A6 and A7 are starting points: test their expressions in fhirpath-lab first.
 
 ---
 
@@ -591,6 +591,7 @@ The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our wa
 - **`%resource` is the QuestionnaireResponse**, not the repeat. Use it for things outside the group, like `subject`.
 - **`_` for primitives:** `"_value": { "extension": [...] }` on a primitive, the extension directly on a complex element (`Coding`).
 - **Template reference** must match the contained id with `#`: `#PAMExternalResultTemplate`.
+- **`templateExtract` on a question, not a group:** the context is that question's QR item, so use `answer.value`, not `item.where(...)`. Check A6's expression in fhirpath-lab before relying on it.
 - **Playground:** the extract result is under **ADVANCED PROPS → EXTRACT → TemplateExtractResult**; write-back goes to the **Source FHIR Server** in the gear settings.
 - **Shared data:** the open endpoint and `pam-demo` are shared. Every write-back stays and can become everyone's "latest Hb".
 - **Nothing extracted?** Check the group has answers, the `template` reference resolves, and each expression returns a value in fhirpath-lab.
