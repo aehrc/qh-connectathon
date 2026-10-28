@@ -183,5 +183,20 @@
     "context": "qr:sample",
     "expected": ["Patient/pam-demo"],
     "inForm": { "file": "pathology-walkthrough.json", "text": "%resource.subject.reference" }
+  },
+  {
+    "id": "diagnosis-code",
+    "expression": "answer.value",
+    "context": "qr:item",
+    "qrItem": { "linkId": "pam-diagnosis", "text": "Diagnosis", "answer": [ { "valueCoding": { "system": "http://snomed.info/sct", "code": "87522002", "display": "Iron deficiency anaemia" } } ] },
+    "expected": [{ "system": "http://snomed.info/sct", "code": "87522002", "display": "Iron deficiency anaemia" }],
+    "inForm": { "file": "../../questionnaires/modules/pam-diagnosis.json", "text": "answer.value" }
+  },
+  {
+    "id": "diagnosis-code-before-fix",
+    "expression": "item.where(linkId='pam-diagnosis').answer.value",
+    "context": "qr:item",
+    "qrItem": { "linkId": "pam-diagnosis", "text": "Diagnosis", "answer": [ { "valueCoding": { "system": "http://snomed.info/sct", "code": "87522002", "display": "Iron deficiency anaemia" } } ] },
+    "expected": []
   }
 ]

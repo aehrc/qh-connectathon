@@ -12,6 +12,9 @@
 //                                      Context Expression is evaluated)
 //   context "qr:sample"             -> FHIRPath over the repeat of the pam-ext group in
 //                                      sample-qr.json, with %resource = the QuestionnaireResponse
+//   context "qr:item"               -> FHIRPath over the entry's own "qrItem" (a QR item, e.g. a
+//                                      question that carries templateExtract), with %resource = a QR
+//                                      holding just that item
 // and deep-compare the result with "expected". `meta` is dropped from returned resources
 // (the server rewrites versionId/lastUpdated on every load).
 // If an entry has "inForm", that exact text must appear in the named Questionnaire
@@ -131,6 +134,14 @@ for (const e of entries) {
         extRepeats[0],
         { base: 'QuestionnaireResponse.item', expression: e.expression },
         { resource: qr, rootResource: qr },
+        r4,
+      );
+    } else if (e.context === 'qr:item') {
+      const res = { resourceType: 'QuestionnaireResponse', status: 'completed', item: [e.qrItem] };
+      actual = fhirpath.evaluate(
+        e.qrItem,
+        { base: 'QuestionnaireResponse.item', expression: e.expression },
+        { resource: res, rootResource: res },
         r4,
       );
     } else {

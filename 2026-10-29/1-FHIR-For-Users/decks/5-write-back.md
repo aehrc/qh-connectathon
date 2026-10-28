@@ -565,7 +565,7 @@ Same pattern: `templateExtract` on an item, a template in `contained`, `template
 
 ### A6 Diagnosis → Condition
 `questionnaires/modules/pam-diagnosis.json`, on the choice item `pam-diagnosis`, template `#PAMDiagnosisTemplate`.
-A Condition for the chosen diagnosis (SNOMED CT-AU), with fixed clinical/verification status and category. The template's expressions haven't been tested yet: check them first (Gotchas).
+A Condition for the chosen diagnosis (SNOMED CT-AU), with fixed clinical/verification status and category. The code is `answer.value`: the template sits on a question, not a group (Gotchas).
 
 </div>
 
@@ -579,7 +579,7 @@ Fixed status, intent and IV route; medication from the chosen product; dose (`do
 
 </div>
 
-The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. A6 and A7 are starting points: test their expressions in fhirpath-lab first.
+The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. A6 and A7 are starting points: test new expressions in fhirpath-lab first.
 
 ---
 
@@ -591,7 +591,7 @@ The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our wa
 - **`%resource` is the QuestionnaireResponse**, not the repeat. Use it for things outside the group, like `subject`.
 - **`_` for primitives:** `"_value": { "extension": [...] }` on a primitive, the extension directly on a complex element (`Coding`).
 - **Template reference** must match the contained id with `#`: `#PAMExternalResultTemplate`.
-- **`templateExtract` on a question, not a group:** the context is that question's QR item, so use `answer.value`, not `item.where(...)`. Check A6's expression in fhirpath-lab before relying on it.
+- **`templateExtract` on a question, not a group** (a trap we fell into): the context is that question's QR item, so A6's code is `answer.value`. Our first `item.where(...)` gave a Condition with no code.
 - **Playground:** the extract result is under **ADVANCED PROPS → EXTRACT → TemplateExtractResult**; write-back goes to the **Source FHIR Server** in the gear settings.
 - **Shared data:** the open endpoint and `pam-demo` are shared. Every write-back stays and can become everyone's "latest Hb".
 - **Nothing extracted?** Check the group has answers, the `template` reference resolves, and each expression returns a value in fhirpath-lab.

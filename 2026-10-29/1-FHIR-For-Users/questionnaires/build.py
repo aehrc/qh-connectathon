@@ -263,7 +263,7 @@ condition_template = {
     "clinicalStatus": {"coding": [coding("http://terminology.hl7.org/CodeSystem/condition-clinical", "active", "Active")]},
     "verificationStatus": {"coding": [coding("http://terminology.hl7.org/CodeSystem/condition-ver-status", "confirmed", "Confirmed")]},
     "category": [{"coding": [coding("http://terminology.hl7.org/CodeSystem/condition-category", "encounter-diagnosis", "Encounter Diagnosis")]}],
-    "code": {"coding": [tpl_value("item.where(linkId='pam-diagnosis').answer.value")]},
+    "code": {"coding": [tpl_value("answer.value")]},
     "subject": {"_reference": tpl_value("%resource.subject.reference")},
     "_recordedDate": tpl_value("now().toString()"),
 }
