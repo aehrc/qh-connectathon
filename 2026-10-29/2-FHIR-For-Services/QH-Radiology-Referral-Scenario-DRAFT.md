@@ -23,14 +23,14 @@ with the referral status tracked through a Task until the appointment is confirm
 | *Patient app (stretch)* | Lets the patient view the referral and self-book | Participant app |
 
 ```
-Referrer ──(1) search──▶ Qld Health Provider Directory on FHIR
+Referrer ──(1) search──► Qld Health Provider Directory on FHIR
     │  (HealthcareService / Location / Organization / PractitionerRole / Endpoint)
     │
-    ├──(2) POST Bundle (ServiceRequest + Task + supporting info)──▶ Referral Server ◀──(3) poll/subscribe── Imaging Provider
-    │                                                                   ▲                                 │
-    ├──(4) search Slot ─────────────────────────────────────────────────┤◀──── publishes Schedule/Slot ────┤
-    ├──(5) POST Appointment (proposed) ─────────────────────────────────┤                                 │
-    └──(6) read Task / Appointment status ──────────────────────────────┘◀──── accept Task, book Appt ────┘
+    ├──(2) POST Bundle (ServiceRequest + Task + supporting info)──► Referral Server ◄──(3) poll/subscribe── Imaging Provider
+    │                                                                   ▲                                          │
+    ├──(4) search Slot ─────────────────────────────────────────────────┤◄──── publishes Schedule/Slot ────────────┤
+    ├──(5) POST Appointment (proposed) ─────────────────────────────────┤                                          │
+    └──(6) read Task / Appointment status ──────────────────────────────┘◄──── accept Task, book Appt ─────────────┘
 ```
 
 ## 3. Standards in scope

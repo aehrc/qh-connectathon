@@ -15,7 +15,9 @@
   th { background: var(--navy); color: #fff; text-align: left; }
   th, td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
   code { color: var(--green); background: var(--code); padding: 0 3px; border-radius: 3px; }
-  pre { background: var(--code); padding: 12px; overflow-x: auto; }
+  pre { background: var(--code); padding: 12px; overflow-x: auto;
+        font: 13px/1.35 Menlo, Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace; }
+  pre code { padding: 0; background: none; color: var(--text); font: inherit; white-space: pre; }
   img { max-width: 100%; }
   /* Scenario §7: keep test case IDs (e.g. D-01) on one line */
   [id="7-test-cases-summary"] + table td:first-child { white-space: nowrap; }
