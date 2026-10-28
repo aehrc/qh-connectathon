@@ -18,7 +18,7 @@ with the referral status tracked through a Task until the appointment is confirm
 |---|---|---|
 | **Referrer** (Placer) | GP or hospital clinician system that searches the directory, raises the referral and books | Participant clients (CIS, test harness, Postman/Bruno collections) |
 | **Provider Directory** | Source of truth for organisations, services, locations, practitioner roles and endpoints | QH Provider Directory server supplemented by ADHA [SIT](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/) |
-| **Referral Server** | Holds ServiceRequest, Task, supporting resources, Schedule/Slot/Appointment | HAPI FHIR instance loaded with the QH referrals IG (plus AU Core / AU eRequesting) |
+| **Referral Server** | Holds ServiceRequest, Task, supporting resources, Schedule/Slot/Appointment | HAPI FHIR instance loaded with the [QH referrals IG](https://aehrc.github.io/radiology-referral/) plus AU Core / AU eRequesting |
 | **Imaging Provider** (Filler) | RIS/booking system that triages referrals, publishes availability and confirms bookings | Participant RIS or a simulator |
 | *Patient app (stretch)* | Lets the patient view the referral and self-book | Participant app |
 

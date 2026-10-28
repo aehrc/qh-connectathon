@@ -250,6 +250,8 @@ Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/2-FHIR-For-Servic
 
 IG: `github.com/aehrc/radiology-referral`
 
+IG Build: `https://aehrc.github.io/radiology-referral/`
+
 Referrer app: `ui.efiq.hospservices.net`
 
 Servers: directory `directory.efiq.hospservices.net` · referral `referrals.efiq.hospservices.net` · RIS `ris.hospservices.net` · terminology `r4.ontoserver.csiro.au/fhir`
