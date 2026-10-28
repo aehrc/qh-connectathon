@@ -4,7 +4,8 @@
 //   node examples/verify.mjs [base]     (default base: the Meld open endpoint)
 //
 // For each entry in expressions.json:
-//   context "query:open"            -> GET <base>/<expression> ({{%patient.id}} -> pam-demo, | -> %7C);
+//   context "query:open"            -> GET <base>/<expression> ({{%patient.id}} and ${client.patient.id}
+//                                      -> pam-demo, | -> %7C; a full https URL is fetched as is);
 //                                      result = ["Observation/<id>", ...] of the returned entries
 //   context "bundle:<query id>"     -> FHIRPath over the Bundle that query returned
 //   context "qr:resource"           -> FHIRPath over the whole sample-qr.json (as fhirpath-lab's
@@ -74,7 +75,11 @@ const queryCache = new Map();
 async function runQuery(entry) {
   if (queryCache.has(entry.id)) return queryCache.get(entry.id);
   // Meld (both endpoints, as of 28 Oct 2026) answers HTTP 400 to a raw '|', so send it as %7C.
-  const url = `${BASE}/${entry.expression.replace('{{%patient.id}}', PATIENT_ID).replace(/\|/g, '%7C')}`;
+  // {{%patient.id}} (x-fhir-query) and ${client.patient.id} (fhirclient code on the SMART deck) -> pam-demo.
+  // An expression that is already a full URL (pasted into a browser on a slide) is fetched as is.
+  const q = entry.expression.replace('{{%patient.id}}', PATIENT_ID)
+    .replace('${client.patient.id}', PATIENT_ID).replace(/\|/g, '%7C');
+  const url = /^https?:\/\//.test(q) ? q : `${BASE}/${q}`;
   const res = await fetch(url, { headers: { Accept: 'application/fhir+json' } });
   if (!res.ok) throw new Error(`GET ${url} -> HTTP ${res.status}`);
   const bundle = await res.json();

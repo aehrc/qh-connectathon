@@ -14,6 +14,18 @@
     "inForm": { "file": "pathology-walkthrough.json", "text": "Observation?code=http://loinc.org|2276-4&patient={{%patient.id}}&_sort=-date&_count=1" }
   },
   {
+    "id": "query-patient-hb",
+    "expression": "Observation?code=http://loinc.org%7C718-7&patient=${client.patient.id}&_sort=-date",
+    "context": "query:open",
+    "expected": ["Observation/pam-demo-hb-2", "Observation/pam-demo-hb-1"]
+  },
+  {
+    "id": "url-patient-hb",
+    "expression": "https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date&_format=json",
+    "context": "query:open",
+    "expected": ["Observation/pam-demo-hb-2", "Observation/pam-demo-hb-1"]
+  },
+  {
     "id": "fp-entry-resource",
     "expression": "entry.resource",
     "context": "bundle:query-latest-hb",
