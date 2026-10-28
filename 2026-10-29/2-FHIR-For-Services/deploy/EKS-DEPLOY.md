@@ -66,7 +66,7 @@ StorageClass (`storageclass-gp3.yaml`), and **production sizing** (`patch-sizing
 the workload (2 HAPI × ~4 Gi + Postgres + referrer + headroom → ~16 GB across the node group).
 
 **Before deploy — edit `overlays/aws/`:**
-1. ACM **certificate ARN** in `ingressclass-automode.yaml` (cert for `*.hospservices.net`, infra issue #13). Hosts are set in `ingress-alb.yaml`: `qhreferral.`, `qhpd.`, `patient-referral.hospservices.net`.
+1. ACM **certificate ARN** in `ingressclass-automode.yaml` (cert for `*.hospservices.net`, infra issue #13). Hosts are set in `ingress-alb.yaml`: `qhreferral.`, `qhpd.`, `ui.efiq.hospservices.net`.
 2. Referrer **ECR** image ref in `kustomization.yaml` (`images:`).
 3. DB secret via **Secrets Manager / External Secrets**, not the literal.
 

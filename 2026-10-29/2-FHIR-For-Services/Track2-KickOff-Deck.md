@@ -51,7 +51,7 @@ style: |
   section.split > ul { grid-column: 2; grid-row: 2; font-size: 18px; margin: 0; align-self: center; }
   section.split > ul li { margin-bottom: 8px; }
   section.split > ul code { white-space: nowrap; font-size: 16px; }
-footer: "FHIR in Queensland Health Connectathon · 29–30 October 2026"
+footer: "Enabling FHIR in Queensland Health Connectathon · 29–30 October 2026"
 ---
 
 <!-- _class: lead -->
@@ -79,6 +79,26 @@ Led by Michael Osborne, this stream focuses on **referral and workflow orchestra
 
 ---
 
+## What do we mean by services? 
+
+Services is an overloaded word...
+
+### What kinds of information services are part of a health ecosystem?
+
+- *Identity* - PAS, EMPI, National e.g. Provider Directory, Services Australia, Heath Direct
+- *Records* - iEMR, LIS (e.g. AUSLAB), RIS (e.g. Karisma), PACS, Pharmacy, Theatre...
+- *Terminology* - QCTS, NCTS, AIHW Meteor, ABS, Proprietary (e.g. MIMS), Local codes 
+- *Integration* - Rhapsody, eGate ...
+- *Consent* - Patient consent management for many use cases 
+
+### What kind of health services can we link up and create FHIR workflows for
+
+- *Requesting* - Pathology and Radiology
+- *Reporting* - Diagnostics, Discharge Summary, Patient Apps
+- *Referrals* - Any Healthcare service you can name. Ideas ?   
+
+---
+
 ## What we are building
 
 An **end-to-end radiology referral** workflow. A referrer:
@@ -99,7 +119,6 @@ An **end-to-end radiology referral** workflow. A referrer:
 - Exercises **Patient, Provider, ServiceRequest, Task, Schedule, Slot, Appointment** in one flow
 - Complements QH's existing smart-referral capabilities
 - Builds on existing HL7 AU eRequesting workflow prototypes and provider-directory concepts
-- Broadest track draw — plan for **35–40** participants
 
 ---
 
@@ -212,10 +231,9 @@ Track status through to **Booked**; report return closes the Task (stretch).
 ## Open for debate
 
 - **Are we solving an already solved problem?** - What about QH Smart Referrals and the Healthdirect (NHSD) API?
-- **Qld Health Provider Directory on FHIR** — Test out models for HealthcareService / Provider details in a Qld jurisdictional context. 
 - **What kinds of service have an endpoint?** — test endpoints in the Qld Health Provider Directory on FHIR: V2, FHIR other.
 - **Who books?** — referrer directly, or filler after triage (support both?)
-- **Transport & security** — shared HAPI vs push to discovered endpoint; open vs SMART on FHIR.
+
 
 > Tracked as GitHub issues on the `track:services` label.
 
@@ -232,6 +250,6 @@ Repository: `github.com/aehrc/qh-connectathon` → `2026-10-29/2-FHIR-For-Servic
 
 IG: `github.com/aehrc/radiology-referral`
 
-Referrer app: `patient-referral.hospservices.net`
+Referrer app: `ui.efiq.hospservices.net`
 
-Servers: directory `qhpd.hospservices.net` · referral `qhreferral.hospservices.net` · RIS `ris.hospservices.net` · terminology `r4.ontoserver.csiro.au/fhir`
+Servers: directory `directory.efiq.hospservices.net` · referral `referrals.efiq.hospservices.net` · RIS `ris.hospservices.net` · terminology `r4.ontoserver.csiro.au/fhir`

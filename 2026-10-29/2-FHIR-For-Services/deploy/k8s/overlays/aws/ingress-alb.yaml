@@ -14,19 +14,19 @@ spec:
   rules:
     # One subdomain per service under hospservices.net (infra issue #13).
     # Both HAPI servers serve at /fhir, so their base URLs are https://<host>/fhir.
-    - host: qhreferral.hospservices.net
+    - host: referrals.efiq.hospservices.net
       http:
         paths:
           - path: /
             pathType: Prefix
             backend: { service: { name: fhir, port: { number: 8080 } } }
-    - host: qhpd.hospservices.net
+    - host: directory.efiq.hospservices.net
       http:
         paths:
           - path: /
             pathType: Prefix
             backend: { service: { name: directory, port: { number: 8080 } } }
-    - host: patient-referral.hospservices.net
+    - host: ui.efiq.hospservices.net
       http:
         paths:
           - path: /

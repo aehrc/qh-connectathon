@@ -12,8 +12,8 @@
 
 | Session | Day 1 — Discover & Request | Day 2 — Book & Track |
 |---------|----------------------------|----------------------|
-| **AM**  | Kick-off, environment check, Qld Health Provider Directory on FHIR connectivity (X-Request-ID, auth, paging); seed data review | Filler triage (accept, reject, on-hold); Schedule/Slot publishing |
-| **Mid** | **Track A:** Qld Health Provider Directory on FHIR discovery queries; resolve Endpoint | **Track B:** Appointment booking, confirm, cancel, rebook |
+| **AM**  | Kick-off, environment check, Qld Health Provider Directory on FHIR | Filler triage (accept, reject, on-hold); Schedule/Slot publishing |
+| **Mid** | **Track A:** Qld Health Provider Directory on FHIR discovery queries | **Track B:** Appointment booking, confirm, cancel, rebook |
 | **PM**  | Referral Bundle creation; validation against QH IG / AU eRequesting on HAPI (`$validate`) | Status tracking end to end; stretch tracks (Subscriptions, patient app, `$export`, report return) |
 | **Close** | Day 1 issues log; IG feedback capture | Demo of the full flow; findings report; IG change requests |
 
@@ -23,7 +23,7 @@
 
 - **AM — Kick-off & environment**
   - Kick-off and orientation.
-  - Environment check and Qld Health Provider Directory on FHIR connectivity: `X-Request-ID` header, authentication, paging.
+  - Environment check and Qld Health Provider Directory on FHIR. 
   - Seed data review.
 - **Mid — Track A: Discovery**
   - Qld Health Provider Directory on FHIR discovery queries (HealthcareService, Location, Organization, PractitionerRole, Endpoint).
@@ -51,5 +51,3 @@
   - IG change requests.
 
 ---
-
-*This agenda is a first-class extract of the two-day plan in the radiology referral scenario proposal. If the scenario proposal changes, update both this document and Section 6 of `QH-Radiology-Referral-Scenario-DRAFT.md` to keep them consistent.*

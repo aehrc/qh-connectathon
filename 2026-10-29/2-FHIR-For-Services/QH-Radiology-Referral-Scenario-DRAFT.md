@@ -6,7 +6,7 @@
 
 Show an end-to-end radiology referral where a referrer:
 
-1. **discovers** a suitable imaging service in the Qld Health Provider Directory on FHIR,
+1. **discovers** a suitable imaging service in the example `Qld Health Provider Directory` on FHIR,
 2. **creates** a FHIR referral (ServiceRequest plus supporting information) on a referral server, and
 3. **books** an appointment against slots that the imaging provider publishes,
 
@@ -17,7 +17,7 @@ with the referral status tracked through a Task until the appointment is confirm
 | Role | Description | Suggested implementation |
 |---|---|---|
 | **Referrer** (Placer) | GP or hospital clinician system that searches the directory, raises the referral and books | Participant clients (CIS, test harness, Postman/Bruno collections) |
-| **Provider Directory** | Source of truth for organisations, services, locations, practitioner roles and endpoints | QH Provider Directory server supplemented by ADHA [HCPD SIT](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/) |
+| **Provider Directory** | Source of truth for organisations, services, locations, practitioner roles and endpoints | QH Provider Directory server supplemented by ADHA [SIT](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/) |
 | **Referral Server** | Holds ServiceRequest, Task, supporting resources, Schedule/Slot/Appointment | HAPI FHIR instance loaded with the QH referrals IG (plus AU Core / AU eRequesting) |
 | **Imaging Provider** (Filler) | RIS/booking system that triages referrals, publishes availability and confirms bookings | Participant RIS or a simulator |
 | *Patient app (stretch)* | Lets the patient view the referral and self-book | Participant app |
@@ -38,7 +38,7 @@ Referrer ──(1) search──▶ Qld Health Provider Directory on FHIR
 - **AU Core**: Patient, Practitioner, PractitionerRole, Organization, Condition, AllergyIntolerance, Observation.
 - **AU eRequesting**: imaging ServiceRequest, Task (Group Task and fulfilment Task), patient-request pattern. This is the baseline to align with or profile from.
 - **QH FHIR Referrals IG** *(TBC: confirm name, version and canonical)*: QH-specific extensions, such as referral category, urgency category and QH facility identifiers.
-- **ADHA Provider Directory IG**: directory resources and search. *Note: the ADHA HCPD API Technical Specification has not been published yet, so the search parameters below are assumptions to confirm on Day 1.*
+- **ADHA Provider Directory IG**: directory resources and search. *Note: the ADHA qhpd API Technical Specification has not been published yet, so the search parameters below are assumptions to confirm on Day 1.*
 - **FHIR R4 Scheduling**: Schedule, Slot, Appointment. AU Core has no scheduling profiles, so we would use base R4 or the QH IG if it profiles them.
 - **Bulk Data Access IG**: Qld Health Provider Directory on FHIR `$export` (stretch track).
 
@@ -63,23 +63,19 @@ Variant patients add an **MRI with an implanted device** (safety questionnaire) 
 
 ### Step 1 – Discover an imaging service (Qld Health Provider Directory on FHIR)
 
-Every request **must** send the header `X-Request-ID: <UUID v4>`.
-
-Example searches (parameters to confirm against the Qld Health Provider Directory on FHIR spec):
+Example searches (parameters to confirm against the [Health Connect Provider Directory](https://implementer.digitalhealth.gov.au/fhir/hcpd/26.0.0/index.html) spec):
 
 ```
-GET [hcpd]/HealthcareService?service-type=<imaging service type>&location.address-state=QLD
-GET [hcpd]/HealthcareService?specialty=<radiology>&_include=HealthcareService:location&_include=HealthcareService:organization
-GET [hcpd]/Location?address-city=Brisbane&_revinclude=HealthcareService:location
-GET [hcpd]/PractitionerRole?organization=<id>&_include=PractitionerRole:practitioner
-GET [hcpd]/Endpoint?organization=<id>          ← where to send / how to reach the referral receiver
+GET [qhpd]/HealthcareService?service-type=<imaging service type>&location.address-state=QLD
+GET [qhpd]/HealthcareService?specialty=<radiology>&_include=HealthcareService:location&_include=HealthcareService:organization
+GET [qhpd]/Location?address-city=Brisbane&_revinclude=HealthcareService:location
+GET [qhpd]/PractitionerRole?organization=<id>&_include=PractitionerRole:practitioner
+GET [qhpd]/Endpoint?organization=<id>          ← where to send / how to reach the referral receiver
 ```
-
-Also covered: paging (`Bundle.link[next]`), and polling of `$export` status as a stretch.
 
 **Expected outcome:** the referrer chooses a HealthcareService and Location, and resolves the **Endpoint** that identifies the receiving referral server (or its logical address).
 
-> **Connectathon gap to flag:** ADHA HCPD SIT data will not point at the connectathon HAPI server. Options: (a) the organisers ask ADHA to load test HealthcareService and Endpoint records; (b) seed a local mirror of the directory on the HAPI server from `$export`, then add test Endpoints. Decide before the event.
+> **Connectathon gap to flag:** ADHA Provider Directory SIT data will not point at the connectathon HAPI server.
 
 ### Step 2 – Create the referral
 
@@ -131,8 +127,8 @@ The referrer polls the Task and Appointment, or subscribes. It must display the 
 
 | | Day 1 – Discover & Request | Day 2 – Book & Track |
 |---|---|---|
-| AM | Kick-off, environment check, Qld Health Provider Directory on FHIR connectivity (X-Request-ID, auth, paging); seed data review | Filler triage (accept, reject, on-hold); Schedule/Slot publishing |
-| Mid | **Track A:** Qld Health Provider Directory on FHIR discovery queries; resolve Endpoint | **Track B:** Appointment booking, confirm, cancel, rebook |
+| AM | Kick-off, environment check, Qld Health Provider Directory on FHIR; HC PD IG review | Filler triage (accept, reject, on-hold); Schedule/Slot publishing |
+| Mid | **Track A:** Qld Health Provider Directory on FHIR discovery queries | **Track B:** Appointment booking, confirm, cancel, rebook |
 | PM | Referral Bundle creation; validation against QH IG / AU eRequesting on HAPI (`$validate`) | Status tracking end to end; stretch tracks (Subscriptions, patient app, `$export`, report return) |
 | Close | Day 1 issues log; IG feedback capture | Demo of the full flow; findings report; IG change requests |
 
@@ -140,7 +136,7 @@ The referrer polls the Task and Appointment, or subscribes. It must display the 
 
 | ID | Actor | Test | Pass criteria |
 |---|---|---|---|
-| D-01 | Referrer | Search Qld Health Provider Directory on FHIR HealthcareService by imaging type + QLD | 200, searchset Bundle, header sent, paging handled |
+| D-01 | Referrer | Search Qld Health Provider Directory on FHIR HealthcareService by imaging type + QLD | 200, searchset Bundle |
 | D-02 | Referrer | Resolve Location, Organization and Endpoint for the chosen service | Endpoint address and payload type identified |
 | D-03 | Referrer | Look up referrer PractitionerRole in the Qld Health Provider Directory on FHIR | HPI-I / HPI-O identifiers obtained |
 | R-01 | Referrer | POST referral transaction Bundle | 200/201; resources conform to profiles (`$validate` clean or warnings only) |
@@ -152,15 +148,5 @@ The referrer polls the Task and Appointment, or subscribes. It must display the 
 | B-03 | Referrer | Book a taken Slot | Handled gracefully with an error or rejected Appointment |
 | B-04 | Either | Cancel and rebook | Appointment cancelled, Slot freed, new booking linked |
 | S-01 | Referrer | Track status to Booked | Task businessStatus shown correctly |
-| X-01 | Stretch | Qld Health Provider Directory on FHIR `$export` + polling | NDJSON retrieved, status polling honoured |
+| X-01 | Stretch | HC PD Bulk `$export` + polling | NDJSON retrieved, status polling honoured |
 
-## 8. Open questions / decisions before the event
-
-1. **QH referrals IG**: which version, and does it profile Schedule/Slot/Appointment or only the referral?
-2. **Qld Health Provider Directory on FHIR access**: SIT credentials and onboarding for participants, whether auth is needed beyond X-Request-ID, rate limits, and the timing of the tech spec.
-3. **Directory to referral server linkage**: test Endpoint records in the Qld Health Provider Directory on FHIR, or a local mirror (see Step 1).
-4. **Who books?** The referrer books directly (open slots), or the filler books after triage (the more realistic QH pathway). Support both as variants?
-5. **Transport**: FHIR REST directly on the shared HAPI server (simplest), or a push to the filler's own endpoint discovered via the Qld Health Provider Directory on FHIR (more realistic, harder).
-6. **Security**: open HAPI for the connectathon vs SMART Backend Services.
-7. **Terminology**: finalise the imaging procedure ValueSet (AU eRequesting vs QH RIS catalogue) and Qld Health Provider Directory on FHIR service-type codes for imaging.
-8. **Alignment**: map to Sparked Connected Test Scenario 1 (eRequest/eReferral with provider lookup) so results feed back into AU IGs.

@@ -24,7 +24,7 @@ Expected attendance: ~25 baseline, plan for 35–40 (Track 2 is the broadest dra
 | 9:35–10:30 | 55 min | Main Room | "Spot FHIRs!" showcases (plenary) | — |
 | 10:30–11:00 | 30 min | Main Room | Overview of Tracks — "Which room to Track to?" | Track 2 pitch: radiology referral scenario headline |
 | 11:00–11:30 | 30 min | — | **Morning Tea** | Move to Track 2 room |
-| 11:30–13:00 | 90 min | Track 2 Room | **Tracks Kick Off!** | **Kick-off & environment**: scenario intro, roles (Referrer/Directory/Referral Server/Filler), Qld Health Provider Directory on FHIR connectivity (X-Request-ID, auth, paging), seed-data review. Split streams: browser core vs developer deep-dive. |
+| 11:30–13:00 | 90 min | Track 2 Room | **Tracks Kick Off!** | **Kick-off & environment**: scenario intro, roles (Referrer/Directory/Referral Server/Filler), Qld Health Provider Directory on FHIR connectivity. Split streams: browser core vs developer deep-dive. |
 | 13:00–14:00 | 60 min | — | **Lunch** | — |
 | 14:00–15:00 | 60 min | Track 2 Room | Track session | **Track A — Discovery**: Qld Health Provider Directory on FHIR discovery queries (HealthcareService/Location/Organization/PractitionerRole/Endpoint); resolve receiving Endpoint. |
 | 15:00–15:30 | 30 min | — | **Afternoon Tea** | — |

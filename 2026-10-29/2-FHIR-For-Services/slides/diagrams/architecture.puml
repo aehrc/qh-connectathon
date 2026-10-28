@@ -17,9 +17,9 @@ skinparam ArrowColor #001D34
 skinparam ArrowFontColor #757579
 
 actor "Referrer (Placer)\nPatient-Referral app" as R
-component "Qld Health\nProvider Directory\non FHIR\nqhpd.hospservices.net" as D
+component "Qld Health\nProvider Directory\non FHIR\ndirectory.efiq.hospservices.net" as D
 component "ADHA HCPD\ntest environment (SIT)" as H
-component "Referral Server\n(HAPI + QH IG)\nqhreferral.hospservices.net" as S
+component "Referral Server\n(HAPI + QH IG)\nreferrals.efiq.hospservices.net" as S
 component "Imaging Provider (Filler / RIS)\nPatient-Referral Filler view\nris.hospservices.net" as F
 actor "Patient app\n(stretch)" as P
 component "Terminology Server\n(open sandbox Ontoserver)\nr4.ontoserver.csiro.au/fhir" as T
@@ -49,7 +49,7 @@ end note
 
 note top of R
   Patient-Referral —
-  live at patient-referral.hospservices.net,
+  live at ui.efiq.hospservices.net,
   pointed at the
   Qld Health Provider Directory on FHIR
 end note

@@ -122,7 +122,7 @@
       <div class="slot brk"><span class="time">11:00</span><span>Morning tea · move to the Track 2 room</span></div>
       <div class="slot"><span class="time">11:30–13:00</span><div>
         <strong>Kick-off &amp; environment</strong>
-        <span class="desc">Scenario intro, roles, Provider Directory connectivity (X-Request-ID, auth, paging), seed data. Split into browser core and developer deep-dive streams.</span>
+        <span class="desc">Scenario intro, roles, QH Provider Directory. Split into browser core and developer deep-dive streams.</span>
         <div class="chips">
           <a data-doc="Track2-KickOff-Deck.md">Kick-off deck</a>
           <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#2-systems-and-roles">Systems &amp; roles</a>
@@ -217,13 +217,13 @@
   // Links open the HTML pages built by scripts/build-site.sh (next to this file).
   // The deck is Marp HTML, which addresses slides by number rather than heading id.
   const deckSlides = {
-    "two-streams-run-in-parallel": 11,
-    "getting-started": 14,
-    "the-flow--1-discover--request": 6,
-    "the-flow--2-track-this-request--book": 7,
-    "tracking-poll-vs-subscribe": 8,
-    "the-flow--3-confirm--complete": 9,
-    "open-for-debate": 15,
+    "two-streams-run-in-parallel": 12,
+    "getting-started": 15,
+    "the-flow--1-discover--request": 7,
+    "the-flow--2-track-this-request--book": 8,
+    "tracking-poll-vs-subscribe": 9,
+    "the-flow--3-confirm--complete": 10,
+    "open-for-debate": 16,
   };
   document.querySelectorAll("a[data-doc]").forEach(a => {
     let [file, anchor] = a.dataset.doc.split("#");
