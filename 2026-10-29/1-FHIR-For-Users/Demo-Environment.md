@@ -14,7 +14,7 @@ Status: **working** — all three webinar demos run from the Meld sandbox (check
 | Terminology | Ontoserver `https://r4.ontoserver.csiro.au/fhir` (SNOMED CT-AU, AMT, LOINC) | Available |
 | PAM questionnaire | Modular SDC form, assembled locally and stored on the Meld open endpoint, which is Smart Forms' forms server ([`questionnaires/`](questionnaires/)) | Loaded |
 | Dashboard app | fhirclient.js SMART app, PAM 15/16 outcomes: https://aehrc.github.io/qh-connectathon/pam-dashboard/ ([`apps/pam-dashboard`](apps/pam-dashboard/)) | Working |
-| SMART starter (GitHub Pages template) | No-build patient app (B1) + the dashboard in `population/`, client IDs in `config.js`: https://github.com/aehrc/qh-connectathon-smart-starter (source [`apps/smart-starter`](apps/smart-starter/)) | Tested without login on the open endpoint; Meld launch untested |
+| SMART starter (GitHub Pages template) | No-build patient app (B1) + the dashboard in `population/`, client IDs in `config.js`: https://github.com/aehrc/qh-connectathon-smart-starter (source [`apps/smart-starter`](apps/smart-starter/)) | Patient app: EHR launch from Meld tested 28 Oct (same URL as launch and redirect URI is accepted); population app: tested without login only |
 | Synthetic PAM data | 40 patients, waitlist, referrals, labs, treatment ([`data/`](data/)) | Loaded in Meld |
 | Kick-off decks | Five Marp decks and a presenter guide; HTML on GitHub Pages under https://aehrc.github.io/qh-connectathon/decks/ ([`decks/`](decks/)) | Built from the repo |
 

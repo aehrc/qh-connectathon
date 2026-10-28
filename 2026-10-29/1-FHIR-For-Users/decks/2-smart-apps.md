@@ -614,7 +614,7 @@ In the browser's address bar, or Meld sends XML and the browser downloads a file
 <div>
 
 ### Relaunch in a new tab
-`init()` revives the session in `sessionStorage` **before** it looks at a new `iss`/`launch`: in the same tab (also after a `?fhirServiceUrl=` test) you get the **old** session and patient.
+`init()` revives the session in `sessionStorage` **before** it looks at a new `iss`/`launch`: in the same tab you get the **old** session, or *Patient is not available*. Our Pages template handles it.
 
 </div>
 
