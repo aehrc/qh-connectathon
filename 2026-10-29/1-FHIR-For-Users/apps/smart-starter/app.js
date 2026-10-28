@@ -7,6 +7,14 @@ const cfg = window.SMART_CONFIG;
 function show(id, html) { document.getElementById(id).innerHTML = html; }
 function esc(s) { return String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]); }
 
+// A new launch from Meld (a new 'launch' code) must start a fresh login: otherwise fhirclient's init()
+// revives the previous session in this tab, which has no token or patient ("Patient is not available").
+// Only on a new code, so a bounce back with the same code shows the error instead of looping.
+if (params.get('launch') && params.get('launch') !== sessionStorage.getItem('lastLaunch')) {
+  sessionStorage.clear();
+  sessionStorage.setItem('lastLaunch', params.get('launch'));
+}
+
 // Opened without a launch from Meld, and not in no-login mode: say what to do instead of failing.
 // (fhirclient revives an earlier session from sessionStorage, so only check on a fresh visit.)
 const launching = params.has('iss') || params.has('code') || params.has('fhirServiceUrl');
