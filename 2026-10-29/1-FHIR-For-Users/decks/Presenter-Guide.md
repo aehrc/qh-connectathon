@@ -10,7 +10,7 @@ Paths are relative to `decks/`.
 
 1. `./examples/reset-demo.sh`: puts `pam-demo` back to its baseline (latest Hb 104 g/L on
    14 Oct). Every write-back demo adds an Observation, which changes "latest Hb".
-2. `make verify` should end with `all 15 checks passed`.
+2. `make verify` should end with `all 16 checks passed`.
 3. Use a browser profile where you've already accepted the NLM Form Builder's LOINC terms (see 1).
 
 Demo patient: **Demi Formsdemo**, id `pam-demo` (F, 1961-04-09). Baseline: Hb 112 (2 Sep),
@@ -228,7 +228,8 @@ In the form these become `%latestHb.entry.resource.value.value` and
 
 2. *Context Expression*: `repeat(item).where(linkId='pam-ext')`. Results then show
    *Context: QuestionnaireResponse.item[0].item[3]*. The template's expressions run on the
-   `pam-ext` repeat, like `templateExtractContext` in the form.
+   `pam-ext` repeat, as the extract does for an item with `templateExtract`
+   (`expressions.json` id `ext-context`).
 3. Expressions (from `examples/expressions.json`), each followed by ▶:
 
 | Expression | Result | Screenshot |
@@ -414,8 +415,7 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
 5. **CodeSandbox blocks automated browsers** (Cloudflare check, also on its API), so the starter's
    code and client settings are unverified (section 6).
 6. **fhirpath-lab doesn't evaluate as you type** (▶ / Ctrl+Enter), and its fhirpath.js is 4.5.1
-   (r4b) vs 5.2.2 in `make verify`. Results are the same for all our expressions. The write-back
-   context expression `repeat(item).where(linkId='pam-ext')` isn't in `expressions.json`.
+   (r4b) vs 5.2.2 in `make verify`. Results are the same for all our expressions.
 7. The playground's QuestionnaireResponse matches `sample-qr.json` in items and answers but has
    `status: in-progress`, no `authored`, `subject` with `type: "Patient"` and
    `display: "Demi Formsdemo"`, and `meta.source: https://smartforms.csiro.au`. The extracted

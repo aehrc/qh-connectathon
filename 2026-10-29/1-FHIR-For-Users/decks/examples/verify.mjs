@@ -7,6 +7,8 @@
 //   context "query:open"            -> GET <base>/<expression> ({{%patient.id}} -> pam-demo, | -> %7C);
 //                                      result = ["Observation/<id>", ...] of the returned entries
 //   context "bundle:<query id>"     -> FHIRPath over the Bundle that query returned
+//   context "qr:resource"           -> FHIRPath over the whole sample-qr.json (as fhirpath-lab's
+//                                      Context Expression is evaluated)
 //   context "qr:sample"             -> FHIRPath over the repeat of the pam-ext group in
 //                                      sample-qr.json, with %resource = the QuestionnaireResponse
 // and deep-compare the result with "expected". `meta` is dropped from returned resources
@@ -116,6 +118,8 @@ for (const e of entries) {
       if (!q) throw new Error(`unknown query ${e.context}`);
       const bundle = await runQuery(q);
       actual = stripMeta(fhirpath.evaluate(bundle, e.expression, {}, r4));
+    } else if (e.context === 'qr:resource') {
+      actual = fhirpath.evaluate(qr, e.expression, { resource: qr, rootResource: qr }, r4);
     } else if (e.context === 'qr:sample') {
       if (extRepeats.length !== 1) throw new Error(`sample-qr.json has ${extRepeats.length} pam-ext repeats, want 1`);
       actual = fhirpath.evaluate(

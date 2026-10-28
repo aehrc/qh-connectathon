@@ -85,6 +85,50 @@
     "inForm": { "file": "pathology-walkthrough.json", "text": "%latestFerritin.entry.resource.value.value" }
   },
   {
+    "id": "ext-context",
+    "expression": "repeat(item).where(linkId='pam-ext')",
+    "context": "qr:resource",
+    "expected": [
+      {
+        "linkId": "pam-ext",
+        "text": "Results from an external lab",
+        "item": [
+          {
+            "linkId": "pam-ext-test",
+            "text": "Test",
+            "answer": [
+              {
+                "valueCoding": {
+                  "system": "http://loinc.org",
+                  "code": "718-7",
+                  "display": "Haemoglobin (Hb)"
+                }
+              }
+            ]
+          },
+          {
+            "linkId": "pam-ext-value",
+            "text": "Result",
+            "answer": [
+              {
+                "valueDecimal": 98
+              }
+            ]
+          },
+          {
+            "linkId": "pam-ext-date",
+            "text": "Collected",
+            "answer": [
+              {
+                "valueDate": "2026-10-27"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "ext-code",
     "expression": "item.where(linkId='pam-ext-test').answer.value",
     "context": "qr:sample",

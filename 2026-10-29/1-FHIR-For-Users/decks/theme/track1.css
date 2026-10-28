@@ -40,6 +40,8 @@ section ul, section ol { margin: 0.3em 0; padding-left: 1.2em; }
 section li { margin: 0.2em 0; }
 section li::marker { color: var(--teal-bright); }
 section img { max-width: 100%; max-height: 520px; border: 1px solid var(--outline); border-radius: 4px; }
+/* Marp renders some characters (e.g. \u25B6) as emoji images: no screenshot border on those */
+section img.emoji { border: none; }
 section footer, section::after { color: var(--muted); font-size: 16px; }
 
 /* ---- code: a 100-char line fits at 1280px (18px mono is ~10.8px/char) ---- */
@@ -58,6 +60,10 @@ section pre {
   margin: 0.5em 0;
   overflow-x: auto;
   white-space: pre;
+  /* pre must not inherit the 28px section font: line boxes would be ~39px and tall blocks clip */
+  font-size: 18px;
+  line-height: 1.4;
+  flex-shrink: 0;
 }
 section pre code {
   font-size: 18px;
