@@ -58,7 +58,9 @@ Edit in the browser (pencil icon) or clone and push. Every commit to `main` repu
 * **Launch with a patient selected**, or Meld's launcher stops on a blank page.
 * **SMART v1 scopes only** (`patient/*.read`, not `patient/*.rs`).
 * Redirect URIs must match **exactly**, trailing `/` included.
-* **Relaunch in a new tab**: fhirclient revives the previous session in the same tab.
+* **Relaunch in a new tab** in your own apps: fhirclient's `init()` revives the previous session in
+  the same tab (*Patient is not available*). This template's `app.js` starts a fresh login whenever
+  Meld sends a new launch code.
 * Don't change the shared patients (`pam-001`..`pam-040`, `pam-demo`): other people use them.
 
 More: the [Track 1 decks](https://aehrc.github.io/qh-connectathon/decks/) (SMART apps) and the
