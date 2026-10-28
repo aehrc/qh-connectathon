@@ -3,6 +3,7 @@ marp: true
 theme: track1
 paginate: true
 title: Track 1 prepopulation
+header: 'aehrc.github.io/qh-connectathon/decks'
 style: |
   .split { display: grid; grid-template-columns: 700px minmax(0, 1fr); gap: 28px; align-items: start; }
   .split > div:first-child img { width: 700px; }
@@ -14,6 +15,7 @@ style: |
 
 <!-- _class: title -->
 <!-- _paginate: false -->
+<!-- _header: "" -->
 
 # Prepopulation
 
@@ -21,6 +23,8 @@ style: |
 
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
+
+**Slides: aehrc.github.io/qh-connectathon/decks**
 
 <!--
 Before: run examples/reset-demo.sh so the latest Hb for pam-demo is 104 (14 Oct). Open tabs (b) the playground, (c) fhirpath-lab, (d) the latest-Hb query URL.

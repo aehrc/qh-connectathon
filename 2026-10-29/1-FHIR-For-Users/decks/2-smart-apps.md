@@ -3,6 +3,7 @@ marp: true
 theme: track1
 paginate: true
 title: Track 1 SMART apps
+header: 'aehrc.github.io/qh-connectathon/decks'
 style: |
   .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; margin: 0.4em 0 0.6em; }
   .flow > div {
@@ -27,6 +28,7 @@ style: |
 
 <!-- _class: title -->
 <!-- _paginate: false -->
+<!-- _header: "" -->
 
 # SMART apps
 
@@ -34,6 +36,8 @@ style: |
 
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
+
+**Slides: aehrc.github.io/qh-connectathon/decks**
 
 <!--
 About 15 minutes. After this, the apps people can go and start; forms people stay.

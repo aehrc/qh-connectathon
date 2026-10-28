@@ -3,10 +3,12 @@ marp: true
 theme: track1
 paginate: true
 title: Track 1 scenarios
+header: 'aehrc.github.io/qh-connectathon/decks'
 ---
 
 <!-- _class: title -->
 <!-- _paginate: false -->
+<!-- _header: "" -->
 
 # Track 1: FHIR for Users
 
@@ -14,6 +16,8 @@ title: Track 1 scenarios
 
 FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
+
+**Slides: aehrc.github.io/qh-connectathon/decks**
 
 <!--
 Thanks, Leon. That's the problem; now what you can do about it over two days.
