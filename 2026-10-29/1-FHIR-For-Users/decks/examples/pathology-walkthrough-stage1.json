@@ -1,0 +1,96 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "pathology-walkthrough-stage1",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pathology-walkthrough-stage1",
+  "version": "0.1.0",
+  "name": "PathologyWalkthroughStage1",
+  "title": "Pathology results (walkthrough, stage 1)",
+  "status": "draft",
+  "experimental": true,
+  "date": "2026-10-28",
+  "publisher": "FHIR in Queensland Health Connectathon — Track 1 (synthetic demo, not for clinical use)",
+  "description": "Stage 1 of the Track 1 forms walkthrough: the structure built in LHC Form Builder (no pre-population or extraction yet). Synthetic demo, not for clinical use.",
+  "item": [
+    {
+      "linkId": "pam-pathology",
+      "text": "Pathology",
+      "type": "group",
+      "item": [
+        {
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "g/L",
+                "display": "g/L"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ferritin",
+          "text": "Ferritin",
+          "type": "decimal",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "ug/L",
+                "display": "µg/L"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb-date",
+          "text": "Date of latest Hb",
+          "type": "date"
+        },
+        {
+          "linkId": "pam-ext",
+          "text": "Results from an external lab",
+          "type": "group",
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "pam-ext-test",
+              "text": "Test",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "718-7",
+                    "display": "Haemoglobin (Hb)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "2276-4",
+                    "display": "Ferritin"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-value",
+              "text": "Result",
+              "type": "decimal"
+            },
+            {
+              "linkId": "pam-ext-date",
+              "text": "Collected",
+              "type": "date"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
