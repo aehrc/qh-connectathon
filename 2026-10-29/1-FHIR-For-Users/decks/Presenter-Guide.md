@@ -3,19 +3,111 @@
 Click-by-click notes for the live demos. The Meld open endpoint, fhirpath-lab and the Smart Forms
 playground were checked live on 28 Oct 2026 (headless Chromium 1600×900). The NLM Form Builder
 was checked live the same day, click by click, in a browser profile where the LOINC terms had been
-accepted (section 1). **The CodeSandbox starter was not checked at all** (section 6). Screenshots are in `img/` and are re-captured with `make shots`.
-Paths are relative to `decks/`.
+accepted (section 1). **The CodeSandbox starter was not run by us** (section 6). Screenshots are
+in `img/` and are re-captured with `make shots`. Paths are relative to `decks/`. Presenting? Start
+with the run sheets below; they point into the per-site sections 1–6.
 
 **Before each demo session**
 
 1. `./examples/reset-demo.sh`: puts `pam-demo` back to its baseline (latest Hb 104 g/L on
    14 Oct). Every write-back demo adds an Observation, which changes "latest Hb".
-2. `make verify` should end with `all 16 checks passed`.
+2. `make verify` should end with `all N checks passed` and no `FAIL` lines; `make verify-slides`
+   should end with `verify-slides ok`.
 3. Use a browser profile where you've already accepted the NLM Form Builder's terms of use
    (section 1). You accept them yourself on first use; they're stored per browser profile.
 
 Demo patient: **Demi Formsdemo**, id `pam-demo` (F, 1961-04-09). Baseline: Hb 112 (2 Sep),
 **Hb 104 (14 Oct, latest)**, ferritin 18 (14 Oct), height 164 cm, weight 71.4 kg.
+
+---
+
+## Run sheets (kick-off order)
+
+One block per deck: what to open beforehand, the live steps, what you should see, and the
+fallback. "§n" = the per-site section below with the click-by-click detail.
+
+**Open tabs (one browser profile, NLM terms already accepted):**
+(a) https://formbuilder.nlm.nih.gov/ · (b) https://aehrc.github.io/qh-connectathon/smart-forms/
+→ **GO TO PLAYGROUND** · (c) https://fhirpath-lab.com/FhirPath · (d) the latest-Hb URL (§2) ·
+(e) the deck HTML or PDF. Files at hand: `examples/pathology-walkthrough-stage1.json`,
+`examples/sample-qr.json`.
+
+### 1. Scenarios (no demo)
+
+* Before: nothing. Have `Scenarios.md` open for questions.
+* Slide *Where things are*: the URLs participants need; client IDs come from you.
+* Strand D: say the REDCap instance isn't confirmed (slide *Strands C and D*).
+
+### 2. SMART apps
+
+* Before: logged in to Meld (https://meld.interop.community, sandbox `QHConnectathon2026`).
+  Know how you'll hand out client IDs (participants send launch URI + redirect URI + scopes).
+* Demo *First app: try the query in your browser*: paste
+  `https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date&_format=json`
+  → Bundle with `pam-demo-hb-2` (104 g/L, 14 Oct) then `pam-demo-hb-1` (112, 2 Sep) (§2).
+  Fallback: `img/smart/01-hb-search-open.png`. If you've run write-back demos without a reset,
+  there's a third, newer Hb.
+* Optional: launch an app from Meld **with a patient selected** (§5; not scripted). Fallback:
+  the `?fhirServiceUrl=...&patientId=pam-demo` URL on the *Run it* slide, or the dashboard
+  https://aehrc.github.io/qh-connectathon/pam-dashboard/?server=https://gw.interop.community/QHConnectathon2026/open
+* The CodeSandbox starter was never run by us (§6): try a fork and a Meld launch before showing it live.
+
+### 3. Questionnaires
+
+* Before: tab (a) shows *How do you want to create your form?* without the terms dialog
+  (accept LOINC, optionally SNOMED CT, once per profile: §1 *First use*). If it offers *start from
+  where you left off*, you'll pick **Start from scratch**.
+* Live (≈ 10 min), §1 steps 1–12: title `Pathology results`; items and Link Ids `pam-pathology`,
+  `pam-hb` (unit `g/L` + Tab), `pam-ferritin` (`ug/L` + Tab), `pam-hb-date`, `pam-ext` (repeats),
+  `pam-ext-test` (`coding`, LOINC `718-7` Haemoglobin (Hb), `2276-4` Ferritin), `pam-ext-value`,
+  `pam-ext-date`; **Preview**; **Export ▾ → Export to file in FHIR R4 format**.
+  Expected: `Pathology-results.R4.json` = `examples/lhc-export-stage1.json`.
+* Render: tab (b), paste the export into the JSON editor → **BUILD FORM** (§4 *Alternative to
+  step 4*), or pick `pathology-walkthrough-stage1` → **BUILD FORM ▶**.
+* Fallback: **Start with existing form → Import from local file** →
+  `examples/pathology-walkthrough-stage1.json` (§1 *Fallback*); last resort the screenshots.
+* Don't click *Run Validation* (fails on the builder's own `meta.profile`).
+
+### 4. Prepopulation
+
+* Before: `./examples/reset-demo.sh` (latest Hb must be 104, 14 Oct). Tabs (b), (c), (d).
+* Browser: open tab (d), §2:
+  `https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date&_count=1&_format=json`
+  → `total: 2`, one entry `pam-demo-hb-2`, 104 g/L, `2026-10-14T08:45:00+10:00`.
+* fhirpath-lab, §3 *Prepopulation*: Ctrl+A/Ctrl+C the Bundle, paste into *Test Resource JSON*,
+  Context empty, ▶ after each: `entry.resource` → the Observation; `entry.resource.value` →
+  Quantity; `entry.resource.value.value` → `104`;
+  `entry.resource.effective.toString().substring(0, 10)` → `2026-10-14`.
+* Playground, §4 steps 1–6: gear → *Source FHIR Server URL*
+  `https://gw.interop.community/QHConnectathon2026/open` → **?** → **SAVE URL AS SOURCE FHIR
+  SERVER** → patient **Demi Formsdemo** (last) → **SAVE**; pick **pathology-walkthrough** →
+  **BUILD FORM ▶** (empty) → **POPULATE ▾ → Pre-populate (Replace whole form)** → Hb 104,
+  ferritin 18, date 14/10/2026.
+* Fallback: screenshots `img/prepop/01`–`10`; `make verify` shows the same expression results.
+
+### 5. Write-back
+
+* Before: `./examples/reset-demo.sh`. Tabs (b), (c); `examples/sample-qr.json` open to copy.
+  Playground as left by deck 4 (form built and pre-populated) saves time.
+* fhirpath-lab, §3 *Write-back*: paste `sample-qr.json`; *Context Expression*
+  `repeat(item).where(linkId='pam-ext')`; then the five template expressions in §3's table →
+  Coding 718-7, `98`, `g/L`, `2026-10-27`, `Patient/pam-demo`.
+* Playground, §4 steps 7–11: *Results from an external lab*: Test **Haemoglobin (Hb)**, Result
+  **98**, Collected **27/10/2026** → **EXTRACT ▾ → Template-based $extract** → **ADVANCED PROPS**
+  → **EXTRACT** tab: one `POST Observation`, 98 g/L, `2026-10-27` → **REVIEW WRITE BACK ITEMS** →
+  **WRITE BACK (1 ENTRY)** → success snackbar → **POPULATE ▾ → Pre-populate**: Hb 98, 27/10/2026.
+* After: `./examples/reset-demo.sh` (step 12).
+* Fallback: screenshots `img/writeback/01`–`11`. If write-back fails, stop after the extract
+  (step 9): the Bundle is the point; write-back is just a POST of it.
+
+### To do before the decks are final (screenshots by Jim)
+
+- [ ] Meld launcher (§5): `smart/10-meld-apps.png`, `smart/11-meld-launch-patient.png`,
+      `smart/12-meld-app-registration.png`. Needs your Meld login.
+- [ ] CodeSandbox starter (§6): fork it, check the preview URL form and a Meld launch, then
+      `smart/20-codesandbox-files.png`, `smart/21-codesandbox-authorize.png`,
+      `smart/22-codesandbox-preview.png`. Automated browsers get a Cloudflare check.
+- [ ] Neither set is on a slide yet; add them to `2-smart-apps.md` and run `make check`.
 
 ---
 
@@ -428,20 +520,19 @@ Not automated (needs your Meld login). Screenshots to take, into `img/smart/`:
 
 **URL:** https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q
 
-**Not checked.** CodeSandbox (page and API) shows a Cloudflare bot check (*Performing security
-verification*) to automated browsers, so the files, client id, `iss`, scope and redirect URI
-**are unknown**. `tools/shoot-codesandbox.mjs` only reports whether the check is still there.
-What's known from the 2025 Questionnaire track README
-(`github.com/fongsean/questionnaire_track_fhir_in_qh`): *"A simple demo app that launches a
-Questionnaire via SMART on FHIR. This app uses the SMART on FHIR JavaScript client library"*
-(fhirclient). Its preview `https://0rd1q.csb.app/` is a create-react-app shell.
+**Not run by us.** CodeSandbox (page and API) shows a Cloudflare bot check (*Performing security
+verification*) to automated browsers; `tools/shoot-codesandbox.mjs` only reports whether the
+check is still there. The source files (`src/index.js`, `src/App.jsx`, `package.json`) came from
+you; the SMART deck's *The starter* and *Fix* slides are based on them: `FHIR.oauth2.init({
+clientId, scope })` with another app's client id and scope `launch/patient openid profile`.
+**Unverified:** that a fork's preview URL has the form `https://<id>.csb.app/` (the deck's
+example), and a Meld launch of a fixed fork.
 
-To do by hand before the SMART deck is finalised: open it logged in or as a normal browser user,
-note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss` /
-`fhirServiceUrl`, `scope`, `redirectUri`), and take:
+To do by hand before the SMART deck is final: fork it, check the preview URL, launch it from Meld
+with a patient selected, and take:
 
 * `smart/20-codesandbox-files.png` (screenshot by Jim): file tree with the entry file open.
-* `smart/21-codesandbox-authorize.png` (screenshot by Jim): the `FHIR.oauth2.authorize` call.
+* `smart/21-codesandbox-authorize.png` (screenshot by Jim): the `FHIR.oauth2.init` call.
 * `smart/22-codesandbox-preview.png` (screenshot by Jim): the preview pane / preview URL.
 
 ---
@@ -514,8 +605,8 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
    assumptions: the type is called **`coding`** (R4 export: `choice`); linkIds default to random
    numbers; unit display is the UCUM name (*gram per liter*), not `g/L`; *Run Validation* fails
    on the builder's own `meta.profile`. Export vs stage 1 file: section 1.
-5. **CodeSandbox blocks automated browsers** (Cloudflare check, also on its API), so the starter's
-   code and client settings are unverified (section 6).
+5. **CodeSandbox blocks automated browsers** (Cloudflare check, also on its API), so the starter
+   was never run here; its code came from Jim (section 6).
 6. **fhirpath-lab doesn't evaluate as you type** (▶ / Ctrl+Enter), and its fhirpath.js is 4.5.1
    (r4b) vs 5.2.2 in `make verify`. Results are the same for all our expressions.
 7. The playground's QuestionnaireResponse matches `sample-qr.json` in items and answers but has
