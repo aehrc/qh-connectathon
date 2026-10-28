@@ -34,7 +34,7 @@ Day 1: build. Day 2: assemble the modules into one PAM form and feed the apps.
 
 ## Strand A: Questionnaire modules (1 of 2)
 
-Each team builds one module. You'll touch: Smart Forms, SDC, FHIRPath.
+Each team builds or extends one module. You'll touch: Smart Forms, SDC, FHIRPath.
 
 <div class="cards">
 

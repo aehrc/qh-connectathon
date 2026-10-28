@@ -4,10 +4,8 @@ theme: track1
 paginate: true
 title: Track 1 prepopulation
 style: |
-  section pre { font-size: 18px; line-height: 1.4; flex-shrink: 0; }
   .split { display: grid; grid-template-columns: 700px minmax(0, 1fr); gap: 28px; align-items: start; }
   .split > div:first-child img { width: 700px; }
-  section img.emoji { border: none; }
   .split code, .split a { overflow-wrap: anywhere; }
   .split pre code { font-size: 15px; }
   .split p, .split li { font-size: 0.85em; }
@@ -106,7 +104,7 @@ Expressions can now use `%patient` (the Patient resource), e.g. `%patient.id` is
 
 ## 2. The query: an x-fhir-query variable
 
-On the module's **top-level group** `pam-pathology` (the module convention):
+On the **top-level group** `pam-pathology` (convention): visible to this group and its items.
 
 ```json
 {
@@ -174,7 +172,7 @@ You should get a `searchset` Bundle with `"total": 2` and one entry, `Observatio
 <div>
 
 ### A raw `|` fails on Meld
-`code=http://loinc.org|718-7` gets **HTTP 400** with no body, which the browser reports as a **CORS error**. In the address bar, or in an app or renderer that doesn't encode it, write **`%7C`**: `code=http://loinc.org%7C718-7`. Or leave the system out: `code=718-7`.
+`code=http://loinc.org|718-7` gets **HTTP 400** with no body. In an app, the browser reports it as a **CORS error**. In the address bar, or in an app or renderer that doesn't encode it, write **`%7C`**: `code=http://loinc.org%7C718-7`. Or leave the system out: `code=718-7`.
 
 </div>
 
@@ -483,7 +481,7 @@ The playground's settings dialog stands in for an EHR: it sets `%patient` withou
 
 - **Real use:** the EHR **launches Smart Forms as a SMART app with a patient selected**, and the launch sets `%patient`. Meld can launch our Smart Forms build: see the **SMART apps deck**.
 - **The form doesn't change:** same launchContext, queries and expressions. Only where `%patient` comes from is different.
-- **Other FHIR servers:** the public playground **https://smartforms.csiro.au/playground** works the same way, but it **can't reach Meld** (Meld's CORS check rejects its requests). For Meld, use our build.
+- **Other FHIR servers:** the public playground **https://smartforms.csiro.au/playground** may not encode `|`, and it **can't reach Meld** (Meld's CORS check rejects its requests). For Meld, use our build.
 
 ---
 

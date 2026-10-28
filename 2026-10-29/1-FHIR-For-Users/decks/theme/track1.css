@@ -103,7 +103,8 @@ section.demo::before, section.tryit::before {
   margin-bottom: 0.3em;
 }
 section.demo::before { content: "\25B6  Demo"; color: var(--orange); }
-section.tryit::before { content: "Now you try"; color: var(--teal-bright); }
+/* eyebrow text in teal (bright teal on the light bg is ~2.7:1); the border stays bright teal */
+section.tryit::before { content: "Now you try"; color: var(--teal); }
 section.tryit { border-top: 10px solid var(--teal-bright); padding-top: 46px; }
 
 /* ---- helpers ---- */
@@ -119,7 +120,3 @@ section.tryit { border-top: 10px solid var(--teal-bright); padding-top: 46px; }
 .cards p { margin: 0.2em 0; }
 .small { font-size: 0.75em; }
 .muted { color: var(--muted); }
-
-/* ---- narrow viewports (HTML on phones): marp's bespoke view scales the slide;
-        make sure the page itself never scrolls sideways ---- */
-html, body { overflow-x: hidden; }
