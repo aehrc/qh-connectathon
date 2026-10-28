@@ -202,7 +202,7 @@ The next two slides are step-by-step for reading later: I'll skim them.
 1. Open the starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q` and **sign in** (GitHub or Google account).
 2. **Fork** it (top right). Your copy has its own editor URL; bookmark it.
 3. In the preview pane, **open the preview in a new tab**. That tab's address (e.g. `https://abc123.csb.app/`) is your app's URL: copy it exactly, **with the trailing `/`**.
-4. Send Jim that URL as launch **and** redirect URI (*Get a client ID from Jim*), and put the client ID he sends back in `src/index.js`.
+4. Send Jim your URLs (*Get a client ID from Jim*; for the starter, that URL is both launch and redirect URI), and put the client ID he sends back in `src/index.js`.
 5. Edits save as you type and the hosted URL serves the latest version: no deploy step.
 6. **Launch from Meld**, not from the preview pane: the app needs Meld's `iss` and `launch` parameters. To try queries without a launch, use the no-login URL on the *Run it* slide.
 
@@ -237,6 +237,8 @@ The React starter needs a build before it can go on Pages.
 
 ---
 
+<style scoped>p, li { font-size: 0.85em; } pre, pre code { font-size: 16px; }</style>
+
 ## Get a client ID from Jim
 
 1. Get your app's public URL (CodeSandbox, GitHub Pages or your own host).
@@ -249,13 +251,13 @@ Redirect URI:     https://abc123.csb.app/
 Scopes:           launch openid fhirUser patient/*.read patient/*.write
 ```
 
-3. Put the client ID he sends back in **`src/index.js`**: `clientId: '<client id from Jim>'`.
+3. Put the client ID he sends back where your app sets `clientId` (the React starter: **`src/index.js`**; our Pages template: `config.js`).
 
-**Launch URI and redirect URI are the same page.** The starter calls `FHIR.oauth2.init()`, which handles both visits, and fhirclient's default `redirectUri` is `"."`, the page itself. Copy the URL exactly, **with the trailing `/`**. Moved host? Send Jim the new URL. More than one redirect URI? Comma-separated.
+**Launch URI**: the page Meld opens, which starts the login (fhirclient `authorize()` or `init()`). **Redirect URI**: the page the login comes back to (`ready()` or `init()`). Our starters do both on one page with `init()`, so it's **one URL for both** (as above); an app with a `launch.html` and an `index.html`, like the dashboard, has **two**. Copy them exactly, **with the trailing `/`**. Moved host? Send Jim the new URLs.
 
 <!--
 This is what you send me. Launch URI, redirect URI, scopes, and a name I can recognise.
-For the starter the launch and redirect URI are the same page.
+Launch URI is the page that starts the login; redirect URI is where it comes back. Our starters do both on one page, so one URL; the dashboard has two pages, so two URLs.
 Copy the URL exactly, trailing slash included: one character off and the launch fails.
 If you move hosts, send me the new URL and I'll update the registration.
 -->
