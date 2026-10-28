@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Track 2 API guide: Radiology Referral</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { max-width: 56em; font-family: Calibri, "Segoe UI", system-ui, sans-serif; line-height: 1.5; }
+    table { border-collapse: collapse; display: block; overflow-x: auto; }
+    th, td { border: 1px solid #DDE4E9; padding: 4px 10px; text-align: left; vertical-align: top; }
+    th { background: #E6F6FA; color: #001D34; }
+    pre { overflow-x: auto; background: #F5F8FA; padding: 10px; }
+    a { color: #1E22AA; }
+    h1, h2 { color: #001D34; border-bottom: 2px solid #00A9CE; padding-bottom: 4px; }
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Track 2 API guide: Radiology Referral</h1>
+</header>
+<h1
+id="track-2-api-guide-radiology-referral-with-directory-discovery-and-booking">Track
+2 API guide: Radiology Referral with Directory Discovery and
+Booking</h1>
+<p><strong>FHIR in Queensland Health Connectathon, 29–30 October 2026 ·
+Track 2 (FHIR for Services)</strong></p>
+<p>This page gets you calling the Track 2 servers in a few minutes. It
+goes with the <a
+href="QH-Radiology-Referral-Scenario-DRAFT.html">scenario
+description</a>, and every request below maps to a test case (D-01 …
+S-01) from §7 of that document. All data is fictional.</p>
+<h2 id="downloads">Downloads</h2>
+<table>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a
+href="downloads/QH-Track2.postman_collection.json"><strong>QH-Track2.postman_collection.json</strong></a></td>
+<td>Postman collection, 41 requests with tests, in scenario order</td>
+</tr>
+<tr class="even">
+<td><a
+href="downloads/QH-Track2-public.postman_environment.json">QH-Track2-public.postman_environment.json</a></td>
+<td>Environment: the public <code>*.efiq.hospservices.net</code>
+servers</td>
+</tr>
+<tr class="odd">
+<td><a
+href="downloads/QH-Track2-incluster.postman_environment.json">QH-Track2-incluster.postman_environment.json</a></td>
+<td>Environment: in-cluster URLs, for frog-runner and anything running
+inside the cluster</td>
+</tr>
+<tr class="even">
+<td><a
+href="downloads/QH-Track2-frog-testscripts.zip"><strong>QH-Track2-frog-testscripts.zip</strong></a></td>
+<td>The fhir-frog test library: FHIR TestScripts and fixtures for this
+scenario (see <a href="#fhir-frog-conformance-tests">fhir-frog</a>)</td>
+</tr>
+</tbody>
+</table>
+<p>The collection also works in <a
+href="https://www.usebruno.com/">Bruno</a> (File → Import Collection →
+Postman) and in <a
+href="https://github.com/postmanlabs/newman">newman</a>:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> i <span class="at">-g</span> newman</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">newman</span> run QH-Track2.postman_collection.json <span class="at">-e</span> QH-Track2-public.postman_environment.json</span></code></pre></div>
+<h2 id="the-servers">The servers</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Role</th>
+<th>Public URL</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Provider Directory</strong> (HCPD, read mostly)</td>
+<td><code>https://directory.efiq.hospservices.net/fhir</code></td>
+<td>Every request needs an <code>X-Request-ID: &lt;UUID v4&gt;</code>
+header. The collection sets it for you.</td>
+</tr>
+<tr class="even">
+<td><strong>Referral Server</strong> (referrals, tasks, booking)</td>
+<td><code>https://referrals.efiq.hospservices.net/fhir</code></td>
+<td>HAPI with the <a
+href="https://aehrc.github.io/radiology-referral/">Radiology Referral
+and Booking IG</a>, AU eRequesting and AU Core. Open, no auth.</td>
+</tr>
+<tr class="odd">
+<td><strong>Referrer / filler UI</strong></td>
+<td><code>https://ui.efiq.hospservices.net</code></td>
+<td>Browser path of the track, same data.</td>
+</tr>
+<tr class="even">
+<td><strong>Conformance (frog-runner)</strong></td>
+<td><code>https://conformance.efiq.hospservices.net</code></td>
+<td>Runs the fhir-frog TestScripts, see below.</td>
+</tr>
+</tbody>
+</table>
+<p>The directory and the referral server are <strong>separate servers
+with separate data</strong>. Directory ids start with <code>qhd-</code>,
+referral ids with <code>qhc-</code>.</p>
+<h2 id="run-the-scenario">Run the scenario</h2>
+<p>Open the collection and work through the folders in order, or use the
+Collection Runner for a full pass. Folders 2 to 5 chain together: the
+ids created by one request are saved for the next.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Folder</th>
+<th>Scenario step</th>
+<th>Test cases</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>1 Discover</strong></td>
+<td>Step 1</td>
+<td>D-01, D-02, D-03, X-01</td>
+<td>Search CT services in QLD, page through results, resolve
+Organization / Location / <strong>Endpoint</strong>, look up a
+referrer's PractitionerRole, bulk <code>$export</code> (stretch)</td>
+</tr>
+<tr class="even">
+<td><strong>2 Create the referral</strong></td>
+<td>Step 2</td>
+<td>R-01, R-02</td>
+<td>POST one transaction Bundle (Patient, eGFR, ServiceRequest, Group
+Task, fulfilment Task); <code>$validate</code>; read back with
+supporting info</td>
+</tr>
+<tr class="odd">
+<td><strong>3 Triage</strong></td>
+<td>Step 3</td>
+<td>T-01, T-02</td>
+<td>Filler finds new Tasks; accept, put on hold with a coded reason,
+reject</td>
+</tr>
+<tr class="even">
+<td><strong>4 Availability and booking</strong></td>
+<td>Steps 4 and 5</td>
+<td>B-01 … B-04</td>
+<td>Publish Schedule and Slots, search free Slots, propose an
+Appointment, confirm it, cancel and rebook</td>
+</tr>
+<tr class="odd">
+<td><strong>5 Track status</strong></td>
+<td>Step 6</td>
+<td>S-01</td>
+<td>Read the Task (<code>status</code> and <code>businessStatus</code>)
+and Appointments</td>
+</tr>
+<tr class="even">
+<td><strong>9 Clean up</strong></td>
+<td></td>
+<td></td>
+<td>Deletes what the run created</td>
+</tr>
+</tbody>
+</table>
+<p>Every folder has working defaults pointing at the seeded data, so you
+can start anywhere. Seeded ids worth knowing:</p>
+<table>
+<thead>
+<tr class="header">
+<th>What</th>
+<th>Id</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CT service in the directory (Cairns CT)</td>
+<td><code>HealthcareService/qhd-hcs-01</code></td>
+</tr>
+<tr class="even">
+<td>Its organisation, endpoints</td>
+<td><code>Organization/qhd-org-01</code>,
+<code>Endpoint/qhd-ep-01-rest</code></td>
+</tr>
+<tr class="odd">
+<td>Referrer PractitionerRole</td>
+<td><code>PractitionerRole/qhc-role-1</code> (Dr Chen, Riverside Family
+Practice)</td>
+</tr>
+<tr class="even">
+<td>Filler organisation</td>
+<td><code>Organization/qhc-org-fill1</code> (Tropic Coast Health
+Service, HPI-O <code>8003629999000017</code>)</td>
+</tr>
+<tr class="odd">
+<td>A referral with its eGFR</td>
+<td><code>ServiceRequest/qhc-sr-0001</code>,
+<code>Task/qhc-task-0001</code>,
+<code>Observation/qhc-egfr-0001</code></td>
+</tr>
+<tr class="even">
+<td>Schedule with free Slots (4 and 5 Nov 2026)</td>
+<td><code>Schedule/qhc-sched-f1-ct</code> for
+<code>HealthcareService/qhc-hcs-f1-ct</code></td>
+</tr>
+<tr class="odd">
+<td>A booked Appointment</td>
+<td><code>Appointment/qhc-appt-0007</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-requests-in-curl">The requests in curl</h2>
+<p>If you prefer a terminal. <code>X-Request-ID</code> is required by
+the directory.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">DIR</span><span class="op">=</span>https://directory.efiq.hospservices.net/fhir</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">REF</span><span class="op">=</span>https://referrals.efiq.hospservices.net/fhir</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">RID</span><span class="op">=</span><span class="va">$(</span><span class="fu">uuidgen</span><span class="va">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># D-01  CT services in Queensland, with Location and Organization</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;X-Request-ID: </span><span class="va">$RID</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;</span><span class="va">$DIR</span><span class="st">/HealthcareService?service-type=http://snomed.info/sct|310128004&amp;location.address-state=QLD&amp;_include=HealthcareService:location&amp;_include=HealthcareService:organization&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># D-02  from the service to its Endpoints</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-H</span> <span class="st">&quot;X-Request-ID: </span><span class="va">$RID</span><span class="st">&quot;</span> <span class="dt">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;</span><span class="va">$DIR</span><span class="st">/HealthcareService?_id=qhd-hcs-01&amp;_include=HealthcareService:endpoint&amp;_include=HealthcareService:organization&quot;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># T-01  new work for a filler, with the ServiceRequest</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Task?owner=qhc-org-fill1&amp;status=requested&amp;_include=Task:focus&quot;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># B-01  free CT slots for a service</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Slot?schedule.actor=HealthcareService/qhc-hcs-f1-ct&amp;status=free&quot;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># S-01  track the referral</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Task?focus=ServiceRequest/qhc-sr-0001&quot;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Appointment?based-on=ServiceRequest/qhc-sr-0007&quot;</span></span></code></pre></div>
+<h2 id="things-worth-knowing">Things worth knowing</h2>
+<p>These came from running the collection against the live servers.</p>
+<ul>
+<li><strong>Endpoint has no <code>organization</code> search
+parameter.</strong> <code>Endpoint?organization=…</code> quietly returns
+nothing. Reach Endpoints from the owner instead:
+<code>HealthcareService?_id=…&amp;_include=HealthcareService:endpoint</code>
+or
+<code>Organization?_id=…&amp;_include=Organization:endpoint</code>.</li>
+<li><strong>Seeded <code>Endpoint.address</code> values are in-cluster
+URLs</strong>
+(<code>http://fhir.track2.svc.cluster.local:8080/fhir</code>). From your
+laptop, use the public referral URL above instead.</li>
+<li><strong>The server does not prevent double booking.</strong> Two
+Appointments can be created against the same Slot and both succeed. A
+booking client must re-read the Slot and check
+<code>status = free</code> immediately before booking, and the filler
+must set the Slot to <code>busy</code> when it confirms (request B-02
+does both steps). This is the interesting part of test case B-03.</li>
+<li><strong>Triage and booking updates use JSON Patch</strong>
+(<code>PATCH</code> with
+<code>Content-Type: application/json-patch+json</code>), so you only
+send what changes. A full <code>PUT</code> works too.</li>
+<li><strong>Group Task and fulfilment Task.</strong> A referral has two
+Tasks: the Group Task (no <code>focus</code>) and the fulfilment Task,
+which has <code>focus</code> → ServiceRequest and <code>partOf</code> →
+Group Task. Search on <code>Task?focus=</code> finds the fulfilment Task
+only.</li>
+<li><strong><code>owner:identifier</code> is not supported</strong> on
+Task search. Search by the organisation's resource id
+(<code>owner=qhc-org-fill1</code>).</li>
+<li><strong>The first <code>$validate</code> can take about ten
+seconds</strong> while HAPI warms its validation cache.</li>
+<li><strong>Directory search parameters are Day-1 assumptions.</strong>
+The ADHA HCPD technical specification is not published yet, so treat
+D-02 and D-03 as provisional.</li>
+</ul>
+<h2 id="fhir-frog-conformance-tests">fhir-frog conformance tests</h2>
+<p><a href="https://fhirfrog.org">fhir-frog</a> is the FHIR conformance
+test toolkit used to check this track. Tests are FHIR
+<code>TestScript</code> resources run by <strong><a
+href="https://gitlab.com/fhirfrog/frog-runner">frog-runner</a></strong>,
+deployed here at <a
+href="https://conformance.efiq.hospservices.net">https://conformance.efiq.hospservices.net</a>.</p>
+<p><strong>The test library.</strong> <a
+href="downloads/QH-Track2-frog-testscripts.zip">QH-Track2-frog-testscripts.zip</a>
+holds the TestScripts and fixtures for the scenario, as deployed on the
+conformance host:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Bundle</th>
+<th>Server</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>scenario1/step1/</code></td>
+<td>directory</td>
+<td>Step 1: HealthcareService search</td>
+</tr>
+<tr class="even">
+<td><code>scenario1-referral/</code></td>
+<td>referral</td>
+<td>Steps 2 to 6: create and submit a referral, retrieve it with
+supporting information, update and monitor fulfilment status, patient
+view</td>
+</tr>
+</tbody>
+</table>
+<p>These were adapted from the HL7 AU Sparked Testing Event TestScripts
+(Connected Scenario 1). They cover the referral flow; the
+<strong>Schedule, Slot and Appointment booking steps (B-01 … B-04) are
+covered by the Postman collection above, not yet by frog
+TestScripts.</strong> Source and run notes: <a
+href="https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-Services/deploy/frog-tests"><code>deploy/frog-tests</code></a>.</p>
+<p><strong>Run them</strong> on the conformance host (use the in-cluster
+server URLs, because the runner's JVM does not trust the public
+certificate chain):</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">FROG</span><span class="op">=</span>https://conformance.efiq.hospservices.net</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># directory, step 1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs&quot;</span> <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;bundlePath&quot;: &quot;/bundles/scenario1/step1&quot;,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;serverUrl&quot;: &quot;http://directory:8080/fhir&quot;}&#39;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># referral, steps 2 to 6 (needs the IG for profile validation, takes 5 to 10 minutes)</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs&quot;</span> <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;bundlePath&quot;: &quot;/bundles/scenario1-referral&quot;,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;serverUrl&quot;: &quot;http://fhir:8080/fhir&quot;,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;igPackage&quot;: &quot;hl7.fhir.au.ereq#1.0.1&quot;,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;terminologyServerUrl&quot;: &quot;https://r4.ontoserver.csiro.au/fhir&quot;}&#39;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs/&lt;id&gt;&quot;</span>     <span class="co"># status COMPLETED, every result.success == true</span></span></code></pre></div>
+<p>Profile validation runs inside frog-runner from the
+<code>igPackage</code> you pass, not on the server, so always send both
+<code>serverUrl</code> and <code>igPackage</code> for the referral
+bundle. Run one at a time, and expect the referral bundle to leave a few
+test resources behind
+(<code>deploy/frog-tests/cleanup-fixtures.py</code> removes them).</p>
+<p><strong>Write your own tests, with AI help.</strong> The <a
+href="https://gitlab.com/fhirfrog/fhir-frog-mcp">fhir-frog MCP server
+and skill</a> let Claude, Kiro and other MCP clients author, lint and
+validate TestScripts for you (release <a
+href="https://gitlab.com/fhirfrog/fhir-frog-mcp/-/releases/v0.1.0">v0.1.0</a>,
+Java 17+ or Docker). Start with <code>frog_doctor</code>.</p>
+<h2 id="links">Links</h2>
+<ul>
+<li><a href="QH-Radiology-Referral-Scenario-DRAFT.html">Scenario
+description and test cases</a></li>
+<li><a href="https://aehrc.github.io/radiology-referral/">Radiology
+Referral and Booking IG</a> · <a
+href="https://github.com/aehrc/radiology-referral">source</a></li>
+<li><a href="index.html">Track 2 workshop guide</a></li>
+<li><a href="https://fhirfrog.org">fhir-frog</a> · <a
+href="https://gitlab.com/fhirfrog/frog-runner">frog-runner</a> · <a
+href="https://gitlab.com/fhirfrog/fhir-frog-mcp">fhir-frog-mcp</a></li>
+<li>Questions or problems: <a
+href="https://github.com/aehrc/qh-connectathon/issues">open an issue</a>
+or ask Michael Osborne or Joern Guy Süß at the event.</li>
+</ul>
+</body>
+</html>
