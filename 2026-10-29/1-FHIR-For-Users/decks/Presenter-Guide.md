@@ -7,6 +7,10 @@ accepted (section 1). **The CodeSandbox starter was not run by us** (section 6).
 in `img/` and are re-captured with `make shots`. Paths are relative to `decks/`. Presenting? Start
 with the run sheets below; they point into the per-site sections 1–6.
 
+**Speaker notes:** every slide has talking points, and each ▶ Demo slide has its cue from this
+guide (section, steps, expected result, fallback). In the deck HTML press **`p`** (or ☰ →
+presenter view) to see them beside the current slide; in the PPTX they're in the notes pane.
+
 **Before each demo session**
 
 1. `./examples/reset-demo.sh`: puts `pam-demo` back to its baseline (latest Hb 104 g/L on

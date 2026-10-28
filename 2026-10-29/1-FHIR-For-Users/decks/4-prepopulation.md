@@ -22,6 +22,12 @@ style: |
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 
+<!--
+Before: run examples/reset-demo.sh so the latest Hb for pam-demo is 104 (14 Oct). Open tabs (b) the playground, (c) fhirpath-lab, (d) the latest-Hb query URL.
+This deck is about not making the nurse retype what the record already knows.
+About 15 minutes, mostly live.
+-->
+
 ---
 
 ## Where we are
@@ -34,6 +40,13 @@ In this deck the form fills in **the latest Hb, ferritin and date of the latest 
 - Same linkIds and variable names as the real module (`pam-hb`, `%latestHb`, ...)
 - Demo patient: **Demi Formsdemo**, `pam-demo` (synthetic): latest Hb **104 g/L** (14 Oct 2026), ferritin **18 µg/L**
 - FHIR server: Meld open endpoint `https://gw.interop.community/QHConnectathon2026/open`
+
+<!--
+We pick up the Pathology form from the Questionnaires deck: structure only, nothing filled in.
+By the end, Hb, ferritin and the Hb date fill themselves from Observations on Meld.
+Keeping the real module's linkIds and variable names means you can diff our cut-down form against pam-pathology.json later.
+Demi Formsdemo is synthetic and shared, so others' write-backs can show up.
+-->
 
 ---
 
@@ -73,6 +86,13 @@ Puts the FHIRPath result into an item as its starting answer. The user can still
 
 Build order in this deck: **run the query → build the FHIRPath in fhirpath-lab → put it in the form → populate in Smart Forms.**
 
+<!--
+Four pieces, and every prepopulated item uses all four.
+Launch context says who the patient is; the query fetches data; FHIRPath picks the bit you want; initialExpression drops it into the item.
+The answer is only a starting value: the user can overwrite it.
+We'll go query first, then FHIRPath, then put it in the form, then run it.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 16px; }</style>
@@ -97,6 +117,12 @@ On the **root** of the Questionnaire (from `pathology-walkthrough.json`, reforma
 ```
 
 Expressions can now use `%patient` (the Patient resource), e.g. `%patient.id` is `pam-demo`.
+
+<!--
+This sits on the root of the Questionnaire, once per form.
+It's a declaration: the form needs a Patient called patient. The renderer or the EHR launch supplies it.
+After that, any expression in the form can use the percent-patient variable.
+-->
 
 ---
 
@@ -126,6 +152,12 @@ The second variable, `latestFerritin`, is the same with LOINC `2276-4` (Ferritin
 Observation?code=http://loinc.org|2276-4&patient={{%patient.id}}&_sort=-date&_count=1
 ```
 
+<!--
+The query lives on the top-level group, by our module convention, so every item inside can use it.
+It's a FHIR search URL with a placeholder for the patient id, filled in at populate time.
+Ferritin is the same query with a different LOINC code.
+-->
+
 ---
 
 ## Reading the query
@@ -143,6 +175,12 @@ Observation?code=http://loinc.org|718-7&patient={{%patient.id}}&_sort=-date&_cou
 | `_count=1` | only the first one, i.e. the latest |
 
 The result is a **Bundle** (type `searchset`). The variable `%latestHb` holds the whole Bundle, not the Observation.
+
+<!--
+Walk the query left to right.
+Point out sort newest-first plus count 1: that's how you ask for the latest result.
+Stress the last line: the variable is the whole Bundle, not the Observation. That's why the FHIRPath starts at entry.
+-->
 
 ---
 
@@ -162,6 +200,13 @@ It's the form's query for `pam-demo`, with `|` written as `%7C` and `&_format=js
 You should get a `searchset` Bundle with `"total": 2` and one entry, `Observation/pam-demo-hb-2`: value **104 g/L**, `effectiveDateTime` `2026-10-14T08:45:00+10:00`.
 
 `total` counts every match (2 Hb results); `_count=1` only limits what comes back.
+
+<!--
+Demo (guide section 2): in tab (d) paste the URL on the slide.
+Expect a searchset Bundle, total 2, one entry pam-demo-hb-2, 104 g/L, effectiveDateTime 2026-10-14T08:45:00+10:00.
+If you see 98 and 27 Oct, someone has done the write-back demo: rerun reset-demo.sh or just explain it.
+Fallback: img/prepop/01-query-in-browser.png.
+-->
 
 ---
 
@@ -188,6 +233,13 @@ Without it Meld sends XML, and Edge and Chrome **download a file** instead of sh
 **In the form, keep the `|`.** The Smart Forms playground we use encodes it for you. Other renderers may not: if prepopulation stays empty and the browser console shows a CORS error, this is why.
 
 **`pam-demo` is shared:** if someone has done the write-back demo you'll see their result (e.g. 98 g/L, 27 Oct) as the latest, and more than 2 results.
+
+<!--
+Two things that trip everyone up on Meld.
+A raw pipe gets a 400 with no body, and in an app that looks like a CORS error, which sends people down the wrong path.
+In the form itself keep the pipe: our playground build encodes it.
+The format=json bit is only for viewing in a browser.
+-->
 
 ---
 
@@ -218,6 +270,13 @@ Keep this tab open: you'll copy this JSON into fhirpath-lab next.
 
 </div>
 
+<!--
+Demo: stay on the Bundle in tab (d) and point at type, total, entry[0].resource, the date and valueQuantity.
+This is the structure the FHIRPath will walk.
+Keep the tab open; we copy this JSON next.
+Fallback: img/prepop/01-query-in-browser.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -234,6 +293,12 @@ Open **https://fhirpath-lab.com/FhirPath**. fhirpath-lab is for building and tes
 Engine: leave the default, **R4 / fhirpath.js**.
 
 Next four slides: one step at a time, from the Bundle down to the number.
+
+<!--
+Demo (guide section 3, Prepopulation step 1): click in the Bundle tab, Ctrl+A, Ctrl+C; in fhirpath-lab click in Test Resource JSON, Ctrl+A, paste. Header changes to (local resource JSON).
+Leave Context Expression empty; engine stays R4 / fhirpath.js.
+Remind them: nothing runs until you press the play button or Ctrl+Enter.
+-->
 
 ---
 
@@ -258,6 +323,13 @@ Result: the Observation `pam-demo-hb-2` (the whole resource, under **RESULTS**).
 </div>
 
 </div>
+
+<!--
+Demo (guide section 3 step 2): type the expression on the slide title, press play.
+Result: the whole Observation pam-demo-hb-2.
+FHIRPath walks down the tree by name, and collections flow through without loops.
+Fallback: img/prepop/02-fhirpath-lab-entry-resource.png.
+-->
 
 ---
 
@@ -290,6 +362,12 @@ Result: a **Quantity**
 
 </div>
 
+<!--
+Demo (step 3): add .value, press play. Result: a Quantity, 104 g/L.
+Choice elements like value[x] are addressed without the type suffix, so valueQuantity is just value.
+Fallback: img/prepop/03-fhirpath-lab-value.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -315,6 +393,13 @@ This is the Hb answer.
 </div>
 
 </div>
+
+<!--
+Demo (step 4): add another .value, press play. Result: 104.
+Yes, value twice: the first is the Observation's value, the second is the Quantity's number.
+The item already carries the unit, so we only need the number.
+Fallback: img/prepop/04-fhirpath-lab-value-value.png.
+-->
 
 ---
 
@@ -344,6 +429,13 @@ Result: **`2026-10-14`** (String).
 
 </div>
 
+<!--
+Demo (step 5): type the date expression on the slide, press play. Result: 2026-10-14, a String.
+The Observation has a full date-time with time zone; a date item only wants the date part.
+Substring is the quick way; there are tidier ways, and that's a good thing to explore in A5.
+Fallback: img/prepop/05-fhirpath-lab-hb-date.png.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 16px; } table { font-size: 0.72em; }</style>
@@ -369,6 +461,13 @@ On item `pam-hb` (next to its unit extension):
   }
 }
 ```
+
+<!--
+Back in the form: what you tested on the raw Bundle becomes the same expression with the variable name in front.
+That's the whole translation from fhirpath-lab to the form.
+The extension sits on the item, beside its unit extension.
+initialExpression runs once, at populate time.
+-->
 
 ---
 
@@ -396,6 +495,13 @@ Open **https://aehrc.github.io/qh-connectathon/smart-forms/** → **GO TO PLAYGR
 
 </div>
 
+<!--
+Demo (guide section 4 steps 1-3): open the smart-forms link, GO TO PLAYGROUND. Gear, paste the Meld open endpoint, click ? to validate, SAVE URL AS SOURCE FHIR SERVER.
+Patient: Demi Formsdemo, the last of about 42 names; scroll. SAVE.
+Use our build, not smartforms.csiro.au: the public one can't reach Meld.
+Fallback: img/prepop/06 and 07.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -422,6 +528,13 @@ The header now says *Patient: Demi Formsdemo*.
 
 </div>
 
+<!--
+Demo (step 4): header now reads Patient: Demi Formsdemo.
+Click the forms-server box, type pathology-walkthrough, choose it; version 0.1.0 shows. BUILD FORM.
+The picker lists forms on the Meld open endpoint, so participants' own forms show up here once loaded.
+Fallback: img/prepop/08-playground-pick-form.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -446,6 +559,13 @@ The form renders **empty**: the playground doesn't prepopulate on Build.
 </div>
 
 </div>
+
+<!--
+Demo (step 5): the form comes up empty. That surprises people: the playground doesn't prepopulate on build.
+In a real launch the renderer would populate straight away.
+Then POPULATE, Pre-populate (Replace whole form).
+Fallback: img/prepop/09-playground-built.png.
+-->
 
 ---
 
@@ -475,6 +595,13 @@ The external lab group stays empty: that's for the Write-back deck.
 
 </div>
 
+<!--
+Demo (step 6): Hb 104, ferritin 18, date 14/10/2026: the same values we got in fhirpath-lab.
+That's the payoff: query, FHIRPath, initialExpression, and the form fills itself.
+The external lab group stays empty; that's the write-back deck.
+Fallback: img/prepop/10-playground-prepopulated.png.
+-->
+
 ---
 
 ## In a real EHR: launch the form
@@ -484,6 +611,13 @@ The playground's settings dialog stands in for an EHR: it sets `%patient` withou
 - **Real use:** the EHR **launches Smart Forms as a SMART app with a patient selected**, and the launch sets `%patient`. Meld can launch our Smart Forms build, and a launch scenario's Custom Context `questionnaire` picks the form: see `Demo-Environment.md` (Meld launch scenarios), or ask a track lead.
 - **The form doesn't change:** same launchContext, queries and expressions. Only where `%patient` comes from is different.
 - **Other FHIR servers:** the public playground **https://smartforms.csiro.au/playground** may not encode `|`, and it **can't reach Meld** (Meld's CORS check rejects its requests). For Meld, use our build.
+
+<!--
+The settings dialog is a stand-in for an EHR launch.
+In real use the EHR launches Smart Forms as a SMART app with the patient, which is exactly the SMART apps deck.
+The form itself doesn't change between the two; only where the patient comes from.
+Not demoed live; point people at Demo-Environment.md if they want to try a Meld launch.
+-->
 
 ---
 
@@ -503,6 +637,12 @@ Same FHIRPath, but **recalculated whenever the answers it uses change** (`initia
 
 `%weightKg` and `%heightCm` are **shared variables on the root form** (`questionnaires/pam-root.json`), read from the `pam-weight` and `pam-height` answers. Names must be unique across modules. See "Conventions" in `questionnaires/README.md`.
 
+<!--
+Same FHIRPath machinery, different timing: recalculated whenever its inputs change.
+BMI is the classic example, from the Patient Details module.
+Shared variables live on the root form, so names must be unique across modules: check the conventions before you add one.
+-->
+
 ---
 
 ## Gotchas
@@ -514,6 +654,12 @@ Same FHIRPath, but **recalculated whenever the answers it uses change** (`initia
 - **Playground:** the form is empty until **POPULATE → Pre-populate**. For Meld use our build, not `smartforms.csiro.au/playground`.
 - **Dates:** `effectiveDateTime` has a time and zone; a `date` item needs only `YYYY-MM-DD`.
 - **Empty field?** Check the patient has that Observation: run the query in the browser first.
+
+<!--
+A recap people can come back to; don't read it all out.
+The two that cost most time: the pipe on Meld, and forgetting to press play in fhirpath-lab.
+If a field stays empty, run the query in the browser first: usually the patient just has no such Observation.
+-->
 
 ---
 
@@ -554,3 +700,10 @@ Pathway classification as `calculatedExpression`s over the pathology values and 
 Start from `decks/examples/pathology-walkthrough.json`. Paths are under `2026-10-29/1-FHIR-For-Users/` in [github.com/aehrc/qh-connectathon](https://github.com/aehrc/qh-connectathon). Test queries in the browser, expressions in [fhirpath-lab.com](https://fhirpath-lab.com), forms in the [playground](https://aehrc.github.io/qh-connectathon/smart-forms/). Next deck: **Write-back**.
 
 </div>
+
+<!--
+A1 is the gentle start: same pattern on Patient fields plus height and weight, and a calculated BMI.
+A5 extends today's form toward the real module.
+A6 is the hard one: decision support as calculated expressions.
+Then on to Write-back, or break here.
+-->

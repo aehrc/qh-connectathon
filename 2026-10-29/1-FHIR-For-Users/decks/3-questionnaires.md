@@ -29,6 +29,12 @@ style: |
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 
+<!--
+This is where the forms story starts: we build the definition of a form before we fill it in or write anything back.
+Prepopulation and write-back build on exactly this form, so it's worth following even if you know Questionnaires.
+Apps people: you've already split off; this deck is for the forms cohort.
+-->
+
 ---
 
 <style scoped>table { font-size: 0.72em; }</style>
@@ -53,6 +59,12 @@ A cut-down **Pathology results** form: the start of the forms story. Prepopulati
 Target file: `decks/examples/pathology-walkthrough-stage1.json`. The linkIds are the real `pam-pathology` module's, so what you learn here carries over to the A-strand modules.
 
 </div>
+
+<!--
+One small form: a pathology group with Hb, ferritin and a date, plus a repeating group for results from an external lab.
+It's deliberately tiny, but it touches the item types we'll need later: decimals with units, a date, a coded choice, a repeating group.
+The linkIds are the real module's, so when you move on to the A strand nothing has to be renamed.
+-->
 
 ---
 
@@ -110,6 +122,12 @@ Its `questionnaire` names the form by canonical `url|version`: `.../pathology-wa
 
 </div>
 
+<!--
+Two resources, easy to mix up: the Questionnaire is the blank form, written once; the QuestionnaireResponse is one filled-in copy.
+They line up item by item through the linkId. That's the single most important idea for everything after this.
+The response points back at the form by canonical URL and version, which is why identity matters (two slides on).
+-->
+
 ---
 
 <style scoped>table { font-size: 0.66em; } td, th { padding: 3px 10px; }</style>
@@ -133,6 +151,12 @@ Its `questionnaire` names the form by canonical `url|version`: `.../pathology-wa
 Pick **linkIds that mean something** (`pam-hb`, not `1.1`): prepopulation, calculations and write-back all find items by linkId.
 
 </div>
+
+<!--
+Every item is the same small set of fields. You'll set most of these in the builder in a minute.
+Extensions are where the interesting SDC behaviour lives: units today, prepopulation and extraction in the next two decks.
+Pick meaningful linkIds; every expression we write later finds items by linkId.
+-->
 
 ---
 
@@ -158,6 +182,12 @@ Pick **linkIds that mean something** (`pam-hb`, not `1.1`): prepopulation, calcu
 
 </div>
 
+<!--
+Run through quickly; this is a reference table. The bold rows are the ones in our form.
+Watch the naming: R4 says choice, R5 and NLM Form Builder say coding. Smart Forms and Meld are R4.
+The Storybook link renders every type if you want to see them live.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 15px; } li { font-size: 0.8em; }</style>
@@ -182,6 +212,12 @@ The top of `pathology-walkthrough-stage1.json` (`description` and `publisher` le
 - **`id`** is only where it sits on one server: `.../open/Questionnaire/pathology-walkthrough-stage1`.
 - `title` is for people, `name` for computers. Bump `version` when you change linkIds.
 
+<!--
+The canonical URL plus version is the form's real identity: responses, modules and Smart Forms all look forms up that way.
+The id is just where it happens to live on one server, so the same form can have different ids on different servers.
+If you change linkIds, bump the version: existing responses depend on the old ones.
+-->
+
 ---
 
 <!-- _class: section -->
@@ -192,6 +228,12 @@ The top of `pathology-walkthrough-stage1.json` (`description` and `publisher` le
 `https://formbuilder.nlm.nih.gov/`: free, in the browser, no login. Exports FHIR R4 JSON.
 
 About 10 minutes live. Every step is on the next slides, with what you should see.
+
+<!--
+Switch to the browser now: tab (a), NLM Form Builder, already past the terms dialog (accept LOINC once per profile beforehand, guide section 1 First use).
+About ten minutes live. The next slides repeat every step, so people can catch up afterwards.
+If it offers to start from where you left off, choose Start from scratch.
+-->
 
 ---
 
@@ -222,6 +264,12 @@ Optional: **Dismiss** the yellow NIH banner.
 
 </div>
 
+<!--
+Free, browser-only, no login. It's NLM's builder, the same LHC Forms engine behind lots of US forms work.
+The terms dialog appears once per browser profile; LOINC is enough for us, SNOMED is optional.
+Cue: guide section 1, First use in a browser. Fallback screenshot: img/questionnaires/01-lhc-terms.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -247,6 +295,12 @@ Optional: **Dismiss** the yellow NIH banner.
 </div>
 
 </div>
+
+<!--
+Start from scratch, give it a title, leave status as draft.
+We leave URL empty on purpose so you can see what the export looks like without identity; the next deck's files add it.
+Cue: guide section 1, steps 1 and 2. Fallback screenshot: img/questionnaires/10-lhc-new-form.png.
+-->
 
 ---
 
@@ -279,6 +333,12 @@ The builder adds *Item 0* and selects it:
 
 </div>
 
+<!--
+First the group, then Hb as a child of it. Open Advanced fields once; it stays open for the rest.
+Type the unit and press Tab; don't pick from the drop-down (next slide says why).
+Cue: guide section 1, steps 3 and 4. Fallback screenshot: img/questionnaires/11-lhc-item-editor.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -302,6 +362,12 @@ The builder adds *Item 0* and selects it:
 </div>
 
 </div>
+
+<!--
+Two traps that will bite later. Random numeric Link Ids: type ours on every item or prepopulation and write-back won't find them.
+The units drop-down's first match is lower-case g/l: valid UCUM, but it won't match the Observations.
+Point at the Extensions table: the unit became a questionnaire-unit extension. Fallback screenshot: img/questionnaires/12-lhc-link-id.png.
+-->
 
 ---
 
@@ -331,6 +397,12 @@ Each time: **…** on the item above → **Insert a new item after this**.
 
 </div>
 
+<!--
+Three siblings: ferritin, the date, then the external-lab group. Every time, the three-dot menu on the item above, Insert a new item after this.
+Allow repeating question Yes is what makes the whole group repeat; leave the repeat count range alone.
+Cue: guide section 1, steps 5 to 7. Fallback screenshot: img/questionnaires/14-lhc-repeating-group.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -359,6 +431,12 @@ Each time: **…** on the item above → **Insert a new item after this**.
 
 </div>
 
+<!--
+Now a child inside the repeating group: Test, data type coding, which exports as choice in R4.
+Two answer options with the LOINC system: 718-7 for Hb, 2276-4 for ferritin. The System box is a combo box; just type.
+Cue: guide section 1, step 8. Fallback screenshot: img/questionnaires/13-lhc-answer-options.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -384,6 +462,12 @@ Each time: **…** on the item above → **Insert a new item after this**.
 </div>
 
 </div>
+
+<!--
+Last two children, Result and Collected, then Preview to see it rendered.
+Show the units, the Test drop-down, and the plus button that adds another external result. Dates are US style here.
+Cue: guide section 1, steps 9 to 11. Fallback screenshot: img/questionnaires/15-lhc-preview.png.
+-->
 
 ---
 
@@ -412,6 +496,12 @@ Smart Forms and Meld are **R4**: don't pick R5.
 </div>
 
 </div>
+
+<!--
+Export, FHIR R4 format. It downloads Pathology-results.R4.json, named after the title.
+Don't pick R5; our tools are R4.
+Cue: guide section 1, step 12. Expected content matches examples/lhc-export-stage1.json. Fallback screenshot: img/questionnaires/16-lhc-export-menu.png.
+-->
 
 ---
 
@@ -472,6 +562,12 @@ The start of the real export, `examples/lhc-export-stage1.json`: the top, and th
 
 No `id`, `url` or `version`: we only typed a title. The `item` tree is the same as the stage 1 file's, apart from the unit `display`.
 
+<!--
+This is the real export from those steps, trimmed. Point at meta.profile at the top, and no id, url or version, because we only typed a title.
+The unit display is the UCUM name, gram per liter, not g/L.
+Otherwise the item tree is the same as our stage 1 file.
+-->
+
 ---
 
 <style scoped>table { font-size: 0.62em; } td, th { padding: 3px 10px; } li { font-size: 0.75em; }</style>
@@ -490,6 +586,12 @@ No `id`, `url` or `version`: we only typed a title. The `item` tree is the same 
 - **Unit display** is the UCUM name. The Display box is a search box, so edit the JSON if you want `g/L`.
 - **Don't click *Run Validation*** (Preview → *View/Validate Questionnaire JSON*): it fails on the builder's own `meta.profile` (*Failed to retrieve profile*). The form is fine: Meld's `Questionnaire/$validate` only warns (no narrative, no `name`).
 - The builder keeps your form in the browser and offers it back next time.
+
+<!--
+The differences are all at the top of the file, not in the items: identity fields, the title and the unit display text.
+Warn them: don't click Run Validation in the builder; it fails on the builder's own profile, not on your form. Meld only warns.
+The builder remembers your form in the browser, handy for picking up later.
+-->
 
 ---
 
@@ -517,6 +619,12 @@ Import then export R4 gives the same JSON, plus `meta.profile`.
 
 </div>
 
+<!--
+If the live build runs long or the site has changed, import the finished file instead.
+Start with existing form, Import from local file, then pick examples/pathology-walkthrough-stage1.json.
+Cue: guide section 1, Fallback. Screenshot: img/questionnaires/17-lhc-import-existing.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -542,6 +650,12 @@ You should see *Pathology results*, units *gram per liter* / *microgram per lite
 </div>
 
 </div>
+
+<!--
+Now show the same form in a different renderer: our Smart Forms playground. Same JSON, different look; that's the point of a standard.
+Cue: tab (b), the patched playground on GitHub Pages; paste the export into the JSON editor, BUILD FORM (guide section 4, Alternative to step 4).
+Fallback screenshot: img/questionnaires/03-playground-lhc-export.png.
+-->
 
 ---
 
@@ -571,6 +685,12 @@ Use this playground, not `smartforms.csiro.au/playground`: the public one can't 
 
 </div>
 
+<!--
+The stage 1 form is already on the Meld open endpoint, which is this playground's forms server, so you can pick it by name.
+Use our playground, not the public one: the public one can't read from Meld.
+Cue: pick pathology-walkthrough-stage1, BUILD FORM. Fallback screenshot: img/questionnaires/02-playground-stage1.png.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 14px; } p, li { font-size: 0.72em; }</style>
@@ -597,6 +717,11 @@ curl -X PUT "https://gw.interop.community/QHConnectathon2026/open/Questionnaire/
 - The `id` in the URL and in the file must match.
 - **Pick an id nobody uses.** A PUT to an existing id (`pam-*`, `pathology-walkthrough*`) overwrites the shared forms everyone uses.
 - Check it: `https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-team-x?_format=json`
+
+<!--
+Skip live: mention it's here for reading back.
+One sentence if asked: give your form your own id, url and version before you PUT it, and never reuse an existing id, or you overwrite everyone's shared form.
+-->
 
 ---
 
@@ -644,6 +769,12 @@ In the builder: **Advanced fields** → *Conditional method* → **enableWhen co
 
 </div>
 
+<!--
+Optional if there's time. enableWhen shows an item only when another answer matches; here, Result appears once a Test is chosen.
+Disabled items are usually hidden and left out of the response, which matters for write-back.
+Not in the guide's walkthrough: show the two screenshots rather than building it live. A2 and A4 lean on this heavily.
+-->
+
 ---
 
 <style scoped>table { font-size: 0.66em; } td, th { padding: 4px 10px; }</style>
@@ -662,6 +793,11 @@ In the builder: **Advanced fields** → *Conditional method* → **enableWhen co
 | `templateExtract` on `pam-ext`, a contained Observation template | write the external result back | Write-back deck |
 | `assemble-expectation` = `assemble-child` | it's a module of the root form | next slide |
 | `pam-pathology-todo` (`display`) | the 🚧 box pointing at scenario A5 | |
+
+<!--
+Skip live: mention it's here for reading back.
+If asked: the real pam-pathology module is the same tree plus identity, more tests, prepopulation and extraction, which the next two decks add.
+-->
 
 ---
 
@@ -708,6 +844,11 @@ From `questionnaires/README.md`:
 
 </div>
 
+<!--
+Skip live: mention it's here for reading back.
+If asked: everything starts with pam-, linkIds must be unique across modules because assembly merges them into one form.
+-->
+
 ---
 
 <style scoped>li { font-size: 0.8em; } pre, pre code { font-size: 16px; }</style>
@@ -728,6 +869,11 @@ npm run build      # python3 build.py && node assemble.mjs
 
 - `load.sh` replaces every PAM module on Meld for everyone: pull `main` first and coordinate with a track lead, or pass your own server (`./load.sh <base>`).
 - Built something in NLM Form Builder? Export R4 and copy your items into your module in `build.py`, with linkIds that follow the conventions.
+
+<!--
+Skip live: mention it's here for reading back.
+The one thing to say out loud: the module JSON files are generated by build.py, so edit build.py, and coordinate before running load.sh because it replaces the shared modules.
+-->
 
 ---
 
@@ -793,3 +939,9 @@ Start from scratch in NLM Form Builder.
 Every module: `questionnaires/build.py` and `questionnaires/README.md`; this deck's form: `decks/examples/pathology-walkthrough-stage1.json`. Paths are under `2026-10-29/1-FHIR-For-Users/` in [github.com/aehrc/qh-connectathon](https://github.com/aehrc/qh-connectathon). Build in [NLM Form Builder](https://formbuilder.nlm.nih.gov/), render in the [playground](https://aehrc.github.io/qh-connectathon/smart-forms/), item types in [Storybook](https://smartforms.csiro.au/storybook). Next deck: **Prepopulation**.
 
 </div>
+
+<!--
+These are the A-strand scenarios that only need what we just covered: start with a one-star one if you're new to this.
+A5 extends exactly the form we built. A10 is the hard one: assembling every module into the full PAM form.
+Next deck: Prepopulation, filling this form in from the patient's record.
+-->

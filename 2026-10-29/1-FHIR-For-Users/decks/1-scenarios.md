@@ -15,6 +15,12 @@ title: Track 1 scenarios
 FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 
+<!--
+Thanks, Leon. That's the problem; now what you can do about it over two days.
+This deck is the menu: about 10 minutes. Then four short technical decks to get you started.
+Everything here is on GitHub, so you can read it back later. Don't take notes.
+-->
+
 ---
 
 ## Four strands, one PAM case
@@ -29,6 +35,13 @@ Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 Levels: ★ good first task, ★★ some FHIR experience, ★★★ hard.
 
 Day 1: build. Day 2: assemble the modules into one PAM form and feed the apps.
+
+<!--
+Four strands, all on the same PAM case, so the pieces fit together on day 2.
+Pick by who you are, not by what sounds impressive: the right-hand column is the guide.
+Stars are about FHIR experience, not about how useful the work is. A one-star module is a real contribution.
+Day 1 build, day 2 assemble: forms become one PAM form, and the apps read what the forms write.
+-->
 
 ---
 
@@ -82,6 +95,13 @@ Pathway classification as calculated expressions. Writes Condition, Flag and Goa
 
 </div>
 
+<!--
+Strand A: each team takes one module of the PAM form and makes it a proper SDC questionnaire.
+A1 and A2 are the gentlest start: prepopulate from the record, write a little back.
+A5 Pathology is the running example in the forms decks, so it's a good pick if you want to follow along closely.
+A6 is the hard one: decision support as calculated expressions, writing Condition, Flag and Goal.
+-->
+
 ---
 
 ## Strand A: Questionnaire modules (2 of 2)
@@ -124,6 +144,13 @@ Plain-language questions. The response is what the nurse's forms pre-populate fr
 </div>
 
 </div>
+
+<!--
+A7 is the Ganzoni iron dose calculation: fiddly maths, satisfying when it works.
+A8 and A9 are good next steps after a one-star module.
+A10 is the integration job: assembling all the modules into one form. Best for someone who likes plumbing; it depends on the others.
+A11 flips it round: a form the patient fills in, which the nurse's forms then prepopulate from.
+-->
 
 ---
 
@@ -177,6 +204,13 @@ Initial vs post-treatment Hb and ferritin, by sex: the main clinical outcome.
 
 </div>
 
+<!--
+Strand B: the current dashboard rebuilt as SMART apps against the same synthetic data.
+B1 is the per-patient view and the natural first app; the SMART deck builds the start of it live.
+B3 and B5 are one-star: counts and breakdowns over the population, starting from our pam-dashboard app.
+B6 Outcomes is the clinical headline: did Hb go up after treatment?
+-->
+
 ---
 
 ## Strand B: SMART apps (2 of 2)
@@ -207,6 +241,12 @@ SQL on FHIR ViewDefinitions (Pathling), Bulk `$export`, or Measure and MeasureRe
 </div>
 
 Per-patient views (B1) use an EHR launch. Population views (B2–B8) read with `user/*.read`; on Meld they launch from the launcher with any patient selected (standalone is part of B9).
+
+<!--
+B7 and B8 round out the dashboard; B8's shared filters make the others reusable.
+B9 is the stretch goal: analytics without a BI tool, via ViewDefinitions, Bulk export or Measure.
+One practical point: population apps launch from Meld with any patient selected and read with user scope. The SMART deck covers this.
+-->
 
 ---
 
@@ -260,6 +300,12 @@ SNOMED subsumption queries that local dropdown values can't answer.
 
 **Strand D needs a REDCap instance with external modules** (PHP 8, REDCap 8.8.1+). Instance not confirmed yet. If none: D1 is a leads' demo and D3 uses Smart Forms only.
 
+<!--
+C is for teams that finish: C1 closes the loop from a form to the dashboard; C2 is critiquing our mapping, which we'd really like.
+D is the REDCap strand, for people who run PAM-style registries in REDCap today.
+Say plainly: the REDCap instance isn't confirmed. If it doesn't appear, D1 becomes a demo by us and D3 uses Smart Forms only.
+-->
+
 ---
 
 ## Shared conventions and mapping
@@ -270,6 +316,13 @@ One mapping, or the forms won't feed the apps.
 - **Module conventions:** linkIds start `pam-`; pre-population queries sit on the module's top-level group; **shared variables live on the root form** and names must be unique, or `$assemble` rejects them; extraction is template-based.
 
 Files in the repo: `FHIR-Mapping-DRAFT.md` and `questionnaires/README.md` (under `2026-10-29/1-FHIR-For-Users/`).
+
+<!--
+This is the slide that stops day 2 from falling apart.
+Everyone maps to the same resources and codes, or the forms won't feed the apps.
+The module conventions matter for A10: linkIds start with pam-, shared variables live on the root form, and names must be unique.
+If you disagree with the mapping, great: that's C2. Tell us rather than quietly doing it differently.
+-->
 
 ---
 
@@ -295,6 +348,13 @@ Files in the repo: `FHIR-Mapping-DRAFT.md` and `questionnaires/README.md` (under
 
 Synthetic patients `pam-001`..`pam-040`; demo patient `pam-demo`. SMART app client IDs: ask Jim.
 
+<!--
+Everything you need is on this slide, and in the repo README.
+Open endpoint: no login, for testing and for the forms. Secured endpoint: what SMART apps use, with a token.
+The Smart Forms on our GitHub Pages is patched to work with Meld; use it rather than the public one.
+Client IDs for SMART apps come from me: the SMART deck shows what to send.
+-->
+
 ---
 
 ## Pick a scenario, form a team
@@ -306,6 +366,13 @@ Synthetic patients `pam-001`..`pam-040`; demo patient `pam-demo`. SMART app clie
 
 Post-lunch tip: a team that finishes can take C1.
 
+<!--
+Pick one scenario. A one-star is a fine choice.
+Teams of two to four; mixing an A and a B is good, because the app can show what the form wrote.
+Tell one of us which you've picked, so we know who to check on.
+If you finish early, C1 is waiting.
+-->
+
 ---
 
 <!-- _class: section -->
@@ -316,3 +383,9 @@ Post-lunch tip: a team that finishes can take C1.
 2. **Questionnaires**, then **Prepopulation**, then **Write-back**
 
 **Show and tell: 3:30 pm Friday**
+
+<!--
+Next: the SMART apps deck. After it, the apps people can go and start.
+Forms people stay for Questionnaires, Prepopulation and Write-back.
+Show and tell is 3:30 Friday: aim for something small that works over something big that doesn't.
+-->

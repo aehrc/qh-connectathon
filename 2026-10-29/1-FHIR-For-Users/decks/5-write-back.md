@@ -28,6 +28,12 @@ style: |
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 
+<!--
+Last of the forms decks. Prepopulation read data into the form; now the form writes data back to the server.
+By the end you'll have seen a typed-in result become an Observation, then come back the next time the form pre-populates.
+Before starting: run examples/reset-demo.sh so pam-demo has only the baseline Hb (104).
+-->
+
 ---
 
 ## Where we are
@@ -40,6 +46,12 @@ This deck goes the other way: a result the nurse **types in** (from an external 
 - Demo patient: **Demi Formsdemo**, `pam-demo` (synthetic): latest Hb **104 g/L** (14 Oct 2026)
 - We'll enter an external Hb of **98 g/L** collected **27 Oct 2026**
 - FHIR server: Meld open endpoint `https://gw.interop.community/QHConnectathon2026/open`
+
+<!--
+Same form and same patient as the Prepopulation deck, so nothing new to load.
+The story: a nurse gets a result from an outside lab and types it in. We want that to land in the record, not just sit in the QuestionnaireResponse.
+Remember the numbers: 104 on 14 Oct now, 98 on 27 Oct after write-back.
+-->
 
 ---
 
@@ -81,6 +93,12 @@ The app POSTs the Bundle to the server base URL. The server creates the Observat
 - The **app** (Smart Forms) runs the extract and sends the Bundle ("write back").
 - SDC also defines **Observation-based**, **definition-based** and **StructureMap-based** extract. We use **templates**: what you write is what comes out.
 
+<!--
+Read the four boxes left to right: answers, extract, Bundle, server.
+The key idea: the form carries the knowledge of what to make. Smart Forms has no code that knows about Hb.
+We use template-based extract because the template looks like the resource you'll get, which makes it the easiest to read and debug.
+-->
+
 ---
 
 <style scoped>p, li { font-size: 0.9em; }</style>
@@ -105,6 +123,12 @@ On the repeating group `pam-ext` (from `pathology-walkthrough.json`, reformatted
 
 - `#PAMExternalResultTemplate` points at a resource in the Questionnaire's **`contained`** list.
 - `repeats: true`: the nurse can add several results. **Each repeat makes one Observation.**
+
+<!--
+Two things on the group: the templateExtract extension pointing at a contained resource, and repeats.
+The # means 'look in this Questionnaire's contained list'.
+One repeat makes one Observation; three results typed in give three Observations.
+-->
 
 ---
 
@@ -134,6 +158,11 @@ In the Questionnaire's `contained` list. Answer-dependent parts carry a **`templ
 }
 ```
 
+<!--
+This is an ordinary Observation with holes in it. Fixed parts (status, category) are just written in.
+The parts that come from answers carry an extension holding a FHIRPath expression.
+Code comes from the chosen test, subject from the QR, date from the Collected answer. Value and unit are next.
+-->
 
 ---
 
@@ -156,6 +185,12 @@ In the Questionnaire's `contained` list. Answer-dependent parts carry a **`templ
 
 - `system` is fixed (UCUM). `_code` gives the UCUM code (`ug/L`), `_unit` the display (`µg/L`): they differ only for ferritin.
 - The unit comes from the **chosen test**, so the Result field in the form has no unit of its own.
+
+<!--
+The unit is the fiddly bit: it depends on which test was chosen, so it's a nested iif.
+Code and unit differ only for ferritin: UCUM code ug/L, display µg/L.
+That's why the Result field has no unit in the form: the template decides it.
+-->
 
 ---
 
@@ -194,6 +229,12 @@ In FHIR JSON a **primitive** (string, decimal, code, dateTime...) can't hold an 
 - A **complex** element (a `Coding`) takes the extension directly: `"coding": [ { "extension": [...] } ]`. The answer's whole Coding replaces it.
 - The extract removes the `templateExtractValue` extensions and fills in the values.
 
+<!--
+This is the bit that trips people up in FHIR JSON. A primitive like a decimal can't carry an extension itself.
+So the extension sits on a sibling property with an underscore: value becomes _value.
+Complex types like Coding can hold the extension directly. After the extract, the extensions are gone and the real values are in place.
+-->
+
 ---
 
 ## How the extract runs
@@ -206,6 +247,12 @@ For **each repeat** of the group that has the `templateExtract`:
 4. Add the result to a **transaction Bundle** as an entry with `request: { method: POST, url: Observation }`.
 
 Next: check each of these in fhirpath-lab before the form ever runs.
+
+<!--
+Four steps per repeat: copy, evaluate, replace, add to the Bundle.
+Context matters: expressions run against the repeat, but %resource is the whole QR. That's how we get the subject.
+An expression that returns nothing just drops that element. That's handy, but it also hides mistakes, so test first.
+-->
 
 ---
 
@@ -223,6 +270,13 @@ Open **https://fhirpath-lab.com/FhirPath** (only for testing expressions; the ex
    ```
    The `pam-ext` repeat, as in the extract. Results show *Context: QuestionnaireResponse.item[0].item[3]*.
 3. **Fhirpath Expression**: paste one template expression at a time, then **▶** (top right) or **Ctrl+Enter**. **Results don't update as you type.** `%resource` is the pasted QR. Engine: default **R4 / fhirpath.js**.
+
+<!--
+Switch to the browser, tab with fhirpath-lab. We only use it to test expressions; the real extract happens in Smart Forms.
+The context expression stands in for what the extract does: it points at the pam-ext repeat.
+Cue: Presenter Guide §3 'Write-back', steps 1–2. Paste examples/sample-qr.json into Test Resource JSON (Ctrl+A first), then the context expression from the slide. Expect 'Context: QuestionnaireResponse.item[0].item[3]'.
+Remember results only update on ▶ or Ctrl+Enter (Surprises 6).
+-->
 
 ---
 
@@ -254,6 +308,12 @@ What Smart Forms makes for our answers (`examples/sample-qr.json`, compacted):
 ```
 
 The `pam-ext` repeat is `item[0].item[3]`: that's what the context expression finds. Or copy [`examples/sample-qr.json`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/decks/examples/sample-qr.json) from GitHub (Raw).
+
+<!--
+This is what Smart Forms produces for our answers, compacted to fit. Participants can copy it from GitHub (Raw).
+Point at pam-ext: item[0].item[3]. That's what the context expression found.
+No need to read it all out; it's here so people can reference it later.
+-->
 
 ---
 
@@ -289,6 +349,12 @@ It becomes `code.coding[0]` of the Observation.
 
 </div>
 
+<!--
+First expression: the test. The answer is a whole Coding, and it replaces the coding in the template as-is.
+Cue: Guide §3 step 3, row 1. Paste the code expression, ▶. Expect a Coding with LOINC 718-7, Haemoglobin (Hb).
+Fallback screenshot: img/writeback/01-fhirpath-lab-ext-code.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -316,6 +382,12 @@ It becomes `valueQuantity.value`.
 </div>
 
 </div>
+
+<!--
+Same pattern, different linkId. We get 98 as a decimal.
+The value shortcut finds valueDecimal for us, just like value[x] in the Prepopulation deck.
+Cue: Guide §3 step 3, row 2. Expect 98. Fallback: img/writeback/02-fhirpath-lab-ext-value.png.
+-->
 
 ---
 
@@ -346,6 +418,12 @@ Hb → g/L, ferritin → µg/L, TSAT `2502-3` → %, else mg/L (as in the real m
 
 </div>
 
+<!--
+The long one. Paste it, don't type it. It's a lookup from LOINC code to UCUM unit.
+In a real system you might use a ConceptMap or a unit on the answer option; nested iif is simple and works today.
+Cue: Guide §3 step 3, row 3. Expect g/L. Fallback: img/writeback/03-fhirpath-lab-ext-unit.png.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -371,6 +449,11 @@ The answer is a FHIR `date`; `.toString()` gives the text to put into `effective
 </div>
 
 </div>
+
+<!--
+The answer is a FHIR date. toString gives text we can drop into effectiveDateTime; a date alone is a valid dateTime.
+Cue: Guide §3 step 3, row 4. Expect 2026-10-27. Fallback: img/writeback/04-fhirpath-lab-ext-date.png.
+-->
 
 ---
 
@@ -398,6 +481,13 @@ It becomes `subject.reference`. The QR's subject is the patient the form was fil
 
 </div>
 
+<!--
+This one doesn't use the context at all: %resource reaches up to the whole QR.
+The QR's subject is the patient the form was filled for, so the Observation goes to the right patient.
+Cue: Guide §3 step 3, row 5. Expect "Patient/pam-demo". Fallback: img/writeback/05-fhirpath-lab-ext-subject.png.
+If fhirpath-lab misbehaves, make verify runs the same expressions locally.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -413,6 +503,13 @@ Same steps as the Prepopulation deck. Open **https://aehrc.github.io/qh-connecta
 4. **POPULATE ▾** → **Pre-populate (Replace whole form)**: Hb **104**, ferritin **18**, date **14/10/2026**.
 
 Write-back goes to the same Source FHIR server. The public **https://smartforms.csiro.au/playground** works for other servers but **can't reach Meld** (CORS).
+
+<!--
+Now switch to the Smart Forms playground tab. If it's still set up from the Prepopulation deck, skip straight to step 4.
+Use our patched build, not smartforms.csiro.au: the public one can't reach Meld (Surprises 1).
+Cue: Guide §4 steps 1–6. Gear → Source FHIR Server URL → ? → SAVE URL; patient Demi Formsdemo (last in the list) → SAVE; pick pathology-walkthrough → BUILD FORM; POPULATE → Pre-populate. Expect Hb 104, ferritin 18, 14/10/2026.
+Fallback screenshots: img/prepop/06–10.
+-->
 
 ---
 
@@ -442,6 +539,13 @@ Under *Results from an external lab*:
 
 </div>
 
+<!--
+Scroll to Results from an external lab and type in the outside result.
+Note there's no unit on Result; the template works it out from the test.
+Cue: Guide §4 step 7. Test Haemoglobin (Hb), Result 98, Collected 27/10/2026 (DD/MM/YYYY). Fallback: img/writeback/06-playground-filled.png.
+Optionally show + ADD ITEM to make the point that each repeat becomes its own Observation, then remove it.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -468,6 +572,12 @@ The **QR** tab next to it shows the QuestionnaireResponse (same answers as `samp
 </div>
 
 </div>
+
+<!--
+Run the extract. Nothing goes to the server yet; this only builds the Bundle.
+Cue: Guide §4 steps 8–9. EXTRACT ▾ → Template-based $extract; snackbar 'Successful template-based extraction'. Then ADVANCED PROPS → EXTRACT tab → TemplateExtractResult.
+Expect one POST Observation, 98 g/L, 2026-10-27. Fallback: img/writeback/08-playground-extracted-bundle.png.
+-->
 
 ---
 
@@ -496,6 +606,12 @@ The **QR** tab next to it shows the QuestionnaireResponse (same answers as `samp
 
 The values fhirpath-lab gave; no `templateExtractValue` left. Two repeats → two entries.
 
+<!--
+Walk through the result: every value is what fhirpath-lab gave us a few slides ago, and the extensions are gone.
+It's a transaction Bundle of POSTs, so the server creates new resources.
+If write-back fails in the next step, stop here: this Bundle is the point; write-back is just a POST of it.
+-->
+
 ---
 
 <!-- _class: demo -->
@@ -522,6 +638,12 @@ The playground POSTs the Bundle to the Source FHIR server; the Observation gets 
 </div>
 
 </div>
+
+<!--
+Now send it. The playground POSTs the Bundle to the Source FHIR Server from the gear settings.
+Cue: Guide §4 step 10. REVIEW WRITE BACK ITEMS (bottom right) → dialog shows Haemoglobin (Hb), Observation, new → WRITE BACK (1 ENTRY). Expect the 'successful' snackbar.
+Fallback: img/writeback/09-playground-write-back-dialog.png and 10-playground-write-back-ok.png.
+-->
 
 ---
 
@@ -553,6 +675,13 @@ What the form wrote, the form reads back.
 
 </div>
 
+<!--
+The payoff. Pre-populate again and the form picks up what it just wrote.
+Ferritin stays 18 because we only wrote an Hb.
+Cue: Guide §4 step 11. POPULATE ▾ → Pre-populate. Expect Hb 98, date 27/10/2026. Fallback: img/writeback/11-playground-close-the-loop.png.
+Afterwards run examples/reset-demo.sh (Guide §4 step 12), or the next demo starts with 98.
+-->
+
 ---
 
 ## Bigger templates in the real modules
@@ -581,6 +710,11 @@ Fixed status, intent and IV route; medication from the chosen product; dose (`do
 
 The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. A6 and A7 are starting points: test new expressions in fhirpath-lab first.
 
+<!--
+Same pattern scales up. A6 makes a Condition from the diagnosis choice, A7 a MedicationRequest for IV iron.
+These are the starting points for the write-back scenarios. A7's extract hasn't been run end to end in Smart Forms, so test new expressions in fhirpath-lab first.
+-->
+
 ---
 
 <style scoped>li { font-size: 0.86em; }</style>
@@ -595,6 +729,12 @@ The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our wa
 - **Playground:** the extract result is under **ADVANCED PROPS → EXTRACT → TemplateExtractResult**; write-back goes to the **Source FHIR Server** in the gear settings.
 - **Shared data:** the open endpoint and `pam-demo` are shared. Every write-back stays and can become everyone's "latest Hb".
 - **Nothing extracted?** Check the group has answers, the `template` reference resolves, and each expression returns a value in fhirpath-lab.
+
+<!--
+Pick the two or three that matter most: context, %resource, and the underscore.
+The question-versus-group one is a real bug we hit in A6: on a question the context is that item, so the code is just answer.value.
+Shared data: everyone's write-backs land on the same open endpoint and pam-demo, so expect other people's Hb values to show up.
+-->
 
 ---
 
@@ -659,3 +799,9 @@ Fill in A6/A7 in Smart Forms, extract the resources, and watch B4/B6 update.
 Start from `decks/examples/pathology-walkthrough.json` and `decks/examples/sample-qr.json`. Paths are under `2026-10-29/1-FHIR-For-Users/` in [github.com/aehrc/qh-connectathon](https://github.com/aehrc/qh-connectathon). Test expressions in [fhirpath-lab.com](https://fhirpath-lab.com), extract and write back in the [playground](https://aehrc.github.io/qh-connectathon/smart-forms/).
 
 </div>
+
+<!--
+Hand over to the room. A5 is the gentlest start, A6 and A7 are harder, C1 joins up with the apps teams.
+Everything they need is on GitHub; the decks stay up for the two days.
+Track leads are around to help; ask us for anything that needs Meld changes.
+-->

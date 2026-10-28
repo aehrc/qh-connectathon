@@ -35,6 +35,11 @@ style: |
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 
+<!--
+About 15 minutes. After this, the apps people can go and start; forms people stay.
+Before: logged in to Meld, sandbox QHConnectathon2026, in its own tab. The latest-Hb URL open in another tab.
+-->
+
 ---
 
 ## What you'll have by the end of this deck
@@ -47,6 +52,12 @@ Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 Forms people: **Smart Forms is itself a SMART app.** The launch context and token in this deck are what prepopulation runs on.
 
 Sandbox: Meld `QHConnectathon2026`. Secured endpoint (apps): `https://gw.interop.community/QHConnectathon2026/data`. Open endpoint (no login, for testing): `https://gw.interop.community/QHConnectathon2026/open`.
+
+<!--
+Four things you'll leave with. The hosting one is new: your app has to live somewhere Meld can reach it.
+Two starting points: the React starter for one patient, our dashboard for the population.
+Forms people: stay for this one. Smart Forms is a SMART app, and prepopulation runs on exactly this launch and token.
+-->
 
 ---
 
@@ -88,6 +99,12 @@ Every request carries `Authorization: Bearer <token>`. Reads are limited by the 
 
 Endpoints come from `https://gw.interop.community/QHConnectathon2026/data/.well-known/smart-configuration`.
 
+<!--
+This is the whole of SMART on FHIR's EHR launch. Four steps, all in the browser.
+The key idea: the EHR tells your app which patient, via the launch parameter, and the token comes back with that patient.
+You won't write any of this: fhirclient's init does steps 2 and 3, then you just make requests.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 16px; }</style>
@@ -114,6 +131,12 @@ The token response (shape, values shortened):
 | `client.request("Observation?...")` | `GET <iss>/Observation?...` with the Bearer token |
 | `client.user.fhirUser` | the `id_token` (needs `openid fhirUser`) |
 
+<!--
+What fhirclient actually gets back. The patient field is the important one: that's the patient selected in Meld.
+The scope field shows what you were granted, which can be less than you asked for.
+The table maps it to the fhirclient calls you'll use in a moment.
+-->
+
 ---
 
 ## Meld: our EHR for the two days
@@ -127,6 +150,12 @@ Meld (`https://meld.interop.community`, sandbox **QHConnectathon2026**) plays th
 You **don't register apps yourself**: Jim registers yours and gives you a client ID (next slide).
 
 **Launch with a patient selected.** Without one, Meld's launcher stops on a blank page.
+
+<!--
+Meld is our pretend EHR: a FHIR server, a launcher and an authorization server.
+You don't register apps yourselves: I do. Next few slides cover how to get one.
+The one gotcha everyone hits: launch with a patient selected, or you get a blank page.
+-->
 
 ---
 
@@ -156,6 +185,13 @@ A public repo; every commit is published at `https://<you>.github.io/<repo>/`.
 
 Wherever it lives, you then send Jim its URLs for a client ID (*Get a client ID from Jim*). Step-by-step for the first two next.
 
+<!--
+Your app needs a public HTTPS address, because Chrome blocks a jump from Meld to localhost.
+CodeSandbox is easiest for the React starter; GitHub Pages is easiest for plain HTML like our dashboard.
+Anything else that serves files over HTTPS is fine too: use what you already know.
+The next two slides are step-by-step for reading later: I'll skim them.
+-->
+
 ---
 
 <style scoped>p, li { font-size: 0.8em; }</style>
@@ -169,6 +205,12 @@ Wherever it lives, you then send Jim its URLs for a client ID (*Get a client ID 
 4. Send Jim that URL as launch **and** redirect URI (*Get a client ID from Jim*), and put the client ID he sends back in `src/index.js`.
 5. Edits save as you type and the hosted URL serves the latest version: no deploy step.
 6. **Launch from Meld**, not from the preview pane: the app needs Meld's `iss` and `launch` parameters. To try queries without a launch, use the no-login URL on the *Run it* slide.
+
+<!--
+Skim: this is here for reading back.
+The two things to stress: copy the preview URL with its trailing slash, and launch from Meld, not from the preview pane.
+Honest caveat: we couldn't automate CodeSandbox, so if the URL looks different from the example, send me what you see.
+-->
 
 ---
 
@@ -192,6 +234,12 @@ npm run build      # react-scripts 4 on Node 17+: NODE_OPTIONS=--openssl-legacy-
 
 and upload the **contents** of `build/`, not the folder itself.
 
+<!--
+Skim: also for reading back.
+Public repo, upload the files, turn on Pages from main. A minute later you have a URL.
+The React starter needs a build first; plain HTML apps like the dashboard work as they are.
+-->
+
 ---
 
 ## Get a client ID from Jim
@@ -210,6 +258,13 @@ Scopes:           launch openid fhirUser patient/*.read patient/*.write
 
 **Launch URI and redirect URI are the same page.** The starter calls `FHIR.oauth2.init()`, which handles both visits, and fhirclient's default `redirectUri` is `"."`, the page itself. Copy the URL exactly, **with the trailing `/`**. Moved host? Send Jim the new URL. More than one redirect URI? Comma-separated.
 
+<!--
+This is what you send me. Launch URI, redirect URI, scopes, and a name I can recognise.
+For the starter the launch and redirect URI are the same page.
+Copy the URL exactly, trailing slash included: one character off and the launch fails.
+If you move hosts, send me the new URL and I'll update the registration.
+-->
+
 ---
 
 ## Scopes on Meld: SMART v1 only
@@ -227,6 +282,12 @@ Also supported: `patient/*.*`, `launch/patient`, `profile`, `online_access`, `of
 
 **The scopes you request must be a subset of the scopes registered** for your client ID, or the launch fails with `invalid_scope`. So send Jim every scope you'll want.
 
+<!--
+Meld only does SMART v1 scopes, so star-dot-read, not the v2 dot-rs style.
+The rule that bites: you can only request scopes that were registered. So ask me for everything you'll need up front.
+Patient scopes for a one-patient app; user star read for population views.
+-->
+
 ---
 
 ## The starter: what's in it
@@ -240,6 +301,12 @@ Also supported: `patient/*.*`, `launch/patient`, `profile`, `online_access`, `of
 | `package.json` | `fhirclient` (^2.4, today 2.6.3), `fhir-visualizers` 0.0.6, `react-bootstrap`, `react-hook-form` |
 
 Three things to change for Meld: **1.** `clientId` belongs to another registration: use yours from Jim. **2.** `scope` `launch/patient openid profile` asks for **no data**. **3.** In `App.jsx`, `useEffect` runs on every render (a request loop) and the update mutates React state.
+
+<!--
+The starter came with the programme. It works, but not on Meld as it is.
+Three fixes: your client ID, scopes that actually ask for data, and a React effect that loops.
+Next two slides show each fix.
+-->
 
 ---
 
@@ -271,6 +338,12 @@ smartLaunch();
 
 </div>
 
+<!--
+Fix one: your client ID from me. Fix two: the scope. The original asks for no data at all, so every read would fail.
+launch, not launch slash patient: Meld does an EHR launch, where the patient comes from the launcher.
+I also added a catch so errors show on the page instead of a blank screen.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 16px; }</style>
@@ -296,6 +369,12 @@ smartLaunch();
 `setPatient` with the same object it already holds doesn't re-render, so the old code changed the name in memory but not on screen.
 
 **Please don't rename the shared patients** (`pam-001`..`pam-040`, `pam-demo`): other teams use them. Remove the form, or try it on a Patient you created.
+
+<!--
+Fix three: without the dependency array, the effect re-runs every render, which reads the patient, which re-renders. A request loop.
+The update copied the state object by reference, so React didn't notice the change.
+Please don't rename the shared patients: other teams are using them.
+-->
 
 ---
 
@@ -329,6 +408,13 @@ https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loi
 
 </div>
 
+<!--
+DEMO (guide section 2). Switch to the latest-Hb tab, or paste the URL from the slide.
+Expect a Bundle, total 2: pam-demo-hb-2 104 g/L on 14 Oct, then pam-demo-hb-1 112 g/L on 2 Sep.
+Point out the %7C for the bar between system and code, and _format=json for the browser.
+If write-back demos have run without a reset, there's a third, newer Hb (e.g. 98). Fallback: the screenshot on the slide.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 16px; } li { font-size: 0.9em; }</style>
@@ -358,6 +444,12 @@ export default function HbResults({ client }) {
 
 - `client.patient.id`: the launch patient. `client.request` adds the token.
 - `{ flat: true }`: an array of Observations, not the Bundle (first page; `pageLimit: 0` for all).
+
+<!--
+Our first app: the same query, through fhirclient, for the launch patient.
+client.patient.id is the patient from Meld; client.request adds the token for you.
+flat true gives you an array of Observations instead of a Bundle.
+-->
 
 ---
 
@@ -414,6 +506,11 @@ Your own table instead, newest first:
 
 </div>
 
+<!--
+Two lines to wire it in. That's B1 started: the rest is making it nicer.
+Watch out: the visualizer reverses the rows, so it shows oldest first. The table on the right keeps newest first.
+-->
+
 ---
 
 <style scoped>pre, pre code { font-size: 15px; } p { font-size: 0.85em; }</style>
@@ -431,6 +528,12 @@ https://abc123.csb.app/?fhirServiceUrl=https://gw.interop.community/QHConnectath
 (Use your preview URL. No client ID or token needed; don't ship it.)
 
 **Opened the preview with neither?** `init()` fails with *No server url found*: there's no `iss`.
+
+<!--
+Two ways to run it. For real: launch from Meld with a patient selected.
+While coding: the fhirServiceUrl and patientId parameters skip login and use the open endpoint. Handy, but don't ship it.
+Optional live demo (guide section 5): launch from Meld with a patient selected. Fallback: open the dashboard URL with ?server= set to the open endpoint.
+-->
 
 ---
 
@@ -482,6 +585,12 @@ In the browser's address bar, or Meld sends XML and the browser downloads a file
 
 </div>
 
+<!--
+The six things that will cost you an hour if you don't know them.
+The worst is the pipe character: Meld returns a 400 with no CORS headers, so the browser reports a CORS error that's nothing to do with CORS.
+And relaunch in a new tab: fhirclient revives the old session in the same tab.
+-->
+
 ---
 
 <style scoped>table { font-size: 0.7em; } p { font-size: 0.9em; }</style>
@@ -498,6 +607,12 @@ A fuller example in the repo: plain HTML + fhirclient.js (from a CDN) + Plotly. 
 | Fetch | first page | `client.request(query, { pageLimit: 0, flat: true })`: all pages |
 
 Try it: `https://aehrc.github.io/qh-connectathon/pam-dashboard/`. No login: add `?server=https://gw.interop.community/QHConnectathon2026/open`.
+
+<!--
+For population apps, start from our dashboard instead: plain HTML, no build step.
+Two pages: launch.html authorizes, index.html picks up the token. It reads all pages of results.
+Show it: open the dashboard URL with ?server= set to the open endpoint.
+-->
 
 ---
 
@@ -517,6 +632,12 @@ Scopes:           launch openid fhirUser online_access user/*.read
 ```
 
 Put the client ID in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and redirect URI differ here because the app uses `authorize()` on `launch.html` and `ready()` on `index.html`.
+
+<!--
+How population apps launch on Meld today: from the launcher with any patient, then ignore the patient and read everyone with user scope.
+A proper standalone launch for a dashboard is part of B9.
+Note the registration is different: launch.html as launch URI, the folder as redirect URI.
+-->
 
 ---
 
@@ -544,3 +665,9 @@ Put the client ID in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and r
 - Forms people: **Questionnaires** deck next
 
 </div>
+
+<!--
+That's it for apps. B1 if you want the starter; B3 or B5 if you want the population view with a one-star start.
+The Postman collection walks through the launch request by request, if you want to see what fhirclient does under the hood.
+Apps people: off you go, and come and see me for a client ID. Forms people: Questionnaires next.
+-->
