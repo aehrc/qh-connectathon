@@ -172,8 +172,8 @@ Edit in the browser; your fork is hosted for you at its preview URL. Sign in wit
 </div>
 <div>
 
-**GitHub Pages** (easiest for plain HTML/JS apps like `apps/pam-dashboard`)
-A public repo; every commit is published at `https://<you>.github.io/<repo>/`.
+**GitHub Pages**
+Any public repo; every commit is published at `https://<you>.github.io/<repo>/`. Optional: our template repo with a ready-made app.
 
 </div>
 <div>
@@ -214,30 +214,25 @@ Honest caveat: we couldn't automate CodeSandbox, so if the URL looks different f
 
 ---
 
-<style scoped>p, li { font-size: 0.75em; } pre, pre code { font-size: 15px; }</style>
+<style scoped>p, li { font-size: 0.75em; } li li { font-size: 1em; } pre, pre code { font-size: 15px; }</style>
 <!-- _class: reference -->
 
 ## Hosting on GitHub Pages
 
-1. On github.com: **New repository**, **Public** (Pages on a free account needs a public repo), tick **Add a README**.
-2. **Add file → Upload files**: your app's files with `index.html` at the top. For a population app, start from `index.html` and `launch.html` in [`apps/pam-dashboard`](https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/1-FHIR-For-Users/apps/pam-dashboard). **Commit**.
-3. **Settings → Pages → Build and deployment**: Source **Deploy from a branch**, branch **`main`**, folder **`/ (root)`**, **Save**.
-4. After a minute or so the Pages settings show your URL: `https://<you>.github.io/<repo>/`. Send Jim the URLs (*Get a client ID from Jim*).
-5. Edit in the browser (pencil icon) or push with git; every commit republishes in about a minute (progress under **Actions**).
+1. **A public repo with your app**, `index.html` at the top (Pages on a free account needs a public repo). Either:
+   - your own: **New repository**, then **Add file → Upload files** (or push with git); or
+   - **our template** `https://github.com/aehrc/qh-connectathon-smart-starter` → **Use this template**: a plain HTML patient app (B1) and the dashboard in `population/` (B2–B8), no build step, client IDs in `config.js`.
+2. **Settings → Pages → Build and deployment**: Source **Deploy from a branch**, branch **`main`**, folder **`/ (root)`**, **Save**.
+3. After a minute or so the Pages settings show your URL: `https://<you>.github.io/<repo>/`. Send Jim the URLs (*Get a client ID from Jim*).
+4. Edit in the browser (pencil icon) or push with git; every commit republishes in about a minute (progress under **Actions**).
 
-**The React starter** needs a build first. Add `"homepage": "."` to `package.json`, then:
-
-```
-npm install
-npm run build      # react-scripts 4 on Node 17+: NODE_OPTIONS=--openssl-legacy-provider npm run build
-```
-
-and upload the **contents** of `build/`, not the folder itself.
+**The React starter** needs a build first: add `"homepage": "."` to `package.json`, `npm run build` (on Node 17+ prefix `NODE_OPTIONS=--openssl-legacy-provider`), and upload the **contents** of `build/`.
 
 <!--
 Skim: also for reading back.
-Public repo, upload the files, turn on Pages from main. A minute later you have a URL.
-The React starter needs a build first; plain HTML apps like the dashboard work as they are.
+Any public repo works: turn on Pages from main, and a minute later you have a URL.
+If you want a head start, our template repo has a plain HTML patient app and the dashboard, no build step, with its own README.
+The React starter needs a build before it can go on Pages.
 -->
 
 ---
@@ -622,7 +617,7 @@ Show it: open the dashboard URL with ?server= set to the open endpoint.
 
 **How it launches today:** an **EHR launch from Meld with any patient selected**; the app ignores the patient and reads the population with `user/*.read`. A standalone launch doesn't work on Meld yet (see `apps/pam-dashboard/README.md`; how a dashboard should launch is part of B9).
 
-Copy `apps/pam-dashboard/` and **host it on a public HTTPS address**: GitHub Pages works as is (see *Hosting on GitHub Pages*), or any other static host. Then send Jim a **different** registration from the starter's:
+Copy `apps/pam-dashboard/` (or use `population/` in our template repo, *Hosting on GitHub Pages*) and **host it on a public HTTPS address**. Then send Jim a **different** registration from the starter's:
 
 ```
 Team / app name:  B6 outcomes (your names)
@@ -631,7 +626,7 @@ Redirect URI:     https://<your host>/<folder>/
 Scopes:           launch openid fhirUser online_access user/*.read
 ```
 
-Put the client ID in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and redirect URI differ here because the app uses `authorize()` on `launch.html` and `ready()` on `index.html`.
+Put the client ID in `config.js` (`populationClientId`) if you used the template, or in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and redirect URI differ here because the app uses `authorize()` on `launch.html` and `ready()` on `index.html`.
 
 <!--
 How population apps launch on Meld today: from the launcher with any patient, then ignore the patient and read everyone with user scope.
@@ -659,7 +654,7 @@ Note the registration is different: launch.html as launch URI, the folder as red
 <div class="small">
 
 - Scenarios: `2026-10-29/1-FHIR-For-Users/Scenarios.md` (strand B) and the data mapping in `FHIR-Mapping-DRAFT.md`
-- Starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q`. Host on CodeSandbox, GitHub Pages or anywhere public HTTPS. Client ID: **send Jim your launch and redirect URI**
+- Starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q`. Host on CodeSandbox, GitHub Pages (optional template: `https://github.com/aehrc/qh-connectathon-smart-starter`) or anywhere public HTTPS. Client ID: **send Jim your launch and redirect URI**
 - Dashboard: `https://aehrc.github.io/qh-connectathon/pam-dashboard/` (code in `apps/pam-dashboard/`)
 - How SMART launch works, request by request: [SMART App Launch Postman collection](https://www.postman.com/planetary-crescent-937142/smart-app-launch-hl7-au-connectathon/collection/xbq559p/smart-app-launch-introduction)
 - Forms people: **Questionnaires** deck next
