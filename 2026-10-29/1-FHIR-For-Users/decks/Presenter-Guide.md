@@ -58,6 +58,9 @@ fallback. "§n" = the per-site section below with the click-by-click detail.
   the `?fhirServiceUrl=...&patientId=pam-demo` URL on the *Run it* slide, or the dashboard
   https://aehrc.github.io/qh-connectathon/pam-dashboard/?server=https://gw.interop.community/QHConnectathon2026/open
 * The CodeSandbox starter was never run by us (§6): try a fork and a Meld launch before showing it live.
+* Slides *The React starter…* to *React starter: wire it in* are React-only; *Same app, no build* shows
+  the GitHub Pages template (https://github.com/aehrc/qh-connectathon-smart-starter), which already has
+  the fixes and the Hb table. *Run it* applies to any host.
 
 ### 3. Questionnaires
 

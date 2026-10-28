@@ -287,7 +287,11 @@ Patient scopes for a one-patient app; user star read for population views.
 
 ---
 
-## The starter: what's in it
+<style scoped>p { font-size: 0.88em; }</style>
+
+## The React starter (CodeSandbox): what's in it
+
+**Using our Pages template, or your own app?** The fixes and the Hb table are already in the template (*Same app, no build*); the ideas apply to any fhirclient app.
 
 `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q`: Create React App (React 17, `react-scripts` 4).
 
@@ -309,7 +313,7 @@ Next two slides show each fix.
 
 <style scoped>pre, pre code { font-size: 16px; }</style>
 
-## Fix 1 and 2: `src/index.js`
+## React starter, fix 1 and 2: `src/index.js`
 
 ```js
 const smartLaunch = () => {
@@ -345,7 +349,7 @@ I also added a catch so errors show on the page instead of a blank screen.
 
 <style scoped>pre, pre code { font-size: 16px; }</style>
 
-## Fix 3: `src/App.jsx`
+## React starter, fix 3: `src/App.jsx`
 
 ```jsx
   useEffect(() => {
@@ -416,7 +420,7 @@ If write-back demos have run without a reset, there's a third, newer Hb (e.g. 98
 
 <style scoped>pre, pre code { font-size: 16px; } li { font-size: 0.9em; }</style>
 
-## First app: `src/HbResults.jsx` (new file)
+## First app, React starter: `src/HbResults.jsx` (new file)
 
 ```jsx
 import React, { useEffect, useState } from 'react';
@@ -452,7 +456,7 @@ flat true gives you an array of Observations instead of a Bundle.
 
 <style scoped>pre, pre code { font-size: 15px; }</style>
 
-## Wire it in, and what you'll see
+## React starter: wire it in, and what you'll see
 
 <div class="two">
 
@@ -510,6 +514,36 @@ Watch out: the visualizer reverses the rows, so it shows oldest first. The table
 
 ---
 
+<style scoped>pre, pre code { font-size: 15px; } p, li { font-size: 0.85em; }</style>
+
+## Same app, no build: the Pages template
+
+`https://github.com/aehrc/qh-connectathon-smart-starter` does the same as the fixed React starter plus `HbResults`, in plain JavaScript (`app.js`):
+
+```js
+FHIR.oauth2.init({ clientId: cfg.clientId, scope: cfg.scope })   // from config.js
+  .then(client => Promise.all([showPatient(client), showHb(client)]));
+
+async function showHb(client) {
+  const hb = await client.request(
+    'Observation?code=http://loinc.org%7C718-7&patient=' + client.patient.id + '&_sort=-date',
+    { flat: true });
+  // ...one table row per Observation: date, value and unit, id
+}
+```
+
+- Same launch (`init()` on one page), same query, same result: `pam-demo` shows 104 g/L (14 Oct) then 112 g/L (2 Sep).
+- Opened without a launch, it tells you how to launch it instead of failing.
+- `population/` is the dashboard, ready for its own client ID (`populationClientId` in `config.js`).
+
+<!--
+For anyone on GitHub Pages: our template is the same app without React or a build step.
+Same init call, same query, same table; the client ID and scopes live in config.js.
+Your own app on any host works the same way: it's fhirclient either way.
+-->
+
+---
+
 <style scoped>pre, pre code { font-size: 15px; } p { font-size: 0.85em; }</style>
 
 ## Run it
@@ -519,12 +553,12 @@ Watch out: the visualizer reverses the rows, so it shows oldest first. The table
 **Without Meld (while you code):** fhirclient's `fhirServiceUrl` and `patientId` URL parameters skip OAuth and use the open endpoint:
 
 ```
-https://abc123.csb.app/?fhirServiceUrl=https://gw.interop.community/QHConnectathon2026/open&patientId=pam-demo
+https://<your app's URL>/?fhirServiceUrl=https://gw.interop.community/QHConnectathon2026/open&patientId=pam-demo
 ```
 
-(Use your preview URL. No client ID or token needed; don't ship it.)
+(Your preview URL on CodeSandbox, your `github.io` URL on Pages, or wherever it's hosted. No client ID or token needed; don't ship it.)
 
-**Opened the preview with neither?** `init()` fails with *No server url found*: there's no `iss`.
+**Opened it with neither?** The React starter's `init()` fails with *No server url found* (there's no `iss`); the template says how to launch it.
 
 <!--
 Two ways to run it. For real: launch from Meld with a patient selected.
