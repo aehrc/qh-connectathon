@@ -40,7 +40,8 @@ fallback. "§n" = the per-site section below with the click-by-click detail.
 
 * Before: nothing. Have `Scenarios.md` open for questions.
 * Slide *Where things are*: the URLs participants need; client IDs come from you.
-* Strand D: say the REDCap instance isn't confirmed (slide *Strands C and D*).
+* Strand D (REDCap) is deliberately not on the slides beyond a one-line pointer on *Three strands*;
+  if someone asks, point them at `Scenarios.md` (and the REDCap instance isn't confirmed).
 
 ### 2. SMART apps
 

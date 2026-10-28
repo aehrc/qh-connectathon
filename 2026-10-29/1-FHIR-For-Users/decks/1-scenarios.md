@@ -23,21 +23,20 @@ Everything here is on GitHub, so you can read it back later. Don't take notes.
 
 ---
 
-## Four strands, one PAM case
+## Three strands, one PAM case
 
 | Strand | You build | Scenarios | Start here if you are... |
 |---|---|---|---|
 | **A** Questionnaire modules | One form module in Smart Forms (SDC) | A1–A11 | a clinician or analyst, or new to FHIR |
 | **B** SMART apps | A piece of the dashboard as a SMART app | B1–B9 | a web developer |
 | **C** End to end | Close the loop, or critique the mapping | C1–C2 | someone who has finished a module or app |
-| **D** REDCap + FHIR | Bring FHIR into the existing REDCap system | D1–D4 | a REDCap user or administrator |
 
-Levels: ★ good first task, ★★ some FHIR experience, ★★★ hard.
+Levels: ★ good first task, ★★ some FHIR experience, ★★★ hard. REDCap user? `Scenarios.md` also has optional REDCap scenarios (D1–D4): ask a track lead.
 
 Day 1: build. Day 2: assemble whichever modules are ready into one PAM form and feed the apps.
 
 <!--
-Four strands, all on the same PAM case, so the pieces fit together on day 2.
+Three strands, all on the same PAM case, so the pieces fit together on day 2. (There's an optional REDCap strand in Scenarios.md; I won't cover it.)
 Pick by who you are, not by what sounds impressive: the right-hand column is the guide.
 Stars are about FHIR experience, not about how useful the work is. A one-star module is a real contribution.
 Day 1 build, day 2 assemble whatever is ready: forms become one PAM form, and the apps read what the forms write.
@@ -252,7 +251,7 @@ One practical point: population apps launch from Meld with any patient selected 
 
 ---
 
-## Strands C and D
+## Strand C: end to end
 
 <div class="cards">
 
@@ -270,42 +269,11 @@ Critique and improve the shared FHIR mapping.
 
 </div>
 
-<div>
-
-### D1 Code the PAM forms ★
-`redcap_advanced_fhir_ontology`: Ontoserver lookups for procedure, anaemia type, IV iron.
-
 </div>
-
-<div>
-
-### D2 REDCap data to FHIR ★★
-Store code, display and system; turn a form's records into resources (Redmatch).
-
-</div>
-
-<div>
-
-### D3 Same form, two platforms ★★
-One PAM form in REDCap and as an SDC Questionnaire, bound to the same ValueSets.
-
-</div>
-
-<div>
-
-### D4 Feed the dashboard from coded data ★★★
-SNOMED subsumption queries that local dropdown values can't answer.
-
-</div>
-
-</div>
-
-**Strand D needs a REDCap instance with external modules** (PHP 8, REDCap 8.8.1+). Instance not confirmed yet. If none: D1 is a leads' demo and D3 uses Smart Forms only.
 
 <!--
 C is for anyone who finishes: C1 closes the loop from a form to the dashboard; C2 is critiquing our mapping, which we'd really like.
-D is the REDCap strand, for people who run PAM-style registries in REDCap today.
-Say plainly: the REDCap instance isn't confirmed. If it doesn't appear, D1 becomes a demo by us and D3 uses Smart Forms only.
+Good for anyone who's finished something, or who'd rather think than code.
 -->
 
 ---
