@@ -1,0 +1,28 @@
+@startuml services-architecture
+' Zoom level 2: illustrative architecture, six boxes, no crossing lines. Eventing, conformance and the
+' imaging provider are on the map (services-map.puml) and left off here to keep this readable.
+!include palette.iuml
+skinparam defaultFontSize 24
+skinparam ArrowFontSize 20
+skinparam componentStyle rectangle
+left to right direction
+
+rectangle "Referrer app\n(browser / EMR)" as REF #F2F2F2;line:757579
+rectangle "Legacy RIS\nHL7 v2 over MLLP" as RIS #F2F2F2;line:757579
+rectangle "Directory\nHCPD / Qld PD on FHIR" as DIR #$L2
+rectangle "Referral and\nbooking server" as SRV #$L2
+rectangle "<color:white>Legacy adapter</color>\n<color:white>v2 to FHIR maps</color>" as ADP #$L3
+rectangle "Terminology\nOntoserver" as TX #$L1
+
+REF --> DIR : 1 discover
+REF --> SRV : 2 refer, 3 book
+RIS --> ADP : HL7 v2
+ADP --> SRV : FHIR
+DIR --> TX
+SRV --> TX
+
+REF -[hidden]down-> RIS
+DIR -[hidden]down-> SRV
+SRV -[hidden]down-> ADP
+
+@enduml

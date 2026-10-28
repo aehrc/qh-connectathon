@@ -1,0 +1,34 @@
+# Ingress for EKS Auto Mode — references the Auto Mode IngressClass.
+# No alb.ingress.kubernetes.io annotations here: scheme/cert/group live in
+# IngressClassParams (ingressclass-automode.yaml). Per-Ingress annotations are
+# only for behaviours not covered there (e.g. healthcheck path).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: track2
+  namespace: track2
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /referral/fhir/metadata
+spec:
+  ingressClassName: track2-alb
+  rules:
+    # One subdomain per service under hospservices.net (infra issue #13).
+    # Both HAPI servers serve at /fhir, so their base URLs are https://<host>/fhir.
+    - host: qhreferral.hospservices.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: fhir, port: { number: 8080 } } }
+    - host: qhpd.hospservices.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: directory, port: { number: 8080 } } }
+    - host: patient-referral.hospservices.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: banner, port: { number: 8080 } } }

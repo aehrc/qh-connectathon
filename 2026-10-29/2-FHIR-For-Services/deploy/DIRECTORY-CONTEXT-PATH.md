@@ -1,0 +1,70 @@
+# Directory HAPI under /directory (fix for the /directory 404)
+
+Problem: Contour (DiSP) and ALB (AWS) cannot rewrite paths, so `/directory/...` reached the
+directory HAPI unchanged and 404ed (HAPI only served `/fhir/...`).
+
+Fix: the directory HAPI runs with `SERVER_SERVLET_CONTEXT_PATH=/directory` (Spring Boot context path).
+
+## Proof (local docker, hapiproject/hapi:latest, H2, 2026-10-19)
+With `-e SERVER_SERVLET_CONTEXT_PATH=/directory`:
+- `/directory/fhir/metadata` 200; `/directory/metadata` 404; `/fhir/metadata` 404
+- `/directory/` (HAPI UI) 200; `/directory/actuator/health/readiness` 200
+- POST Organization -> 201, `Location: http://localhost:PORT/directory/fhir/Organization/1000/_history/1`;
+  search bundle `fullUrl`/`self` links also carry `/directory/fhir` (even without `HAPI_FHIR_SERVER_ADDRESS`, derived from the request).
+- Control container (no env): `/fhir/metadata` 200 as before.
+Not tested: the Postgres + HCPD IG boot, the real ingresses (nothing applied to any cluster).
+
+## Base URLs participants use
+| Server | FHIR base |
+|---|---|
+| Referral | `https://<host>/fhir` (unchanged) |
+| Directory | `https://<host>/directory/fhir` (NOT `/directory` or `/directory/metadata`) |
+DiSP host: `https://aehrc-qh-connectathon-track-2.dw.csiro.au`. Local: `http://<vm-ip>`. In-cluster: `http://directory:8080/directory/fhir`.
+
+## Manifest changes
+- `base/20-fhir.yaml` (directory only): env `SERVER_SERVLET_CONTEXT_PATH=/directory`; readinessProbe path `/fhir/metadata` -> `/directory/fhir/metadata`.
+  (Probes would otherwise 404 forever and the pod never goes Ready.) The referral deployment is unchanged.
+- `base/50-ingress.yaml` (nginx/microk8s): removed `rewrite-target: /$2` and regex paths; plain `Prefix` paths `/fhir`, `/directory`, `/`.
+  The rewrite would have stripped `/directory`. `annotations: {}` is kept so the disp overlay's JSON-patch add still works.
+- `overlays/disp`: adds `HAPI_FHIR_SERVER_ADDRESS=https://aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir` to directory (so links use https behind TLS termination). Its Contour paths were already plain prefixes.
+- `overlays/aws`: patches the `directory` Service with `alb.ingress.kubernetes.io/healthcheck-path: /directory/fhir/metadata`
+  (the Ingress-level `/fhir/metadata` health check applies to every backend and would mark directory targets unhealthy).
+  The ingress-alb.yaml itself needed no change. UNVERIFIED on EKS Auto Mode that the Service-level override is honoured; if not, set the ingress healthcheck-path to a path valid on all backends or use `alb.ingress.kubernetes.io/success-codes: 200-499`.
+  Set `HAPI_FHIR_SERVER_ADDRESS` for aws once the host is known (host is still a placeholder).
+- `kustomize build` succeeds for local, disp, aws (checked the rendered env, probes, ingress paths).
+
+## Other files that MUST change (not owned by this task, not touched)
+- `base/30-referrer.yaml:25` `PD_SERVER: http://directory:8080/fhir` -> `http://directory:8080/directory/fhir` (otherwise the referrer's directory lookups 404).
+- `deploy/install.sh:189` (VM, plain docker) uses the same PD_SERVER; the VM directory container is separate, only change if it also gets a context path.
+- Docs/scripts: `deploy/README.md:56`, `deploy/k8s-install.sh:82` print `/directory/metadata` -> `/directory/fhir/metadata`; `deploy/smoke/smoke.sh` set `DIRECTORY_BASE=/directory/fhir` (default `/directory` is wrong now); `DISP-DEPLOY.md:74` is already right; frog-tests' `fhir.server.url` for the directory -> `.../directory/fhir`.
+- Apply by rolling the directory Deployment (env change triggers it); HCPD IG reinstalls from the DB state as before.
+
+## Update 2026-10-19: the referral server also moves, to /referral/fhir
+
+The Patient-Referral UI (mjosborne1/Patient-Referral) serves about 30 of its own routes under `/fhir/...`
+(`/fhir/Dashboard`, `/fhir/Patients`, `/fhir/RequesterOrganisations`, `/fhir/OrderSets`, `/fhir/search_patients`,
+`/fhir/Patient/<id>`, ... plus the value-set typeahead endpoints). Routing `/fhir` to HAPI therefore returned
+"HAPI-0302 Unknown resource type" for every UI call (all dialogues broken), and `/fhir/Patient/<id>` is a direct collision
+with FHIR's own read, so per-route exceptions cannot fix it. The referral HAPI now serves under `/referral`:
+
+| Service | Public base |
+|---|---|
+| Referral FHIR server | `https://<host>/referral/fhir` |
+| Directory FHIR server | `https://<host>/directory/fhir` |
+| Patient-Referral UI | `https://<host>/` (including its own `/fhir/*` and `/directory/import*` routes) |
+
+Mechanism as for the directory: `SERVER_SERVLET_CONTEXT_PATH=/referral` on the `fhir` Deployment, readiness probe
+`/referral/fhir/metadata`, `HAPI_FHIR_SERVER_ADDRESS` in the disp overlays, per-Service ALB health check in the aws overlay,
+and the in-cluster `FHIR_SERVER` of the UI is `http://fhir:8080/referral/fhir`. `smoke.sh` defaults and
+`load-directory.sh` (referral Endpoint addresses) follow. Not updated: `frog-tests/` (they take an explicit
+`serverUrl`), the VM scripts `install.sh` / `k8s-install.sh`, and older docs that still mention `/fhir`.
+
+## Update 2026-10-19 (later): the UI must be given FHIR_SERVER_URL
+
+Patient-Referral's code reads `FHIR_SERVER_URL` (fhirutils.py, bundler.py); its DEPLOYMENT.md documents `FHIR_SERVER`,
+which the code ignores. With only `FHIR_SERVER` set, every server-side call (dashboard, patients, organisations,
+demographics, the dialogue lookups) went to the public default `https://aucore.aidbox.beda.software/fhir`: slow, wrong data,
+and dialogues that hang. Both variables are now set to the in-cluster referral base. The app's Settings page also
+pre-fills `https://smile.sparked-fhir.com/aucore/fhir/DEFAULT`; that is only used if someone presses Save (it is then
+kept in the browser's localStorage and sent as `X-FHIR-Server-URL`). Tell participants not to change it, or to set it to
+`https://<host>/referral/fhir`. (`PD_SERVER` is correctly named and unchanged.)

@@ -1,0 +1,117 @@
+# EFIQ EKS overlay: Track 2 on the shared cluster (the RIS tutorial runs beside it). The cluster, ALB (group "efiq"),
+# wildcard certificate, gp3 default StorageClass and external-dns already exist (efiq-configuration / efiq-flux), so this
+# overlay adds only the workload: namespace, the Track 2 ingress, ALB health checks, sizing and public addresses.
+# Flux deploys it from this repo (see deploy/EKS-PLAN.md). Images come from Docker Hub (Patient-Referral, nginx, HAPI).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: track2
+
+resources:
+  - ../../base
+  - namespace.yaml
+  - hostname.yaml
+  - frog-ingress.yaml
+  - ingress-hosts.yaml
+  - landing.yaml
+
+patches:
+  - path: ingress-alb.yaml
+    target: { kind: Ingress, name: track2 }
+  - path: patch-sizing.yaml
+  - path: patch-hosts.yaml
+  # EKS Auto Mode consolidates "underutilized" nodes and evicts the pods on them with no warning (seen during the 2026-10-21 load test:
+  # 503s and 500s while the HAPI pods were rescheduled). Track 2 is a short-lived demo, so no voluntary disruption.
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: not-used }
+      spec:
+        template:
+          metadata:
+            annotations:
+              karpenter.sh/do-not-disrupt: "true"
+    target: { kind: Deployment }
+  # the database volume is ReadWriteOnce (EBS): a rolling update would start the new pod while the old one still holds it (and Recreate is rejected by Flux's server-side dry run), so surge nothing
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata: { name: db }
+      spec:
+        strategy:
+          rollingUpdate: { maxSurge: 0, maxUnavailable: 1 }
+    target: { kind: Deployment, name: db }
+  # EBS volumes arrive with a lost+found directory, which initdb refuses; keep the cluster in a subdirectory (DiSP's volume has none,
+  # so the base stays as it is and the live data there is untouched)
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: PGDATA, value: /var/lib/postgresql/data/pgdata }
+    target: { kind: Deployment, name: db }
+  # TLS ends at the ALB: tell HAPI its public https base so links and Location headers are right
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://HOST.REPLACED-BY-KUSTOMIZE/fhir" }
+    target: { kind: Deployment, name: fhir }
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://HOST.REPLACED-BY-KUSTOMIZE/fhir" }
+    target: { kind: Deployment, name: directory }
+
+images:
+  - name: localhost:32000/patient-referral:local
+    newName: joernguysuess/patient-referral
+    digest: sha256:ce5390937e47e9c837af407e29ead02cd6e23eab65e0af7879c455d8748db739   # joernguysuess/patient-referral:1.0.1-54ff8b9 = mjosborne1/Patient-Referral v1.0.1 @ 54ff8b9
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      # The database is reachable only inside the cluster and holds fictional test data. Replace with an External
+      # Secret / SOPS value if that ever changes.
+      - POSTGRES_PASSWORD=track2-eks-internal-only
+generatorOptions:
+  disableNameSuffixHash: true
+
+# The public hostnames live ONLY in hostname.yaml. These replacements copy each into its Ingress host, the external-dns
+# annotation and (for the two HAPI servers) the public address HAPI puts into links and Location headers.
+replacements:
+  - source: { kind: ConfigMap, name: track2-hostname, fieldPath: data.landingHost }
+    targets:
+      - select: { kind: Ingress, name: track2 }
+        fieldPaths:
+          - spec.rules.0.host
+          - "metadata.annotations.[external-dns.alpha.kubernetes.io/hostname]"
+  - source: { kind: ConfigMap, name: track2-hostname, fieldPath: data.uiHost }
+    targets:
+      - select: { kind: Ingress, name: ui }
+        fieldPaths:
+          - spec.rules.0.host
+          - "metadata.annotations.[external-dns.alpha.kubernetes.io/hostname]"
+  - source: { kind: ConfigMap, name: track2-hostname, fieldPath: data.referralsHost }
+    targets:
+      - select: { kind: Ingress, name: referrals }
+        fieldPaths:
+          - spec.rules.0.host
+          - "metadata.annotations.[external-dns.alpha.kubernetes.io/hostname]"
+      - select: { kind: Deployment, name: fhir }
+        fieldPaths:
+          - "spec.template.spec.containers.[name=hapi].env.[name=HAPI_FHIR_SERVER_ADDRESS].value"
+        options: { delimiter: "/", index: 2 }
+  - source: { kind: ConfigMap, name: track2-hostname, fieldPath: data.directoryHost }
+    targets:
+      - select: { kind: Ingress, name: directory }
+        fieldPaths:
+          - spec.rules.0.host
+          - "metadata.annotations.[external-dns.alpha.kubernetes.io/hostname]"
+      - select: { kind: Deployment, name: directory }
+        fieldPaths:
+          - "spec.template.spec.containers.[name=hapi].env.[name=HAPI_FHIR_SERVER_ADDRESS].value"
+        options: { delimiter: "/", index: 2 }
+  - source: { kind: ConfigMap, name: track2-hostname, fieldPath: data.frogHost }
+    targets:
+      - select: { kind: Ingress, name: frog }
+        fieldPaths:
+          - spec.rules.0.host
+          - "metadata.annotations.[external-dns.alpha.kubernetes.io/hostname]"

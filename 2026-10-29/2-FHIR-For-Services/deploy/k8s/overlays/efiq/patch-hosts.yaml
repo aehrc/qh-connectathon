@@ -1,0 +1,40 @@
+# Per-function hosts: each HAPI serves at its own host root (FHIR base /fhir), so the /referral and /directory context paths that the
+# shared-host layout needs (the UI owns /fhir/* there) are dropped, and everything that pointed at them follows.
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: fhir, namespace: track2 }
+spec:
+  template:
+    spec:
+      containers:
+        - name: hapi
+          env:
+            - { name: SERVER_SERVLET_CONTEXT_PATH, value: / }
+          readinessProbe:
+            httpGet: { path: /fhir/metadata, port: 8080 }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: directory, namespace: track2 }
+spec:
+  template:
+    spec:
+      containers:
+        - name: hapi
+          env:
+            - { name: SERVER_SERVLET_CONTEXT_PATH, value: / }
+          readinessProbe:
+            httpGet: { path: /fhir/metadata, port: 8080 }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: referrer, namespace: track2 }
+spec:
+  template:
+    spec:
+      containers:
+        - name: referrer
+          env:
+            - { name: FHIR_SERVER_URL, value: "http://fhir:8080/fhir" }
+            - { name: FHIR_SERVER,     value: "http://fhir:8080/fhir" }
+            - { name: PD_SERVER,       value: "http://directory:8080/fhir" }

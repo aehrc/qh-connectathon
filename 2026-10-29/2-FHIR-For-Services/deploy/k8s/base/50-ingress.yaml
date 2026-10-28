@@ -1,0 +1,25 @@
+# Single path-routed ingress: / (referrer), /fhir (referral), /directory (Qld Health Provider Directory on FHIR).
+# microk8s ingress addon uses the "public" ingress class (nginx).
+# For the event, add TLS (cert-manager / ACM) in the aws overlay.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: track2
+  namespace: track2
+  # No rewrite-target: backends serve under their own prefix (/fhir, /directory/fhir).
+  # (annotations map kept present so overlays can JSON-patch-add keys into it)
+  annotations: {}
+spec:
+  ingressClassName: public
+  rules:
+    - http:
+        paths:
+          - path: /referral/fhir
+            pathType: Prefix
+            backend: { service: { name: fhir, port: { number: 8080 } } }
+          - path: /directory/fhir
+            pathType: Prefix
+            backend: { service: { name: directory, port: { number: 8080 } } }
+          - path: /
+            pathType: Prefix
+            backend: { service: { name: banner, port: { number: 8080 } } }

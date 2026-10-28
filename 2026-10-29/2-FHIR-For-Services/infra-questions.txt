@@ -1,0 +1,98 @@
+A. Scope and target
+A1. Which environment are we setting up now?
+(a) Re-verify or repair the existing DiSP stack (dry run)
+(b) Stand up AWS EKS (the event host)
+(c) Both: DiSP first, then EKS
+(d) Local k8s only (dev)
+Default: (c) Answer:
+A2. What is the deadline for a tested environment?
+Event is 29–30 Oct. Load test at 40 users (issue #26), teardown (issue #28).
+Default: tested and frozen by __________ Answer:
+B. Terminology (the one external dependency)
+B1. Which tx server is TX_URL?
+(a) Public https://r4.ontoserver.csiro.au/fhir
+(b) Dion's instance
+(c) Another (specify)
+Default: (a), if it serves what we need Answer:
+B2. Does it serve everything the scenario needs?
+Imaging ValueSets, SNOMED (which edition: AU?), $expand with filter for typeahead, $validate-code.
+Which ValueSets exactly does the radiology-referral IG bind to?
+Who confirms them: Michael (content), or I test them against the endpoint?
+Answer:
+B3. Can that server cope with about 40 concurrent users over HTTPS?
+Do we need to warn the owner or pre-test? Should the cluster have a fallback, such as a caching proxy or a second URL?
+Answer:
+B4. Is the CSIRO/AWS egress to that host allowed from the cluster?
+Allow-listing is the only egress we need.
+Answer:
+C. Architecture
+C1. One HAPI or two?
+(a) Two servers: referral at /fhir, directory at /directory (as committed; mirrors HCPD as a separate system)
+(b) One HAPI with a directory partition
+Default: (a) Answer:
+C2. Open or secured (SMART)?
+HCPD says OAuth is SHALL. The design runs open for teaching simplicity.
+(a) Open for everyone
+(b) Open, with a documented deviation from HCPD
+(c) Add in-cluster SMART/Keycloak for a "security" stream
+Default: (b) Answer:
+C3. Booking in Patient-Referral (issue #32)
+Does the app create Slot/Appointment, or is booking driven through the FHIR API for now? Affects: seed fixtures, smoke test, what participants can click.
+Answer:
+C4. Bulk $export on the directory
+Stretch only (needs the Bulk Export provider enabled and the HCPD _typeFilter conventions). In or out?
+Default: out, mention as a stretch Answer:
+C5. Real HCPD as a stretch
+Do we want an optional "connect to real HCPD" path (needs SIT access #8, the X-Request-ID proxy)? Or drop it?
+Answer:
+D. Content and seed data (Michael's area)
+D1. Seed directory
+HCPD ships profiles only, with no examples. We must author the data. Only one Balmain fixture exists so far.
+How many Organizations, Locations, HealthcareServices, PractitionerRoles and Endpoints?
+Real-looking (QH-style) names, or obviously fictional?
+Who writes or reviews them: Michael, or I draft and Michael reviews?
+Answer:
+D2. Sample patients and referrals
+How many patients? Which referral states (draft, active, completed) should exist at start? Reset between the two event days: wipe and reseed, or keep Day 1 data?
+Answer:
+D3. Which IG versions do we pin?
+au.gov.digitalhealth.fhir.hcpd (v26.0.0?), AU Base/Core/PD, AU eRequesting, radiology-referral (build from ig/). Pin concrete versions rather than current?
+Default: pin all Answer:
+E. Testing
+E1. Is conformance testing (fhir-frog / frog-runner) a gate or a stretch?
+(a) Gate before promotion DiSP → AWS
+(b) Stretch; $validate plus manual review is the gate
+Default: (b) Answer:
+E2. Smoke test
+Should I write smoke/smoke.sh (seed → discover → create referral → triage → book → track to Booked) and run it before each event day?
+Default: yes Answer:
+E3. Do participants see the frog results?
+The design says it doubles as a teaching artifact. Do we expose the frog-runner UI during the event?
+Answer:
+F. Hosting and access
+F1. Public DNS name and TLS (issue #13)
+What hostname will participants use? Who owns the DNS? DiSP: *.dw.csiro.au. AWS: ALB + ACM.
+Answer:
+F2. Who may apply changes to AWS and DiSP?
+Default: I prepare manifests and commands; Joern applies. I only apply with explicit go-ahead.
+Answer:
+F3. Capacity
+Quota increase status (8 GB for experiments, 16 GB for the event). Is it approved? Does EKS sizing target 35–40 concurrent users?
+Answer:
+G. Event-day operations
+G1. Who can trigger reset/reseed, and when?
+Manual only, or an overnight CronJob?
+Answer:
+G2. Participant data
+Participants will write data into a shared open server. Any rules, for example no real patient data, and a banner in the UI?
+Answer:
+G3. Fallback if the cluster fails on the day
+DiSP as the standby host?
+A pre-recorded demo?
+Nothing?
+Answer:
+G4. Teardown (issue #28)
+Delete the namespace plus the ALB/ACM/DNS the day after? Do we need any data export before teardown?
+Answer:
+H. Anything else
+Notes / decisions / new issues to raise:

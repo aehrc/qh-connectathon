@@ -1,0 +1,71 @@
+# frog-runner (fhir-frog conformance runner + web UI, issue #49, decision E3): lets the organisers and participants run
+# the Track 2 conformance bundles against the stack. Image is public (registry.gitlab.com/fhirfrog/frog-runner), pinned by
+# digest. The bundles (deploy/frog-tests) are fetched by an init container from this public repo at a pinned commit, so
+# there is no second copy to drift. The FHIR package cache (the AU IG and its dependencies, several hundred MB) lives on a
+# PVC so a restart does not repeat the slow first download.
+#
+# Run against the IN-CLUSTER service URLs (plain http), not the public https ones: on DiSP the public certificate is
+# signed by CSIRO's internal CA, which the runner's JVM does not trust.
+#   referral   serverUrl http://fhir:8080/referral/fhir        igPackage hl7.fhir.au.ereq#1.0.1
+#   directory  serverUrl http://directory:8080/directory/fhir
+# (in the scratch overlay the services are scratch-fhir / scratch-directory).
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: frog-cache, namespace: track2 }
+spec:
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 3Gi } }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: frog, namespace: track2 }
+spec:
+  replicas: 1
+  strategy: { type: Recreate }          # one pod owns the RWO cache volume
+  selector: { matchLabels: { app: frog } }
+  template:
+    metadata: { labels: { app: frog } }
+    spec:
+      initContainers:
+        - name: bundles
+          image: alpine:3.20
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -e
+              wget -q -O /tmp/repo.tgz "https://github.com/aehrc/qh-connectathon/archive/3bd64c59c40811831b616e6009b611150f8f04b3.tar.gz"
+              mkdir -p /tmp/x && tar -xzf /tmp/repo.tgz -C /tmp/x
+              rm -rf /bundles/*
+              cp -r /tmp/x/*/2026-10-29/2-FHIR-For-Services/deploy/frog-tests/* /bundles/
+              ls -R /bundles | head -30
+          volumeMounts: [ { name: bundles, mountPath: /bundles } ]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits:   { cpu: "500m", memory: "256Mi" }
+      containers:
+        - name: frog
+          image: registry.gitlab.com/fhirfrog/frog-runner@sha256:9342e2912e6786a34f5991162735706513a38a55216554fa2c9f249129579f34
+          env:
+            - { name: JAVA_TOOL_OPTIONS, value: "-Xms256m -Xmx1g" }
+          ports: [ { containerPort: 8080 } ]
+          readinessProbe:
+            httpGet: { path: /api/version, port: 8080 }
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - { name: bundles, mountPath: /bundles, readOnly: true }
+            - { name: cache, mountPath: /root/.fhir }
+          resources:
+            requests: { cpu: "250m", memory: "768Mi" }
+            limits:   { cpu: "1", memory: "2Gi" }   # 1 CPU keeps two stacks plus RIS within the namespace quota
+      volumes:
+        - { name: bundles, emptyDir: {} }
+        - { name: cache, persistentVolumeClaim: { claimName: frog-cache } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: frog, namespace: track2 }
+spec:
+  selector: { app: frog }
+  ports: [ { port: 8080, targetPort: 8080 } ]

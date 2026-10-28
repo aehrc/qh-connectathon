@@ -1,0 +1,1877 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:3876852b-03c4-505b-b4df-1d5248a6e305",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-01-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-01-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "c6bedad9-6a32-5f6b-9b50-bf22a6a9c35c"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Tropic Coast Health Service - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@tropiccoast.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://REFERRAL_HOST/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-01-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ba2907d8-fbfd-5d1a-a2a0-7b66669af09c",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-01-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-tropiccoast.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-01-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "23745d80-5d76-5237-ac8f-6f571c5e9a0b"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Tropic Coast Health Service - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@tropiccoast.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://tropiccoast.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-01-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:64487bf0-2c49-57db-9dc6-5d77f3dceeb2",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-01-msg",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-01-msg"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "c495da41-86fc-57ce-9bb7-d2594c38c762"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-msg",
+          "display": "HL7 FHIR Messaging"
+        },
+        "name": "Tropic Coast Health Service - FHIR Messaging Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@tropiccoast.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json",
+          "application/fhir+xml"
+        ],
+        "address": "https://tropiccoast.qh-seed.test/fhir-messaging"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-01-msg"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:24b5646a-8ba1-5aec-be6b-036771125de3",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-02-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-02-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "564093cb-fc2b-5089-b329-20ecc254b503"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Capricorn Bay Health Service - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@capricornbay.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://capricornbay.qh-seed.test/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-02-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:1a8a2001-1543-5d43-95f3-ac229138d144",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-02-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-capricornbay.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-02-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "10a60982-cfbb-541e-a44c-8ff5b601778f"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Capricorn Bay Health Service - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@capricornbay.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://capricornbay.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-02-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b4cd50bd-957d-57f9-88ad-fce9edb06600",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-03-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-03-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "902068d9-bd36-503c-ac30-bd51c7178f3d"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Darling Plains Health Service - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@darlingplains.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://REFERRAL_HOST/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-03-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:53eb5046-d73a-5c1b-a8eb-4c92117c53a2",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-03-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-darlingplains.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-03-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "87fdbccd-3226-522d-a551-11b20de34ab3"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Darling Plains Health Service - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@darlingplains.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://darlingplains.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-03-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:81115870-d580-51c7-8143-1522d5e30a4f",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-03-msg",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-03-msg"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "65ff6acd-6c12-57e4-a48e-5d356ea50349"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-msg",
+          "display": "HL7 FHIR Messaging"
+        },
+        "name": "Darling Plains Health Service - FHIR Messaging Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@darlingplains.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json",
+          "application/fhir+xml"
+        ],
+        "address": "https://darlingplains.qh-seed.test/fhir-messaging"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-03-msg"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:39fb9f55-3b36-536c-8b12-209c2f183efa",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-04-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-04-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "22073130-decf-5503-818c-7d83a99e6cd7"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Brisbane River Health Service - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@brisbaneriver.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://REFERRAL_HOST/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-04-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:bd823bb4-4ebc-5bcb-bea2-c16510d8a01e",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-04-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-brisbaneriver.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-04-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "af742ce8-2598-551d-98f9-c31d86d664b4"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Brisbane River Health Service - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@brisbaneriver.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://brisbaneriver.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-04-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:34c76883-2a64-52d8-95c0-690c83f26eae",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-04-msg",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-04-msg"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "c6534641-21af-5c58-8166-af8e3443767d"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-msg",
+          "display": "HL7 FHIR Messaging"
+        },
+        "name": "Brisbane River Health Service - FHIR Messaging Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@brisbaneriver.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json",
+          "application/fhir+xml"
+        ],
+        "address": "https://brisbaneriver.qh-seed.test/fhir-messaging"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-04-msg"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:153d4d3a-cb38-528f-8770-b65acc2e631b",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-05-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-05-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "b27da174-9a9d-57d4-a6ac-69e7d393ad9c"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Moreton Bay Imaging Partners - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@moretonbayimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://REFERRAL_HOST/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-05-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0af42154-83f1-5c7c-93ec-667ad1ec9643",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-05-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-moretonbayimaging.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-05-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "3893cf68-719b-50e3-99b1-40794cf7bcb4"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Moreton Bay Imaging Partners - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@moretonbayimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://moretonbayimaging.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-05-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3eedb7ba-8060-5771-ad50-a585086d215f",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-05-msg",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-05-msg"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "cfb713cf-8946-50bf-8913-129eda80aa3b"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-msg",
+          "display": "HL7 FHIR Messaging"
+        },
+        "name": "Moreton Bay Imaging Partners - FHIR Messaging Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@moretonbayimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json",
+          "application/fhir+xml"
+        ],
+        "address": "https://moretonbayimaging.qh-seed.test/fhir-messaging"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-05-msg"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7b526831-3da0-5247-9203-3e360d591bd8",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-06-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-06-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "09504b17-8933-5891-812e-7b058b2bd779"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Southern Cross Diagnostic Imaging - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@southerncrossimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://REFERRAL_HOST/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-06-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:06198a84-e637-5d05-9cc4-c5f5ec6c1248",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-06-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-southerncrossimaging.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-06-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "fdc2ccea-94c1-5972-a5c7-6dc9b1c67716"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Southern Cross Diagnostic Imaging - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@southerncrossimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://southerncrossimaging.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-06-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7e9fcd8e-27a7-5be4-99b6-79b29443fe9f",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-06-msg",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-06-msg"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "b97f51e8-fbae-5a30-a8e5-93dd29e93d00"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-msg",
+          "display": "HL7 FHIR Messaging"
+        },
+        "name": "Southern Cross Diagnostic Imaging - FHIR Messaging Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@southerncrossimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json",
+          "application/fhir+xml"
+        ],
+        "address": "https://southerncrossimaging.qh-seed.test/fhir-messaging"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-06-msg"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4a54faf3-1bee-522a-8e5b-b365aa12e5dc",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-07-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-07-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "77ea69c6-9d45-5f35-9097-6ec535d27317"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Sunshine Nuclear and PET Centre - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@sunshinenuclear.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://sunshinenuclear.qh-seed.test/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-07-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:18c72764-99cb-5e7e-adb9-5468fa85d0bf",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-07-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-sunshinenuclear.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-07-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "36713f2d-4c07-512d-91bb-75087b0a18aa"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Sunshine Nuclear and PET Centre - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@sunshinenuclear.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://sunshinenuclear.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-07-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fb4c586c-1a6a-589b-9d9d-960a58a51e7c",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-08-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-08-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "5ceed025-e45f-5d03-ac3a-cf3980ac2d06"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Burnett Valley Medical Imaging - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@burnettvalley.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://burnettvalley.qh-seed.test/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-08-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3e0fea1b-635a-5524-95f7-299cb00ff57d",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-08-smd",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://ns.electronichealth.net.au/smd/target",
+            "value": "smd-burnettvalley.qh-seed.test"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-08-smd"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "a2e886ea-bc77-5e03-a383-2c9880565c12"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "direct-project",
+          "display": "Direct Project"
+        },
+        "name": "Burnett Valley Medical Imaging - Secure Message Delivery Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@burnettvalley.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/pdf",
+          "application/hl7-v2"
+        ],
+        "address": "https://burnettvalley.qh-seed.test/smd/endpoint"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-08-smd"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ce7e23c7-4072-58bc-873f-e020f0132a22",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-09-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-09-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "611c4b16-1e47-586a-8fe0-9bc20bb29922"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Outback Rural Imaging Outreach - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@outbackimaging.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://outbackimaging.qh-seed.test/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-09-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f4a261b1-2636-584b-8ca8-b80d73c9130e",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-10-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-10-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "d3821896-dbd5-5ba0-996e-81bca10e773b"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Toowong Family Medical Group - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@toowongfamily.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://toowongfamily.qh-seed.test/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-10-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b6522d59-4167-5ca1-83a3-f962b44eae44",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-11-rest",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-11-rest"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "ffd51055-f47a-5f1b-97fd-3862a6f01cfb"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-rest",
+          "display": "HL7 FHIR"
+        },
+        "name": "Ross River Specialist Centre - FHIR Referral Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "referrals@rossriverspecialist.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json"
+        ],
+        "address": "https://REFERRAL_HOST/fhir"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-11-rest"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b0f547e2-4a25-58f5-b9c8-1ce0174b0aad",
+      "resource": {
+        "resourceType": "Endpoint",
+        "id": "qhd-ep-11-msg",
+        "meta": {
+          "profile": [
+            "http://digitalhealth.gov.au/fhir/hcpd/StructureDefinition/hcpd-endpoint"
+          ]
+        },
+        "identifier": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "RI",
+                  "display": "Resource Identifier"
+                }
+              ]
+            },
+            "system": "https://github.com/aehrc/qh-connectathon/id/track2-seed-source",
+            "value": "QHD-EP-11-msg"
+          },
+          {
+            "type": {
+              "coding": [
+                {
+                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                  "code": "XX",
+                  "display": "Organization identifier"
+                }
+              ]
+            },
+            "system": "http://digitalhealth.gov.au/fhir/hcpd/id/hcpd-local-identifier",
+            "value": "6bbb2811-3c33-5dba-bded-87709b1f8421"
+          }
+        ],
+        "status": "active",
+        "connectionType": {
+          "system": "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+          "code": "hl7-fhir-msg",
+          "display": "HL7 FHIR Messaging"
+        },
+        "name": "Ross River Specialist Centre - FHIR Messaging Endpoint",
+        "contact": [
+          {
+            "system": "email",
+            "value": "it-support@rossriverspecialist.qh-seed.test",
+            "use": "work"
+          }
+        ],
+        "payloadType": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/endpoint-payload-type",
+                "code": "any",
+                "display": "Any"
+              }
+            ]
+          }
+        ],
+        "payloadMimeType": [
+          "application/fhir+json",
+          "application/fhir+xml"
+        ],
+        "address": "https://rossriverspecialist.qh-seed.test/fhir-messaging"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Endpoint/qhd-ep-11-msg"
+      }
+    }
+  ]
+}

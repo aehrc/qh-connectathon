@@ -1,0 +1,83 @@
+# DiSP overlay — internal testing target (before AWS EKS).
+# DiSP platform automation (confirmed, per disp-flux docs) provides:
+#   - Contour (Envoy-based) as the ingress controller  [the LB impl]
+#   - cert-manager (Let's Encrypt) for automatic TLS
+#   - automatic DNS under the *.dw.csiro.au wildcard
+# So we just declare an Ingress with a dw.csiro.au host; DiSP handles LB + DNS + TLS.
+#
+# TODO before deploy — confirm with DiSP admin:
+#   - the Contour IngressClass name (assumed "contour" below; some DiSP setups make it default)
+#   - the exact host convention under *.dw.csiro.au
+#   - the StorageClass name (left as cluster default here)
+#   - whether cert-manager needs an annotation or a default ClusterIssuer applies
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: aehrc-qh-connectathon-track-2
+
+resources:
+  - ../../base
+  - frog-ingress.yaml
+
+patches:
+  # DiSP ingress: Contour class + dw.csiro.au host + cert-manager TLS
+  - patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: contour
+      - op: add
+        path: /metadata/annotations/cert-manager.io~1cluster-issuer
+        value: cluster-issuer-csiro   # "letsencrypt" never issued on DiSP (cert stuck Ready=False); this is the issuer the RIS tutorial uses successfully
+      # Contour: the base's nginx-style regex paths shadow the ACME HTTP-01 solver route
+      # (referrer's /()(.*) answered the challenge with 404). Use plain Prefix paths.
+      - op: replace
+        path: /spec/rules/0/http/paths
+        value:
+          - { path: /referral/fhir, pathType: Prefix, backend: { service: { name: fhir, port: { number: 8080 } } } }
+          - { path: /directory/fhir, pathType: Prefix, backend: { service: { name: directory, port: { number: 8080 } } } }
+          - { path: /, pathType: Prefix, backend: { service: { name: banner, port: { number: 8080 } } } }
+      - op: add
+        path: /spec/rules/0/host
+        value: aehrc-qh-connectathon-track-2.dw.csiro.au
+      - op: add
+        path: /spec/tls
+        value:
+          - hosts: [aehrc-qh-connectathon-track-2.dw.csiro.au]
+            secretName: track2-tls
+    target: { kind: Ingress, name: track2 }
+
+  # Referral HAPI: advertise the public https base in links/Location headers.
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://aehrc-qh-connectathon-track-2.dw.csiro.au/referral/fhir" }
+    target: { kind: Deployment, name: fhir }
+
+  # Directory HAPI: advertise the public https base in links/Location headers.
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://aehrc-qh-connectathon-track-2.dw.csiro.au/directory/fhir" }
+    target: { kind: Deployment, name: directory }
+
+  # Referrer pulls from a public registry on DiSP (base uses IfNotPresent for the
+  # microk8s local import; DiSP must actually pull it).
+  - patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/imagePullPolicy
+        value: Always
+    target: { kind: Deployment, name: referrer }
+
+# Referrer image — public Docker Hub repo (DiSP pulls Docker Hub anonymously, as it
+# already does for postgres/hapi). Built from the Patient-Referral repo.
+images:
+  - name: localhost:32000/patient-referral:local
+    newName: joernguysuess/patient-referral
+    digest: sha256:ce5390937e47e9c837af407e29ead02cd6e23eab65e0af7879c455d8748db739   # joernguysuess/patient-referral:1.0.1-54ff8b9 = mjosborne1/Patient-Referral v1.0.1 @ 54ff8b9
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      - POSTGRES_PASSWORD=CHANGE-ME-DISP   # use a sealed/SOPS secret in the real deploy
+generatorOptions:
+  disableNameSuffixHash: true

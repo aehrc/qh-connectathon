@@ -1,0 +1,57 @@
+# AWS EKS Auto Mode overlay — the event host.
+# Auto Mode provides Karpenter (nodes), EBS CSI, and the ALB controller BUILT IN
+# (no add-on installs). Specifics vs local/microk8s:
+#   - Auto Mode IngressClass + IngressClassParams (controller eks.amazonaws.com/alb),
+#     replacing the base nginx ingress; ACM TLS via IngressClassParams.certificateARNs
+#   - gp3 StorageClass with the Auto Mode provisioner (ebs.csi.eks.amazonaws.com)
+#   - production sizing for 35-40 concurrent users
+#   - referrer image from ECR; DB password via Secrets Manager/External Secrets
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: track2
+
+resources:
+  - ../../base
+  - namespace.yaml
+  - storageclass-gp3.yaml
+  - ingressclass-automode.yaml
+
+# Replace the base (nginx) ingress with the Auto Mode ALB ingress of the same name
+patches:
+  - path: ingress-alb.yaml
+    target: { kind: Ingress, name: track2 }
+  - path: patch-sizing.yaml
+  # ALB target-group health check is per backend Service: directory serves under /directory,
+  # so it needs its own path (the Ingress-level /referral/fhir/metadata would 404 there -> unhealthy).
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /directory/fhir/metadata }
+    target: { kind: Service, name: directory }
+  # Same for the referral server (under /referral; the UI on / answers its own /fhir/* routes)
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /referral/fhir/metadata }
+    target: { kind: Service, name: fhir }
+  # The UI (banner proxy -> app) target group must not inherit the Ingress-level (HAPI) path: the app has a /health route.
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value: { alb.ingress.kubernetes.io/healthcheck-path: /health }
+    target: { kind: Service, name: banner }
+
+# Referrer image: push the Patient-Referral image to ECR and set the ref here.
+images:
+  - name: localhost:32000/patient-referral:local
+    newName: ACCOUNT.dkr.ecr.REGION.amazonaws.com/patient-referral
+    newTag: latest
+
+secretGenerator:
+  - name: db-secret
+    literals:
+      - POSTGRES_USER=hapi
+      # Production: replace with an External Secret / SOPS-encrypted value, not a literal.
+      - POSTGRES_PASSWORD=CHANGE-ME-IN-SECRETS-MANAGER
+generatorOptions:
+  disableNameSuffixHash: true
