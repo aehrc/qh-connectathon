@@ -368,12 +368,12 @@ I also added a catch so errors show on the page instead of a blank screen.
 
 `setPatient` with the same object it already holds doesn't re-render, so the old code changed the name in memory but not on screen.
 
-**Please don't rename the shared patients** (`pam-001`..`pam-040`, `pam-demo`): other teams use them. Remove the form, or try it on a Patient you created.
+**Please don't rename the shared patients** (`pam-001`..`pam-040`, `pam-demo`): other people use them. Remove the form, or try it on a Patient you created.
 
 <!--
 Fix three: without the dependency array, the effect re-runs every render, which reads the patient, which re-renders. A request loop.
 The update copied the state object by reference, so React didn't notice the change.
-Please don't rename the shared patients: other teams are using them.
+Please don't rename the shared patients: other people are using them.
 -->
 
 ---

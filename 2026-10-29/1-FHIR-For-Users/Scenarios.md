@@ -3,10 +3,12 @@
 Scenarios are graded ★ (good first task) to ★★★ (hard). Strand A modules follow the PAM
 forms; strand B apps follow the numbered visualisations (PAM 1–19) of the current dashboard.
 
-**Composable questionnaires are the backbone of strand A.** Each team builds or extends one
-module Questionnaire against a shared root form and shared conventions (variable names, launch
-context, [FHIR mapping](FHIR-Mapping-DRAFT.md)). On day 2 the modules are assembled with
-`$assemble` into one PAM form.
+**Composable questionnaires are the backbone of strand A.** Participants, alone or in teams,
+build or extend module Questionnaires against a shared root form and shared conventions (variable
+names, launch context, [FHIR mapping](FHIR-Mapping-DRAFT.md)). Several people may take the same
+module, and some modules may not be taken at all: both are fine. On day 2, whichever modules are
+ready are assembled with `$assemble` into one PAM form (one version per module where there are
+several).
 
 ## Strand A — Questionnaire modules (Smart Forms + SDC)
 

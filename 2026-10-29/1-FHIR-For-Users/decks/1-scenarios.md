@@ -29,25 +29,26 @@ Everything here is on GitHub, so you can read it back later. Don't take notes.
 |---|---|---|---|
 | **A** Questionnaire modules | One form module in Smart Forms (SDC) | A1–A11 | a clinician or analyst, or new to FHIR |
 | **B** SMART apps | A piece of the dashboard as a SMART app | B1–B9 | a web developer |
-| **C** End to end | Close the loop, or critique the mapping | C1–C2 | on a team that has finished a module or app |
+| **C** End to end | Close the loop, or critique the mapping | C1–C2 | someone who has finished a module or app |
 | **D** REDCap + FHIR | Bring FHIR into the existing REDCap system | D1–D4 | a REDCap user or administrator |
 
 Levels: ★ good first task, ★★ some FHIR experience, ★★★ hard.
 
-Day 1: build. Day 2: assemble the modules into one PAM form and feed the apps.
+Day 1: build. Day 2: assemble whichever modules are ready into one PAM form and feed the apps.
 
 <!--
 Four strands, all on the same PAM case, so the pieces fit together on day 2.
 Pick by who you are, not by what sounds impressive: the right-hand column is the guide.
 Stars are about FHIR experience, not about how useful the work is. A one-star module is a real contribution.
-Day 1 build, day 2 assemble: forms become one PAM form, and the apps read what the forms write.
+Day 1 build, day 2 assemble whatever is ready: forms become one PAM form, and the apps read what the forms write.
+We don't expect every scenario to be covered, and two people on the same one is fine.
 -->
 
 ---
 
 ## Strand A: Questionnaire modules (1 of 2)
 
-Each team builds or extends one module. You'll touch: Smart Forms, SDC, FHIRPath.
+Build or extend a module, alone or with others. You'll touch: Smart Forms, SDC, FHIRPath.
 
 <div class="cards">
 
@@ -96,7 +97,8 @@ Pathway classification as calculated expressions. Writes Condition, Flag and Goa
 </div>
 
 <!--
-Strand A: each team takes one module of the PAM form and makes it a proper SDC questionnaire.
+Strand A: pick a module of the PAM form and make it a proper SDC questionnaire, on your own or with others.
+Two versions of the same module is fine: different approaches are worth comparing.
 A1 and A2 are the gentlest start: prepopulate from the record, write a little back.
 A5 Pathology is the running example in the forms decks, so it's a good pick if you want to follow along closely.
 A6 is the hard one: decision support as calculated expressions, writing Condition, Flag and Goal.
@@ -132,7 +134,7 @@ Days with the team, follow-up due date. Writes Task and EpisodeOfCare status.
 <div>
 
 ### A10 Modular assembly ★★★
-Assemble the full form from A1–A9 with `subQuestionnaire` and `$assemble`.
+Assemble the full form from whichever of A1–A9 are ready, with `subQuestionnaire` and `$assemble`.
 
 </div>
 
@@ -148,7 +150,7 @@ Plain-language questions. The response is what the nurse's forms pre-populate fr
 <!--
 A7 is the Ganzoni iron dose calculation: fiddly maths, satisfying when it works.
 A8 and A9 are good next steps after a one-star module.
-A10 is the integration job: assembling all the modules into one form. Best for someone who likes plumbing; it depends on the others.
+A10 is the integration job: assembling whatever modules are ready into one form, choosing one where there are several. Best for someone who likes plumbing.
 A11 flips it round: a form the patient fills in, which the nurse's forms then prepopulate from.
 -->
 
@@ -301,7 +303,7 @@ SNOMED subsumption queries that local dropdown values can't answer.
 **Strand D needs a REDCap instance with external modules** (PHP 8, REDCap 8.8.1+). Instance not confirmed yet. If none: D1 is a leads' demo and D3 uses Smart Forms only.
 
 <!--
-C is for teams that finish: C1 closes the loop from a form to the dashboard; C2 is critiquing our mapping, which we'd really like.
+C is for anyone who finishes: C1 closes the loop from a form to the dashboard; C2 is critiquing our mapping, which we'd really like.
 D is the REDCap strand, for people who run PAM-style registries in REDCap today.
 Say plainly: the REDCap instance isn't confirmed. If it doesn't appear, D1 becomes a demo by us and D3 uses Smart Forms only.
 -->
@@ -357,20 +359,21 @@ Client IDs for SMART apps come from me: the SMART deck shows what to send.
 
 ---
 
-## Pick a scenario, form a team
+## Pick a scenario, work how you like
 
-1. Pick **one** scenario that matches your skills. A ★ is a fine choice.
-2. Find 2–4 people on the same or a neighbouring scenario (A with A, or an A and a B).
-3. Tell a track lead which one you've picked so we can help.
-4. Check the shared conventions before you start, so your work fits with the others.
+1. Pick a scenario that matches your skills. A ★ is a fine choice.
+2. Work **alone or with others**. Teams are welcome, not required. Someone else on the same scenario? Fine: compare approaches.
+3. Tell a track lead what you've picked, so we can help and put people in touch.
+4. Check the shared conventions before you start, so your work fits with the others. Give anything you put on Meld **your own id** (e.g. `pathology-yourname`), so you don't overwrite someone else's.
 
-Post-lunch tip: a team that finishes can take C1.
+Not every scenario will be taken, and that's fine. Finished early? Take another, or C1.
 
 <!--
-Pick one scenario. A one-star is a fine choice.
-Teams of two to four; mixing an A and a B is good, because the app can show what the form wrote.
-Tell one of us which you've picked, so we know who to check on.
-If you finish early, C1 is waiting.
+Pick a scenario. A one-star is a fine choice.
+Alone or in a group, both work. If you do pair up, an A with a B is nice: the app can show what the form wrote.
+Several people on the same scenario is fine; we're not trying to cover everything.
+Tell one of us what you've picked, so we know who to check on and who to introduce to whom.
+Use your own ids on Meld: it's one shared server.
 -->
 
 ---

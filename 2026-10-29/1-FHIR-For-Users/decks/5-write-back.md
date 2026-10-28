@@ -801,7 +801,7 @@ Start from `decks/examples/pathology-walkthrough.json` and `decks/examples/sampl
 </div>
 
 <!--
-Hand over to the room. A5 is the gentlest start, A6 and A7 are harder, C1 joins up with the apps teams.
+Hand over to the room. A5 is the gentlest start, A6 and A7 are harder, C1 joins up with the apps people.
 Everything they need is on GitHub; the decks stay up for the two days.
 Track leads are around to help; ask us for anything that needs Meld changes.
 -->

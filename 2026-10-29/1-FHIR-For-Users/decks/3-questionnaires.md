@@ -702,21 +702,21 @@ Before you PUT, edit the export: add an **`id`** of your own, a `url` and a `ver
 
 ```json
   "resourceType": "Questionnaire",
-  "id": "pathology-team-x",
-  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pathology-team-x",
+  "id": "pathology-yourname",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pathology-yourname",
   "version": "0.1.0",
 ```
 
 Then PUT it to the open endpoint (no login needed). `decks/examples/load.sh` does the same for ours, as PUT entries in one transaction Bundle:
 
 ```
-curl -X PUT "https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-team-x" \
+curl -X PUT "https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-yourname" \
   -H 'Content-Type: application/fhir+json' --data-binary @Pathology-results.R4.json
 ```
 
 - The `id` in the URL and in the file must match.
 - **Pick an id nobody uses.** A PUT to an existing id (`pam-*`, `pathology-walkthrough*`) overwrites the shared forms everyone uses.
-- Check it: `https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-team-x?_format=json`
+- Check it: `https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-yourname?_format=json`
 
 <!--
 Skip live: mention it's here for reading back.
