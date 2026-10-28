@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Services Track (Track 2) — Concrete Time Plan</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+    :root { --teal:#00A9CE; --navy:#001D34; --indigo:#1E22AA; --green:#007A53; --bg:#FFFFFF; --text:#001D34; --muted:#5A5F66; --line:#DDE4E9; --code:#F2F7F9; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --bg:#0B1620; --text:#E6EDF2; --muted:#9AA7B2; --line:#24384A; --code:#12212E; --indigo:#8C90FF; }
+    }
+    html { background: var(--bg); }
+    body { max-width: 900px; margin: 0 auto; padding: 0 16px 48px; background: var(--bg); color: var(--text);
+           font: 17px/1.55 Calibri, "Segoe UI", system-ui, sans-serif; }
+    .back { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); margin-bottom: 8px; font-weight: 600; }
+    a { color: var(--teal); }
+    h1 { color: var(--text); }
+    h2 { color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 4px; margin-top: 36px; }
+    h3 { color: var(--indigo); }
+    table { border-collapse: collapse; width: 100%; font-size: 15px; display: block; overflow-x: auto; }
+    th { background: var(--navy); color: #fff; text-align: left; }
+    th, td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+    code { color: var(--green); background: var(--code); padding: 0 3px; border-radius: 3px; }
+    pre { background: var(--code); padding: 12px; overflow-x: auto; }
+    img { max-width: 100%; }
+    /* Scenario §7: keep test case IDs (e.g. D-01) on one line */
+    [id="7-test-cases-summary"] + table td:first-child { white-space: nowrap; }
+  </style>
+</head>
+<body>
+<a class="back" href="index.html">← Track 2 workshop guide</a>
+<h1 id="services-track-track-2--concrete-time-plan">Services Track
+(Track 2) — Concrete Time Plan</h1>
+<p><strong>Event:</strong> FHIR in Queensland Health Connectathon
+<strong>Dates:</strong> Thursday 29 – Friday 30 October 2026
+<strong>Venue:</strong> Telstra Health Building, 275 George St, Brisbane
+CBD <strong>Track 2 leads:</strong> Daniel Foulkes, Joern Guy Suess,
+Michael Osborne <strong>Scenario:</strong> Radiology Referral with
+Directory Discovery and Booking (see
+<code>QH-Radiology-Referral-Scenario-DRAFT.md</code>)</p>
+<p><strong>Basis:</strong> Concrete track timings map onto the official
+event program
+(<code>Program and Guide/29 - 30 October 2026 FHIR in QH Connectathon Detailed Program DRAFT.docx</code>,
+DRAFT). Plenary and break times are fixed by the event program; Track 2
+session content is planned here. Expected attendance: ~25 baseline, plan
+for 35–40 (Track 2 is the broadest draw); split into a <strong>browser
+core</strong> stream and a <strong>developer deep-dive</strong> stream
+(~10 people). Source:
+<code>Daniel Joern Guy Paul Michael O/Track2-EOI-insights.md</code>.</p>
+<hr />
+<h2 id="day-1--thursday-29-october-2026">Day 1 — Thursday 29 October
+2026</h2>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Duration</th>
+<th>Location</th>
+<th>Session</th>
+<th>Track 2 content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8:30–9:00</td>
+<td>30 min</td>
+<td>—</td>
+<td>Registration</td>
+<td>Arrive, laptop/wifi check for early Track 2 attendees</td>
+</tr>
+<tr>
+<td>9:00–9:20</td>
+<td>20 min</td>
+<td>Main Room</td>
+<td>Welcome &amp; Introduction (plenary)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>9:20–9:35</td>
+<td>15 min</td>
+<td>Main Room</td>
+<td>QH Landscape / FHIR Strategy (plenary)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>9:35–10:30</td>
+<td>55 min</td>
+<td>Main Room</td>
+<td>"Spot FHIRs!" showcases (plenary)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>10:30–11:00</td>
+<td>30 min</td>
+<td>Main Room</td>
+<td>Overview of Tracks — "Which room to Track to?"</td>
+<td>Track 2 pitch: radiology referral scenario headline</td>
+</tr>
+<tr>
+<td>11:00–11:30</td>
+<td>30 min</td>
+<td>—</td>
+<td><strong>Morning Tea</strong></td>
+<td>Move to Track 2 room</td>
+</tr>
+<tr>
+<td>11:30–13:00</td>
+<td>90 min</td>
+<td>Track 2 Room</td>
+<td><strong>Tracks Kick Off!</strong></td>
+<td><strong>Kick-off &amp; environment</strong>: scenario intro, roles
+(Referrer/Directory/Referral Server/Filler), Qld Health Provider
+Directory on FHIR connectivity (X-Request-ID, auth, paging), seed-data
+review. Split streams: browser core vs developer deep-dive.</td>
+</tr>
+<tr>
+<td>13:00–14:00</td>
+<td>60 min</td>
+<td>—</td>
+<td><strong>Lunch</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>14:00–15:00</td>
+<td>60 min</td>
+<td>Track 2 Room</td>
+<td>Track session</td>
+<td><strong>Track A — Discovery</strong>: Qld Health Provider Directory
+on FHIR discovery queries
+(HealthcareService/Location/Organization/PractitionerRole/Endpoint);
+resolve receiving Endpoint.</td>
+</tr>
+<tr>
+<td>15:00–15:30</td>
+<td>30 min</td>
+<td>—</td>
+<td><strong>Afternoon Tea</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>15:30–17:00</td>
+<td>90 min</td>
+<td>Track 2 Room</td>
+<td>Track session</td>
+<td><strong>Referral creation</strong>: build the ServiceRequest + Task
++ supporting-info transaction Bundle; validate on HAPI
+(<code>$validate</code>) against QH IG / AU eRequesting.</td>
+</tr>
+<tr>
+<td>17:00</td>
+<td>—</td>
+<td>Track 2 Room</td>
+<td>Day 1 wrap-up (by Track Leads)</td>
+<td>Day 1 issues log; IG feedback capture.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="day-2--friday-30-october-2026">Day 2 — Friday 30 October
+2026</h2>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Duration</th>
+<th>Location</th>
+<th>Session</th>
+<th>Track 2 content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8:30–9:00</td>
+<td>30 min</td>
+<td>—</td>
+<td>Registration</td>
+<td>—</td>
+</tr>
+<tr>
+<td>9:00–9:30</td>
+<td>30 min</td>
+<td>Main Room</td>
+<td>Track lead recap &amp; progress check-in (plenary)</td>
+<td>Track 2 lead reports Day 1 progress</td>
+</tr>
+<tr>
+<td>9:30–10:30</td>
+<td>60 min</td>
+<td>Track 2 Room</td>
+<td>Track session</td>
+<td><strong>Filler triage &amp; availability</strong>: accept / reject /
+on-hold with coded reason; publish Schedule + free Slots.</td>
+</tr>
+<tr>
+<td>10:30–11:00</td>
+<td>30 min</td>
+<td>—</td>
+<td><strong>Morning Tea</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>11:00–12:30</td>
+<td>90 min</td>
+<td>Track 2 Room</td>
+<td>Track session</td>
+<td><strong>Track B — Booking</strong>: create Appointment against a
+free Slot; confirm; cancel &amp; rebook; negative tests (taken
+slot).</td>
+</tr>
+<tr>
+<td>12:30–13:30</td>
+<td>60 min</td>
+<td>—</td>
+<td><strong>Lunch</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td>13:30–15:00</td>
+<td>90 min</td>
+<td>Track 2 Room</td>
+<td>Track session</td>
+<td><strong>Status tracking end-to-end</strong> + stretch tracks
+(Subscriptions, patient app, <code>$export</code>,
+DiagnosticReport/report return).</td>
+</tr>
+<tr>
+<td>15:00–15:30</td>
+<td>30 min</td>
+<td>—</td>
+<td><strong>Afternoon Tea</strong></td>
+<td>Prepare Show-and-Tell demo</td>
+</tr>
+<tr>
+<td>15:30–16:30</td>
+<td>60 min</td>
+<td>Main Room</td>
+<td><strong>Show and Tell!</strong> (all tracks) + wrap-up</td>
+<td>Track 2 demo: full referral flow (discover → request → triage → book
+→ track); findings report; IG change requests.</td>
+</tr>
+<tr>
+<td>16:30</td>
+<td>—</td>
+<td>Main Room</td>
+<td>Closing Remarks (plenary)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="track-2-session-budget-hands-on-time">Track 2 session budget
+(hands-on time)</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Day 1</th>
+<th>Day 2</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kick-off / environment</td>
+<td>90 min</td>
+<td>—</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Discovery (Track A)</td>
+<td>60 min</td>
+<td>—</td>
+<td>60 min</td>
+</tr>
+<tr>
+<td>Referral creation</td>
+<td>90 min</td>
+<td>—</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Filler triage &amp; availability</td>
+<td>—</td>
+<td>60 min</td>
+<td>60 min</td>
+</tr>
+<tr>
+<td>Booking (Track B)</td>
+<td>—</td>
+<td>90 min</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td>Tracking + stretch</td>
+<td>—</td>
+<td>90 min</td>
+<td>90 min</td>
+</tr>
+<tr>
+<td><strong>Hands-on total</strong></td>
+<td><strong>240 min (4 h)</strong></td>
+<td><strong>240 min (4 h)</strong></td>
+<td><strong>480 min (8 h)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Plus plenary/recap, breaks, and the Show-and-Tell demo slot.</p>
+<hr />
+<h2 id="integration-with-the-event-program">Integration with the event
+program</h2>
+<p>The Track 2 scenario is sequenced to fit the six working blocks the
+official program allocates to tracks. Three integration points shape how
+well it runs:</p>
+<ol type="1">
+<li><strong>The 10:30–11:00 "Overview of Tracks / Which room to Track
+to?" plenary is the recruitment moment.</strong> EOI data shows Track 2
+is the broadest draw (53 of 71 rank it 1st or 2nd) and it absorbs
+overflow, so the radiology-referral pitch here sets attendance. There is
+a natural thread from the 9:35 "Spot FHIRs!" CHQ showcase (Joern Guy)
+into the track.</li>
+<li><strong>The two-stream split (browser core + developer deep-dive,
+~10 people) must start in the very first block.</strong> The 11:30–13:00
+kick-off is only 90 minutes and must cover scenario intro, environment
+setup, and the stream split. To protect it, push environment
+prerequisites (laptop permissions, Qld Health Provider Directory on FHIR
+auth, tooling) into pre-event comms so the kick-off is not consumed by
+setup troubleshooting.</li>
+<li><strong>Day 2 has no dedicated demo-prep time except the 15:00–15:30
+afternoon tea.</strong> Track 2 should freeze scope by ~14:30 on Day 2
+so there is a working end-to-end flow to present in the 15:30–16:30
+"Show and Tell!". The scenario's end-to-end demo <em>is</em> the
+Show-and-Tell content.</li>
+</ol>
+<h2 id="notes--dependencies">Notes &amp; dependencies</h2>
+<ul>
+<li><strong>Room:</strong> track sessions run in an "Individual Track
+Room"; specific room numbers are not yet given in the event program
+(TBC).</li>
+<li><strong>Environments (confirmed 2026-10-21):</strong> one address
+per function, all open (no authentication; Track 2 has no secured
+server): landing page <a
+href="https://track2.efiq.hospservices.net/">https://track2.efiq.hospservices.net/</a>;
+app <a
+href="https://ui.efiq.hospservices.net/">https://ui.efiq.hospservices.net/</a>;
+referral FHIR base <a
+href="https://referrals.efiq.hospservices.net/fhir">https://referrals.efiq.hospservices.net/fhir</a>;
+directory FHIR base <a
+href="https://directory.efiq.hospservices.net/fhir">https://directory.efiq.hospservices.net/fhir</a>;
+conformance runner <a
+href="https://conformance.efiq.hospservices.net/">https://conformance.efiq.hospservices.net/</a>;
+Caret (HL7 v2) <a
+href="https://v2.efiq.hospservices.net/">https://v2.efiq.hospservices.net/</a>.
+Up for the event (29-30 Oct), switched off between rehearsals. Fallback
+on the CSIRO network only: <a
+href="https://aehrc-qh-connectathon-track-2.dw.csiro.au/">https://aehrc-qh-connectathon-track-2.dw.csiro.au/</a>.
+Test results: <a
+href="https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/2-FHIR-For-Services/deploy/TEST-REPORT.md">test
+report</a>.</li>
+<li><strong>Pre-event decisions</strong> that affect the plan are
+tracked in the scenario proposal Section 8 (QH referrals IG version, Qld
+Health Provider Directory on FHIR access/credentials,
+directory→referral-server linkage, who books, transport, security,
+terminology).</li>
+<li><strong>Streaming:</strong> run the browser core path and developer
+deep-dive in parallel within each session; share developer prerequisites
+via pre-event comms.</li>
+<li>This plan follows a <strong>DRAFT</strong> event program — adjust if
+the official program times change.</li>
+</ul>
+</body>
+</html>

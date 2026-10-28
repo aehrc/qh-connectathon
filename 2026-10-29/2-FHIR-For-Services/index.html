@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Track 2 Workshop Guide</title>
+<style>
+  :root {
+    --teal: #00A9CE; --navy: #001D34; --grey: #757579; --indigo: #1E22AA; --green: #007A53;
+    --bg: #F5F8FA; --card: #FFFFFF; --text: #001D34; --muted: #5A5F66; --line: #DDE4E9;
+    --chip: #E6F6FA; --break: #EEF1F3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B1620; --card: #12212E; --text: #E6EDF2; --muted: #9AA7B2; --line: #24384A;
+      --chip: #0E3442; --break: #172633; --indigo: #8C90FF;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B1620; --card: #12212E; --text: #E6EDF2; --muted: #9AA7B2; --line: #24384A;
+    --chip: #0E3442; --break: #172633; --indigo: #8C90FF;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.5 Calibri, "Segoe UI", system-ui, sans-serif;
+  }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  header { background: var(--navy); color: #fff; padding: 32px 16px; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+  header .wrap { padding: 0; }
+  header h1 { margin: 0 0 4px; font-size: 32px; }
+  header p { margin: 0; color: #C7D0D6; }
+  header .scenario { color: var(--teal); font-size: 20px; margin-bottom: 8px; }
+  h2 { color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 4px; margin: 36px 0 16px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .card .step { font-size: 13px; font-weight: 700; color: var(--grey); text-transform: uppercase; letter-spacing: .05em; }
+  .card h3 { margin: 0; font-size: 19px; color: var(--indigo); }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; flex: 1; }
+  .card .links { display: flex; flex-wrap: wrap; gap: 10px; font-size: 14px; font-weight: 600; }
+  .days { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .day h3 { margin: 0 0 4px; color: var(--indigo); font-size: 22px; }
+  .day .theme { margin: 0 0 12px; color: var(--muted); }
+  .slot {
+    display: grid; grid-template-columns: 92px 1fr; gap: 10px;
+    background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--teal);
+    border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;
+  }
+  .slot.plenary { border-left-color: var(--grey); }
+  .slot.brk { background: var(--break); border: none; padding: 4px 12px; color: var(--muted); font-size: 14px; }
+  .time { font-weight: 700; font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .slot strong { display: block; }
+  .slot .desc { font-size: 14px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .chips a { background: var(--chip); border-radius: 12px; padding: 1px 10px; font-size: 13px; }
+  ul.ref { padding-left: 20px; }
+  ul.ref li { margin-bottom: 4px; }
+  footer { color: var(--grey); font-size: 13px; padding: 32px 16px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="scenario">FHIR for Services — Track 2</p>
+    <h1>Radiology Referral with Directory Discovery and Booking</h1>
+    <p>FHIR in Queensland Health Connectathon · Thu 29 – Fri 30 October 2026 · Telstra Health Building, 275 George St, Brisbane</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <h2>Start here</h2>
+  <div class="cards">
+    <div class="card">
+      <span class="step">1 · Orientation</span>
+      <h3>Track 2 Kick-off Deck</h3>
+      <p>The opening session: what we are building, systems and roles, the three flows, the two streams and how to get started.</p>
+      <div class="links">
+        <a data-doc="Track2-KickOff-Deck.md">View slides</a>
+        <a data-raw="Track2-KickOff-Deck.pptx">Download .pptx</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="step">2 · The scenario</span>
+      <h3>Radiology Referral Scenario</h3>
+      <p>Purpose, systems, standards, clinical storyline, the six workflow steps, test cases and open questions.</p>
+      <div class="links">
+        <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md">Read scenario (draft)</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="step">3 · When</span>
+      <h3>Concrete Time Plan</h3>
+      <p>Session-by-session timings mapped to the official event program, with the hands-on time budget.</p>
+      <div class="links">
+        <a data-doc="Services-Track-Concrete-Time-Plan.md">Read time plan</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="step">4 · At a glance</span>
+      <h3>Two-Day Agenda</h3>
+      <p>One-page summary: Day 1 Discover &amp; Request, Day 2 Book &amp; Track.</p>
+      <div class="links">
+        <a data-doc="Services-Track-Two-Day-Agenda.md">Read agenda</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>The two days</h2>
+  <div class="days">
+
+    <section class="day">
+      <h3>Day 1 · Thursday 29 Oct</h3>
+      <p class="theme">Discover &amp; Request</p>
+
+      <div class="slot plenary"><span class="time">9:00–11:00</span><div><strong>Plenary (Main Room)</strong><span class="desc">Welcome, QH landscape, showcases, track overview with the Track 2 pitch.</span></div></div>
+      <div class="slot brk"><span class="time">11:00</span><span>Morning tea · move to the Track 2 room</span></div>
+      <div class="slot"><span class="time">11:30–13:00</span><div>
+        <strong>Kick-off &amp; environment</strong>
+        <span class="desc">Scenario intro, roles, Provider Directory connectivity (X-Request-ID, auth, paging), seed data. Split into browser core and developer deep-dive streams.</span>
+        <div class="chips">
+          <a data-doc="Track2-KickOff-Deck.md">Kick-off deck</a>
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#2-systems-and-roles">Systems &amp; roles</a>
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#4-clinical-storyline-test-data">Storyline / test data</a>
+          <a data-doc="Track2-KickOff-Deck.md#two-streams-run-in-parallel">Two streams</a>
+          <a data-doc="Track2-KickOff-Deck.md#getting-started">Getting started</a>
+        </div>
+      </div></div>
+      <div class="slot brk"><span class="time">13:00</span><span>Lunch</span></div>
+      <div class="slot"><span class="time">14:00–15:00</span><div>
+        <strong>Track A — Discovery</strong>
+        <span class="desc">Query HealthcareService, Location, Organization, PractitionerRole and Endpoint; resolve the receiving Endpoint.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#step-1--discover-an-imaging-service-qld-health-provider-directory-on-fhir">Step 1 · Discover</a>
+          <a data-doc="Track2-KickOff-Deck.md#the-flow--1-discover--request">Flow 1 diagram</a>
+        </div>
+      </div></div>
+      <div class="slot brk"><span class="time">15:00</span><span>Afternoon tea</span></div>
+      <div class="slot"><span class="time">15:30–17:00</span><div>
+        <strong>Referral creation</strong>
+        <span class="desc">Build the ServiceRequest + Task + supporting-info Bundle and validate on HAPI with <code>$validate</code>.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#step-2--create-the-referral">Step 2 · Create referral</a>
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#3-standards-in-scope">Standards in scope</a>
+        </div>
+      </div></div>
+      <div class="slot"><span class="time">17:00</span><div>
+        <strong>Day 1 wrap-up</strong>
+        <span class="desc">Issues log and IG feedback capture.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#8-open-questions--decisions-before-the-event">Open questions</a>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="day">
+      <h3>Day 2 · Friday 30 Oct</h3>
+      <p class="theme">Book &amp; Track</p>
+
+      <div class="slot plenary"><span class="time">9:00–9:30</span><div><strong>Recap &amp; check-in (Main Room)</strong><span class="desc">Track leads report Day 1 progress.</span></div></div>
+      <div class="slot"><span class="time">9:30–10:30</span><div>
+        <strong>Filler triage &amp; availability</strong>
+        <span class="desc">Accept, reject or put on hold with a coded reason; publish Schedule and free Slots.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#step-3--filler-receives-and-triages">Step 3 · Triage</a>
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#step-4--publish-availability">Step 4 · Availability</a>
+        </div>
+      </div></div>
+      <div class="slot brk"><span class="time">10:30</span><span>Morning tea</span></div>
+      <div class="slot"><span class="time">11:00–12:30</span><div>
+        <strong>Track B — Booking</strong>
+        <span class="desc">Book an Appointment against a free Slot; confirm, cancel and rebook; negative tests.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#step-5--book">Step 5 · Book</a>
+          <a data-doc="Track2-KickOff-Deck.md#the-flow--2-track-this-request--book">Flow 2 diagram</a>
+        </div>
+      </div></div>
+      <div class="slot brk"><span class="time">12:30</span><span>Lunch</span></div>
+      <div class="slot"><span class="time">13:30–15:00</span><div>
+        <strong>Status tracking + stretch</strong>
+        <span class="desc">End-to-end status tracking; stretch: Subscriptions, patient app, <code>$export</code>, report return.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#step-6--track-status">Step 6 · Track</a>
+          <a data-doc="Track2-KickOff-Deck.md#tracking-poll-vs-subscribe">Poll vs subscribe</a>
+          <a data-doc="Track2-KickOff-Deck.md#the-flow--3-confirm--complete">Flow 3 diagram</a>
+        </div>
+      </div></div>
+      <div class="slot brk"><span class="time">15:00</span><span>Afternoon tea · prepare the demo</span></div>
+      <div class="slot plenary"><span class="time">15:30–16:30</span><div>
+        <strong>Show and Tell (Main Room)</strong>
+        <span class="desc">Full flow demo (discover → request → triage → book → track), findings report, IG change requests.</span>
+        <div class="chips">
+          <a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#7-test-cases-summary">Test cases</a>
+        </div>
+      </div></div>
+    </section>
+  </div>
+
+  <h2>Reference</h2>
+  <ul class="ref">
+    <li><a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#5-workflow-steps">Scenario · All six workflow steps</a></li>
+    <li><a data-doc="QH-Radiology-Referral-Scenario-DRAFT.md#7-test-cases-summary">Scenario · Test cases</a></li>
+    <li><a data-doc="Services-Track-Concrete-Time-Plan.md#track-2-session-budget-hands-on-time">Time plan · Hands-on time budget</a></li>
+    <li><a data-doc="Services-Track-Concrete-Time-Plan.md#notes--dependencies">Time plan · Notes &amp; dependencies</a></li>
+    <li><a data-doc="Track2-KickOff-Deck.md#open-for-debate">Kick-off deck · Open for debate</a></li>
+  </ul>
+</main>
+
+<footer>Track 2 — FHIR for Services · <a href="https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-Services">Track folder on GitHub</a></footer>
+
+<script>
+  // Links open the HTML pages built by scripts/build-site.sh (next to this file).
+  // The deck is Marp HTML, which addresses slides by number rather than heading id.
+  const deckSlides = {
+    "two-streams-run-in-parallel": 11,
+    "getting-started": 14,
+    "the-flow--1-discover--request": 6,
+    "the-flow--2-track-this-request--book": 7,
+    "tracking-poll-vs-subscribe": 8,
+    "the-flow--3-confirm--complete": 9,
+    "open-for-debate": 15,
+  };
+  document.querySelectorAll("a[data-doc]").forEach(a => {
+    let [file, anchor] = a.dataset.doc.split("#");
+    file = file.replace(/\.md$/, ".html");
+    if (anchor && file === "Track2-KickOff-Deck.html") anchor = deckSlides[anchor];
+    a.href = file + (anchor ? "#" + anchor : "");
+    a.target = "_blank";
+  });
+  document.querySelectorAll("a[data-raw]").forEach(a => {
+    a.href = a.dataset.raw;
+  });
+</script>
+</body>
+</html>

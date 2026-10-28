@@ -1,0 +1,22 @@
+<style>
+  :root { --teal:#00A9CE; --navy:#001D34; --indigo:#1E22AA; --green:#007A53; --bg:#FFFFFF; --text:#001D34; --muted:#5A5F66; --line:#DDE4E9; --code:#F2F7F9; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg:#0B1620; --text:#E6EDF2; --muted:#9AA7B2; --line:#24384A; --code:#12212E; --indigo:#8C90FF; }
+  }
+  html { background: var(--bg); }
+  body { max-width: 900px; margin: 0 auto; padding: 0 16px 48px; background: var(--bg); color: var(--text);
+         font: 17px/1.55 Calibri, "Segoe UI", system-ui, sans-serif; }
+  .back { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); margin-bottom: 8px; font-weight: 600; }
+  a { color: var(--teal); }
+  h1 { color: var(--text); }
+  h2 { color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 4px; margin-top: 36px; }
+  h3 { color: var(--indigo); }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; display: block; overflow-x: auto; }
+  th { background: var(--navy); color: #fff; text-align: left; }
+  th, td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+  code { color: var(--green); background: var(--code); padding: 0 3px; border-radius: 3px; }
+  pre { background: var(--code); padding: 12px; overflow-x: auto; }
+  img { max-width: 100%; }
+  /* Scenario §7: keep test case IDs (e.g. D-01) on one line */
+  [id="7-test-cases-summary"] + table td:first-child { white-space: nowrap; }
+</style>
