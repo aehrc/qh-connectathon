@@ -16,6 +16,7 @@ style: |
   .two pre, .two pre code { font-size: 15px; }
   .two p, .two li { font-size: 0.75em; }
   .two h3 { margin-top: 0; }
+  section.reference::before { display: block; content: "Reference \00B7  skip live"; color: var(--muted); font-size: 0.6em; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.3em; }
 ---
 
 <!-- _class: title -->
@@ -55,7 +56,7 @@ Target file: `decks/examples/pathology-walkthrough-stage1.json`. The linkIds are
 
 ---
 
-<style scoped>.two { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } .two pre, .two pre code { font-size: 13px; }</style>
+<style scoped>.two { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } .two pre, .two pre code { font-size: 13px; } .two p { font-size: 0.7em; }</style>
 
 ## Questionnaire vs QuestionnaireResponse
 
@@ -103,7 +104,7 @@ One per patient per filling-in. Same tree, matched by **`linkId`**. `pam-hb` in 
 }
 ```
 
-The response names its form by canonical URL and version, in `questionnaire`: `.../Questionnaire/pathology-walkthrough|0.1.0`
+Its `questionnaire` names the form by canonical `url|version`: `.../pathology-walkthrough|0.1.0`, the **finished** form built over the next decks (stage 1 has its own URL, `...-stage1`).
 
 </div>
 
@@ -120,12 +121,12 @@ The response names its form by canonical URL and version, in `questionnaire`: `.
 | `linkId` | The item's id, unique in the form. Answers, `enableWhen` and expressions use it | `pam-hb`, `pam-ext`, ... |
 | `text` | The label the user sees | `Haemoglobin (Hb)` |
 | `type` | What kind of answer (next slide) | `decimal`, `group`, `choice`, `date` |
-| `required` | Must be answered: `"required": true` | none in stage 1 |
+| `required` | Must be answered: `"required": true` (builder: *Answer required* **Yes**) | none in stage 1 |
 | `repeats` | Can be answered more than once; on a group, the whole group repeats | `pam-ext` |
 | `item` | Child items (groups and nested questions) | under `pam-pathology` and `pam-ext` |
 | `answerOption` | The allowed answers for a `choice` | LOINC codings on `pam-ext-test` |
 | `extension` | Everything else: units, hidden, prepopulation, extraction | `questionnaire-unit` |
-| `enableWhen` | Show the item only when another answer matches | bonus slide |
+| `enableWhen` | Show the item only when another answer matches; a disabled item is usually hidden and its answers are left out of the response | bonus slide |
 
 <div class="small">
 
@@ -295,7 +296,7 @@ The builder adds *Item 0* and selects it:
 <div>
 
 - **Link Id defaults to a random 12-digit number.** Type ours on **every** item, or the next decks' expressions won't find them.
-- **Units: type, then Tab.** Picking from the drop-down while typing `g/L` gives its first match, *gram/Liters*, code `g/l` (lower case: wrong). To remove a unit, use the bin icon.
+- **Units: type, then Tab.** Picking from the drop-down while typing `g/L` gives its first match, *gram/Liters*, code `g/l`: valid UCUM, but not the `g/L` the module and the Observations use, so it won't match. To remove a unit, use the bin icon.
 - The unit becomes the `questionnaire-unit` extension (the *Extensions* table at the bottom).
 
 </div>
@@ -572,11 +573,12 @@ Use this playground, not `smartforms.csiro.au/playground`: the public one can't 
 
 ---
 
-<style scoped>pre, pre code { font-size: 15px; } p, li { font-size: 0.8em; }</style>
+<style scoped>pre, pre code { font-size: 14px; } p, li { font-size: 0.72em; }</style>
+<!-- _class: reference -->
 
 ## Optional: load your form to Meld
 
-Before you PUT, edit the export: add an **`id`** of your own, a `url` and a `version` (you can delete `meta`):
+Before you PUT, edit the export: add an **`id`** of your own, a `url` and a `version`, and delete `meta` (safer). The `url` can be any URL you control; for the connectathon this pattern is fine:
 
 ```json
   "resourceType": "Questionnaire",
@@ -585,7 +587,7 @@ Before you PUT, edit the export: add an **`id`** of your own, a `url` and a `ver
   "version": "0.1.0",
 ```
 
-Then PUT it to the open endpoint (no login needed), as `decks/examples/load.sh` does for ours:
+Then PUT it to the open endpoint (no login needed). `decks/examples/load.sh` does the same for ours, as PUT entries in one transaction Bundle:
 
 ```
 curl -X PUT "https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-team-x" \
@@ -593,7 +595,7 @@ curl -X PUT "https://gw.interop.community/QHConnectathon2026/open/Questionnaire/
 ```
 
 - The `id` in the URL and in the file must match.
-- **Pick an id nobody uses.** A PUT to an existing id (`pam-*`, `pathology-walkthrough*`) overwrites another team's form.
+- **Pick an id nobody uses.** A PUT to an existing id (`pam-*`, `pathology-walkthrough*`) overwrites the shared forms everyone uses.
 - Check it: `https://gw.interop.community/QHConnectathon2026/open/Questionnaire/pathology-team-x?_format=json`
 
 ---
@@ -607,7 +609,7 @@ curl -X PUT "https://gw.interop.community/QHConnectathon2026/open/Questionnaire/
 
 <div>
 
-**Illustration only: not in the walkthrough files.** `pam-ext-value` from stage 1, plus an `enableWhen`: show *Result* only once *Test* has an answer.
+**Illustration only: not in the walkthrough files.** `pam-ext-value` from stage 1, plus an `enableWhen`: show *Result* only once *Test* has an answer. While disabled it's usually hidden, and its answers are left out of the response.
 
 ```json
 {
@@ -645,6 +647,7 @@ In the builder: **Advanced fields** → *Conditional method* → **enableWhen co
 ---
 
 <style scoped>table { font-size: 0.66em; } td, th { padding: 4px 10px; }</style>
+<!-- _class: reference -->
 
 ## Compare with the real module
 
@@ -663,6 +666,7 @@ In the builder: **Advanced fields** → *Conditional method* → **enableWhen co
 ---
 
 <style scoped>.two { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); } .two pre, .two pre code { font-size: 13px; } .two li, .two p { font-size: 0.72em; }</style>
+<!-- _class: reference -->
 
 ## Module conventions
 
@@ -707,6 +711,7 @@ From `questionnaires/README.md`:
 ---
 
 <style scoped>li { font-size: 0.8em; } pre, pre code { font-size: 16px; }</style>
+<!-- _class: reference -->
 
 ## Modules, root form and `build.py`
 

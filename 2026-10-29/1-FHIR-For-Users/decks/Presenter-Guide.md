@@ -452,6 +452,9 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
 |---|---|
 | `questionnaires/01-lhc-terms.png` | NLM Form Builder opening dialog (LOINC Terms of Use) |
 | `questionnaires/02-playground-stage1.png` | Stage 1 form rendered in the playground |
+| `questionnaires/03-playground-lhc-export.png` | Builder's R4 export (`lhc-export-stage1.json`) pasted into the playground and built (`tools/shoot-questionnaires-playground.mjs`) |
+| `questionnaires/04-playground-enablewhen-before.png` | enableWhen illustration (deck only): *Result* hidden before a test is chosen |
+| `questionnaires/05-playground-enablewhen-after.png` | ... and shown after choosing Haemoglobin (Hb) |
 | `questionnaires/10-lhc-new-form.png` | Form Builder: *Form level attributes*, title `Pathology results` |
 | `questionnaires/11-lhc-item-editor.png` | Haemoglobin (Hb): decimal, unit g/L (UCUM); full question tree on the left |
 | `questionnaires/12-lhc-link-id.png` | *Advanced fields*: Link Id `pam-hb`, and the `questionnaire-unit` extension |
