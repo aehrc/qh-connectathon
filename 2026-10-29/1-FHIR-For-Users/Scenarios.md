@@ -38,8 +38,8 @@ context, [FHIR mapping](FHIR-Mapping-DRAFT.md)). On day 2 the modules are assemb
 | B8 | **Shared filters** | PAM 1–5 | Directorate, timeframe, waitlist category, unit and referral source as FHIR search parameters, reusable across B3–B7 | ★★ |
 | B9 | **Analytics without a BI tool** | Any of the above | SQL on FHIR ViewDefinitions (e.g. Pathling), Bulk Data `$export`, or Measure / MeasureReport for the KPIs | ★★★ |
 
-Population views (B2–B8) use a standalone launch with `user/*.read`; per-patient views (B1)
-use an EHR launch.
+Population views (B2–B8) read with `user/*.read`; on Meld they launch from the launcher with any
+patient selected (standalone launch is part of B9). Per-patient views (B1) use an EHR launch.
 
 ## Strand C — End to end
 

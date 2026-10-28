@@ -236,7 +236,7 @@ smartLaunch();
 ---
 
 <!-- _class: demo -->
-<style scoped>pre, pre code { font-size: 13px; } .split > div:first-child img { width: auto; max-height: 330px; }</style>
+<style scoped>pre, pre code { font-size: 13px; } .split > div:first-child img { width: auto; max-height: 280px; } .split { grid-template-columns: auto minmax(0, 1fr); }</style>
 
 ## First app: try the query in your browser
 
@@ -257,9 +257,9 @@ https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loi
 <div>
 
 - LOINC **718-7**: Haemoglobin, `system|code` with `|` as **`%7C`**
-- No `_count=1` (the form's query has it): we want **all** results
+- No `_count=1` (the form's query has it): we want **all** results; `&_format=json` only for the browser
 - `"total": 2`: `pam-demo-hb-2` **104 g/L** (14 Oct 2026), `pam-demo-hb-1` **112 g/L** (2 Sep 2026)
-- `&_format=json` only for the browser
+- `pam-demo` is shared: if someone has done the write-back demo you'll see their result (e.g. 98 g/L, 27 Oct) as the latest, and more than 2 results
 
 </div>
 
@@ -477,5 +477,6 @@ Put the client ID in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and r
 - Starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q`. Client ID: **send Jim your launch and redirect URI**
 - Dashboard: `https://aehrc.github.io/qh-connectathon/pam-dashboard/` (code in `apps/pam-dashboard/`)
 - How SMART launch works, request by request: [SMART App Launch Postman collection](https://www.postman.com/planetary-crescent-937142/smart-app-launch-hl7-au-connectathon/collection/xbq559p/smart-app-launch-introduction)
+- Forms people: **Questionnaires** deck next
 
 </div>

@@ -24,7 +24,7 @@ style: |
 
 # Questionnaires
 
-## Build a form definition in NLM Form Builder
+## Build a form definition in NLM Form Builder (LHC Forms)
 
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
@@ -726,6 +726,7 @@ npm run build      # python3 build.py && node assemble.mjs
 ./load.sh          # PUTs modules, root and assembled form (default: Meld open endpoint)
 ```
 
+- `load.sh` replaces every PAM module on Meld for everyone: pull `main` first and coordinate with a track lead, or pass your own server (`./load.sh <base>`).
 - Built something in NLM Form Builder? Export R4 and copy your items into your module in `build.py`, with linkIds that follow the conventions.
 
 ---

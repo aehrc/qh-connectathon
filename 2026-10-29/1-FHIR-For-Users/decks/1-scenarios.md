@@ -143,7 +143,7 @@ EHR launch. Hb and ferritin trend with thresholds, pathway, days to surgery.
 <div>
 
 ### B2 Nurse worklist ★★
-EpisodeOfCare and Task, sorted by surgery date. Standalone launch.
+EpisodeOfCare and Task, sorted by surgery date. Population view.
 
 </div>
 
@@ -206,7 +206,7 @@ SQL on FHIR ViewDefinitions (Pathling), Bulk `$export`, or Measure and MeasureRe
 
 </div>
 
-Per-patient views (B1) use an EHR launch. Population views (B2–B8) use a standalone launch with `user/*.read`.
+Per-patient views (B1) use an EHR launch. Population views (B2–B8) read with `user/*.read`; on Meld they launch from the launcher with any patient selected (standalone is part of B9).
 
 ---
 
@@ -289,7 +289,7 @@ Files in the repo: `FHIR-Mapping-DRAFT.md` and `questionnaires/README.md` (under
 | SMART App Launch Postman collection | [smart-app-launch-introduction](https://www.postman.com/planetary-crescent-937142/smart-app-launch-hl7-au-connectathon/collection/xbq559p/smart-app-launch-introduction) |
 | Ontoserver | `https://r4.ontoserver.csiro.au/fhir` |
 | FHIRPath lab | `https://fhirpath-lab.com` |
-| LHC Form Builder | `https://formbuilder.nlm.nih.gov/` |
+| NLM Form Builder (LHC Forms) | `https://formbuilder.nlm.nih.gov/` |
 
 </div>
 

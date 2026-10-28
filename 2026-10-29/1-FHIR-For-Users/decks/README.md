@@ -55,8 +55,8 @@ make shots          # re-capture screenshots (node tools/shoot-*.mjs + tools/che
 ## Publishing
 
 `build/` is git-ignored. [`../apps/deploy-pages.sh`](../apps/deploy-pages.sh) builds the HTML
-(`make html`) and copies `build/*.html` and `build/img/` to `decks/` on the `gh-pages` branch,
-next to the apps. Deploying is Jim's call.
+(`make html`) and copies `build/*.html`, `build/img/` and the list page `index.html` to `decks/` on
+the `gh-pages` branch, next to the apps. Deploying is Jim's call.
 
 ## Layout
 
@@ -65,6 +65,7 @@ next to the apps. Deploying is Jim's call.
 - `examples/`: the FHIR JSON and FHIRPath shown on slides, `expressions.json`, `verify.mjs`,
   `verify-slides.mjs`, `reset-demo.sh`
 - `Presenter-Guide.md`: run sheets and click-by-click demo notes
+- `index.html`: the deck list page published at `/decks/`
 - `build/`: generated, git-ignored
 
 ## Slide classes

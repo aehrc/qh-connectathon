@@ -187,6 +187,8 @@ Without it Meld sends XML, and Edge and Chrome **download a file** instead of sh
 
 **In the form, keep the `|`.** The Smart Forms playground we use encodes it for you. Other renderers may not: if prepopulation stays empty and the browser console shows a CORS error, this is why.
 
+**`pam-demo` is shared:** if someone has done the write-back demo you'll see their result (e.g. 98 g/L, 27 Oct) as the latest, and more than 2 results.
+
 ---
 
 <!-- _class: demo -->
@@ -479,7 +481,7 @@ The external lab group stays empty: that's for the Write-back deck.
 
 The playground's settings dialog stands in for an EHR: it sets `%patient` without a SMART launch.
 
-- **Real use:** the EHR **launches Smart Forms as a SMART app with a patient selected**, and the launch sets `%patient`. Meld can launch our Smart Forms build: see the **SMART apps deck**.
+- **Real use:** the EHR **launches Smart Forms as a SMART app with a patient selected**, and the launch sets `%patient`. Meld can launch our Smart Forms build, and a launch scenario's Custom Context `questionnaire` picks the form: see `Demo-Environment.md` (Meld launch scenarios), or ask a track lead.
 - **The form doesn't change:** same launchContext, queries and expressions. Only where `%patient` comes from is different.
 - **Other FHIR servers:** the public playground **https://smartforms.csiro.au/playground** may not encode `|`, and it **can't reach Meld** (Meld's CORS check rejects its requests). For Meld, use our build.
 
@@ -532,7 +534,7 @@ Pre-populate the Patient (name, date of birth, sex) and latest height and weight
 <div>
 
 ### A5 Pathology Results ★★
-Extend this deck's form: TSAT, CRP, MCV, B12, folate, eGFR (LOINC); time points.
+Extend this deck's form toward the real module (TSAT, CRP) and beyond: MCV, B12, folate, eGFR (LOINC); time points.
 `questionnaires/modules/pam-pathology.json`
 
 </div>

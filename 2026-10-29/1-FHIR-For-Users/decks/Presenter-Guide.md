@@ -111,7 +111,7 @@ fallback. "§n" = the per-site section below with the click-by-click detail.
 
 ---
 
-## 1. NLM Form Builder (LHC-Forms): Questionnaires deck
+## 1. NLM Form Builder (LHC Forms): Questionnaires deck
 
 **URL:** https://formbuilder.nlm.nih.gov/ (redirects to `https://lhncbc.nlm.nih.gov/formbuilder/`).
 `formbuilder.lhcforms.nlm.nih.gov` doesn't resolve. On 28 Oct: builder 12.10.0, preview LForms 44.2.0.
