@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>QH Connectathon – Radiology Referral with Directory Discovery and Booking (DRAFT)</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <style>
+    :root { --teal:#00A9CE; --navy:#001D34; --indigo:#1E22AA; --green:#007A53; --bg:#FFFFFF; --text:#001D34; --muted:#5A5F66; --line:#DDE4E9; --code:#F2F7F9; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --bg:#0B1620; --text:#E6EDF2; --muted:#9AA7B2; --line:#24384A; --code:#12212E; --indigo:#8C90FF; }
+    }
+    html { background: var(--bg); }
+    body { max-width: 900px; margin: 0 auto; padding: 0 16px 48px; background: var(--bg); color: var(--text);
+           font: 17px/1.55 Calibri, "Segoe UI", system-ui, sans-serif; }
+    .back { display: block; padding: 14px 0; border-bottom: 1px solid var(--line); margin-bottom: 8px; font-weight: 600; }
+    a { color: var(--teal); }
+    h1 { color: var(--text); }
+    h2 { color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 4px; margin-top: 36px; }
+    h3 { color: var(--indigo); }
+    table { border-collapse: collapse; width: 100%; font-size: 15px; display: block; overflow-x: auto; }
+    th { background: var(--navy); color: #fff; text-align: left; }
+    th, td { border: 1px solid var(--line); padding: 6px 8px; vertical-align: top; }
+    code { color: var(--green); background: var(--code); padding: 0 3px; border-radius: 3px; }
+    pre { background: var(--code); padding: 12px; overflow-x: auto; }
+    img { max-width: 100%; }
+    /* Scenario §7: keep test case IDs (e.g. D-01) on one line */
+    [id="7-test-cases-summary"] + table td:first-child { white-space: nowrap; }
+  </style>
+</head>
+<body>
+<a class="back" href="index.html">← Track 2 workshop guide</a>
+<h1
+id="qh-connectathon--radiology-referral-with-directory-discovery-and-booking-draft">QH
+Connectathon – Radiology Referral with Directory Discovery and Booking
+(DRAFT)</h1>
+<p><strong>Status:</strong> Sketch for discussion ·
+<strong>Duration:</strong> 2 days · <strong>Author:</strong> Michael
+Osborne (CSIRO AEHRC)</p>
+<h2 id="1-purpose">1. Purpose</h2>
+<p>Show an end-to-end radiology referral where a referrer:</p>
+<ol type="1">
+<li><strong>discovers</strong> a suitable imaging service in the Qld
+Health Provider Directory on FHIR,</li>
+<li><strong>creates</strong> a FHIR referral (ServiceRequest plus
+supporting information) on a referral server, and</li>
+<li><strong>books</strong> an appointment against slots that the imaging
+provider publishes,</li>
+</ol>
+<p>with the referral status tracked through a Task until the appointment
+is confirmed.</p>
+<h2 id="2-systems-and-roles">2. Systems and roles</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Description</th>
+<th>Suggested implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Referrer</strong> (Placer)</td>
+<td>GP or hospital clinician system that searches the directory, raises
+the referral and books</td>
+<td>Participant clients (CIS, test harness, Postman/Bruno
+collections)</td>
+</tr>
+<tr>
+<td><strong>Provider Directory</strong></td>
+<td>Source of truth for organisations, services, locations, practitioner
+roles and endpoints</td>
+<td>QH Provider Directory server supplemented by ADHA <a
+href="https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/">HCPD
+SIT</a></td>
+</tr>
+<tr>
+<td><strong>Referral Server</strong></td>
+<td>Holds ServiceRequest, Task, supporting resources,
+Schedule/Slot/Appointment</td>
+<td>HAPI FHIR instance loaded with the QH referrals IG (plus AU Core /
+AU eRequesting)</td>
+</tr>
+<tr>
+<td><strong>Imaging Provider</strong> (Filler)</td>
+<td>RIS/booking system that triages referrals, publishes availability
+and confirms bookings</td>
+<td>Participant RIS or a simulator</td>
+</tr>
+<tr>
+<td><em>Patient app (stretch)</em></td>
+<td>Lets the patient view the referral and self-book</td>
+<td>Participant app</td>
+</tr>
+</tbody>
+</table>
+<pre><code>Referrer ──(1) search──▶ Qld Health Provider Directory on FHIR
+    │  (HealthcareService / Location / Organization / PractitionerRole / Endpoint)
+    │
+    ├──(2) POST Bundle (ServiceRequest + Task + supporting info)──▶ Referral Server ◀──(3) poll/subscribe── Imaging Provider
+    │                                                                   ▲                                 │
+    ├──(4) search Slot ─────────────────────────────────────────────────┤◀──── publishes Schedule/Slot ────┤
+    ├──(5) POST Appointment (proposed) ─────────────────────────────────┤                                 │
+    └──(6) read Task / Appointment status ──────────────────────────────┘◀──── accept Task, book Appt ────┘</code></pre>
+<h2 id="3-standards-in-scope">3. Standards in scope</h2>
+<ul>
+<li><strong>AU Core</strong>: Patient, Practitioner, PractitionerRole,
+Organization, Condition, AllergyIntolerance, Observation.</li>
+<li><strong>AU eRequesting</strong>: imaging ServiceRequest, Task (Group
+Task and fulfilment Task), patient-request pattern. This is the baseline
+to align with or profile from.</li>
+<li><strong>QH FHIR Referrals IG</strong> <em>(TBC: confirm name,
+version and canonical)</em>: QH-specific extensions, such as referral
+category, urgency category and QH facility identifiers.</li>
+<li><strong>ADHA Provider Directory IG</strong>: directory resources and
+search. <em>Note: the ADHA HCPD API Technical Specification has not been
+published yet, so the search parameters below are assumptions to confirm
+on Day 1.</em></li>
+<li><strong>FHIR R4 Scheduling</strong>: Schedule, Slot, Appointment. AU
+Core has no scheduling profiles, so we would use base R4 or the QH IG if
+it profiles them.</li>
+<li><strong>Bulk Data Access IG</strong>: Qld Health Provider Directory
+on FHIR <code>$export</code> (stretch track).</li>
+</ul>
+<h2 id="4-clinical-storyline-test-data">4. Clinical storyline (test
+data)</h2>
+<p>A 58-year-old patient sees a Brisbane GP with right upper quadrant
+pain and abnormal LFTs. The GP requests <strong>CT abdomen and pelvis
+with contrast</strong>, urgency <em>within 2 weeks</em>.</p>
+<p>Supporting information travels with the referral:</p>
+<ul>
+<li>Reason / Condition: RUQ pain, abnormal LFTs</li>
+<li>Observation: eGFR, needed to screen before contrast</li>
+<li>AllergyIntolerance: none known to iodinated contrast (a second
+variant has a known contrast allergy, which should trigger a triage
+query)</li>
+<li>Observation / DocumentReference: prior ultrasound report</li>
+<li>Pregnancy status: not applicable (a variant for a female patient of
+reproductive age adds it)</li>
+<li>Coverage: Medicare, for the bulk-billed pathway</li>
+</ul>
+<p>Variant patients add an <strong>MRI with an implanted device</strong>
+(safety questionnaire) and a <strong>paediatric ultrasound</strong>.</p>
+<p><em>Codes (SNOMED CT procedures, LOINC observations) are bound to the
+AU eRequesting imaging ValueSets and validated against Ontoserver. They
+are to be finalised in the test data pack.</em></p>
+<h2 id="5-workflow-steps">5. Workflow steps</h2>
+<h3
+id="step-1--discover-an-imaging-service-qld-health-provider-directory-on-fhir">Step
+1 – Discover an imaging service (Qld Health Provider Directory on
+FHIR)</h3>
+<p>Every request <strong>must</strong> send the header
+<code>X-Request-ID: &lt;UUID v4&gt;</code>.</p>
+<p>Example searches (parameters to confirm against the Qld Health
+Provider Directory on FHIR spec):</p>
+<pre><code>GET [hcpd]/HealthcareService?service-type=&lt;imaging service type&gt;&amp;location.address-state=QLD
+GET [hcpd]/HealthcareService?specialty=&lt;radiology&gt;&amp;_include=HealthcareService:location&amp;_include=HealthcareService:organization
+GET [hcpd]/Location?address-city=Brisbane&amp;_revinclude=HealthcareService:location
+GET [hcpd]/PractitionerRole?organization=&lt;id&gt;&amp;_include=PractitionerRole:practitioner
+GET [hcpd]/Endpoint?organization=&lt;id&gt;          ← where to send / how to reach the referral receiver</code></pre>
+<p>Also covered: paging (<code>Bundle.link[next]</code>), and polling of
+<code>$export</code> status as a stretch.</p>
+<p><strong>Expected outcome:</strong> the referrer chooses a
+HealthcareService and Location, and resolves the
+<strong>Endpoint</strong> that identifies the receiving referral server
+(or its logical address).</p>
+<blockquote>
+<p><strong>Connectathon gap to flag:</strong> ADHA HCPD SIT data will
+not point at the connectathon HAPI server. Options: (a) the organisers
+ask ADHA to load test HealthcareService and Endpoint records; (b) seed a
+local mirror of the directory on the HAPI server from
+<code>$export</code>, then add test Endpoints. Decide before the
+event.</p>
+</blockquote>
+<h3 id="step-2--create-the-referral">Step 2 – Create the referral</h3>
+<p>The referrer sends a <strong>transaction Bundle</strong> to the
+referral server containing:</p>
+<ul>
+<li><code>ServiceRequest</code> (intent <code>order</code>, status
+<code>active</code>, <code>category</code> imaging, <code>code</code>
+for the imaging procedure, <code>priority</code>,
+<code>reasonReference</code>, <code>supportingInfo[]</code>,
+<code>requester</code> → PractitionerRole, <code>performer</code> → Qld
+Health Provider Directory on FHIR Organization/HealthcareService
+reference or identifier, <code>requisition</code> identifier)</li>
+<li><code>Task</code> (Group Task per AU eRequesting:
+<code>status=requested</code>, <code>intent=order</code>,
+<code>focus</code> → ServiceRequest, <code>owner</code> → filler
+Organization)</li>
+<li>Patient, PractitionerRole/Practitioner, Condition, Observation(s),
+AllergyIntolerance, DocumentReference, Coverage</li>
+</ul>
+<p><strong>Decision point:</strong> should resources reference the Qld
+Health Provider Directory on FHIR directly (absolute URLs) or through
+identifiers (HPI-O, HPI-I)? Recommendation: use <strong>identifier
+references with display</strong>, plus an absolute Qld Health Provider
+Directory on FHIR reference where one is available. This avoids coupling
+to SIT resource IDs.</p>
+<h3 id="step-3--filler-receives-and-triages">Step 3 – Filler receives
+and triages</h3>
+<p>The imaging provider retrieves new work:</p>
+<pre><code>GET [ref]/Task?owner=&lt;org&gt;&amp;status=requested&amp;_include=Task:focus</code></pre>
+<p>or through a FHIR Subscription as a stretch.</p>
+<p>It then updates the Task to <code>accepted</code> (or
+<code>rejected</code> / <code>on-hold</code> with
+<code>statusReason</code>, for example "contrast allergy – please
+confirm"). It may create a fulfilment Task that is <code>partOf</code>
+the Group Task.</p>
+<h3 id="step-4--publish-availability">Step 4 – Publish availability</h3>
+<p>The filler maintains <code>Schedule</code> (actor →
+HealthcareService/Location, serviceType CT) and <code>Slot</code>
+(status <code>free</code>) on the referral server.</p>
+<pre><code>GET [ref]/Slot?schedule.actor=HealthcareService/&lt;id&gt;&amp;status=free&amp;start=ge2026-..&amp;service-type=&lt;CT&gt;</code></pre>
+<h3 id="step-5--book">Step 5 – Book</h3>
+<p>The referrer or patient app creates an <code>Appointment</code>:</p>
+<ul>
+<li>status <code>proposed</code> (or <code>pending</code>),
+<code>basedOn</code> → ServiceRequest, <code>slot</code> → Slot,
+<code>participant</code> = patient + location + HealthcareService</li>
+</ul>
+<p>The filler confirms: Appointment <code>booked</code>, Slot
+<code>busy</code>, Task <code>in-progress</code> (businessStatus
+"Booked").</p>
+<p>Negative tests: slot already taken (409 or rejected Appointment);
+cancellation and rebook.</p>
+<h3 id="step-6--track-status">Step 6 – Track status</h3>
+<p>The referrer polls the Task and Appointment, or subscribes. It must
+display the status and businessStatus correctly.</p>
+<p><em>Stretch:</em> the filler posts a DiagnosticReport or ImagingStudy
+and completes the Task. This links to the report flow in AU
+eRequesting.</p>
+<h2 id="6-two-day-agenda">6. Two-day agenda</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Day 1 – Discover &amp; Request</th>
+<th>Day 2 – Book &amp; Track</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AM</td>
+<td>Kick-off, environment check, Qld Health Provider Directory on FHIR
+connectivity (X-Request-ID, auth, paging); seed data review</td>
+<td>Filler triage (accept, reject, on-hold); Schedule/Slot
+publishing</td>
+</tr>
+<tr>
+<td>Mid</td>
+<td><strong>Track A:</strong> Qld Health Provider Directory on FHIR
+discovery queries; resolve Endpoint</td>
+<td><strong>Track B:</strong> Appointment booking, confirm, cancel,
+rebook</td>
+</tr>
+<tr>
+<td>PM</td>
+<td>Referral Bundle creation; validation against QH IG / AU eRequesting
+on HAPI (<code>$validate</code>)</td>
+<td>Status tracking end to end; stretch tracks (Subscriptions, patient
+app, <code>$export</code>, report return)</td>
+</tr>
+<tr>
+<td>Close</td>
+<td>Day 1 issues log; IG feedback capture</td>
+<td>Demo of the full flow; findings report; IG change requests</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7-test-cases-summary">7. Test cases (summary)</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Actor</th>
+<th>Test</th>
+<th>Pass criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-01</td>
+<td>Referrer</td>
+<td>Search Qld Health Provider Directory on FHIR HealthcareService by
+imaging type + QLD</td>
+<td>200, searchset Bundle, header sent, paging handled</td>
+</tr>
+<tr>
+<td>D-02</td>
+<td>Referrer</td>
+<td>Resolve Location, Organization and Endpoint for the chosen
+service</td>
+<td>Endpoint address and payload type identified</td>
+</tr>
+<tr>
+<td>D-03</td>
+<td>Referrer</td>
+<td>Look up referrer PractitionerRole in the Qld Health Provider
+Directory on FHIR</td>
+<td>HPI-I / HPI-O identifiers obtained</td>
+</tr>
+<tr>
+<td>R-01</td>
+<td>Referrer</td>
+<td>POST referral transaction Bundle</td>
+<td>200/201; resources conform to profiles (<code>$validate</code> clean
+or warnings only)</td>
+</tr>
+<tr>
+<td>R-02</td>
+<td>Referrer</td>
+<td>Referral with full supporting info</td>
+<td>supportingInfo resolvable; eGFR present when contrast is
+requested</td>
+</tr>
+<tr>
+<td>T-01</td>
+<td>Filler</td>
+<td>Retrieve new Tasks for its organisation</td>
+<td>Correct Task + ServiceRequest returned</td>
+</tr>
+<tr>
+<td>T-02</td>
+<td>Filler</td>
+<td>Accept / reject / on-hold with reason</td>
+<td>Task status transitions valid; reason coded</td>
+</tr>
+<tr>
+<td>B-01</td>
+<td>Filler</td>
+<td>Publish Schedule + free Slots</td>
+<td>Slots searchable by service and date</td>
+</tr>
+<tr>
+<td>B-02</td>
+<td>Referrer</td>
+<td>Book a free Slot</td>
+<td>Appointment booked, Slot busy, linked via basedOn</td>
+</tr>
+<tr>
+<td>B-03</td>
+<td>Referrer</td>
+<td>Book a taken Slot</td>
+<td>Handled gracefully with an error or rejected Appointment</td>
+</tr>
+<tr>
+<td>B-04</td>
+<td>Either</td>
+<td>Cancel and rebook</td>
+<td>Appointment cancelled, Slot freed, new booking linked</td>
+</tr>
+<tr>
+<td>S-01</td>
+<td>Referrer</td>
+<td>Track status to Booked</td>
+<td>Task businessStatus shown correctly</td>
+</tr>
+<tr>
+<td>X-01</td>
+<td>Stretch</td>
+<td>Qld Health Provider Directory on FHIR <code>$export</code> +
+polling</td>
+<td>NDJSON retrieved, status polling honoured</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8-open-questions--decisions-before-the-event">8. Open questions
+/ decisions before the event</h2>
+<ol type="1">
+<li><strong>QH referrals IG</strong>: which version, and does it profile
+Schedule/Slot/Appointment or only the referral?</li>
+<li><strong>Qld Health Provider Directory on FHIR access</strong>: SIT
+credentials and onboarding for participants, whether auth is needed
+beyond X-Request-ID, rate limits, and the timing of the tech spec.</li>
+<li><strong>Directory to referral server linkage</strong>: test Endpoint
+records in the Qld Health Provider Directory on FHIR, or a local mirror
+(see Step 1).</li>
+<li><strong>Who books?</strong> The referrer books directly (open
+slots), or the filler books after triage (the more realistic QH
+pathway). Support both as variants?</li>
+<li><strong>Transport</strong>: FHIR REST directly on the shared HAPI
+server (simplest), or a push to the filler's own endpoint discovered via
+the Qld Health Provider Directory on FHIR (more realistic, harder).</li>
+<li><strong>Security</strong>: open HAPI for the connectathon vs SMART
+Backend Services.</li>
+<li><strong>Terminology</strong>: finalise the imaging procedure
+ValueSet (AU eRequesting vs QH RIS catalogue) and Qld Health Provider
+Directory on FHIR service-type codes for imaging.</li>
+<li><strong>Alignment</strong>: map to Sparked Connected Test Scenario 1
+(eRequest/eReferral with provider lookup) so results feed back into AU
+IGs.</li>
+</ol>
+</body>
+</html>
