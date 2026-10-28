@@ -1,9 +1,9 @@
 # Presenter guide: Track 1 kick-off demos
 
 Click-by-click notes for the live demos. The Meld open endpoint, fhirpath-lab and the Smart Forms
-playground were checked live on 28 Oct 2026 (headless Chromium 1600×900). **The NLM Form Builder
-was checked only up to its opening dialog, and the CodeSandbox starter not at all** (sections 1
-and 6). Screenshots are in `img/` and are re-captured with `make shots`.
+playground were checked live on 28 Oct 2026 (headless Chromium 1600×900). The NLM Form Builder
+was checked live the same day, click by click, in a browser profile where the LOINC terms had been
+accepted (section 1). **The CodeSandbox starter was not checked at all** (section 6). Screenshots are in `img/` and are re-captured with `make shots`.
 Paths are relative to `decks/`.
 
 **Before each demo session**
@@ -11,7 +11,8 @@ Paths are relative to `decks/`.
 1. `./examples/reset-demo.sh`: puts `pam-demo` back to its baseline (latest Hb 104 g/L on
    14 Oct). Every write-back demo adds an Observation, which changes "latest Hb".
 2. `make verify` should end with `all 16 checks passed`.
-3. Use a browser profile where you've already accepted the NLM Form Builder's LOINC terms (see 1).
+3. Use a browser profile where you've already accepted the NLM Form Builder's terms of use
+   (section 1). You accept them yourself on first use; they're stored per browser profile.
 
 Demo patient: **Demi Formsdemo**, id `pam-demo` (F, 1961-04-09). Baseline: Hb 112 (2 Sep),
 **Hb 104 (14 Oct, latest)**, ferritin 18 (14 Oct), height 164 cm, weight 71.4 kg.
@@ -21,65 +22,149 @@ Demo patient: **Demi Formsdemo**, id `pam-demo` (F, 1961-04-09). Baseline: Hb 11
 ## 1. NLM Form Builder (LHC-Forms): Questionnaires deck
 
 **URL:** https://formbuilder.nlm.nih.gov/ (redirects to `https://lhncbc.nlm.nih.gov/formbuilder/`).
-`formbuilder.lhcforms.nlm.nih.gov` doesn't resolve. Version on 28 Oct: 12.10.0.
+`formbuilder.lhcforms.nlm.nih.gov` doesn't resolve. On 28 Oct: builder 12.10.0, preview LForms 44.2.0.
 
-**Status: not verified past the opening dialog.** The builder opens with *Accept Terms of Use*
-(LOINC). Accepting licence terms is your call, so the automation stopped there. The steps below
-come from the builder's source code (`lhncbc/formbuilder-lhcforms`, master, 22 Oct 2026), **not
-from a live run**. Walk through them once before the session and correct this section.
+**Checked live on 28 Oct 2026**: every step below, in headless Chromium 1600×900, in a browser
+profile where you'd already accepted the terms (LOINC and SNOMED CT boxes).
+`LHC_PROFILE=<that profile> make shots` repeats the walkthrough and re-takes shots 10–17
+(`tools/shoot-lhc.mjs`). It never accepts the terms itself.
 
-Verified live:
+**First use in a browser (do this before the session):** the builder opens with *Accept Terms of
+Use* (`img/questionnaires/01-lhc-terms.png`). Tick **I accept the LOINC Terms of Use.**
+Optionally tick **Optionally, enable SNOMED CT terminology support.**, which shows a second box,
+**I accept the SNOMED International SNOMED CT Browser License Agreement.** Tick that too, then
+click **Accept**. Accepting is your call as the presenter. The choice is stored in the browser's
+localStorage (`acceptedTermsOfUse`), so it's per browser profile: a private window or another
+browser asks again. With SNOMED on, *Answer list source* gets an extra *SNOMED answer value set*
+button (as in shot 13); nothing else in this demo changes.
 
-1. Open the URL. A modal *Accept Terms of Use* appears: tick **I accept the LOINC Terms of Use.**
-   (optional second box: *enable SNOMED CT terminology support*), then **Accept**.
-   (`img/questionnaires/01-lhc-terms.png`)
-2. Behind it: *How do you want to create your form?* with **Start from scratch** (selected) /
-   **Start with existing form**, and **Continue**.
+### Build the stage 1 form (≈ 10 min live)
 
-From the source (unverified):
+1. Open the URL. Optional: **Dismiss** on the yellow NIH banner. Screen: *How do you want to create
+   your form?* **Start from scratch** is selected → **Continue**.
+   If you've used the builder in this browser before, there's also *Would you like to start from
+   where you left off before?*. Pick **Start from scratch**.
+2. *Form level attributes*: **Title**: replace `New Form` with `Pathology results`. Leave
+   *Status* = draft (`img/questionnaires/10-lhc-new-form.png`). Click **Create questions** (bottom right).
+3. The builder adds *Item 0* (type string) and selects it. Left: *Questions Tree*. Right: *Current
+   Item*. Set:
+   * *Question text*: `Pathology`
+   * *Data type*: `group`
+   * Click **Advanced fields ⌄** (under *Read only*). *Link Id* shows a random 12-digit number:
+     replace it with `pam-pathology`. *Advanced fields* stays open for the next items.
+4. In the tree, click **…** (*More options*) on **1 Pathology** → **Insert a new child item**. The
+   new item (1.1) is selected:
+   * *Question text* `Haemoglobin (Hb)`, *Data type* `decimal`
+   * *Units* row (appears for decimal): click the **Display** box, type `g/L`, press **Tab** (don't
+     pick from the drop-down). Result: Display *gram per liter*, Code `g/L`, System
+     `http://unitsofmeasure.org` (`img/questionnaires/11-lhc-item-editor.png`).
+   * *Link Id* `pam-hb` (`img/questionnaires/12-lhc-link-id.png`: the *Extensions* table further
+     down shows the `questionnaire-unit` extension the unit became).
+5. **…** on **1.1 Haemoglobin (Hb)** → **Insert a new item after this**: `Ferritin`, `decimal`,
+   unit: type `ug/L` + **Tab** (→ *microgram per liter*, `ug/L`), *Link Id* `pam-ferritin`.
+6. **…** on **1.2 Ferritin** → **Insert a new item after this**: `Date of latest Hb`, `date`,
+   *Link Id* `pam-hb-date`.
+7. **…** on **1.3 Date of latest Hb** → **Insert a new item after this**: `Results from an
+   external lab`, `group`, *Allow repeating question?* **Yes** (a *Repeat count range* Min 0 / Max
+   \* row appears), *Link Id* `pam-ext` (`img/questionnaires/14-lhc-repeating-group.png`).
+8. **…** on **1.4 Results from an external lab** → **Insert a new child item**: `Test`,
+   *Data type* **`coding`**. The builder has no `choice` type: `coding` is exported as `choice` in R4.
+   * *Create answer list* **Yes**. *Answer list source*: **Answer options** (already selected).
+   * *Answer choices* row 1: *System* `http://loinc.org` (a combo box; just type), *Display*
+     `Haemoglobin (Hb)`, *Code* `718-7`. Click **Add another answer**. Row 2: `http://loinc.org`,
+     `Ferritin`, `2276-4`. Leave *Score* empty.
+   * *Link Id* `pam-ext-test` (`img/questionnaires/13-lhc-answer-options.png`).
+9. **…** on **1.4.1 Test** → **Insert a new item after this**: `Result`, `decimal`, *Link Id* `pam-ext-value`.
+10. **…** on **1.4.2 Result** → **Insert a new item after this**: `Collected`, `date`, *Link Id* `pam-ext-date`.
+11. **Preview** (top right) → *Preview of Questionnaire*, tab *View Rendered Form*: units shown as
+    *gram per liter* / *microgram per liter*, *Test* drop-down with *1: Haemoglobin (Hb)* /
+    *2: Ferritin*, a **+ Results from an external lab** button that adds a repeat
+    (`img/questionnaires/15-lhc-preview.png`). Tab *View/Validate Questionnaire JSON* shows the
+    JSON with *R5 Version* / *R4 Version* / *STU3 Version* buttons. **Close**.
+12. **Export ▾** (top left) → **Export to file in FHIR R4 format**
+    (`img/questionnaires/16-lhc-export-menu.png`). It downloads `Pathology-results.R4.json` (named
+    after the title). Expected content: `examples/lhc-export-stage1.json`.
 
-3. *Start with existing form* offers **Import from local file**, **Import from FHIR server**,
-   **Import from LOINC**. So you can import `examples/pathology-walkthrough-stage1.json` as a
-   fallback, or import it from the Meld open endpoint as a FHIR server.
-4. Top menu after starting: **Export** with *Export to file in FHIR R4 format* (also R5, STU3,
-   LHC-Forms internal), *Create a new questionnaire on a FHIR server...*, *Update the questionnaire
-   on the server*; **Import** with *Import from file...*, *Import from a FHIR server...*, LOINC
-   search; **Preview**.
-5. Item editor widgets in the source include a quantity-unit picker (UCUM), answer options
-   (`answer-option-methods`), linkId editing (`editable-link-id`), min/max occurs (repeats),
-   enableWhen, an observation-extract option and a variable/expression editor.
+Concepts from the spec that you can show along the way:
 
-What to build (= `examples/pathology-walkthrough-stage1.json`):
+* **`required`**: *Answer required* **Yes** on any item adds `"required": true` (checked).
+  The stage 1 file has none; set it back to *Unspecified* if you want the export to match.
+* **`enableWhen`**: *Advanced fields* → *Conditional method* → **enableWhen condition and
+  behavior** (also *enableWhen expression*). Seen, not used in the walkthrough.
+* `repeats` (step 7), `answerOption` codings (step 8), the units extension (step 4/12), linkIds
+  (every step).
 
-| linkId | text | type | details |
+What the form contains (= `examples/pathology-walkthrough-stage1.json`):
+
+| linkId | text | type in builder → R4 | details |
 |---|---|---|---|
 | `pam-pathology` | Pathology | group | |
 | `pam-hb` | Haemoglobin (Hb) | decimal | unit `g/L` (UCUM) |
-| `pam-ferritin` | Ferritin | decimal | unit `ug/L` (UCUM; displayed µg/L) |
+| `pam-ferritin` | Ferritin | decimal | unit `ug/L` (UCUM) |
 | `pam-hb-date` | Date of latest Hb | date | |
 | `pam-ext` | Results from an external lab | group | **repeats** |
-| `pam-ext-test` | Test | choice | answer options, system `http://loinc.org`: `718-7` Haemoglobin (Hb), `2276-4` Ferritin |
+| `pam-ext-test` | Test | coding → `choice` | answer options, system `http://loinc.org`: `718-7` Haemoglobin (Hb), `2276-4` Ferritin |
 | `pam-ext-value` | Result | decimal | |
 | `pam-ext-date` | Collected | date | |
 
-The stage 1 file has no `required` items. If you show *required* in the builder, it'll differ
-from the file.
+**Builder export vs `pathology-walkthrough-stage1.json`** (`examples/lhc-export-stage1.json` is the
+real R4 export from the steps above). The `item` tree is the same apart from the unit display text:
 
-**Gotchas to check on the dry run:** whether the builder assigns its own linkIds (you'll need to
-type ours); how it writes units (the `questionnaire-unit` extension vs something else); whether
-answer options keep `system`; what the R4 export adds (e.g. `lformsVersion`, ids, `meta.tag`).
+| | Builder export | stage 1 file |
+|---|---|---|
+| `meta.profile` | added: `http://hl7.org/fhir/4.0/StructureDefinition/Questionnaire` | none |
+| `id`, `url`, `version`, `name`, `experimental`, `date`, `publisher`, `description` | absent (we only typed a title; *URL*, *Description* and the rest are on *Form level attributes*) | present |
+| `title` | `Pathology results` | `Pathology results (walkthrough, stage 1)` |
+| unit `display` | `gram per liter`, `microgram per liter` (UCUM names) | `g/L`, `µg/L` |
+| unit `system` / `code` | `http://unitsofmeasure.org` `g/L`, `ug/L` | same |
+| linkIds | ours, because we typed them (default: random 12-digit numbers) | ours |
+| item type | `choice` (builder shows `coding`) | `choice` |
+| answer options | `valueCoding` with system, code, display | same |
+| `repeats` on `pam-ext` | `true` | same |
+| extensions on items | only `questionnaire-unit` | same |
 
-Screenshots to take on the dry run, into `img/questionnaires/`:
+So the builder adds no `lformsVersion`, ids or tags in the R4 export, only `meta.profile`. Meld's
+`Questionnaire/$validate` (open endpoint) accepts the export: warnings dom-6 (no narrative) and
+que-0 (no `name`) only.
 
-* `questionnaires/10-lhc-item-editor.png` (screenshot by Jim): a decimal item with its UCUM unit.
-* `questionnaires/11-lhc-answer-options.png` (screenshot by Jim): `pam-ext-test` answer options with the LOINC system.
-* `questionnaires/12-lhc-repeating-group.png` (screenshot by Jim): `pam-ext` group set to repeat.
-* `questionnaires/13-lhc-preview.png` (screenshot by Jim): Preview.
-* `questionnaires/14-lhc-export.png` (screenshot by Jim): Export menu, *Export to file in FHIR R4 format*.
+**Gotchas**
 
-**Fallback:** skip the builder and show `examples/pathology-walkthrough-stage1.json`, then render
-it in the Smart Forms playground (section 4, pick `pathology-walkthrough-stage1`,
-`img/questionnaires/02-playground-stage1.png`).
+* **Link Ids** default to random numbers. Type ours on every item, or the prepopulation and
+  write-back decks (which use the real linkIds) won't line up.
+* **Units: type, then Tab.** If you pick from the drop-down while typing `g/L`, the first entry
+  gives *gram/Liters* with code `g/l` (lower case). Typing and pressing Tab gives code `g/L`. To
+  remove a unit use the bin icon: clearing the Display box leaves the code and system behind.
+* The builder writes the unit *display* as the UCUM name (*gram per liter*), not `g/L`. The Display
+  box is the search box, so you can't type your own display text there.
+* **Data type `coding`**, not `choice` (R5 naming); the R4 export says `choice`.
+* Tree menu: **…** is at the right of every tree row. *Insert a new item after this* = sibling;
+  *Insert a new child item* = inside a group.
+* Preview dates are **MM/DD/YYYY** (US).
+* **Run Validation** (Preview → *View/Validate Questionnaire JSON* → *R4 Version*) fails with
+  *Error: Invalid profile. Failed to retrieve profile with
+  url=http://hl7.org/fhir/4.0/StructureDefinition/Questionnaire*: the builder's own
+  `meta.profile`. Don't click it on stage.
+* The builder keeps the current form in localStorage and offers *start from where you left off*
+  next time. Fine for a dry run; on stage choose *Start from scratch*.
+* *Export* also offers *Create a new questionnaire on a FHIR server...*; *Update the questionnaire
+  on the server (https://lforms-fhir.nlm.nih.gov/baseR5)* is greyed out. Neither was tried. To
+  render the export, paste it into the Smart Forms playground's JSON editor (section 4,
+  *Alternative to step 4*).
+
+**Fallback (if building runs long or the UI has changed): import the stage 1 file**
+
+* From the start screen: **Start with existing form** → **Import from local file** (selected)
+  → **Continue** → file dialog → `examples/pathology-walkthrough-stage1.json`
+  (`img/questionnaires/17-lhc-import-existing.png`). It opens on *Form level attributes* with title
+  *Pathology results (walkthrough, stage 1)*. Click **Edit questions** for the tree.
+* From inside the builder: **Import ▾** → **Import from file...** → file dialog → *Replace existing
+  form?* → **Continue**.
+* Round trip checked: importing the stage 1 file and exporting R4 gives the same JSON, plus
+  `meta.profile`.
+* *Import from FHIR server* and *Import from LOINC* are also on the start screen (not tried).
+* Last resort: show `examples/pathology-walkthrough-stage1.json` and render it in the Smart Forms
+  playground (section 4, pick `pathology-walkthrough-stage1`,
+  `img/questionnaires/02-playground-stage1.png`).
 
 ---
 
@@ -367,6 +452,14 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
 |---|---|
 | `questionnaires/01-lhc-terms.png` | NLM Form Builder opening dialog (LOINC Terms of Use) |
 | `questionnaires/02-playground-stage1.png` | Stage 1 form rendered in the playground |
+| `questionnaires/10-lhc-new-form.png` | Form Builder: *Form level attributes*, title `Pathology results` |
+| `questionnaires/11-lhc-item-editor.png` | Haemoglobin (Hb): decimal, unit g/L (UCUM); full question tree on the left |
+| `questionnaires/12-lhc-link-id.png` | *Advanced fields*: Link Id `pam-hb`, and the `questionnaire-unit` extension |
+| `questionnaires/13-lhc-answer-options.png` | Test (`coding`): answer options with system `http://loinc.org`, 718-7 / 2276-4 |
+| `questionnaires/14-lhc-repeating-group.png` | Results from an external lab: group, *Allow repeating question?* Yes |
+| `questionnaires/15-lhc-preview.png` | Preview: rendered form, Test drop-down open with the two LOINC answers |
+| `questionnaires/16-lhc-export-menu.png` | Export menu, *Export to file in FHIR R4 format* highlighted |
+| `questionnaires/17-lhc-import-existing.png` | Fallback: *Start with existing form* → *Import from local file* |
 | `prepop/01-query-in-browser.png` | Latest-Hb search on the open endpoint, JSON in the browser |
 | `prepop/02-fhirpath-lab-entry-resource.png` | fhirpath-lab: `entry.resource` on the Bundle |
 | `prepop/03-fhirpath-lab-value.png` | `entry.resource.value` → Quantity |
@@ -411,8 +504,13 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
    copies; `examples/` unchanged). With the patched build no workaround is needed.
 3. **Opening a Meld search URL in a browser downloads a file** (XML) unless you add `&_format=json`.
 4. **LHC Form Builder URL** in the brief (`formbuilder.lhcforms.nlm.nih.gov`) doesn't resolve; use
-   `https://formbuilder.nlm.nih.gov/`. It opens with a LOINC Terms of Use dialog; the builder
-   flow wasn't verified live (section 1).
+   `https://formbuilder.nlm.nih.gov/`. It opens with a LOINC Terms of Use dialog (per browser
+   profile; the presenter accepts it on first use). Everything in the spec's Questionnaires deck
+   works in the builder: UCUM units, answer options with a system, repeats, our linkIds,
+   `required`, R4 export, and importing the stage 1 file. Differences from the spec's
+   assumptions: the type is called **`coding`** (R4 export: `choice`); linkIds default to random
+   numbers; unit display is the UCUM name (*gram per liter*), not `g/L`; *Run Validation* fails
+   on the builder's own `meta.profile`. Export vs stage 1 file: section 1.
 5. **CodeSandbox blocks automated browsers** (Cloudflare check, also on its API), so the starter's
    code and client settings are unverified (section 6).
 6. **fhirpath-lab doesn't evaluate as you type** (▶ / Ctrl+Enter), and its fhirpath.js is 4.5.1
