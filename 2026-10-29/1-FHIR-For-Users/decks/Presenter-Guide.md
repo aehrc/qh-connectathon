@@ -1,7 +1,9 @@
 # Presenter guide: Track 1 kick-off demos
 
-Click-by-click notes for the live demos. Checked against the live sites on 28 Oct 2026
-(headless Chromium 1600×900). Screenshots are in `img/` and are re-captured with `make shots`.
+Click-by-click notes for the live demos. The Meld open endpoint, fhirpath-lab and the Smart Forms
+playground were checked live on 28 Oct 2026 (headless Chromium 1600×900). **The NLM Form Builder
+was checked only up to its opening dialog, and the CodeSandbox starter not at all** (sections 1
+and 6). Screenshots are in `img/` and are re-captured with `make shots`.
 Paths are relative to `decks/`.
 
 **Before each demo session**
@@ -67,6 +69,14 @@ from the file.
 type ours); how it writes units (the `questionnaire-unit` extension vs something else); whether
 answer options keep `system`; what the R4 export adds (e.g. `lformsVersion`, ids, `meta.tag`).
 
+Screenshots to take on the dry run, into `img/questionnaires/`:
+
+* `questionnaires/10-lhc-item-editor.png` (screenshot by Jim): a decimal item with its UCUM unit.
+* `questionnaires/11-lhc-answer-options.png` (screenshot by Jim): `pam-ext-test` answer options with the LOINC system.
+* `questionnaires/12-lhc-repeating-group.png` (screenshot by Jim): `pam-ext` group set to repeat.
+* `questionnaires/13-lhc-preview.png` (screenshot by Jim): Preview.
+* `questionnaires/14-lhc-export.png` (screenshot by Jim): Export menu, *Export to file in FHIR R4 format*.
+
 **Fallback:** skip the builder and show `examples/pathology-walkthrough-stage1.json`, then render
 it in the Smart Forms playground (section 4, pick `pathology-walkthrough-stage1`,
 `img/questionnaires/02-playground-stage1.png`).
@@ -110,7 +120,9 @@ To paste a resource: click in *Test Resource JSON*, Ctrl+A, paste. The header th
 ### Prepopulation (paste the Bundle from section 2)
 
 1. Copy the JSON from the browser tab in section 2 and paste it into *Test Resource JSON*.
-   Leave *Context Expression* empty.
+   Leave *Context Expression* empty. To copy it in Chrome/Edge, click in the page, then Ctrl+A,
+   Ctrl+C. The page text starts at `{`; the *Pretty-print* checkbox isn't part of it. Meld already
+   indents the JSON.
 2. Expression `entry.resource` → ▶ → the Observation `pam-demo-hb-2`
    (`img/prepop/02-fhirpath-lab-entry-resource.png`).
 3. `entry.resource.value` → ▶ → a Quantity: `{"value":104,"unit":"g/L","system":"http://unitsofmeasure.org","code":"g/L"}`
@@ -124,7 +136,96 @@ In the form these become `%latestHb.entry.resource.value.value` and
 
 ### Write-back (paste `examples/sample-qr.json`)
 
-1. Paste `examples/sample-qr.json` into *Test Resource JSON*.
+1. Paste `examples/sample-qr.json` into *Test Resource JSON*. Its full text:
+
+<details><summary>examples/sample-qr.json</summary>
+
+```json
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "completed",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pathology-walkthrough|0.1.0",
+  "subject": {
+    "reference": "Patient/pam-demo"
+  },
+  "authored": "2026-10-28T10:30:00+10:00",
+  "item": [
+    {
+      "linkId": "pam-pathology",
+      "text": "Pathology",
+      "item": [
+        {
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "answer": [
+            {
+              "valueDecimal": 104
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ferritin",
+          "text": "Ferritin",
+          "answer": [
+            {
+              "valueDecimal": 18
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb-date",
+          "text": "Date of latest Hb",
+          "answer": [
+            {
+              "valueDate": "2026-10-14"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ext",
+          "text": "Results from an external lab",
+          "item": [
+            {
+              "linkId": "pam-ext-test",
+              "text": "Test",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "718-7",
+                    "display": "Haemoglobin (Hb)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-value",
+              "text": "Result",
+              "answer": [
+                {
+                  "valueDecimal": 98
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-date",
+              "text": "Collected",
+              "answer": [
+                {
+                  "valueDate": "2026-10-27"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+</details>
+
 2. *Context Expression*: `repeat(item).where(linkId='pam-ext')`. Results then show
    *Context: QuestionnaireResponse.item[0].item[3]*. The template's expressions run on the
    `pam-ext` repeat, like `templateExtractContext` in the form.
@@ -134,7 +235,7 @@ In the form these become `%latestHb.entry.resource.value.value` and
 |---|---|---|
 | `item.where(linkId='pam-ext-test').answer.value` | Coding `http://loinc.org` `718-7` Haemoglobin (Hb) | `writeback/01-fhirpath-lab-ext-code.png` |
 | `item.where(linkId='pam-ext-value').answer.value` | `98` | `writeback/02-fhirpath-lab-ext-value.png` |
-| the `ext-unit` `iif(...)` expression (copy it from `expressions.json`) | `g/L` | `writeback/03-fhirpath-lab-ext-unit.png` |
+| `iif(item.where(linkId='pam-ext-test').answer.value.code = '718-7', 'g/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2276-4', 'µg/L', iif(item.where(linkId='pam-ext-test').answer.value.code = '2502-3', '%', 'mg/L')))` | `g/L` | `writeback/03-fhirpath-lab-ext-unit.png` |
 | `item.where(linkId='pam-ext-date').answer.value.toString()` | `2026-10-27` | `writeback/04-fhirpath-lab-ext-date.png` |
 | `%resource.subject.reference` | `"Patient/pam-demo"` | `writeback/05-fhirpath-lab-ext-subject.png` |
 
@@ -150,6 +251,18 @@ Fallback: `make verify` runs the same expressions locally (fhirpath.js 5.2.2) wi
 ## 4. Smart Forms playground: render, prepopulate, extract, write back
 
 **Use the patched build: https://aehrc.github.io/qh-connectathon/smart-forms/playground**
+
+* That deep link works in a browser, and so does a page refresh on it. GitHub Pages has no
+  `/playground` file, though: it answers **HTTP 404** and serves the app's `404.html` SPA
+  fallback, which renders the playground. Verified with Chromium on 28 Oct: status 404, page shows
+  *Playground [^1.5.0]*, same after reload. curl and link checkers report 404.
+* **Reliable route if the deep link misbehaves** (e.g. a proxy that replaces 404 pages): open
+  **https://aehrc.github.io/qh-connectathon/smart-forms/** (HTTP 200). It goes to
+  *dashboard/questionnaires*. Click **GO TO PLAYGROUND** in the left sidebar.
+* The demos use **the patched build already deployed on `gh-pages`**
+  (`apps/smart-forms`, `apps/deploy-pages.sh`). No rebuild or redeploy is needed. Don't redeploy
+  before the session: a redeploy that changes `config.json` (forms server = Meld open endpoint)
+  would break the picker in step 4.
 
 **Not** `https://smartforms.csiro.au/playground`: the public build can't read anything from
 Meld (see Surprises 1). The patched build is the same playground (header *Playground [^1.5.0]*).
@@ -202,6 +315,11 @@ Alternative to step 4: paste a Questionnaire's JSON into the editor on the right
 on the dashed box), then click **BUILD FORM** in the right panel's header.
 **DESTROY FORM** returns to the picker.
 
+The JSON editor takes the right half of the screen. I found no button that hides it; the icons
+at the top right are readOnly display, quantity comparator, *show all items regardless of
+enableWhen* and **Format JSON**. **ADVANCED PROPS** replaces it with the store viewer, and **SHOW
+EDITOR** brings it back. For a cleaner view of the prepopulated form, zoom the browser or crop.
+
 **Fallbacks:** if the patched build is down, `https://fhir-in-qh.smartforms.io/playground` (the
 2025 connectathon build, *Playground [^1.0.0-alpha.107]*) can list Meld patients, but it sends a
 raw `|`, so prepopulation fails unless the x-fhir-query uses `%7C` or a code without its system
@@ -213,10 +331,9 @@ raw `|`, so prepopulation fails unless the x-fhir-query uses `%7C` or a code wit
 
 Not automated (needs your Meld login). Screenshots to take, into `img/smart/`:
 
-* `10-meld-apps.png`: the sandbox's Apps page with the app registration.
-* `11-meld-launch-patient.png`: launch dialog with a patient selected (no patient = blank page).
-* `12-meld-app-registration.png`: app registration form (launch URI, comma-separated redirect
-  URIs, SMART v1 scopes).
+* `smart/10-meld-apps.png` (screenshot by Jim): the sandbox's Apps page with the app registration.
+* `smart/11-meld-launch-patient.png` (screenshot by Jim): launch dialog with a patient selected (no patient = blank page).
+* `smart/12-meld-app-registration.png` (screenshot by Jim): app registration form (launch URI, comma-separated redirect URIs, SMART v1 scopes).
 
 ---
 
@@ -234,8 +351,11 @@ Questionnaire via SMART on FHIR. This app uses the SMART on FHIR JavaScript clie
 
 To do by hand before the SMART deck is finalised: open it logged in or as a normal browser user,
 note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss` /
-`fhirServiceUrl`, `scope`, `redirectUri`), and take `img/smart/20-codesandbox-files.png`,
-`21-codesandbox-authorize.png`, `22-codesandbox-preview.png`.
+`fhirServiceUrl`, `scope`, `redirectUri`), and take:
+
+* `smart/20-codesandbox-files.png` (screenshot by Jim): file tree with the entry file open.
+* `smart/21-codesandbox-authorize.png` (screenshot by Jim): the `FHIR.oauth2.authorize` call.
+* `smart/22-codesandbox-preview.png` (screenshot by Jim): the preview pane / preview URL.
 
 ---
 
@@ -255,7 +375,11 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
 | `prepop/08-playground-pick-form.png` | pathology-walkthrough picked from the forms server |
 | `prepop/09-playground-built.png` | Form built, empty |
 | `prepop/10-playground-prepopulated.png` | After Pre-populate: 104, 18, 14/10/2026 |
-| `writeback/01..05-fhirpath-lab-ext-*.png` | Template expressions on sample-qr.json with the pam-ext context |
+| `writeback/01-fhirpath-lab-ext-code.png` | `ext-code` on sample-qr.json, pam-ext context → LOINC 718-7 |
+| `writeback/02-fhirpath-lab-ext-value.png` | `ext-value` → 98 |
+| `writeback/03-fhirpath-lab-ext-unit.png` | `ext-unit` → g/L |
+| `writeback/04-fhirpath-lab-ext-date.png` | `ext-date` → 2026-10-27 |
+| `writeback/05-fhirpath-lab-ext-subject.png` | `%resource.subject.reference` → Patient/pam-demo |
 | `writeback/06-playground-filled.png` | External result Hb 98 on 27/10/2026 entered |
 | `writeback/07-playground-extract-menu.png` | EXTRACT menu |
 | `writeback/08-playground-extracted-bundle.png` | TemplateExtractResult: the Observation |
@@ -274,8 +398,10 @@ note the files and the `FHIR.oauth2.authorize({...})` options (`clientId`, `iss`
    so `Patient?_count=100` fails (`net::ERR_FAILED`) and the settings dialog says *No patients
    available*. No patient means no prepopulation, and write-back would hit the same problem.
    Only `metadata` works, so the URL still validates. Our patched build
-   (`aehrc.github.io/qh-connectathon/smart-forms/playground`) drops that header and encodes `|`.
-   Everything in section 4 works there.
+   (`aehrc.github.io/qh-connectathon/smart-forms/playground`, already deployed on gh-pages)
+   drops that header and encodes `|`. Everything in section 4 works there. That URL is served
+   via the Pages 404 SPA fallback (HTTP 404, renders fine in browsers). The reliable route is
+   `/smart-forms/` → **GO TO PLAYGROUND**.
 2. **Raw `|` in the x-fhir-query:** tested on the unpatched 2025 build
    (`fhir-in-qh.smartforms.io/playground`, which can list Meld patients): `code=http://loinc.org|718-7`
    → request fails (400, reported as CORS), form stays empty. **Both workarounds work** there:

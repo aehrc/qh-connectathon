@@ -5,7 +5,7 @@
 #   make pdf      # build/<deck>.pdf
 #   make pptx     # build/<deck>.pptx
 #   make preview  # build/preview/<deck>.NNN.png
-#   make shots    # re-capture screenshots: node tools/shoot-*.mjs
+#   make shots    # re-capture screenshots: node tools/shoot-*.mjs, then tools/check-shots.mjs
 #   make verify   # node examples/verify.mjs
 #   make check    # build all HTML, fail on missing ![](img/...) files
 #   make clean
@@ -52,7 +52,8 @@ preview:
 shots:
 	@set -e; found=0; for s in tools/shoot-*.mjs; do \
 	  [ -e "$$s" ] || continue; found=1; echo "== $$s"; node "$$s"; done; \
-	  [ $$found = 1 ] || echo "no tools/shoot-*.mjs scripts yet; nothing to do"
+	  [ $$found = 1 ] || echo "no tools/shoot-*.mjs scripts yet; nothing to do"; \
+	  if [ -f tools/check-shots.mjs ]; then node tools/check-shots.mjs; fi
 
 verify:
 	@if [ -f examples/verify.mjs ]; then node examples/verify.mjs; \

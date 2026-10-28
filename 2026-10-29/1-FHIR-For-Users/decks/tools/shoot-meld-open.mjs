@@ -12,11 +12,13 @@ async function showJson(url, rel) {
   await shot(page, rel);
 }
 
-// Prepopulation deck: the x-fhir-query from the form, for pam-demo.
-const hbQuery = expr['query-latest-hb'].replace('{{%patient.id}}', 'pam-demo').replaceAll('|', '%7C');
-await showJson(`${OPEN}/${hbQuery}`, 'prepop/01-query-in-browser.png');
+try {
+  // Prepopulation deck: the x-fhir-query from the form, for pam-demo.
+  const hbQuery = expr['query-latest-hb'].replace('{{%patient.id}}', 'pam-demo').replaceAll('|', '%7C');
+  await showJson(`${OPEN}/${hbQuery}`, 'prepop/01-query-in-browser.png');
 
-// SMART deck: all Hb results for the patient (what the first app fetches).
-await showJson(`${OPEN}/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date`, 'smart/01-hb-search-open.png');
-
-await browser.close();
+  // SMART deck: all Hb results for the patient (what the first app fetches).
+  await showJson(`${OPEN}/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date`, 'smart/01-hb-search-open.png');
+} finally {
+  await browser.close();
+}
