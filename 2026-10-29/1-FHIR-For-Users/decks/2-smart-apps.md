@@ -40,8 +40,9 @@ Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 ## What you'll have by the end of this deck
 
 - How an **EHR launch** works: launch → authorize → token (with the patient) → FHIR calls
-- A **client ID** for your own copy of the starter app, registered in the Meld sandbox
-- The **CodeSandbox starter**, fixed for Meld, launched with a patient
+- Your app **hosted where Meld can launch it**: CodeSandbox, GitHub Pages or any public HTTPS host
+- A **client ID** for it, registered in the Meld sandbox
+- The **starter app** (on CodeSandbox), fixed for Meld, launched with a patient
 - A first app: **the current patient's Hb results**, the start of scenario **B1**
 
 Forms people: **Smart Forms is itself a SMART app.** The launch context and token in this deck are what prepopulation runs on.
@@ -538,7 +539,7 @@ Put the client ID in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and r
 <div class="small">
 
 - Scenarios: `2026-10-29/1-FHIR-For-Users/Scenarios.md` (strand B) and the data mapping in `FHIR-Mapping-DRAFT.md`
-- Starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q`. Client ID: **send Jim your launch and redirect URI**
+- Starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q`. Host on CodeSandbox, GitHub Pages or anywhere public HTTPS. Client ID: **send Jim your launch and redirect URI**
 - Dashboard: `https://aehrc.github.io/qh-connectathon/pam-dashboard/` (code in `apps/pam-dashboard/`)
 - How SMART launch works, request by request: [SMART App Launch Postman collection](https://www.postman.com/planetary-crescent-937142/smart-app-launch-hl7-au-connectathon/collection/xbq559p/smart-app-launch-introduction)
 - Forms people: **Questionnaires** deck next
