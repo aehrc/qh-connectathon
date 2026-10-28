@@ -40,9 +40,8 @@ Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
 ## What you'll have by the end of this deck
 
 - How an **EHR launch** works: launch → authorize → token (with the patient) → FHIR calls
-- Your app **hosted where Meld can launch it**: CodeSandbox, GitHub Pages or any public HTTPS host
-- A **client ID** for it, registered in the Meld sandbox
-- The **starter app** (on CodeSandbox), fixed for Meld, launched with a patient
+- Your app **hosted where Meld can launch it** (CodeSandbox, GitHub Pages or any public HTTPS host), with a **client ID** from Jim
+- Two starting points, fixed for Meld: the **patient-app starter** (React, from CodeSandbox) and **`apps/pam-dashboard`** (plain HTML/JS, for population apps)
 - A first app: **the current patient's Hb results**, the start of scenario **B1**
 
 Forms people: **Smart Forms is itself a SMART app.** The launch context and token in this deck are what prepopulation runs on.
