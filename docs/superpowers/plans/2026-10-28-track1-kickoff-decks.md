@@ -19,6 +19,7 @@
 - Don't modify existing Meld resources (`pam-001`…`pam-040`, loaded questionnaires) or `apps/smart-forms/`, `apps/pam-dashboard/`. Adding new resources to the open endpoint is allowed.
 - Demo patient id: `pam-demo`. Cut-down form canonical: `https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pathology-walkthrough|0.1.0`, keeping the real module's linkIds (`pam-pathology`, `pam-hb`, `pam-ferritin`, `pam-hb-date`, `pam-ext`, `pam-ext-test`, `pam-ext-value`, `pam-ext-date`) and variable names (`latestHb`, `latestFerritin`).
 - SMART deck: participants get client IDs from Jim (send launch URI + redirect URI); SMART v1 scopes only; `|` → `%7C` on the secured endpoint; launch with a patient selected.
+- Demo tools: **Smart Forms playground** (`https://smartforms.csiro.au/playground`) for rendering, prepopulation and write-back/extract demos; **fhirpath-lab.com only for building/testing FHIRPath expressions**; LHC Form Builder for authoring.
 - Every walkthrough slide shows the exact URL to open and the exact text to paste. Each technical deck ends with "Now you try" naming scenario IDs from `Scenarios.md` and repo files.
 - Never push to `gh-pages` or `origin` without Jim's explicit OK.
 
@@ -62,14 +63,14 @@
 ### Task 3: Tool exploration, screenshots and guide notes
 
 **Files:**
-- Create: `decks/tools/shoot-*.mjs` (one per site: `lhc`, `fhirpath-lab`, `smart-forms`, `codesandbox`, `meld`), `decks/img/<deck>/<nn>-<step>.png`, `decks/Presenter-Guide.md` (raw notes per site)
+- Create: `decks/tools/shoot-*.mjs` (one per site: `lhc`, `fhirpath-lab`, `smart-forms-playground`, `codesandbox`), `decks/img/<deck>/<nn>-<step>.png`, `decks/Presenter-Guide.md` (raw notes per site)
 
 **Interfaces:**
 - Consumes: Task 2 example files and the `pam-demo` patient.
 - Produces: screenshot paths `img/questionnaires/…`, `img/prepop/…`, `img/writeback/…`, `img/smart/…`; guide sections per site (URL, clicks, exact inputs, expected result, gotchas, fallback).
 
-- [ ] **Step 1:** Install Playwright into `decks/` (`npm i -D playwright fhirpath`; browsers cached). Explore each site headed/headless and record in the guide what actually works (e.g. LHC Form Builder: import JSON? units? answer options with system? export R4; fhirpath-lab: how to paste a resource and set context/variables; Smart Forms: open endpoint without login vs Meld launch; CodeSandbox starter: what files and which client id/iss it uses). Note anything that contradicts the spec in the guide under "Surprises".
-- [ ] **Step 2:** Write capture scripts reproducing each walkthrough step, 1600×900 viewport. Meld launcher steps need Jim's login: don't automate; mark them "screenshot by Jim" in the guide.
+- [ ] **Step 1:** Install Playwright into `decks/` (`npm i -D playwright fhirpath`; browsers cached). Explore each site headed/headless and record in the guide what actually works (e.g. LHC Form Builder: import JSON? units? answer options with system? export R4; fhirpath-lab: how to paste a resource and set context/variables; Smart Forms playground: how to load a Questionnaire, point it at the Meld open endpoint, pick patient `pam-demo`, see prepopulation, run extract and view/save the extracted resources; CodeSandbox starter: what files and which client id/iss it uses). Note anything that contradicts the spec in the guide under "Surprises".
+- [ ] **Step 2:** Write capture scripts reproducing each walkthrough step, 1600×900 viewport. Meld launcher steps (only needed for the SMART deck) need Jim's login: don't automate; mark them "screenshot by Jim" in the guide.
 - [ ] **Step 3:** Run `make shots`. Expected: every PNG listed in the guide exists, non-blank (> 20 KB).
 - [ ] **Step 4:** Report "Surprises" back to the controller before deck tasks start. Commit (`Track 1 decks: screenshots and tool notes`).
 

@@ -111,7 +111,11 @@ The three forms decks build up **one cut-down version of the `pam-pathology` mod
 * Run that query against the Meld open endpoint for a synthetic patient; paste the Bundle into
   fhirpath-lab.com; build the expression up step by step: `entry.resource` → `.value` (Quantity)
   → `.value.value`; then the date with `.effective.toString().substring(0, 10)`.
-* Put it in `initialExpression`; show the form pre-populated in Smart Forms launched from Meld.
+* Put it in `initialExpression`; show the form pre-populated in the **Smart Forms playground**
+  (`https://smartforms.csiro.au/playground`), pointed at the Meld open endpoint and the demo
+  patient. (Per Jim: the playground is the demo tool for prepopulation and write-back;
+  fhirpath-lab is used only for building and testing FHIRPath expressions.) Launching from Meld
+  is mentioned as the "real EHR" path, not demoed step by step.
 * Brief: `calculatedExpression` (the same FHIRPath machinery), shared variables on the root form.
 * Now you try: A1, A5, A6.
 
@@ -121,9 +125,11 @@ The three forms decks build up **one cut-down version of the `pam-pathology` mod
   Observation per repeat, using the contained template in the real module.
 * Walk through the template's `templateExtractValue` expressions (code from the chosen LOINC
   coding, `valueQuantity` with UCUM unit, `effectiveDateTime`, subject from `%patient`).
-* Test them in fhirpath-lab against a sample QuestionnaireResponse.
-* Fill in the form in Smart Forms, save, see the Observations on Meld; close the loop — the new
-  Hb appears the next time the form pre-populates.
+* Test the expressions in fhirpath-lab against a sample QuestionnaireResponse (fhirpath-lab is for
+  expressions only).
+* Fill in the form in the **Smart Forms playground**, run the extract there, see the extracted
+  Observations, save them to the Meld open endpoint; close the loop — the new Hb appears the
+  next time the form pre-populates.
 * Pointer to the larger A6 (Condition) and A7 (MedicationRequest) templates in the repo.
 * Now you try: A5–A9, C1.
 
@@ -159,8 +165,8 @@ The three forms decks build up **one cut-down version of the `pam-pathology` mod
   `apps/smart-forms/dist` unchanged. **Nothing is pushed to gh-pages without Jim's OK.**
 * Forms demos use a **new dedicated synthetic demo patient** (so write-back doesn't change the
   webinar patients or the B6 charts). Meld launch scenarios for it (custom context
-  `questionnaire` = the cut-down form) are created by Jim in the Meld UI; until then the decks
-  show launching the existing `pam-pathology` module.
+  `questionnaire` = the cut-down form) are optional, created by Jim in the Meld UI if wanted —
+  the demos run in the Smart Forms playground, which doesn't need them.
 * Build order (also the priority order): scenarios → SMART apps → questionnaires →
   prepopulation → write-back → presenter guide → Pages publishing. Per Jim, any deck not ready
   for 11:30 is simply presented after lunch on day 1 (the track runs all day Thu and Fri), so
