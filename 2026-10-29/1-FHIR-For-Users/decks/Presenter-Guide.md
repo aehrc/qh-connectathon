@@ -42,6 +42,8 @@ fallback. "§n" = the per-site section below with the click-by-click detail.
 
 * Before: logged in to Meld (https://meld.interop.community, sandbox `QHConnectathon2026`).
   Know how you'll hand out client IDs (participants send launch URI + redirect URI + scopes).
+* Slides *Where your app lives*, *Hosting on CodeSandbox*, *Hosting on GitHub Pages*: show the
+  first, skim the other two (they're for reading back). Any other public HTTPS host is fine too.
 * Demo *First app: try the query in your browser*: paste
   `https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date&_format=json`
   → Bundle with `pam-demo-hb-2` (104 g/L, 14 Oct) then `pam-demo-hb-1` (112, 2 Sep) (§2).

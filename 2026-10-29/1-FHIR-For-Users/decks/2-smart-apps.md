@@ -130,9 +130,73 @@ You **don't register apps yourself**: Jim registers yours and gives you a client
 
 ---
 
+## Where your app lives
+
+Meld launches your app by opening its **launch URI** in the browser, so the app needs a **public HTTPS address**. Chrome blocks a launch from Meld to `http://localhost`.
+
+<div class="cards">
+<div>
+
+**CodeSandbox** (easiest for the starter)
+Edit in the browser; your fork is hosted for you at its preview URL. Sign in with GitHub or Google.
+
+</div>
+<div>
+
+**GitHub Pages** (easiest for plain HTML/JS apps like `apps/pam-dashboard`)
+A public repo; every commit is published at `https://<you>.github.io/<repo>/`.
+
+</div>
+<div>
+
+**Something else?** Fine too: Netlify, Vercel, Azure Static Web Apps, your own server… Anything that serves your files over public HTTPS works.
+
+</div>
+</div>
+
+Wherever it lives, you then send Jim its URLs for a client ID (*Get a client ID from Jim*). Step-by-step for the first two next.
+
+---
+
+<style scoped>p, li { font-size: 0.8em; }</style>
+<!-- _class: reference -->
+
+## Hosting on CodeSandbox
+
+1. Open the starter: `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q` and **sign in** (GitHub or Google account).
+2. **Fork** it (top right). Your copy has its own editor URL; bookmark it.
+3. In the preview pane, **open the preview in a new tab**. That tab's address (e.g. `https://abc123.csb.app/`) is your app's URL: copy it exactly, **with the trailing `/`**.
+4. Send Jim that URL as launch **and** redirect URI (*Get a client ID from Jim*), and put the client ID he sends back in `src/index.js`.
+5. Edits save as you type and the hosted URL serves the latest version: no deploy step.
+6. **Launch from Meld**, not from the preview pane: the app needs Meld's `iss` and `launch` parameters. To try queries without a launch, use the no-login URL on the *Run it* slide.
+
+---
+
+<style scoped>p, li { font-size: 0.75em; } pre, pre code { font-size: 15px; }</style>
+<!-- _class: reference -->
+
+## Hosting on GitHub Pages
+
+1. On github.com: **New repository**, **Public** (Pages on a free account needs a public repo), tick **Add a README**.
+2. **Add file → Upload files**: your app's files with `index.html` at the top. For a population app, start from `index.html` and `launch.html` in [`apps/pam-dashboard`](https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/1-FHIR-For-Users/apps/pam-dashboard). **Commit**.
+3. **Settings → Pages → Build and deployment**: Source **Deploy from a branch**, branch **`main`**, folder **`/ (root)`**, **Save**.
+4. After a minute or so the Pages settings show your URL: `https://<you>.github.io/<repo>/`. Send Jim the URLs (*Get a client ID from Jim*).
+5. Edit in the browser (pencil icon) or push with git; every commit republishes in about a minute (progress under **Actions**).
+
+**The React starter** needs a build first. Add `"homepage": "."` to `package.json`, then:
+
+```
+npm install
+npm run build      # react-scripts 4 on Node 17+: NODE_OPTIONS=--openssl-legacy-provider npm run build
+```
+
+and upload the **contents** of `build/`, not the folder itself.
+
+---
+
 ## Get a client ID from Jim
 
-1. Fork the starter in CodeSandbox and copy your fork's **preview URL** (the preview pane's address, e.g. `https://abc123.csb.app/`).
+1. Get your app's public URL (CodeSandbox, GitHub Pages or your own host).
 2. Send Jim:
 
 ```
@@ -144,7 +208,7 @@ Scopes:           launch openid fhirUser patient/*.read patient/*.write
 
 3. Put the client ID he sends back in **`src/index.js`**: `clientId: '<client id from Jim>'`.
 
-**Launch URI and redirect URI are the same page.** The starter calls `FHIR.oauth2.init()`, which handles both visits, and fhirclient's default `redirectUri` is `"."`, the page itself. Copy the URL exactly, **with the trailing `/`**. More than one redirect URI? Comma-separated.
+**Launch URI and redirect URI are the same page.** The starter calls `FHIR.oauth2.init()`, which handles both visits, and fhirclient's default `redirectUri` is `"."`, the page itself. Copy the URL exactly, **with the trailing `/`**. Moved host? Send Jim the new URL. More than one redirect URI? Comma-separated.
 
 ---
 
@@ -443,7 +507,7 @@ Try it: `https://aehrc.github.io/qh-connectathon/pam-dashboard/`. No login: add 
 
 **How it launches today:** an **EHR launch from Meld with any patient selected**; the app ignores the patient and reads the population with `user/*.read`. A standalone launch doesn't work on Meld yet (see `apps/pam-dashboard/README.md`; how a dashboard should launch is part of B9).
 
-Copy `apps/pam-dashboard/` and **host it on a public HTTPS address** (GitHub Pages, or a static CodeSandbox): Chrome blocks a launch from Meld to `http://localhost`. Then send Jim a **different** registration from the starter's:
+Copy `apps/pam-dashboard/` and **host it on a public HTTPS address**: GitHub Pages works as is (see *Hosting on GitHub Pages*), or any other static host. Then send Jim a **different** registration from the starter's:
 
 ```
 Team / app name:  B6 outcomes (your names)
