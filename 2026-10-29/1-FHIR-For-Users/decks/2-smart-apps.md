@@ -225,7 +225,7 @@ smartLaunch();
     const np = JSON.parse(JSON.stringify(patient));  // was: let np = patient (changes the state object)
     np.name[0].given[0] = data.fname;
     np.name[0].family = data.lname;
-    client.update(np).then(() => setPatient(np));   // a new object, so React re-renders
+    client.update(np).then(setPatient);   // the server's copy: a new object, so React re-renders
   };
 ```
 
@@ -267,7 +267,7 @@ https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loi
 
 ---
 
-<style scoped>pre, pre code { font-size: 16px; }</style>
+<style scoped>pre, pre code { font-size: 16px; } li { font-size: 0.9em; }</style>
 
 ## First app: `src/HbResults.jsx` (new file)
 
@@ -278,19 +278,22 @@ import { Spinner } from 'react-bootstrap';
 
 export default function HbResults({ client }) {
   const [hb, setHb] = useState(null);
+  const [error, setError] = useState(null);
   useEffect(() => {
     client
       .request(`Observation?code=http://loinc.org%7C718-7&patient=${client.patient.id}&_sort=-date`,
         { flat: true })
-      .then(setHb);
+      .then(setHb)
+      .catch(setError);
   }, [client]);
+  if (error) return <p className="text-danger">{String(error)}</p>;
   if (!hb) return <Spinner animation="border" />;
   return <ObservationsVisualizer title="Haemoglobin" rows={hb} />;
 }
 ```
 
-- `client.patient.id`: the patient Meld launched with. `client.request` adds the token.
-- `{ flat: true }`: an array of Observations instead of the Bundle (first page only; `pageLimit: 0` for all pages).
+- `client.patient.id`: the launch patient. `client.request` adds the token.
+- `{ flat: true }`: an array of Observations, not the Bundle (first page; `pageLimit: 0` for all).
 
 ---
 
@@ -335,8 +338,8 @@ Your own table instead, newest first:
   <tbody>
     {hb.map((o) => (
       <tr key={o.id}>
-        <td>{o.effectiveDateTime.substring(0, 10)}</td>
-        <td>{o.valueQuantity.value} {o.valueQuantity.unit}</td>
+        <td>{o.effectiveDateTime?.substring(0, 10)}</td>
+        <td>{o.valueQuantity?.value} {o.valueQuantity?.unit}</td>
       </tr>
     ))}
   </tbody>
@@ -409,7 +412,7 @@ In the browser's address bar, or Meld sends XML and the browser downloads a file
 <div>
 
 ### Relaunch in a new tab
-fhirclient keeps the session in `sessionStorage`: a reload in the same tab reuses the old token and patient.
+`init()` revives the session in `sessionStorage` **before** it looks at a new `iss`/`launch`: in the same tab (also after a `?fhirServiceUrl=` test) you get the **old** session and patient.
 
 </div>
 
@@ -426,11 +429,30 @@ A fuller example in the repo: plain HTML + fhirclient.js (from a CDN) + Plotly. 
 | | Starter (this deck) | Dashboard |
 |---|---|---|
 | View | one patient (B1) | the population (B2–B8) |
-| Scope | `launch openid fhirUser patient/*.read` | `launch openid fhirUser online_access user/*.read` |
+| Scope | `launch openid fhirUser patient/*.read patient/*.write` | `launch openid fhirUser online_access user/*.read` |
 | Pages | one: `init()` | two: `launch.html` calls `FHIR.oauth2.authorize()`, `index.html` calls `FHIR.oauth2.ready()` |
 | Fetch | first page | `client.request(query, { pageLimit: 0, flat: true })`: all pages |
 
-Try it: `https://aehrc.github.io/qh-connectathon/pam-dashboard/`. No login: add `?server=https://gw.interop.community/QHConnectathon2026/open`. Copy the folder to start your own (B3–B7), and ask Jim for a client ID as before.
+Try it: `https://aehrc.github.io/qh-connectathon/pam-dashboard/`. No login: add `?server=https://gw.interop.community/QHConnectathon2026/open`.
+
+---
+
+<style scoped>p { font-size: 0.8em; } pre, pre code { font-size: 16px; }</style>
+
+## Your own population app (B2–B8) on Meld
+
+**How it launches today:** an **EHR launch from Meld with any patient selected**; the app ignores the patient and reads the population with `user/*.read`. A standalone launch doesn't work on Meld yet (see `apps/pam-dashboard/README.md`; how a dashboard should launch is part of B9).
+
+Copy `apps/pam-dashboard/` and **host it on a public HTTPS address** (GitHub Pages, or a static CodeSandbox): Chrome blocks a launch from Meld to `http://localhost`. Then send Jim a **different** registration from the starter's:
+
+```
+Team / app name:  B6 outcomes (your names)
+Launch URI:       https://<your host>/<folder>/launch.html
+Redirect URI:     https://<your host>/<folder>/
+Scopes:           launch openid fhirUser online_access user/*.read
+```
+
+Put the client ID in **`launch.html`** (`const CLIENT_ID = '...'`). Launch and redirect URI differ here because the app uses `authorize()` on `launch.html` and `ready()` on `index.html`.
 
 ---
 
