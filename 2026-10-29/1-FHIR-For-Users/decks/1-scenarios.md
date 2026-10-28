@@ -34,7 +34,7 @@ Day 1: build. Day 2: assemble the modules into one PAM form and feed the apps.
 
 ## Strand A: Questionnaire modules (1 of 2)
 
-Each team builds or extends one module Questionnaire. You'll touch: Smart Forms, SDC, FHIRPath.
+Each team builds one module. You'll touch: Smart Forms, SDC, FHIRPath.
 
 <div class="cards">
 
@@ -258,7 +258,7 @@ SNOMED subsumption queries that local dropdown values can't answer.
 
 </div>
 
-**Strand D needs a REDCap instance with external modules** (PHP 8, REDCap 8.8.1+). Still open. If none: D1 is a leads' demo and D3 uses Smart Forms only.
+**Strand D needs a REDCap instance with external modules** (PHP 8, REDCap 8.8.1+). Instance not confirmed yet. If none: D1 is a leads' demo and D3 uses Smart Forms only.
 
 ---
 
@@ -286,7 +286,10 @@ Files in the repo: `FHIR-Mapping-DRAFT.md` and `questionnaires/README.md` (under
 | Repo | `https://github.com/aehrc/qh-connectathon` |
 | Smart Forms Storybook | `https://smartforms.csiro.au/storybook` |
 | SMART App starter | `https://codesandbox.io/p/sandbox/smart-on-fhir-0rd1q` |
-| Ontoserver, FHIRPath, forms | `https://r4.ontoserver.csiro.au/fhir`, `https://fhirpath-lab.com`, `https://formbuilder.nlm.nih.gov/` |
+| SMART App Launch Postman collection | [smart-app-launch-introduction](https://www.postman.com/planetary-crescent-937142/smart-app-launch-hl7-au-connectathon/collection/xbq559p/smart-app-launch-introduction) |
+| Ontoserver | `https://r4.ontoserver.csiro.au/fhir` |
+| FHIRPath lab | `https://fhirpath-lab.com` |
+| LHC Form Builder | `https://formbuilder.nlm.nih.gov/` |
 
 </div>
 
