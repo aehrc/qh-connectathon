@@ -1,0 +1,7 @@
+{
+  "name": "track1-decks",
+  "private": true,
+  "type": "module",
+  "description": "Track 1 (FHIR for Users) kick-off decks: Marp sources, examples and screenshot tools",
+  "devDependencies": {}
+}
