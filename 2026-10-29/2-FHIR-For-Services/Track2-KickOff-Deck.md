@@ -109,10 +109,10 @@ An **end-to-end radiology referral** workflow. A referrer:
 
 ![h:500](slides/diagrams/architecture.svg)
 
-- **Referrer** — Patient-Referral at `patient-referral.hospservices.net`: the browser-core path for discover → refer → track
-- **Directory** — Qld Health Provider Directory on FHIR at `qhpd.hospservices.net`, loaded from the [ADHA HCPD test environment (SIT)](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir) via [HCPD bulk data extraction](https://implementer.digitalhealth.gov.au/fhir/hcpd/current/bulk-data-extraction.html)
-- **Referral Server** — HAPI + QH IG at `qhreferral.hospservices.net`
-- **Filler / RIS** — imaging provider at `ris.hospservices.net`
+- **Referrer** — Patient-Referral at `ui.efiq.hospservices.net`: the browser-core path for discover → refer → track
+- **Directory** — Qld Health Provider Directory on FHIR at `directory.efiq.hospservices.net/fhir`, loaded from the [ADHA HCPD test environment (SIT)](https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir) via [HCPD bulk data extraction](https://implementer.digitalhealth.gov.au/fhir/hcpd/current/bulk-data-extraction.html)
+- **Referral Server** — HAPI + QH IG at `referrals.efiq.hospservices.net/fhir`
+- **Filler / RIS** — imaging provider at `ris.efiq.hospservices.net`
 - **Terminology** — external open sandbox Ontoserver at [`r4.ontoserver.csiro.au/fhir`](https://r4.ontoserver.csiro.au/fhir), used for `$expand` / `$validate-code`
 
 ---
