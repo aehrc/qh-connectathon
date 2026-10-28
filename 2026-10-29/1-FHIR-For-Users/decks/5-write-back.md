@@ -318,6 +318,7 @@ No need to read it all out; it's here so people can reference it later.
 ---
 
 <!-- _class: demo -->
+<style scoped>.split p { font-size: 0.74em; } .split pre, .split pre code { font-size: 15px; }</style>
 
 ## Code: `item.where(linkId='pam-ext-test').answer.value`
 
@@ -331,7 +332,7 @@ No need to read it all out; it's here so people can reference it later.
 
 <div>
 
-Context: the `pam-ext` repeat (previous slide).
+**Context Expression** set to the `pam-ext` repeat (*Test the expressions in fhirpath-lab*, step 2). Empty context gives no result: put the context expression and a `.` in front instead.
 
 From the repeat → its `pam-ext-test` child → the answer's value.
 
