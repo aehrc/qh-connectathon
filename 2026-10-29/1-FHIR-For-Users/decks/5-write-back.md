@@ -3,6 +3,7 @@ marp: true
 theme: track1
 paginate: true
 title: Track 1 write-back
+header: 'aehrc.github.io/qh-connectathon/decks'
 style: |
   .split { display: grid; grid-template-columns: 700px minmax(0, 1fr); gap: 28px; align-items: start; }
   .split > div:first-child img { width: 700px; }
@@ -20,6 +21,7 @@ style: |
 
 <!-- _class: title -->
 <!-- _paginate: false -->
+<!-- _header: "" -->
 
 # Write-back
 
@@ -27,6 +29,8 @@ style: |
 
 Track 1: FHIR for Users. FHIR in Queensland Health Connectathon, 29–30 Oct 2026
 Jim Steel, Leonie Dickson (AEHRC), Leon Cavalli (QH)
+
+**Slides: aehrc.github.io/qh-connectathon/decks**
 
 <!--
 Last of the forms decks. Prepopulation read data into the form; now the form writes data back to the server.
