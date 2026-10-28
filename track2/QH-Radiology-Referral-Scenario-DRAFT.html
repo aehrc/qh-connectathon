@@ -205,8 +205,8 @@ Osborne (CSIRO AEHRC)</p>
 <h2 id="1-purpose">1. Purpose</h2>
 <p>Show an end-to-end radiology referral where a referrer:</p>
 <ol type="1">
-<li><strong>discovers</strong> a suitable imaging service in the Qld
-Health Provider Directory on FHIR,</li>
+<li><strong>discovers</strong> a suitable imaging service in the example
+<code>Qld Health Provider Directory</code> on FHIR,</li>
 <li><strong>creates</strong> a FHIR referral (ServiceRequest plus
 supporting information) on a referral server, and</li>
 <li><strong>books</strong> an appointment against slots that the imaging
@@ -236,8 +236,7 @@ collections)</td>
 <td>Source of truth for organisations, services, locations, practitioner
 roles and endpoints</td>
 <td>QH Provider Directory server supplemented by ADHA <a
-href="https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/">HCPD
-SIT</a></td>
+href="https://sit.healthconnect.digitalhealth.gov.au/adha/hcd-api-router/api/v1/fhir/">SIT</a></td>
 </tr>
 <tr>
 <td><strong>Referral Server</strong></td>
@@ -278,7 +277,7 @@ to align with or profile from.</li>
 version and canonical)</em>: QH-specific extensions, such as referral
 category, urgency category and QH facility identifiers.</li>
 <li><strong>ADHA Provider Directory IG</strong>: directory resources and
-search. <em>Note: the ADHA HCPD API Technical Specification has not been
+search. <em>Note: the ADHA qhpd API Technical Specification has not been
 published yet, so the search parameters below are assumptions to confirm
 on Day 1.</em></li>
 <li><strong>FHIR R4 Scheduling</strong>: Schedule, Slot, Appointment. AU
@@ -314,28 +313,21 @@ are to be finalised in the test data pack.</em></p>
 id="step-1--discover-an-imaging-service-qld-health-provider-directory-on-fhir">Step
 1 – Discover an imaging service (Qld Health Provider Directory on
 FHIR)</h3>
-<p>Every request <strong>must</strong> send the header
-<code>X-Request-ID: &lt;UUID v4&gt;</code>.</p>
-<p>Example searches (parameters to confirm against the Qld Health
-Provider Directory on FHIR spec):</p>
-<pre><code>GET [hcpd]/HealthcareService?service-type=&lt;imaging service type&gt;&amp;location.address-state=QLD
-GET [hcpd]/HealthcareService?specialty=&lt;radiology&gt;&amp;_include=HealthcareService:location&amp;_include=HealthcareService:organization
-GET [hcpd]/Location?address-city=Brisbane&amp;_revinclude=HealthcareService:location
-GET [hcpd]/PractitionerRole?organization=&lt;id&gt;&amp;_include=PractitionerRole:practitioner
-GET [hcpd]/Endpoint?organization=&lt;id&gt;          ← where to send / how to reach the referral receiver</code></pre>
-<p>Also covered: paging (<code>Bundle.link[next]</code>), and polling of
-<code>$export</code> status as a stretch.</p>
+<p>Example searches (parameters to confirm against the <a
+href="https://implementer.digitalhealth.gov.au/fhir/hcpd/26.0.0/index.html">Health
+Connect Provider Directory</a> spec):</p>
+<pre><code>GET [qhpd]/HealthcareService?service-type=&lt;imaging service type&gt;&amp;location.address-state=QLD
+GET [qhpd]/HealthcareService?specialty=&lt;radiology&gt;&amp;_include=HealthcareService:location&amp;_include=HealthcareService:organization
+GET [qhpd]/Location?address-city=Brisbane&amp;_revinclude=HealthcareService:location
+GET [qhpd]/PractitionerRole?organization=&lt;id&gt;&amp;_include=PractitionerRole:practitioner
+GET [qhpd]/Endpoint?organization=&lt;id&gt;          ← where to send / how to reach the referral receiver</code></pre>
 <p><strong>Expected outcome:</strong> the referrer chooses a
 HealthcareService and Location, and resolves the
 <strong>Endpoint</strong> that identifies the receiving referral server
 (or its logical address).</p>
 <blockquote>
-<p><strong>Connectathon gap to flag:</strong> ADHA HCPD SIT data will
-not point at the connectathon HAPI server. Options: (a) the organisers
-ask ADHA to load test HealthcareService and Endpoint records; (b) seed a
-local mirror of the directory on the HAPI server from
-<code>$export</code>, then add test Endpoints. Decide before the
-event.</p>
+<p><strong>Connectathon gap to flag:</strong> ADHA Provider Directory
+SIT data will not point at the connectathon HAPI server.</p>
 </blockquote>
 <h3 id="step-2--create-the-referral">Step 2 – Create the referral</h3>
 <p>The referrer sends a <strong>transaction Bundle</strong> to the
@@ -406,15 +398,15 @@ eRequesting.</p>
 <tbody>
 <tr>
 <td>AM</td>
-<td>Kick-off, environment check, Qld Health Provider Directory on FHIR
-connectivity (X-Request-ID, auth, paging); seed data review</td>
+<td>Kick-off, environment check, Qld Health Provider Directory on FHIR;
+HC PD IG review</td>
 <td>Filler triage (accept, reject, on-hold); Schedule/Slot
 publishing</td>
 </tr>
 <tr>
 <td>Mid</td>
 <td><strong>Track A:</strong> Qld Health Provider Directory on FHIR
-discovery queries; resolve Endpoint</td>
+discovery queries</td>
 <td><strong>Track B:</strong> Appointment booking, confirm, cancel,
 rebook</td>
 </tr>
@@ -448,7 +440,7 @@ app, <code>$export</code>, report return)</td>
 <td>Referrer</td>
 <td>Search Qld Health Provider Directory on FHIR HealthcareService by
 imaging type + QLD</td>
-<td>200, searchset Bundle, header sent, paging handled</td>
+<td>200, searchset Bundle</td>
 </tr>
 <tr>
 <td>D-02</td>
@@ -523,37 +515,10 @@ requested</td>
 <tr>
 <td>X-01</td>
 <td>Stretch</td>
-<td>Qld Health Provider Directory on FHIR <code>$export</code> +
-polling</td>
+<td>HC PD Bulk <code>$export</code> + polling</td>
 <td>NDJSON retrieved, status polling honoured</td>
 </tr>
 </tbody>
 </table>
-<h2 id="8-open-questions--decisions-before-the-event">8. Open questions
-/ decisions before the event</h2>
-<ol type="1">
-<li><strong>QH referrals IG</strong>: which version, and does it profile
-Schedule/Slot/Appointment or only the referral?</li>
-<li><strong>Qld Health Provider Directory on FHIR access</strong>: SIT
-credentials and onboarding for participants, whether auth is needed
-beyond X-Request-ID, rate limits, and the timing of the tech spec.</li>
-<li><strong>Directory to referral server linkage</strong>: test Endpoint
-records in the Qld Health Provider Directory on FHIR, or a local mirror
-(see Step 1).</li>
-<li><strong>Who books?</strong> The referrer books directly (open
-slots), or the filler books after triage (the more realistic QH
-pathway). Support both as variants?</li>
-<li><strong>Transport</strong>: FHIR REST directly on the shared HAPI
-server (simplest), or a push to the filler's own endpoint discovered via
-the Qld Health Provider Directory on FHIR (more realistic, harder).</li>
-<li><strong>Security</strong>: open HAPI for the connectathon vs SMART
-Backend Services.</li>
-<li><strong>Terminology</strong>: finalise the imaging procedure
-ValueSet (AU eRequesting vs QH RIS catalogue) and Qld Health Provider
-Directory on FHIR service-type codes for imaging.</li>
-<li><strong>Alignment</strong>: map to Sparked Connected Test Scenario 1
-(eRequest/eReferral with provider lookup) so results feed back into AU
-IGs.</li>
-</ol>
 </body>
 </html>
