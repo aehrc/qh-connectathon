@@ -3,10 +3,12 @@
 Scenarios are graded ★ (good first task) to ★★★ (hard). Strand A modules follow the PAM
 forms; strand B apps follow the numbered visualisations (PAM 1–19) of the current dashboard.
 
-**Composable questionnaires are the backbone of strand A.** Each team builds or extends one
-module Questionnaire against a shared root form and shared conventions (variable names, launch
-context, [FHIR mapping](FHIR-Mapping-DRAFT.md)). On day 2 the modules are assembled with
-`$assemble` into one PAM form.
+**Composable questionnaires are the backbone of strand A.** Participants, alone or in teams,
+build or extend module Questionnaires against a shared root form and shared conventions (variable
+names, launch context, [FHIR mapping](FHIR-Mapping-DRAFT.md)). Several people may take the same
+module, and some modules may not be taken at all: both are fine. On day 2, whichever modules are
+ready are assembled with `$assemble` into one PAM form (one version per module where there are
+several).
 
 ## Strand A — Questionnaire modules (Smart Forms + SDC)
 
@@ -38,8 +40,8 @@ context, [FHIR mapping](FHIR-Mapping-DRAFT.md)). On day 2 the modules are assemb
 | B8 | **Shared filters** | PAM 1–5 | Directorate, timeframe, waitlist category, unit and referral source as FHIR search parameters, reusable across B3–B7 | ★★ |
 | B9 | **Analytics without a BI tool** | Any of the above | SQL on FHIR ViewDefinitions (e.g. Pathling), Bulk Data `$export`, or Measure / MeasureReport for the KPIs | ★★★ |
 
-Population views (B2–B8) use a standalone launch with `user/*.read`; per-patient views (B1)
-use an EHR launch.
+Population views (B2–B8) read with `user/*.read`; on Meld they launch from the launcher with any
+patient selected (standalone launch is part of B9). Per-patient views (B1) use an EHR launch.
 
 ## Strand C — End to end
 

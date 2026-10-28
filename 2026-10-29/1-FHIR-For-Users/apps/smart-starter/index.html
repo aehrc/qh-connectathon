@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMART starter: patient Hb</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="config.js"></script>
+<style>
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #F6F8F9; color: #0A2033; }
+  header { background: #0A2033; color: #F2F6F8; padding: 14px 24px; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  main { padding: 20px 24px; max-width: 900px; }
+  .card { background: #fff; border: 1px solid #DCE3E8; border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #DCE3E8; }
+  th { color: #5B6B78; font-weight: 600; font-size: 14px; }
+  .error { color: #B00020; white-space: pre-wrap; }
+  .muted { color: #5B6B78; font-size: 14px; }
+</style>
+</head>
+<body>
+<header><h1>SMART starter: patient Hb</h1></header>
+<main>
+  <div class="card" id="patient">Connecting…</div>
+  <div class="card">
+    <h2 style="font-size:16px;margin:0 0 8px">Haemoglobin (LOINC 718-7), newest first</h2>
+    <div id="hb" class="muted">Loading…</div>
+  </div>
+  <p class="muted" id="source"></p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

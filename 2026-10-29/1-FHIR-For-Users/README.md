@@ -48,6 +48,7 @@ Jim Steel (CSIRO AEHRC) · Leon Cavalli (Metro North Health)
 | [`Webinar-Plan.md`](Webinar-Plan.md) | Running order and demo list for the 8 Oct webinar. |
 | [`data/`](data/) | Synthetic PAM patients (generator, FHIR bundle, load script). |
 | [`apps/`](apps/) | Apps hosted on GitHub Pages at https://aehrc.github.io/qh-connectathon/ (Smart Forms build + deploy scripts). |
+| [`decks/`](decks/) | Kick-off decks for 29 Oct (scenarios, SMART apps, questionnaires, prepopulation, write-back), their verified examples, and the [presenter guide](decks/Presenter-Guide.md). HTML on GitHub Pages under https://aehrc.github.io/qh-connectathon/decks/. |
 
-The webinar slide deck is not in the repo for now (it is kept locally in `slides/`, which is
-git-ignored).
+The 8 Oct webinar slide deck is not in the repo (it is kept locally in `slides/`, which is
+git-ignored, because it has Metro North dashboard screenshots).

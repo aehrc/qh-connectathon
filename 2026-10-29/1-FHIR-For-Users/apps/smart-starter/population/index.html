@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAM Outcomes Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/4.1.2/plotly-cartesian.min.js"></script>
+<style>
+  :root {
+    --navy: #0A2033; --teal: #00738F; --teal-light: #00A9CE; --orange: #B9531A;
+    --bg: #F6F8F9; --card: #FFFFFF; --text: #0A2033; --muted: #5B6B78; --line: #DCE3E8;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--bg); color: var(--text); }
+  header { background: var(--navy); color: #F2F6F8; padding: 16px 24px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: baseline; }
+  header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+  header .src { font-size: 13px; color: #C7D3DC; }
+  main { padding: 20px 24px 40px; max-width: 1280px; margin: 0 auto; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; margin-bottom: 16px; }
+  label { font-size: 14px; color: var(--muted); }
+  select { font: inherit; padding: 4px 8px; margin-left: 6px; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .tile { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; }
+  .tile .n { font-size: 28px; font-weight: 600; color: var(--teal); }
+  .tile .l { font-size: 13px; color: var(--muted); }
+  .charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; min-width: 0; }
+  .card h2 { font-size: 16px; margin: 4px 0 0; }
+  .card .sub { font-size: 13px; color: var(--muted); margin: 2px 0 8px; }
+  .chart { height: 340px; }
+  details { margin-top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  pre { background: var(--navy); color: #E1F1F5; padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 13px; white-space: pre-wrap; word-break: break-all; }
+  .todo { margin-top: 16px; border: 2px dashed var(--orange); border-radius: 8px; padding: 12px 16px; background: #FFF6EF; }
+  .todo p { margin: 0 0 6px; font-weight: 600; color: var(--orange); }
+  .todo ul { margin: 0; padding-left: 20px; }
+  .todo a { color: var(--orange); }
+  #status { font-size: 14px; color: var(--muted); }
+  #status.error { color: #B00020; }
+  @media (max-width: 520px) { main { padding: 16px; } .charts { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Preoperative anaemia — outcomes</h1>
+  <span class="src" id="source">Connecting…</span>
+</header>
+<main>
+  <div class="bar">
+    <label>Timeframe
+      <select id="timeframe">
+        <option value="ge2025-07-01|le2026-06-30">FY 2025–26</option>
+        <option value="ge2026-07-01|">FY 2026–27 to date</option>
+        <option value="|">All</option>
+      </select>
+    </label>
+    <span id="status">Loading…</span>
+  </div>
+
+  <div class="tiles">
+    <div class="tile"><div class="n" id="t-patients">–</div><div class="l">Patients with results</div></div>
+    <div class="tile"><div class="n" id="t-post">–</div><div class="l">With post-treatment results</div></div>
+    <div class="tile"><div class="n" id="t-hb-rise">–</div><div class="l">Median Hb rise (g/L)</div></div>
+    <div class="tile"><div class="n" id="t-results">–</div><div class="l">Hb and ferritin results</div></div>
+  </div>
+
+  <div class="charts">
+    <div class="card"><h2>Haemoglobin (PAM 15)</h2><p class="sub">Initial vs post-treatment, by sex · g/L</p><div class="chart" id="hb"></div></div>
+    <div class="card"><h2>Ferritin (PAM 16)</h2><p class="sub">Initial vs post-treatment, by sex · µg/L</p><div class="chart" id="ferritin"></div></div>
+  </div>
+
+  <details>
+    <summary>The FHIR query behind these charts</summary>
+    <pre id="query"></pre>
+    <p class="sub">One search returns every Hb (LOINC 718-7) and ferritin (2276-4) result in the timeframe, with each
+      patient included for their sex. Each patient's earliest result is "initial" and their latest is "post-treatment".</p>
+  </details>
+
+  <div class="todo">
+    <p>&#x1F6A7; To be built at the connectathon — <a href="https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md">scenarios B1–B9</a></p>
+    <ul>
+      <li>Filters (B8): directorate, waitlist category, surgical unit and referral source as FHIR search parameters</li>
+      <li>Headline numbers (B3), referrals over time (B4), referral profile (B5) and demographics (B7)</li>
+      <li>Nurse worklist (B2) from active EpisodeOfCare and due Tasks; a per-patient view (B1)</li>
+      <li>Initial vs post-treatment is "earliest vs latest" here — should it be anchored to the IV iron date?</li>
+    </ul>
+  </div>
+</main>
+
+<script>
+  const LOINC_HB = '718-7', LOINC_FERRITIN = '2276-4';
+  const statusEl = document.getElementById('status');
+  const colours = { initial: '#8FA3B3', post: '#00738F' };
+
+  // ?server=<FHIR base> reads an open endpoint without SMART (for testing); otherwise complete the SMART launch
+  const params = new URLSearchParams(location.search);
+  const clientPromise = params.get('server')
+    ? Promise.resolve(FHIR.client(params.get('server')))
+    : FHIR.oauth2.ready();
+
+  function buildQuery(timeframe) {
+    const [from, to] = timeframe.split('|');
+    // '|' written as %7C: some gateways (Meld) reject a raw '|' in the query string
+    let q = `Observation?code=http://loinc.org%7C${LOINC_HB},http://loinc.org%7C${LOINC_FERRITIN}`;
+    if (from) q += `&date=${from}`;
+    if (to) q += `&date=${to}`;
+    return q + '&_include=Observation:subject&_count=200';
+  }
+
+  function median(xs) {
+    if (!xs.length) return null;
+    const s = [...xs].sort((a, b) => a - b), m = Math.floor(s.length / 2);
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  }
+
+  function summarise(resources) {
+    const sexById = {};
+    resources.filter((r) => r.resourceType === 'Patient').forEach((p) => { sexById[p.id] = p.gender || 'unknown'; });
+    const series = {};  // series[code][patientId] = [{date, value}]
+    let results = 0;
+    resources.filter((r) => r.resourceType === 'Observation' && r.valueQuantity).forEach((o) => {
+      const code = o.code.coding.find((c) => c.system === 'http://loinc.org').code;
+      const pid = o.subject.reference.split('/').pop();
+      ((series[code] ??= {})[pid] ??= []).push({ date: o.effectiveDateTime, value: o.valueQuantity.value });
+      results++;
+    });
+    const byTest = {};
+    for (const code of [LOINC_HB, LOINC_FERRITIN]) {
+      const out = byTest[code] = { female: { initial: [], post: [] }, male: { initial: [], post: [] } };
+      for (const [pid, obs] of Object.entries(series[code] ?? {})) {
+        const sex = sexById[pid];
+        if (!out[sex]) continue;
+        obs.sort((a, b) => a.date.localeCompare(b.date));
+        out[sex].initial.push(obs[0].value);
+        if (obs.length > 1) out[sex].post.push(obs[obs.length - 1].value);
+      }
+    }
+    const hbSeries = Object.values(series[LOINC_HB] ?? {});
+    const rises = hbSeries.filter((o) => o.length > 1).map((o) => o[o.length - 1].value - o[0].value);
+    return {
+      byTest, results, rises,
+      patients: new Set([...Object.keys(series[LOINC_HB] ?? {}), ...Object.keys(series[LOINC_FERRITIN] ?? {})]).size,
+      withPost: hbSeries.filter((o) => o.length > 1).length,
+    };
+  }
+
+  function boxPlot(el, data, unit) {
+    const traces = [];
+    for (const [phase, name] of [['initial', 'Initial'], ['post', 'Post-treatment']]) {
+      const x = [], y = [];
+      for (const sex of ['female', 'male']) data[sex][phase].forEach((v) => { x.push(sex === 'female' ? 'Female' : 'Male'); y.push(v); });
+      traces.push({ type: 'box', name, x, y, boxpoints: 'all', jitter: 0.4, pointpos: 0, marker: { color: colours[phase], size: 5 }, line: { color: colours[phase] } });
+    }
+    Plotly.react(el, traces, {
+      boxmode: 'group', margin: { t: 10, r: 10, b: 40, l: 50 }, legend: { orientation: 'h', y: -0.15 },
+      yaxis: { title: { text: unit }, gridcolor: '#E6ECF0', zeroline: false }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+      font: { family: 'system-ui, sans-serif', size: 12, color: '#0A2033' },
+    }, { displayModeBar: false, responsive: true });
+  }
+
+  async function load(client) {
+    const query = buildQuery(document.getElementById('timeframe').value);
+    document.getElementById('query').textContent = `GET ${client.state.serverUrl}/${query.replaceAll('%7C', '|')}`;
+    statusEl.className = ''; statusEl.textContent = 'Loading…';
+    try {
+      const resources = await client.request(query, { pageLimit: 0, flat: true });
+      const s = summarise(resources);
+      document.getElementById('t-patients').textContent = s.patients;
+      document.getElementById('t-post').textContent = s.withPost;
+      document.getElementById('t-hb-rise').textContent = s.rises.length ? Math.round(median(s.rises)) : '–';
+      document.getElementById('t-results').textContent = s.results;
+      boxPlot('hb', s.byTest[LOINC_HB], 'g/L');
+      boxPlot('ferritin', s.byTest[LOINC_FERRITIN], 'µg/L');
+      statusEl.textContent = `${resources.length} resources from one search`;
+    } catch (e) {
+      statusEl.className = 'error'; statusEl.textContent = 'Could not load results: ' + e.message;
+    }
+  }
+
+  clientPromise.then((client) => {
+    const user = client.getFhirUser?.();
+    document.getElementById('source').textContent = client.state.serverUrl + (user ? ` · ${user}` : ' · open endpoint (no login)');
+    document.getElementById('timeframe').addEventListener('change', () => load(client));
+    load(client);
+  }).catch((e) => {
+    statusEl.className = 'error';
+    statusEl.textContent = 'Not launched. Launch this app from the sandbox, or add ?server=<FHIR base URL> to read an open endpoint. (' + e.message + ')';
+  });
+</script>
+</body>
+</html>

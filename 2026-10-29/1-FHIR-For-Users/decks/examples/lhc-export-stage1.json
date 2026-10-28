@@ -1,0 +1,93 @@
+{
+  "resourceType": "Questionnaire",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/4.0/StructureDefinition/Questionnaire"
+    ]
+  },
+  "title": "Pathology results",
+  "status": "draft",
+  "item": [
+    {
+      "linkId": "pam-pathology",
+      "text": "Pathology",
+      "type": "group",
+      "item": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "g/L",
+                "display": "gram per liter"
+              }
+            }
+          ],
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "type": "decimal"
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "ug/L",
+                "display": "microgram per liter"
+              }
+            }
+          ],
+          "linkId": "pam-ferritin",
+          "text": "Ferritin",
+          "type": "decimal"
+        },
+        {
+          "linkId": "pam-hb-date",
+          "text": "Date of latest Hb",
+          "type": "date"
+        },
+        {
+          "linkId": "pam-ext",
+          "text": "Results from an external lab",
+          "type": "group",
+          "repeats": true,
+          "item": [
+            {
+              "linkId": "pam-ext-test",
+              "text": "Test",
+              "type": "choice",
+              "answerOption": [
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "718-7",
+                    "display": "Haemoglobin (Hb)"
+                  }
+                },
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "2276-4",
+                    "display": "Ferritin"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-value",
+              "text": "Result",
+              "type": "decimal"
+            },
+            {
+              "linkId": "pam-ext-date",
+              "text": "Collected",
+              "type": "date"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

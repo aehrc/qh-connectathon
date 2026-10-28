@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>PAM outcomes — launching</title>
+<script src="https://cdn.jsdelivr.net/npm/fhirclient@2.6.3/build/fhir-client.min.js"></script>
+<script src="../config.js"></script></head>
+<body>
+<p>Launching…</p>
+<script>
+  // Registered with launch URI .../population/launch.html and redirect URI .../population/ (client ID in ../config.js)
+  const CLIENT_ID = window.SMART_CONFIG.populationClientId;
+  FHIR.oauth2.authorize({
+    clientId: CLIENT_ID,
+    // A dashboard is about a population, so it asks for user-level read access (SMART v1 scopes for Meld)
+    // 'launch' only for an EHR launch (with a launch parameter); a launch without a patient may be standalone
+    scope: (new URLSearchParams(location.search).has('launch') ? 'launch ' : '') + 'openid fhirUser online_access user/*.read',
+    redirectUri: './'
+  });
+</script>
+</body>
+</html>

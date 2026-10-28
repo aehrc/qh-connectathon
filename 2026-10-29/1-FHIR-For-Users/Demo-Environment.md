@@ -9,10 +9,14 @@ Status: **working** — all three webinar demos run from the Meld sandbox (check
 | FHIR server + SMART launcher | [Meld](https://meld.interop.community) sandbox `QHConnectathon2026` (under evaluation) | Created |
 | Open (unauthenticated) endpoint | `https://gw.interop.community/QHConnectathon2026/open` | Working |
 | Forms renderer | CSIRO Smart Forms, patched for Meld and hosted on GitHub Pages: https://aehrc.github.io/qh-connectathon/smart-forms/ ([`apps/smart-forms`](apps/smart-forms/)) | Working: launch, pre-population, calculations, write-back |
+| Forms playground | The same patched build: https://aehrc.github.io/qh-connectathon/smart-forms/ → **Go to playground**. Use it, not `smartforms.csiro.au/playground`, with Meld (see below) | Working: render, pre-populate, extract, write back (28 Oct) |
+| Form authoring | NLM Form Builder (LHC-Forms): https://formbuilder.nlm.nih.gov/ (accept the LOINC terms on first use, per browser profile) | Working (28 Oct) |
 | Terminology | Ontoserver `https://r4.ontoserver.csiro.au/fhir` (SNOMED CT-AU, AMT, LOINC) | Available |
 | PAM questionnaire | Modular SDC form, assembled locally and stored on the Meld open endpoint, which is Smart Forms' forms server ([`questionnaires/`](questionnaires/)) | Loaded |
 | Dashboard app | fhirclient.js SMART app, PAM 15/16 outcomes: https://aehrc.github.io/qh-connectathon/pam-dashboard/ ([`apps/pam-dashboard`](apps/pam-dashboard/)) | Working |
+| SMART starter (GitHub Pages template) | No-build patient app (B1) + the dashboard in `population/`, client IDs in `config.js`: https://github.com/aehrc/qh-connectathon-smart-starter (source [`apps/smart-starter`](apps/smart-starter/)) | Tested without login on the open endpoint; Meld launch untested |
 | Synthetic PAM data | 40 patients, waitlist, referrals, labs, treatment ([`data/`](data/)) | Loaded in Meld |
+| Kick-off decks | Five Marp decks and a presenter guide; HTML on GitHub Pages under https://aehrc.github.io/qh-connectathon/decks/ ([`decks/`](decks/)) | Built from the repo |
 
 ## Meld: things we learned
 
@@ -24,9 +28,18 @@ Status: **working** — all three webinar demos run from the Meld sandbox (check
   hence a self-built Smart Forms with its own config.
 * **Redirect URIs in the app registration are comma-separated**, not space-separated.
 * The scopes the app requests must be a subset of those registered for the app.
-* **The secured endpoint rejects a raw `|` in the query string** (e.g. `code=http://loinc.org|718-7`,
-  `questionnaire=url|version`) with HTTP 400 and no CORS headers, which browsers report as a CORS
-  error. Browsers don't encode `|`, so apps must send it as `%7C`. The open endpoint accepts both.
+* **Both endpoints reject a raw `|` in the query string** (e.g. `code=http://loinc.org|718-7`,
+  `questionnaire=url|version`) with HTTP 400 and no body (checked 28 Oct; the open endpoint used
+  to accept it). On the secured endpoint the 400 has no CORS headers, so an app sees a CORS error.
+  Browsers don't encode `|`, so write `%7C`, or leave the system out (`code=718-7`).
+* **In a browser, add `&_format=json`** to a search URL. Without it Meld returns XML and Chrome and
+  Edge download a file instead of showing it.
+* **Meld doesn't support `Questionnaire?url=<canonical>|<version>`** (with `%7C`: no matches,
+  checked 28 Oct). Search with `url=<canonical>` alone, or `url=<canonical>&version=<version>`.
+* **The public Smart Forms playground (`smartforms.csiro.au/playground`) can't reach Meld**: it
+  sends `Cache-Control: no-cache`, which Meld's CORS preflight doesn't allow, so it lists no
+  patients. Use the patched playground: https://aehrc.github.io/qh-connectathon/smart-forms/
+  → **Go to playground**.
 * **No `launch/questionnaire` / `fhirContext`**, but a launch scenario's **Custom Context** values are
   passed in the token response. Our patched Smart Forms opens the questionnaire named by a
   `questionnaire` custom-context value (canonical URL, e.g.

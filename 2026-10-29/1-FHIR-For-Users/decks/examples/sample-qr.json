@@ -1,0 +1,81 @@
+{
+  "resourceType": "QuestionnaireResponse",
+  "status": "completed",
+  "questionnaire": "https://aehrc.github.io/qh-connectathon/track1/Questionnaire/pathology-walkthrough|0.1.0",
+  "subject": {
+    "reference": "Patient/pam-demo"
+  },
+  "authored": "2026-10-28T10:30:00+10:00",
+  "item": [
+    {
+      "linkId": "pam-pathology",
+      "text": "Pathology",
+      "item": [
+        {
+          "linkId": "pam-hb",
+          "text": "Haemoglobin (Hb)",
+          "answer": [
+            {
+              "valueDecimal": 104
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ferritin",
+          "text": "Ferritin",
+          "answer": [
+            {
+              "valueDecimal": 18
+            }
+          ]
+        },
+        {
+          "linkId": "pam-hb-date",
+          "text": "Date of latest Hb",
+          "answer": [
+            {
+              "valueDate": "2026-10-14"
+            }
+          ]
+        },
+        {
+          "linkId": "pam-ext",
+          "text": "Results from an external lab",
+          "item": [
+            {
+              "linkId": "pam-ext-test",
+              "text": "Test",
+              "answer": [
+                {
+                  "valueCoding": {
+                    "system": "http://loinc.org",
+                    "code": "718-7",
+                    "display": "Haemoglobin (Hb)"
+                  }
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-value",
+              "text": "Result",
+              "answer": [
+                {
+                  "valueDecimal": 98
+                }
+              ]
+            },
+            {
+              "linkId": "pam-ext-date",
+              "text": "Collected",
+              "answer": [
+                {
+                  "valueDate": "2026-10-27"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
