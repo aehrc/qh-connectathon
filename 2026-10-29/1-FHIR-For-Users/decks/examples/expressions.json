@@ -26,6 +26,12 @@
     "expected": ["Observation/pam-demo-hb-2", "Observation/pam-demo-hb-1"]
   },
   {
+    "id": "url-latest-hb",
+    "expression": "https://gw.interop.community/QHConnectathon2026/open/Observation?code=http://loinc.org%7C718-7&patient=pam-demo&_sort=-date&_count=1&_format=json",
+    "context": "query:open",
+    "expected": ["Observation/pam-demo-hb-2"]
+  },
+  {
     "id": "fp-entry-resource",
     "expression": "entry.resource",
     "context": "bundle:query-latest-hb",
@@ -197,6 +203,15 @@
     "expression": "item.where(linkId='pam-diagnosis').answer.value",
     "context": "qr:item",
     "qrItem": { "linkId": "pam-diagnosis", "text": "Diagnosis", "answer": [ { "valueCoding": { "system": "http://snomed.info/sct", "code": "87522002", "display": "Iron deficiency anaemia" } } ] },
-    "expected": []
+    "expected": [],
+    "slides": false
+  },
+  {
+    "id": "calc-bmi",
+    "expression": "(%weightKg / ((%heightCm / 100).power(2))).round(1)",
+    "context": "vars",
+    "variables": { "weightKg": 71.4, "heightCm": 164 },
+    "expected": [26.5],
+    "inForm": { "file": "../../questionnaires/modules/pam-patient-details.json", "text": "(%weightKg / ((%heightCm / 100).power(2))).round(1)" }
   }
 ]

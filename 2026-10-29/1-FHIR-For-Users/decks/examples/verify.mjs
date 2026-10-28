@@ -15,6 +15,8 @@
 //   context "qr:item"               -> FHIRPath over the entry's own "qrItem" (a QR item, e.g. a
 //                                      question that carries templateExtract), with %resource = a QR
 //                                      holding just that item
+//   context "vars"                  -> FHIRPath over an empty resource with the entry's "variables"
+//                                      as %names (e.g. a calculatedExpression on root-form variables)
 // and deep-compare the result with "expected". `meta` is dropped from returned resources
 // (the server rewrites versionId/lastUpdated on every load).
 // If an entry has "inForm", that exact text must appear in the named Questionnaire
@@ -144,6 +146,8 @@ for (const e of entries) {
         { resource: res, rootResource: res },
         r4,
       );
+    } else if (e.context === 'vars') {
+      actual = fhirpath.evaluate({}, e.expression, { ...e.variables }, r4);
     } else {
       throw new Error(`unknown context ${e.context}`);
     }
