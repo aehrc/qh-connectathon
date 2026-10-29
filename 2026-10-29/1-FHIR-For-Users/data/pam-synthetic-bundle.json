@@ -6,11 +6,6 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-blood-management",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -50,11 +45,6 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-unit-orthopaedics",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization"
-     ]
-    },
     "name": "Orthopaedics (synthetic)",
     "partOf": {
      "reference": "Organization/pam-blood-management"
@@ -69,11 +59,6 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-unit-colorectal",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization"
-     ]
-    },
     "name": "Colorectal (synthetic)",
     "partOf": {
      "reference": "Organization/pam-blood-management"
@@ -88,11 +73,6 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-unit-gynaecology",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization"
-     ]
-    },
     "name": "Gynaecology (synthetic)",
     "partOf": {
      "reference": "Organization/pam-blood-management"
@@ -107,11 +87,6 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-unit-cardiothoracic",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization"
-     ]
-    },
     "name": "Cardiothoracic (synthetic)",
     "partOf": {
      "reference": "Organization/pam-blood-management"
@@ -126,11 +101,6 @@
    "resource": {
     "resourceType": "Organization",
     "id": "pam-unit-urology",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-organization"
-     ]
-    },
     "name": "Urology (synthetic)",
     "partOf": {
      "reference": "Organization/pam-blood-management"
@@ -145,11 +115,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-nurse-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -185,11 +150,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-nurse-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -225,11 +185,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-nurse-3",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -265,11 +220,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-orthopaedics",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -308,11 +258,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-colorectal",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -351,11 +296,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-gynaecology",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -394,11 +334,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-cardiothoracic",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -437,11 +372,6 @@
    "resource": {
     "resourceType": "Practitioner",
     "id": "pam-surgeon-urology",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-practitioner"
-     ]
-    },
     "identifier": [
      {
       "type": {
@@ -480,11 +410,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-001",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -570,11 +495,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -623,11 +543,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -676,11 +591,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -724,11 +634,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -772,11 +677,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -820,11 +720,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -868,11 +763,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-001-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -920,11 +810,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-001-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -988,11 +873,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-001-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -1049,11 +929,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-001-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -1113,11 +988,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1161,11 +1031,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1209,11 +1074,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1257,11 +1117,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-001-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1346,11 +1201,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-002",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -1436,11 +1286,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1489,11 +1334,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1542,11 +1382,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1590,11 +1425,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1638,11 +1468,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1686,11 +1511,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -1734,11 +1554,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-002-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -1786,11 +1601,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-002-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -1854,11 +1664,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-002-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -1915,11 +1720,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-002-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -1979,11 +1779,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2027,11 +1822,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2075,11 +1865,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2123,11 +1908,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-002-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2212,11 +1992,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-003",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -2302,11 +2077,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2355,11 +2125,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2408,11 +2173,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2456,11 +2216,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2504,11 +2259,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2552,11 +2302,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2600,11 +2345,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-003-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -2652,11 +2392,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-003-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -2720,11 +2455,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-003-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -2781,11 +2511,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-003-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -2845,11 +2570,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2893,11 +2613,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2941,11 +2656,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -2989,11 +2699,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-003-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3078,11 +2783,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-004",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -3183,11 +2883,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-004-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3236,11 +2931,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-004-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3289,11 +2979,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-004-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3337,11 +3022,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-004-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3385,11 +3065,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-004-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3433,11 +3108,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-004-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3481,11 +3151,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-004-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -3533,11 +3198,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-004-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -3630,11 +3290,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-005",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -3720,11 +3375,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-005-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3773,11 +3423,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-005-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3826,11 +3471,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-005-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3874,11 +3514,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-005-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3922,11 +3557,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-005-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -3970,11 +3600,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-005-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4018,11 +3643,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-005-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -4070,11 +3690,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-005-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -4167,11 +3782,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-006",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -4257,11 +3867,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-006-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4310,11 +3915,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-006-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4363,11 +3963,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-006-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4411,11 +4006,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-006-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4459,11 +4049,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-006-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4507,11 +4092,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-006-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4555,11 +4135,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-006-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -4607,11 +4182,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-006-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -4704,11 +4274,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-007",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -4794,11 +4359,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4847,11 +4407,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4900,11 +4455,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4948,11 +4498,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -4996,11 +4541,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5044,11 +4584,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5092,11 +4627,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-007-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -5144,11 +4674,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-007-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -5212,11 +4737,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-007-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -5273,11 +4793,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-007-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -5337,11 +4852,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5385,11 +4895,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5433,11 +4938,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5481,11 +4981,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-007-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5570,11 +5065,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-008",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -5660,11 +5150,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5713,11 +5198,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5766,11 +5246,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5814,11 +5289,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5862,11 +5332,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5910,11 +5375,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -5958,11 +5418,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-008-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -6010,11 +5465,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-008-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -6078,11 +5528,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-008-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -6139,11 +5584,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6187,11 +5627,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6235,11 +5670,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6283,11 +5713,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-008-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6372,11 +5797,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-009",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -6462,11 +5882,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-009-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6515,11 +5930,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-009-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6568,11 +5978,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-009-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6616,11 +6021,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-009-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6664,11 +6064,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-009-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6712,11 +6107,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-009-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -6760,11 +6150,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-009-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -6812,11 +6197,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-009-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -6909,11 +6289,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-010",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -7014,11 +6389,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7067,11 +6437,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7120,11 +6485,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7168,11 +6528,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7216,11 +6571,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7264,11 +6614,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7312,11 +6657,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-010-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -7364,11 +6704,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-010-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -7432,11 +6767,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-010-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -7493,11 +6823,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-010-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -7557,11 +6882,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7605,11 +6925,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7653,11 +6968,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7701,11 +7011,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-010-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7790,11 +7095,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-011",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -7880,11 +7180,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7933,11 +7228,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -7986,11 +7276,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8034,11 +7319,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8082,11 +7362,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8130,11 +7405,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8178,11 +7448,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-011-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -8230,11 +7495,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-011-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -8298,11 +7558,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-011-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -8359,11 +7614,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-011-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -8423,11 +7673,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8471,11 +7716,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8519,11 +7759,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8567,11 +7802,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-011-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8656,11 +7886,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-012",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -8746,11 +7971,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8799,11 +8019,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8852,11 +8067,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8900,11 +8110,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8948,11 +8153,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -8996,11 +8196,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9044,11 +8239,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-012-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -9096,11 +8286,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-012-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -9164,11 +8349,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-012-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -9225,11 +8405,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-012-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -9289,11 +8464,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9337,11 +8507,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9385,11 +8550,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9433,11 +8593,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-012-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9522,11 +8677,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-013",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -9612,11 +8762,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9665,11 +8810,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9718,11 +8858,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9766,11 +8901,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9814,11 +8944,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9862,11 +8987,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -9910,11 +9030,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-013-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -9962,11 +9077,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-013-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -10030,11 +9140,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-013-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -10091,11 +9196,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-013-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -10155,11 +9255,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10203,11 +9298,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10251,11 +9341,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10299,11 +9384,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-013-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10388,11 +9468,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-014",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -10478,11 +9553,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10531,11 +9601,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10584,11 +9649,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10632,11 +9692,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10680,11 +9735,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10728,11 +9778,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -10776,11 +9821,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-014-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -10828,11 +9868,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-014-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -10896,11 +9931,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-014-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -10957,11 +9987,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11005,11 +10030,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11053,11 +10073,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11101,11 +10116,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-014-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11190,11 +10200,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-015",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -11280,11 +10285,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11333,11 +10333,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11386,11 +10381,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11434,11 +10424,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11482,11 +10467,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11530,11 +10510,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11578,11 +10553,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-015-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -11630,11 +10600,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-015-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -11698,11 +10663,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-015-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -11759,11 +10719,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11807,11 +10762,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11855,11 +10805,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11903,11 +10848,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-015-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -11992,11 +10932,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-016",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -12082,11 +11017,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-016-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12135,11 +11065,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-016-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12188,11 +11113,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-016-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12236,11 +11156,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-016-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12284,11 +11199,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-016-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12332,11 +11242,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-016-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12380,11 +11285,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-016-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -12432,11 +11332,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-016-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -12529,11 +11424,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-017",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -12619,11 +11509,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-017-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12672,11 +11557,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-017-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12725,11 +11605,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-017-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12773,11 +11648,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-017-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12821,11 +11691,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-017-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12869,11 +11734,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-017-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -12917,11 +11777,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-017-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -12969,11 +11824,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-017-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -13066,11 +11916,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-018",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -13156,11 +12001,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13209,11 +12049,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13262,11 +12097,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13310,11 +12140,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13358,11 +12183,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13406,11 +12226,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13454,11 +12269,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-018-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -13506,11 +12316,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-018-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -13574,11 +12379,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-018-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -13635,11 +12435,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-018-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -13699,11 +12494,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13747,11 +12537,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13795,11 +12580,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13843,11 +12623,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-018-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -13932,11 +12707,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-019",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -14022,11 +12792,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14075,11 +12840,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14128,11 +12888,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14176,11 +12931,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14224,11 +12974,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14272,11 +13017,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14320,11 +13060,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-019-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -14372,11 +13107,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-019-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -14440,11 +13170,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-019-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -14501,11 +13226,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-019-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -14565,11 +13285,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14613,11 +13328,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14661,11 +13371,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14709,11 +13414,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-019-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14798,11 +13498,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-020",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -14888,11 +13583,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14941,11 +13631,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -14994,11 +13679,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15042,11 +13722,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15090,11 +13765,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15138,11 +13808,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15186,11 +13851,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-020-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -15238,11 +13898,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-020-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -15306,11 +13961,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-020-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -15367,11 +14017,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-020-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -15431,11 +14076,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15479,11 +14119,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15527,11 +14162,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15575,11 +14205,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-020-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15664,11 +14289,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-021",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -15754,11 +14374,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15807,11 +14422,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15860,11 +14470,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15908,11 +14513,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -15956,11 +14556,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16004,11 +14599,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16052,11 +14642,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-021-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -16104,11 +14689,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-021-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -16172,11 +14752,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-021-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -16233,11 +14808,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-021-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -16297,11 +14867,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16345,11 +14910,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16393,11 +14953,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16441,11 +14996,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-021-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16530,11 +15080,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-022",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -16620,11 +15165,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16673,11 +15213,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16726,11 +15261,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16774,11 +15304,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16822,11 +15347,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16870,11 +15390,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -16918,11 +15433,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-022-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -16970,11 +15480,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-022-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -17038,11 +15543,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-022-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -17099,11 +15599,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-022-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -17163,11 +15658,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17211,11 +15701,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17259,11 +15744,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17307,11 +15787,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-022-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17396,11 +15871,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-023",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -17486,11 +15956,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17539,11 +16004,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17592,11 +16052,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17640,11 +16095,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17688,11 +16138,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17736,11 +16181,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -17784,11 +16224,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-023-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -17836,11 +16271,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-023-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -17904,11 +16334,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-023-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -17965,11 +16390,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-023-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -18029,11 +16449,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18077,11 +16492,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18125,11 +16535,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18173,11 +16578,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-023-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18262,11 +16662,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-024",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -18352,11 +16747,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18405,11 +16795,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18458,11 +16843,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18506,11 +16886,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18554,11 +16929,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18602,11 +16972,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18650,11 +17015,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-024-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -18702,11 +17062,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-024-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -18770,11 +17125,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-024-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -18831,11 +17181,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-024-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -18895,11 +17240,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18943,11 +17283,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -18991,11 +17326,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19039,11 +17369,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-024-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19128,11 +17453,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-025",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -19233,11 +17553,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-025-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19286,11 +17601,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-025-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19339,11 +17649,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-025-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19387,11 +17692,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-025-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19435,11 +17735,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-025-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19483,11 +17778,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-025-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19531,11 +17821,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-025-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -19583,11 +17868,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-025-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -19680,11 +17960,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-026",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -19770,11 +18045,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19823,11 +18093,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19876,11 +18141,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19924,11 +18184,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -19972,11 +18227,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20020,11 +18270,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20068,11 +18313,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-026-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -20120,11 +18360,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-026-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -20188,11 +18423,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-026-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -20249,11 +18479,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-026-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -20313,11 +18538,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20361,11 +18581,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20409,11 +18624,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20457,11 +18667,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-026-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20546,11 +18751,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-027",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -20636,11 +18836,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20689,11 +18884,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20742,11 +18932,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20790,11 +18975,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20838,11 +19018,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20886,11 +19061,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -20934,11 +19104,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-027-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -20986,11 +19151,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-027-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -21054,11 +19214,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-027-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -21115,11 +19270,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21163,11 +19313,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21211,11 +19356,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21259,11 +19399,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-027-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21348,11 +19483,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-028",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -21438,11 +19568,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21491,11 +19616,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21544,11 +19664,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21592,11 +19707,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21640,11 +19750,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21688,11 +19793,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -21736,11 +19836,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-028-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -21788,11 +19883,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-028-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -21856,11 +19946,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-028-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -21917,11 +20002,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-028-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -21981,11 +20061,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22029,11 +20104,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22077,11 +20147,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22125,11 +20190,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-028-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22214,11 +20274,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-029",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -22304,11 +20359,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22357,11 +20407,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22410,11 +20455,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22458,11 +20498,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22506,11 +20541,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22554,11 +20584,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22602,11 +20627,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-029-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -22654,11 +20674,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-029-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -22722,11 +20737,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-029-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -22783,11 +20793,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-029-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -22847,11 +20852,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22895,11 +20895,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22943,11 +20938,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -22991,11 +20981,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-029-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23080,11 +21065,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-030",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -23170,11 +21150,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23223,11 +21198,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23276,11 +21246,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23324,11 +21289,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23372,11 +21332,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23420,11 +21375,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23468,11 +21418,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-030-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -23520,11 +21465,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-030-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -23588,11 +21528,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-030-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -23649,11 +21584,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-030-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -23713,11 +21643,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23761,11 +21686,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23809,11 +21729,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23857,11 +21772,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-030-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -23946,11 +21856,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-031",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -24036,11 +21941,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24089,11 +21989,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24142,11 +22037,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24190,11 +22080,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24238,11 +22123,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24286,11 +22166,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24334,11 +22209,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-031-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -24386,11 +22256,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-031-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -24454,11 +22319,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-031-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -24515,11 +22375,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-031-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -24579,11 +22434,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24627,11 +22477,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24675,11 +22520,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24723,11 +22563,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-031-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24812,11 +22647,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-032",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -24902,11 +22732,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-032-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -24955,11 +22780,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-032-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25008,11 +22828,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-032-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25056,11 +22871,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-032-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25104,11 +22914,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-032-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25152,11 +22957,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-032-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25200,11 +23000,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-032-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -25252,11 +23047,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-032-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -25320,11 +23110,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-032-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -25381,11 +23166,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-032-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -25522,11 +23302,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-033",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -25612,11 +23387,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25665,11 +23435,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25718,11 +23483,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25766,11 +23526,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25814,11 +23569,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25862,11 +23612,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -25910,11 +23655,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-033-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -25962,11 +23702,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-033-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -26030,11 +23765,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-033-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -26091,11 +23821,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-033-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -26155,11 +23880,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-hb-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26203,11 +23923,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-ferritin-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26251,11 +23966,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-tsat-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26299,11 +24009,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-033-crp-2",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26388,11 +24093,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-034",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -26478,11 +24178,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-034-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26531,11 +24226,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-034-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26584,11 +24274,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-034-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26632,11 +24317,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-034-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26680,11 +24360,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-034-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26728,11 +24403,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-034-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -26776,11 +24446,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-034-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -26828,11 +24493,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-034-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -26896,11 +24556,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-034-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -26957,11 +24612,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-034-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -27098,11 +24748,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-035",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -27188,11 +24833,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-035-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27241,11 +24881,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-035-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27294,11 +24929,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-035-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27342,11 +24972,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-035-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27390,11 +25015,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-035-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27438,11 +25058,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-035-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27486,11 +25101,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-035-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -27538,11 +25148,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-035-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -27606,11 +25211,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-035-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -27667,11 +25267,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-035-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -27808,11 +25403,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-036",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -27898,11 +25488,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-036-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -27951,11 +25536,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-036-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28004,11 +25584,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-036-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28052,11 +25627,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-036-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28100,11 +25670,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-036-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28148,11 +25713,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-036-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28196,11 +25756,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-036-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -28248,11 +25803,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-036-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -28316,11 +25866,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-036-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -28377,11 +25922,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-036-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -28518,11 +26058,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-037",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -28608,11 +26143,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-037-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28661,11 +26191,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-037-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28714,11 +26239,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-037-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28762,11 +26282,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-037-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28810,11 +26325,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-037-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28858,11 +26368,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-037-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -28906,11 +26411,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-037-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -28958,11 +26458,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-037-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -29026,11 +26521,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-037-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -29087,11 +26577,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-037-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -29228,11 +26713,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-038",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -29333,11 +26813,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-038-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -29386,11 +26861,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-038-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -29439,11 +26909,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-038-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -29487,11 +26952,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-038-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -29535,11 +26995,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-038-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -29583,11 +27038,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-038-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -29631,11 +27081,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-038-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -29683,11 +27128,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-038-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -29751,11 +27191,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-038-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -29889,11 +27324,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-039",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -29994,11 +27424,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-039-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30047,11 +27472,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-039-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30100,11 +27520,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-039-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30148,11 +27563,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-039-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30196,11 +27606,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-039-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30244,11 +27649,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-039-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30292,11 +27692,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-039-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -30344,11 +27739,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-039-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -30412,11 +27802,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-039-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -30473,11 +27858,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-039-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {
@@ -30614,11 +27994,6 @@
    "resource": {
     "resourceType": "Patient",
     "id": "pam-040",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-patient"
-     ]
-    },
     "extension": [
      {
       "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
@@ -30704,11 +28079,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-040-height",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyheight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30757,11 +28127,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-040-weight",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-bodyweight"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30810,11 +28175,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-040-hb-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30858,11 +28218,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-040-ferritin-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30906,11 +28261,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-040-tsat-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -30954,11 +28304,6 @@
    "resource": {
     "resourceType": "Observation",
     "id": "pam-040-crp-1",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path"
-     ]
-    },
     "status": "final",
     "category": [
      {
@@ -31002,11 +28347,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-040-surgery",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "active",
     "intent": "order",
     "category": [
@@ -31054,11 +28394,6 @@
    "resource": {
     "resourceType": "ServiceRequest",
     "id": "pam-040-referral",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/StructureDefinition/au-servicerequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "category": [
@@ -31122,11 +28457,6 @@
    "resource": {
     "resourceType": "Condition",
     "id": "pam-040-diagnosis",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-condition"
-     ]
-    },
     "clinicalStatus": {
      "coding": [
       {
@@ -31183,11 +28513,6 @@
    "resource": {
     "resourceType": "MedicationRequest",
     "id": "pam-040-iv-iron",
-    "meta": {
-     "profile": [
-      "http://hl7.org.au/fhir/core/StructureDefinition/au-core-medicationrequest"
-     ]
-    },
     "status": "completed",
     "intent": "order",
     "medicationCodeableConcept": {

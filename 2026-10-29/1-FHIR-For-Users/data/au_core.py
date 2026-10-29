@@ -16,6 +16,7 @@ Luhn check digit as AU Base requires, but in a 99… block and tied to fictional
 are in the 07 5550 xxxx range ACMA reserves for fiction.
 """
 import json
+import os
 import random
 import sys
 from pathlib import Path
@@ -36,6 +37,10 @@ OBS_PROFILE = {  # by LOINC code
     "29463-7": f"{CORE}/au-core-bodyweight",
 }
 PATHOLOGY = f"{CORE}/au-core-diagnosticresult-path"
+# The data conforms to these profiles but doesn't claim them: Meld (HAPI) returns HTTP 500
+# (HAPI-0389 TagDefinition) on any resource with meta.profile. AU_CORE_DECLARE=1 adds the claims,
+# e.g. for a copy to validate (the validator picks the profile from meta.profile).
+DECLARE = os.environ.get("AU_CORE_DECLARE") == "1"
 SNOMED_VITAL = {  # AU Core body height / weight require this SNOMED coding alongside LOINC
     "8302-2": ("50373000", "Body height measure"),
     "29463-7": ("27113001", "Body weight"),
@@ -77,6 +82,8 @@ def cc(system, code, display, text=None):
 
 def ordered(resource, **new):
     """Insert new top-level elements after id (meta first), keeping the existing order."""
+    if not DECLARE:
+        new.pop("meta", None)
     out = {}
     for k, v in resource.items():
         out[k] = v

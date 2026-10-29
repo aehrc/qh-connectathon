@@ -35,15 +35,19 @@ zero errors from the HL7 validator (`-ig hl7.fhir.au.core#2.0.0 -sct au`, tx.ont
 The upgrade only **adds** elements; ids, codes, categories, values and dates are unchanged
 (`diff_bundles.py` proves it), so existing searches and forms give the same results.
 
-| Resource | Profile (`meta.profile`) | Added |
+The resources conform but **don't declare** their profiles: Meld returns HTTP 500 (HAPI-0389) on
+any resource with `meta.profile`. To validate, generate a copy with the claims
+(`AU_CORE_DECLARE=1 python3 generate.py`) so the validator picks each profile up.
+
+| Resource | Conforms to | Added |
 |---|---|---|
 | Patient | AU Core Patient | IHI (synthetic, `800360 99…`, valid Luhn), Indigenous status, interpreter required (+ preferred language for the 5 who need one), home phone (`07 5550 xxxx`, reserved for fiction) |
-| Observation Hb, ferritin, TSAT, CRP | AU Core Pathology Result Observation | profile only |
+| Observation Hb, ferritin, TSAT, CRP | AU Core Pathology Result Observation | nothing (already conforms) |
 | Observation height / weight | AU Core Body Height / Body Weight | SNOMED CT coding (50373000 / 27113001) after the LOINC one |
-| Condition, MedicationRequest | AU Core Condition / MedicationRequest | profile only |
+| Condition, MedicationRequest | AU Core Condition / MedicationRequest | nothing (already conforms) |
 | Practitioner | AU Core Practitioner | HPI-I (`800361 99…`) |
 | Organization | AU Core Organization | HPI-O (`800362 99…`) on the blood management service |
-| ServiceRequest | AU Base ServiceRequest | profile only |
+| ServiceRequest | AU Base ServiceRequest | nothing (already conforms) |
 | EpisodeOfCare, Task | (no AU profile) | nothing |
 
 Empty arrays (`prefix: []`, `reasonCode: []`, not valid FHIR JSON and dropped by servers anyway) are
