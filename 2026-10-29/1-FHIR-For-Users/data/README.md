@@ -7,6 +7,8 @@ organisations are made up.
 | File | Purpose |
 |---|---|
 | `generate.py` | Deterministic generator (fixed seed) → `pam-synthetic-bundle.json` |
+| `au_core.py` | AU Core 2.0.0 post-pass used by `generate.py`; `python3 au_core.py <bundle>` upgrades another bundle (e.g. `../decks/examples/pam-demo-bundle.json`) |
+| `diff_bundles.py old new` | Checks a change is additive: every old value unchanged, lists what was added |
 | `pam-synthetic-bundle.json` | The bundle (PUT with fixed ids, so reloading updates in place) |
 | `load.sh [base]` | Posts the bundle; defaults to the Meld sandbox open endpoint |
 
@@ -25,3 +27,26 @@ organisations are made up.
 
 Local codes (elective category, referral source, episode and task types) use the placeholder
 system `https://aehrc.github.io/qh-connectathon/track1/CodeSystem/…` until the mapping is agreed.
+
+## AU Core 2.0.0
+
+The data conforms to [AU Core 2.0.0](https://hl7.org.au/fhir/core/2.0.0/) (`hl7.fhir.au.core#2.0.0`):
+zero errors from the HL7 validator (`-ig hl7.fhir.au.core#2.0.0 -sct au`, tx.ontoserver.csiro.au).
+The upgrade only **adds** elements; ids, codes, categories, values and dates are unchanged
+(`diff_bundles.py` proves it), so existing searches and forms give the same results.
+
+| Resource | Profile (`meta.profile`) | Added |
+|---|---|---|
+| Patient | AU Core Patient | IHI (synthetic, `800360 99…`, valid Luhn), Indigenous status, interpreter required (+ preferred language for the 5 who need one), home phone (`07 5550 xxxx`, reserved for fiction) |
+| Observation Hb, ferritin, TSAT, CRP | AU Core Pathology Result Observation | profile only |
+| Observation height / weight | AU Core Body Height / Body Weight | SNOMED CT coding (50373000 / 27113001) after the LOINC one |
+| Condition, MedicationRequest | AU Core Condition / MedicationRequest | profile only |
+| Practitioner | AU Core Practitioner | HPI-I (`800361 99…`) |
+| Organization | AU Core Organization | HPI-O (`800362 99…`) on the blood management service |
+| ServiceRequest | AU Base ServiceRequest | profile only |
+| EpisodeOfCare, Task | (no AU profile) | nothing |
+
+Empty arrays (`prefix: []`, `reasonCode: []`, not valid FHIR JSON and dropped by servers anyway) are
+no longer written. The remaining validator warnings: TSAT LOINC 2502-3 isn't in the RCPA SPIA value
+set (SPIA uses 14801-5; kept 2502-3 because the forms query it), the placeholder CodeSystems can't be
+resolved, and no narrative / Observation.performer.
