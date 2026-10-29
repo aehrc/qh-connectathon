@@ -17,7 +17,7 @@ organisations are made up.
 | Resource | Count | Notes |
 |---|---|---|
 | Patient | 40 | ids `pam-001`…`pam-040`; northside Brisbane postcodes |
-| Observation | 340 | Height, weight; Hb, ferritin, TSAT, CRP at referral, and again after treatment for those who finished |
+| Observation | 340 | Height, weight; Hb (718-7), ferritin (2276-4), TSAT (14801-5), CRP (1988-5) at referral, and again after treatment for those who finished |
 | ServiceRequest | 80 | Per patient: surgical waitlist entry (SNOMED procedure, elective category, unit) and the referral to blood management (referral source) |
 | Condition | 33 | Iron deficiency anaemia (22), iron deficiency (6), anaemia of chronic disease (5) |
 | MedicationRequest | 28 | IV iron (AMT), dose from Ganzoni |
@@ -47,6 +47,7 @@ The upgrade only **adds** elements; ids, codes, categories, values and dates are
 | EpisodeOfCare, Task | (no AU profile) | nothing |
 
 Empty arrays (`prefix: []`, `reasonCode: []`, not valid FHIR JSON and dropped by servers anyway) are
-no longer written. The remaining validator warnings: TSAT LOINC 2502-3 isn't in the RCPA SPIA value
-set (SPIA uses 14801-5; kept 2502-3 because the forms query it), the placeholder CodeSystems can't be
-resolved, and no narrative / Observation.performer.
+no longer written. One deliberate code change: TSAT is LOINC **14801-5** *Iron saturation [Molar fraction]*
+(the RCPA SPIA code AU Core's pathology binding uses), replacing 2502-3; values, units and ids are
+the same. Queries for TSAT must use 14801-5. The remaining validator warnings: the placeholder
+CodeSystems can't be resolved, and no narrative / Observation.performer.

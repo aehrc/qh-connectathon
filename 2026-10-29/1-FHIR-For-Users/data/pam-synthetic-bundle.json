@@ -794,11 +794,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-001"
@@ -1231,11 +1231,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-001"
@@ -1660,11 +1660,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-002"
@@ -2097,11 +2097,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-002"
@@ -2526,11 +2526,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-003"
@@ -2963,11 +2963,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-003"
@@ -3407,11 +3407,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-004"
@@ -3944,11 +3944,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-005"
@@ -4481,11 +4481,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-006"
@@ -5018,11 +5018,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-007"
@@ -5455,11 +5455,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-007"
@@ -5884,11 +5884,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-008"
@@ -6257,11 +6257,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-008"
@@ -6686,11 +6686,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-009"
@@ -7238,11 +7238,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-010"
@@ -7675,11 +7675,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-010"
@@ -8104,11 +8104,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-011"
@@ -8541,11 +8541,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-011"
@@ -8970,11 +8970,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-012"
@@ -9407,11 +9407,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-012"
@@ -9836,11 +9836,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-013"
@@ -10273,11 +10273,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-013"
@@ -10702,11 +10702,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-014"
@@ -11075,11 +11075,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-014"
@@ -11504,11 +11504,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-015"
@@ -11877,11 +11877,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-015"
@@ -12306,11 +12306,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-016"
@@ -12843,11 +12843,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-017"
@@ -13380,11 +13380,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-018"
@@ -13817,11 +13817,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-018"
@@ -14246,11 +14246,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-019"
@@ -14683,11 +14683,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-019"
@@ -15112,11 +15112,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-020"
@@ -15549,11 +15549,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-020"
@@ -15978,11 +15978,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-021"
@@ -16415,11 +16415,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-021"
@@ -16844,11 +16844,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-022"
@@ -17281,11 +17281,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-022"
@@ -17710,11 +17710,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-023"
@@ -18147,11 +18147,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-023"
@@ -18576,11 +18576,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-024"
@@ -19013,11 +19013,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-024"
@@ -19457,11 +19457,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-025"
@@ -19994,11 +19994,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-026"
@@ -20431,11 +20431,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-026"
@@ -20860,11 +20860,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-027"
@@ -21233,11 +21233,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-027"
@@ -21662,11 +21662,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-028"
@@ -22099,11 +22099,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-028"
@@ -22528,11 +22528,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-029"
@@ -22965,11 +22965,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-029"
@@ -23394,11 +23394,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-030"
@@ -23831,11 +23831,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-030"
@@ -24260,11 +24260,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-031"
@@ -24697,11 +24697,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-031"
@@ -25126,11 +25126,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-032"
@@ -25836,11 +25836,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-033"
@@ -26273,11 +26273,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-033"
@@ -26702,11 +26702,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-034"
@@ -27412,11 +27412,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-035"
@@ -28122,11 +28122,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-036"
@@ -28832,11 +28832,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-037"
@@ -29557,11 +29557,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-038"
@@ -30218,11 +30218,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-039"
@@ -30928,11 +30928,11 @@
      "coding": [
       {
        "system": "http://loinc.org",
-       "code": "2502-3",
-       "display": "Iron saturation [Mass Fraction] in Serum or Plasma"
+       "code": "14801-5",
+       "display": "Iron saturation [Molar fraction] in Serum or Plasma"
       }
      ],
-     "text": "Iron saturation [Mass Fraction] in Serum or Plasma"
+     "text": "Iron saturation [Molar fraction] in Serum or Plasma"
     },
     "subject": {
      "reference": "Patient/pam-040"
