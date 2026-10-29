@@ -22,7 +22,6 @@ LOINC = "http://loinc.org"
 SCT = "http://snomed.info/sct"
 UCUM = "http://unitsofmeasure.org"
 MEDICARE = "http://ns.electronichealth.net.au/id/medicare-number"
-AU_CORE = "http://hl7.org.au/fhir/core/StructureDefinition"  # AU Core 2.0.0 profiles for the extracted resources
 SCENARIOS = "https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/Scenarios.md"
 
 
@@ -126,10 +125,6 @@ def latest_obs(var, code):
     return query(var, f"Observation?code={LOINC}|{code}&patient={{{{%patient.id}}}}&_sort=-date&_count=1")
 
 
-def au_core(profile):
-    return {"profile": [f"{AU_CORE}/{profile}"]}
-
-
 def module(slug, title, top_item, contained=None, contexts=()):
     # Hidden item with an initial value, so the section exists in the response from the start.
     # Works around a Smart Forms renderer bug: calculated answers in a section with no answers yet
@@ -157,6 +152,9 @@ def module(slug, title, top_item, contained=None, contexts=()):
         q["contained"] = contained
     return q
 
+
+# Templates: the extracted resources conform to AU Core 2.0.0 (Pathology Result Observation, Condition,
+# MedicationRequest) without claiming it in meta.profile (Meld rejects PUTs with meta.profile: HAPI-0389).
 
 # --- Modules --------------------------------------------------------------------------------
 
@@ -221,8 +219,7 @@ PATH_TESTS = [("hb", "718-7", "Haemoglobin (Hb)", "g/L"), ("ferritin", "2276-4",
               ("tsat", "14801-5", "Transferrin saturation (TSAT)", "%"), ("crp", "1988-5", "C-reactive protein (CRP)", "mg/L")]
 UNIT_DISPLAY = {"ug/L": "µg/L"}
 obs_template = {
-    "resourceType": "Observation", "id": "PAMExternalResultTemplate",
-    "meta": au_core("au-core-diagnosticresult-path"), "status": "final",
+    "resourceType": "Observation", "id": "PAMExternalResultTemplate", "status": "final",
     "category": [{"coding": [coding("http://terminology.hl7.org/CodeSystem/observation-category", "laboratory", "Laboratory")]}],
     # LOINC code without the answer's display (the form's labels aren't LOINC display names); label in text
     "code": {"coding": [{"system": LOINC, "_code": tpl_value("item.where(linkId='pam-ext-test').answer.value.code")}],
@@ -271,7 +268,7 @@ modules.append(module("pathology", "Pathology results", {
 # Diagnosis (demo 1: calculated findings; demo 2: Condition write-back)
 HB, FERRITIN, TSAT, CRP = (answer(f"pam-{k}") for k in ("hb", "ferritin", "tsat", "crp"))
 condition_template = {
-    "resourceType": "Condition", "id": "PAMDiagnosisTemplate", "meta": au_core("au-core-condition"),
+    "resourceType": "Condition", "id": "PAMDiagnosisTemplate",
     "clinicalStatus": {"coding": [coding("http://terminology.hl7.org/CodeSystem/condition-clinical", "active", "Active")]},
     "verificationStatus": {"coding": [coding("http://terminology.hl7.org/CodeSystem/condition-ver-status", "confirmed", "Confirmed")]},
     "category": [{"coding": [coding("http://terminology.hl7.org/CodeSystem/condition-category", "encounter-diagnosis", "Encounter Diagnosis")]}],
@@ -303,8 +300,7 @@ modules.append(module("diagnosis", "Diagnosis", {
 
 # Treatment (demo 1: Ganzoni; demo 2: MedicationRequest write-back)
 med_template = {
-    "resourceType": "MedicationRequest", "id": "PAMIVIronTemplate", "meta": au_core("au-core-medicationrequest"),
-    "status": "active", "intent": "order",
+    "resourceType": "MedicationRequest", "id": "PAMIVIronTemplate", "status": "active", "intent": "order",
     "medicationCodeableConcept": {"coding": [tpl_value("item.where(linkId='pam-iron-product').answer.value")]},
     "subject": {"_reference": tpl_value("%resource.subject.reference")},
     "_authoredOn": tpl_value("now().toString()"),

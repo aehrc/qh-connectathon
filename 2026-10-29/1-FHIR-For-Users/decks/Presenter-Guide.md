@@ -486,11 +486,11 @@ Write-back, continuing from 6:
    extracted bundle.* (The other entries: Observation-based, Definition-based are greyed out,
    StructureMap-based struck through, plus *Template-based $extract (modified only)*.)
 9. **ADVANCED PROPS** (right panel header) → tab **EXTRACT** → **TemplateExtractResult**: a
-   `transaction` Bundle with one `POST Observation`: AU Core Pathology Result profile in `meta`,
+   `transaction` Bundle with one `POST Observation` (conforms to AU Core Pathology Result):
    LOINC 718-7 (no display; *Haemoglobin (Hb)* in `code.text`), subject `Patient/pam-demo`,
    valueQuantity 98 g/L (UCUM), `effectiveDateTime` `2026-10-27`
    (`img/writeback/08-playground-extracted-bundle.png`; taken before the AU Core change, so it still
-   shows the label as `coding.display` and no `meta`).
+   shows the label as `coding.display`).
    The **QR** tab shows the QuestionnaireResponse (same content as `examples/sample-qr.json`;
    see Surprises 7).
 10. **REVIEW WRITE BACK ITEMS** (bottom right) → dialog *Select items to write back to patient

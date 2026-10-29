@@ -146,7 +146,6 @@ In the Questionnaire's `contained` list. Answers fill parts with a **`templateEx
 {
   "resourceType": "Observation",
   "id": "PAMExternalResultTemplate",
-  "meta": { "profile": [ "http://hl7.org.au/fhir/core/StructureDefinition/au-core-diagnosticresult-path" ] },
   "status": "final",
   "category": [ { "coding": [ { "system": "http://terminology.hl7.org/CodeSystem/observation-category",
                                 "code": "laboratory", "display": "Laboratory" } ] } ],
@@ -167,8 +166,8 @@ In the Questionnaire's `contained` list. Answers fill parts with a **`templateEx
 ```
 
 <!--
-This is an ordinary Observation with holes in it. Fixed parts (profile, status, category) are just written in.
-meta.profile claims AU Core 2.0.0 Pathology Result; the extracted Observation validates against it.
+This is an ordinary Observation with holes in it. Fixed parts (status, category) are just written in.
+The extracted Observation conforms to AU Core 2.0.0 Pathology Result (checked with the HL7 validator; not claimed in meta.profile).
 The parts that come from answers carry an extension holding a FHIRPath expression.
 Code: the LOINC code of the chosen test, and its label as code.text (the label isn't LOINC's display name, so it can't go in coding.display), subject from the QR, date from the Collected answer. Value and unit are next.
 -->
@@ -595,7 +594,7 @@ Expect one POST Observation, 98 g/L, 2026-10-27. Fallback: img/writeback/08-play
 
 ## The extracted transaction Bundle
 
-**TemplateExtractResult** for our answers (abridged: `meta`, `status`, `category` and the entry's `fullUrl`/ids not shown):
+**TemplateExtractResult** for our answers (abridged: `status`, `category` and the entry's `fullUrl`/ids not shown):
 
 ```json
 {
@@ -718,7 +717,7 @@ Fixed status, intent and IV route; medication from the chosen product; dose (`do
 
 </div>
 
-The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. All three templates follow **AU Core 2.0.0** (`meta.profile`). A6 and A7 are starting points: test new expressions in fhirpath-lab first.
+The real `pam-pathology.json` has the same `PAMExternalResultTemplate` as our walkthrough. All three templates make resources that conform to **AU Core 2.0.0**. A6 and A7 are starting points: test new expressions in fhirpath-lab first.
 
 <!--
 Same pattern scales up. A6 makes a Condition from the diagnosis choice, A7 a MedicationRequest for IV iron.
