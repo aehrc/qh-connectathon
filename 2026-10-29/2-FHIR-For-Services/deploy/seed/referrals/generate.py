@@ -166,6 +166,26 @@ REFERRERS = {
 }
 
 
+# ---------------------------------------------------------------- pathology laboratories (live on the referral server)
+# Fictional pathology providers, for pathology requests (e.g. the eGFR behind contrast CT) and for participants to order
+# against. Each lab has its pathologists linked via PractitionerRole.
+# lab number -> (name, city, postcode, HPI-O, phone, [(given, family, HPI-I key, title, role display, role code, provider no.)])
+PATHOLOGY = {
+    1: ("Coral Coast Pathology", "Cairns", "4870", hpio(21), "0755505021",
+        [("Rhiannon", "Petrakis", 21, "Dr", "General pathologist", "85733003", "29992101"),
+         ("Tobias", "Wenzel", 22, "Dr", "Laboratory haematologist", "18850004", "29992201")]),
+    2: ("Brigalow Pathology Laboratories", "Toowoomba", "4350", hpio(22), "0755505022",
+        [("Anjali", "Deshmukh", 23, "Dr", "Medical biochemist", "28544002", "29992301"),
+         ("Fergus", "Lachlan-Reid", 24, "Dr", "Anatomic pathologist", "83273008", "29992401")]),
+    3: ("Moreton Clinical Pathology", "Bowen Hills", "4006", hpio(23), "0755505023",
+        [("Selina", "Marchetti", 25, "Dr", "Clinical pathologist", "81464008", "29992501"),
+         ("Kwame", "Asante", 26, "Dr", "Anatomic pathologist", "83273008", "29992601"),
+         ("Yuki", "Harrington", 27, "Dr", "Laboratory haematologist", "18850004", "29992701")]),
+    4: ("Fitzroy Valley Pathology", "Rockhampton", "4700", hpio(24), "0755505024",
+        [("Declan", "Moorhouse", 28, "Dr", "General pathologist", "85733003", "29992801")]),
+}
+
+
 def pgn_system(r): return "http://ns.electronichealth.net.au/id/hpio-scoped/order/1.0/" + REFERRERS[r][3]
 
 
@@ -193,6 +213,31 @@ def referrer_entries():
                    "organization": ref("Organization/qhc-org-ref%d" % k, name),
                    "code": [cc(SCT, rcode, rdisp)],
                    "telecom": [{"system": "phone", "value": ph}]})
+    # Pathology laboratories, typed as pathology services, each with its pathologists (Practitioner + PractitionerRole)
+    for k, (name, city, pc, h, ph, staff) in PATHOLOGY.items():
+        es.append({"resourceType": "Organization", "id": "qhc-org-path%d" % k,
+                   "meta": {"profile": [P + "au-erequesting-organization"]},
+                   "identifier": [{"type": {"coding": [{"system": AUV2, "code": "NOI", "display": "National Organisation Identifier"}], "text": "HPI-O"},
+                                   "system": HPIO, "value": h}],
+                   "active": True, "name": name,
+                   "type": [cc(SCT, "310074003", "Pathology service"),
+                            cc("http://www.abs.gov.au/ausstats/abs@.nsf/mf/1292.0", "8520", "Pathology and Diagnostic Imaging Services", "Pathology laboratory")],
+                   "telecom": [{"system": "phone", "value": ph}],
+                   "address": [{"city": city, "state": "QLD", "postalCode": pc, "country": "AU"}]})
+        for given, fam, hn, pre, rdisp, rcode, mpn in staff:
+            es.append({"resourceType": "Practitioner", "id": "qhc-prac-path-%02d" % hn,
+                       "meta": {"profile": [P + "au-erequesting-practitioner"]},
+                       "identifier": [{"type": {"coding": [{"system": V2, "code": "NPI", "display": "National provider identifier"}], "text": "HPI-I"},
+                                       "system": HPII, "value": hpii(hn)}],
+                       "name": [{"family": fam, "given": [given], "prefix": [pre]}]})
+            es.append({"resourceType": "PractitionerRole", "id": "qhc-role-path-%02d" % hn,
+                       "meta": {"profile": [P + "au-erequesting-practitionerrole"]},
+                       "identifier": [{"type": {"coding": [{"system": AUV2, "code": "UPIN", "display": "Medicare Provider Number"}], "text": "Medicare Provider Number"},
+                                       "system": MPN, "value": mpn}],
+                       "practitioner": ref("Practitioner/qhc-prac-path-%02d" % hn, "%s %s %s" % (pre, given, fam)),
+                       "organization": ref("Organization/qhc-org-path%d" % k, name),
+                       "code": [cc(SCT, rcode, rdisp)],
+                       "telecom": [{"system": "phone", "value": ph}]})
     # The imaging providers (fillers) also exist HERE as Organizations, typed as diagnostic imaging, with the SAME HPI-O as in the
     # directory seed. The UI's "Select Provider Organisation" dropdown searches THIS server for Organization?type=<imaging codes>,
     # and a referral's performer/owner is a real Organization on this server. (The referral Tasks still point at the filler by HPI-O.)
@@ -471,6 +516,175 @@ def _slot(f, m, day, hh, mm, status):
             "status": status, "start": tz(day, hh, mm), "end": end_time(day, hh, mm, st[2])}
 
 
+# ---------------------------------------------------------------- pathology requests (AU eRequesting 1.0.1)
+# One order = Encounter + one au-erequesting-servicerequest-path per test (shared PGN, displaySequence = position on the
+# form) + a Group Task + one Diagnostic Request Task per test, owned by the pathology lab. Test codes are from the
+# RCPA SPIA requesting refset (the binding on ServiceRequest.code); code.text is the form wording.
+PATH_TESTS = {  # key -> (SNOMED code, display, text on form, fasting required)
+    "FBC": ("26604007", "Full blood count", "FBC", False),
+    "UEC": ("444164000", "Urea, electrolytes and creatinine measurement", "UEC", False),
+    "LFT": ("26958001", "Liver function test", "LFT", False),
+    "HBA1C": ("43396009", "Haemoglobin A1c measurement", "HbA1c", False),
+    "LIPID": ("252150008", "Fasting lipid profile", "Lipids (fasting)", True),
+    "FBG": ("271062006", "Fasting blood glucose measurement", "Glucose, fasting", True),
+    "TSH": ("313440008", "Serum TSH measurement", "TSH", False),
+    "INR": ("440685005", "Calculation of international normalised ratio", "INR", False),
+    "FERR": ("269821003", "Serum ferritin measurement", "Ferritin", False),
+    "B12": ("271216009", "Serum vitamin B12 measurement", "Vitamin B12", False),
+    "CRP": ("55235003", "C-reactive protein measurement", "CRP", False),
+    "TROP": ("105000003", "Troponin measurement", "Troponin", False),
+    "MSU": ("401324008", "Urine microscopy, culture and sensitivities", "Urine MCS", False),
+    "PSA": ("63476009", "Prostate specific antigen measurement", "PSA", False),
+    "GRPAB": ("252315008", "Blood group antibody screening", "Group and antibody screen", False),
+    "RUB": ("313670007", "Rubella IgG measurement", "Rubella IgG", False),
+    "HBSAG": ("47758006", "Hepatitis B surface antigen measurement", "Hepatitis B sAg", False),
+}
+PATH_REASON = {
+    "fatigue": ("84229001", "Fatigue"), "t2dm": ("44054006", "Type 2 diabetes mellitus"),
+    "hypothyroid": ("40930008", "Hypothyroidism"), "chest": ("29857009", "Chest pain"),
+    "af": ("49436004", "Atrial fibrillation"), "dysuria": ("49650001", "Dysuria"),
+    "preg": ("72892002", "Normal pregnancy"), "lipid": ("55822004", "Hyperlipidaemia"), None: None,
+}
+# state -> (Task.status, Task.businessStatus, ServiceRequest.status)
+PATH_STATE = {
+    "req": ("requested", None, "active"), "rec": ("received", None, "active"), "acc": ("accepted", None, "active"),
+    "coll": ("in-progress", "specimen-collected", "active"), "lab": ("in-progress", "pathology-in-lab", "active"),
+    "prelim": ("in-progress", "preliminary-results", "active"), "done": ("completed", None, "completed"),
+    "hold": ("on-hold", None, "on-hold"), "cancel": ("cancelled", "request-cancelled-placer", "revoked"),
+    "reject": ("rejected", "request-data-issue", "active"),
+}
+# coverage: None = bulk-billed Medicare (no Coverage resource, as in the IG examples), or "dva" / "conc" / "private"
+# (n, patient, referrer, lab, tests, priority, state, authoredOn, reason, coverage, note)
+PATH_REQUESTS = [
+    (1, 1, 1, 3, ["FBC", "UEC", "LFT"], "routine", "req", "2026-10-20", "fatigue", None, None),
+    (2, 2, 2, 3, ["HBA1C", "LIPID", "UEC"], "routine", "req", "2026-10-21", "t2dm", None, None),
+    (3, 4, 3, 1, ["LIPID", "FBG"], "routine", "rec", "2026-10-19", "lipid", None, None),
+    (4, 11, 3, 1, ["TSH"], "routine", "acc", "2026-10-16", "hypothyroid", None, None),
+    (5, 17, 3, 1, ["INR"], "urgent", "coll", "2026-10-22", "af", "dva", "On warfarin. Please phone INR result to the practice."),
+    (6, 6, 5, 2, ["FBC", "FERR", "B12"], "routine", "lab", "2026-10-20", "fatigue", None, None),
+    (7, 7, 5, 2, ["PSA"], "routine", "done", "2026-10-05", None, None, None),
+    (8, 13, 5, 2, ["HBA1C", "UEC"], "routine", "done", "2026-09-28", "t2dm", "conc", None),
+    (9, 19, 5, 2, ["MSU"], "routine", "prelim", "2026-10-23", "dysuria", None, None),
+    (10, 5, 4, 4, ["FBC", "UEC"], "routine", "done", "2026-09-03", "fatigue", None, None),
+    (11, 12, 4, 4, ["TSH", "LIPID"], "routine", "cancel", "2026-10-02", "hypothyroid", None, "Duplicate request - cancelled by practice."),
+    (12, 18, 4, 4, ["FBG", "HBA1C"], "routine", "reject", "2026-10-14", "t2dm", None, None),
+    (13, 10, 2, 3, ["FBC", "GRPAB", "RUB", "HBSAG"], "routine", "coll", "2026-10-22", "preg", None, "Antenatal booking bloods, 10 weeks."),
+    (14, 20, 6, 3, ["TROP", "FBC", "UEC"], "urgent", "acc", "2026-10-24", "chest", None, "Urgent - phone results to the clinic."),
+    (15, 14, 6, 3, ["FERR", "FBC"], "routine", "hold", "2026-10-18", "fatigue", "private", None),
+]
+PATH_STATUS_REASON = {"hold": "Awaiting patient attendance for collection.",
+                      "reject": "Request rejected: patient Medicare number does not match the patient name."}
+FASTING = "https://healthterminologies.gov.au/fhir/ValueSet/pathology-fasting-status-1"
+
+
+def lab_org(k):
+    name, _, _, h, _, _ = PATHOLOGY[k]
+    return {"reference": "Organization/qhc-org-path%d" % k, "type": "Organization", "identifier": {"system": HPIO, "value": h}, "display": name}
+
+
+def coverage(pi, kind):
+    pid = "Patient/qhc-pat-%02d" % pi
+    c = {"resourceType": "Coverage", "id": "qhc-cov-%02d" % pi, "meta": {"profile": [P + "au-erequesting-coverage"]},
+         "status": "active", "beneficiary": ref(pid)}
+    if kind == "dva":  # fictional DVA file number; payor as in the IG's DVA example
+        c["identifier"] = [{"type": {"coding": [{"system": AUV2, "code": "DVAU", "display": "DVA Number"}], "text": "DVA Number"},
+                            "system": "http://ns.electronichealth.net.au/id/dva", "value": "QX99%04d" % pi}]
+        c["type"] = cc("http://terminology.hl7.org/CodeSystem/v3-ActCode", "VET", "veteran health program")
+        c["payor"] = [{"identifier": {"type": {"coding": [{"system": V2, "code": "XX"}], "text": "ABN"},
+                                      "system": "http://hl7.org.au/id/abn", "value": "23964290824"}, "display": "Department of Veterans' Affairs"}]
+    else:
+        c["type"] = cc("http://terminology.hl7.org/CodeSystem/coverage-selfpay", *{"conc": ("payconc", "Concession"), "private": ("pay", "Pay")}[kind])
+        c["payor"] = [ref(pid)]
+    return c
+
+
+def path_entries(row):
+    n, pi, rf, lab, tests, prio, state, auth, rk, cov, note = row
+    pid = "Patient/qhc-pat-%02d" % pi
+    role = "PractitionerRole/qhc-role-%d" % rf
+    rdisp = "%s %s" % (REFERRERS[rf][5][3], REFERRERS[rf][5][1])
+    rorg = REFERRERS[rf][0]
+    pgn = "LAB-QHC-%04d" % n
+    sysn = pgn_system(rf)
+    tstat, biz, srstat = PATH_STATE[state]
+    reason = PATH_REASON[rk]
+    enc_id, gt_id = "qhc-path-enc-%04d" % n, "qhc-path-taskgroup-%04d" % n
+    es = [{"resourceType": "Encounter", "id": enc_id, "meta": {"profile": [P + "au-erequesting-encounter"]},
+           "status": "finished", "class": {"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "AMB", "display": "ambulatory"},
+           "serviceType": cc(SCT, *(("700232004", "General medical service") if rf == 6 else ("788007007", "General practice service"))),
+           "subject": ref(pid),
+           "participant": [{"type": [cc("http://terminology.hl7.org/CodeSystem/v3-ParticipationType", "PPRF", "primary performer")],
+                            "individual": ref(role, rdisp)}],
+           "period": {"start": tz(auth, 10, 0), "end": tz(auth, 10, 15)},
+           "serviceProvider": ref("Organization/qhc-org-ref%d" % rf, rorg)}]
+    if reason:
+        es[0]["reasonCode"] = [cc(SCT, reason[0], reason[1])]
+    if cov:
+        es.append(coverage(pi, cov))
+    preg_id = None
+    if rk == "preg":
+        preg_id = "qhc-pregstatus-%04d" % n
+        es.append({"resourceType": "Observation", "id": preg_id,
+                   "meta": {"profile": ["http://hl7.org/fhir/uv/ips/StructureDefinition/Observation-pregnancy-status-uv-ips"]},
+                   "status": "final", "code": cc("http://loinc.org", "82810-3", "Pregnancy status"), "subject": ref(pid),
+                   "effectiveDateTime": tz(auth, 10, 5), "valueCodeableConcept": cc("http://loinc.org", "LA15173-0", "Pregnant")})
+    last = tz(auth, 14, 0) if state == "req" else tz((dt.date.fromisoformat(auth) + dt.timedelta(days=1)).isoformat(), 9, 0)
+    if state == "done":
+        last = tz((dt.date.fromisoformat(auth) + dt.timedelta(days=3)).isoformat(), 16, 30)
+    assigner = ref("Organization/qhc-org-ref%d" % rf, rorg)
+    group_id = {"type": {"coding": [{"system": V2, "code": "PGN"}], "text": "Placer Group Number"}, "system": sysn, "value": pgn, "assigner": assigner}
+
+    def task(rid, profile, tagcode):
+        t = {"resourceType": "Task", "id": rid, "meta": {"profile": [P + profile], "tag": [{"system": TAG, "code": tagcode}]},
+             "groupIdentifier": group_id, "status": tstat}
+        if biz: t["businessStatus"] = cc(TBS, biz)
+        if state in PATH_STATUS_REASON: t["statusReason"] = {"text": PATH_STATUS_REASON[state]}
+        t.update({"intent": "order", "priority": prio, "code": cc(TCODE, "fulfill"), "for": ref(pid),
+                  "authoredOn": tz(auth, 10, 15), "lastModified": last, "requester": ref(role, rdisp), "owner": lab_org(lab)})
+        return t
+    es.append(task(gt_id, "au-erequesting-task-group", "fulfilment-task-group"))
+    for i, tk in enumerate(tests, 1):
+        code, disp, text, fasting = PATH_TESTS[tk]
+        sr_id, plac = "qhc-path-sr-%04d-%02d" % (n, i), "%s-%02d" % (pgn, i)
+        ext = [{"url": P + "au-erequesting-displaysequence", "valueInteger": i}]
+        if fasting:
+            ext.append({"url": P + "au-erequesting-fastingprecondition", "valueCodeableConcept": cc(SCT, "16985007", "Fasting")})
+        if state == "hold":
+            ext.append({"url": "http://hl7.org/fhir/StructureDefinition/request-statusReason",
+                        "valueCodeableConcept": {"text": PATH_STATUS_REASON[state]}})
+        sr = {"resourceType": "ServiceRequest", "id": sr_id, "meta": {"profile": [P + "au-erequesting-servicerequest-path"]},
+              "extension": ext,
+              "identifier": [{"type": {"coding": [{"system": V2, "code": "PLAC", "display": "Placer Identifier"}]},
+                              "system": sysn, "value": plac, "assigner": {"display": rorg}}],
+              "requisition": {"type": {"coding": [{"system": V2, "code": "PGN", "display": "Placer Group Number"}]},
+                              "system": sysn, "value": pgn, "assigner": {"display": rorg}},
+              "status": srstat, "intent": "order",
+              "category": [cc(SCT, "108252007", "Laboratory procedure")],
+              "priority": prio,
+              "code": {"coding": [{"system": SCT, "code": code, "display": disp}], "text": text},
+              "subject": ref(pid), "encounter": ref("Encounter/" + enc_id),
+              "authoredOn": tz(auth, 10, 15), "requester": ref(role, rdisp)}
+        if reason:
+            sr["reasonCode"] = [cc(SCT, reason[0], reason[1])]
+        if cov:
+            sr["insurance"] = [ref("Coverage/qhc-cov-%02d" % pi)]
+        if preg_id:
+            sr["supportingInfo"] = [ref("Observation/" + preg_id, "Pregnancy status")]
+        if note:
+            sr["note"] = [{"text": note}]
+        es.append(sr)
+        t = task("qhc-path-task-%04d-%02d" % (n, i), "au-erequesting-task-diagnosticrequest", "fulfilment-task")
+        t["identifier"] = [{"type": {"coding": [{"system": V2, "code": "PLAC", "display": "Placer Identifier"}]},
+                            "system": sysn, "value": plac, "assigner": assigner}]
+        t["partOf"] = [ref("Task/" + gt_id)]
+        t["focus"] = ref("ServiceRequest/" + sr_id)
+        es.append(t)
+    return es
+
+
+assert len({r[1] for r in PATH_REQUESTS if r[9]}) == len([r for r in PATH_REQUESTS if r[9]]), "one Coverage per patient"
+
+
 if __name__ == "__main__":
     write("00-referrers.json", referrer_entries())
     write("01-schedules-slots.json", schedules_and_slots())
@@ -479,5 +693,8 @@ if __name__ == "__main__":
         for row in REFERRALS:
             if row[1] == i:
                 es += referral_entries(row)
+        for row in PATH_REQUESTS:
+            if row[1] == i:
+                es += path_entries(row)
         write("patient-%02d.json" % i, es)
     print("written")

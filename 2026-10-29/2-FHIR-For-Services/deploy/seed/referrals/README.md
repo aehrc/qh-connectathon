@@ -6,9 +6,9 @@ All people, organisations, identifiers and phone numbers are made up. **No real 
 
 | File | Contents |
 |------|----------|
-| `00-referrers.json` | 6 referrer Organizations + Practitioner + PractitionerRole each (AU eRequesting profiles) |
+| `00-referrers.json` | 6 referrer Organizations + Practitioner + PractitionerRole each, 4 pathology laboratory Organizations with 8 linked pathologists (Practitioner + PractitionerRole), all AU eRequesting profiles; plus the imaging fillers mirrored from the directory |
 | `01-schedules-slots.json` | 23 Schedules (7 imaging providers x modalities), 147 Slots (free slots 4-5 Nov 2026, busy slots behind appointments) |
-| `patient-01.json` .. `patient-20.json` | one transaction per patient: Patient, Condition/eGFR where relevant, ServiceRequest + Group Task + Referral Task per referral, Appointment where booked/fulfilled |
+| `patient-01.json` .. `patient-20.json` | one transaction per patient: Patient, Condition/eGFR where relevant, ServiceRequest + Group Task + Referral Task per referral, Appointment where booked/fulfilled; plus the patient's AU eRequesting pathology orders (see below) |
 | `generate.py` | deterministic generator (`python3 -I generate.py`); edit it, never the JSON, then regenerate |
 | `REVIEW.md` | review notes for Michael |
 
@@ -53,3 +53,31 @@ local Organizations on the referral server:
 | Cane Valley Family Clinic | Mackay | `8003629900000049` |
 | Toowoomba Range Medical | Toowoomba | `8003629900000056` |
 | Bayside Community Hospital Outpatients | Wynnum | `8003629900000064` |
+
+Pathology laboratories (also local to the referral server, `Organization.type` = SNOMED `310074003` Pathology service).
+Pathologists are linked by `PractitionerRole` (`qhc-role-path-NN`, HPI-I `hpii(NN)`, role coded in SNOMED):
+
+| Laboratory | Town | HPI-O | Pathologists |
+|---|---|---|---|
+| Coral Coast Pathology | Cairns | `8003629900000213` | Dr Rhiannon Petrakis (general), Dr Tobias Wenzel (haematology) |
+| Brigalow Pathology Laboratories | Toowoomba | `8003629900000221` | Dr Anjali Deshmukh (medical biochemist), Dr Fergus Lachlan-Reid (anatomic) |
+| Moreton Clinical Pathology | Bowen Hills | `8003629900000239` | Dr Selina Marchetti (clinical), Dr Kwame Asante (anatomic), Dr Yuki Harrington (haematology) |
+| Fitzroy Valley Pathology | Rockhampton | `8003629900000247` | Dr Declan Moorhouse (general) |
+
+## Pathology requests (AU eRequesting 1.0.1)
+
+15 pathology orders (32 tests) from the same referrers to the four labs above, for testing pathology requesting
+against [AU eRequesting](https://hl7.org.au/fhir/ereq/1.0.1/). Each order, in the patient's bundle, is:
+
+* an `au-erequesting-encounter` (the GP consultation; `ServiceRequest.encounter` is mandatory),
+* one `au-erequesting-servicerequest-path` per test: category `108252007` Laboratory procedure, code from the RCPA SPIA
+  requesting refset with the form wording in `code.text`, `displaySequence`, fasting precondition on fasting tests,
+  PLAC identifier `LAB-QHC-nnnn-NN` and requisition (PGN) `LAB-QHC-nnnn`, scoped to the requester's HPI-O,
+* one `au-erequesting-task-group` (owner = the lab) and one `au-erequesting-task-diagnosticrequest` per test
+  (`partOf` the group, `focus` the ServiceRequest),
+* `au-erequesting-coverage` only where billing is not bulk-billed Medicare (DVA, concession, private), and an IPS
+  pregnancy-status Observation in `supportingInfo` for the antenatal order.
+
+The orders cover every Task state: requested, received, accepted, in-progress (specimen-collected,
+pathology-in-lab, preliminary-results), completed, on-hold, cancelled (request-cancelled-placer) and
+rejected (request-data-issue). Ids are `qhc-path-*`. Edit the `PATH_REQUESTS` table in `generate.py` to change them.
