@@ -265,7 +265,7 @@ S-01) from §7 of that document. All data is fictional.</p>
 <tr class="odd">
 <td><a
 href="downloads/QH-Track2.postman_collection.json"><strong>QH-Track2.postman_collection.json</strong></a></td>
-<td>Postman collection, 41 requests with tests, in scenario order</td>
+<td>Postman collection, 43 requests with tests, in scenario order</td>
 </tr>
 <tr class="even">
 <td><a
@@ -315,7 +315,9 @@ header. The collection sets it for you.</td>
 <td><code>https://referrals.efiq.hospservices.net/fhir</code></td>
 <td>HAPI with the <a
 href="https://aehrc.github.io/radiology-referral/">Radiology Referral
-and Booking IG</a>, AU eRequesting and AU Core. Open, no auth.</td>
+and Booking IG</a>, AU eRequesting and AU Core, plus the AU Patient
+Summary <code>Patient/[id]/$summary</code> operation (<a
+href="#patient-summary-au-ps-summary">below</a>). Open, no auth.</td>
 </tr>
 <tr class="odd">
 <td><strong>Referrer / filler UI</strong></td>
@@ -384,6 +386,13 @@ Appointment, confirm it, cancel and rebook</td>
 and Appointments</td>
 </tr>
 <tr class="even">
+<td><strong>6 Patient summary</strong> (stretch)</td>
+<td></td>
+<td>P-01</td>
+<td><code>Patient/[id]/$summary</code> for a patient with history and
+for one without</td>
+</tr>
+<tr class="odd">
 <td><strong>9 Clean up</strong></td>
 <td></td>
 <td></td>
@@ -435,6 +444,13 @@ Service, HPI-O <code>8003629999000017</code>)</td>
 <td>A booked Appointment</td>
 <td><code>Appointment/qhc-appt-0007</code></td>
 </tr>
+<tr class="even">
+<td>Patients with history for <code>$summary</code> (conditions,
+allergies, medications, procedures, results)</td>
+<td><code>Patient/qhc-pat-01</code>, <code>-02</code>, <code>-04</code>
+to <code>-07</code>, <code>-10</code> to <code>-13</code>,
+<code>-17</code> to <code>-20</code></td>
+</tr>
 </tbody>
 </table>
 <h2 id="the-requests-in-curl">The requests in curl</h2>
@@ -461,7 +477,48 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># S-01  track the referral</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Task?focus=ServiceRequest/qhc-sr-0001&quot;</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Appointment?based-on=ServiceRequest/qhc-sr-0007&quot;</span></span></code></pre></div>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Appointment?based-on=ServiceRequest/qhc-sr-0007&quot;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># P-01  AU Patient Summary document for a patient with history (stretch)</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Patient/qhc-pat-01/</span><span class="dt">\$</span><span class="st">summary&quot;</span></span></code></pre></div>
+<h2 id="patient-summary-au-ps-summary">Patient summary (AU PS
+<code>$summary</code>)</h2>
+<p>The Referral Server can produce an <a
+href="https://build.fhir.org/ig/hl7au/au-fhir-ps/">AU Patient
+Summary</a> document on demand (test case P-01, stretch). It is HAPI's
+built-in IPS module with the AU PS plugin (<a
+href="https://gitlab.com/australian-e-health-research-centre/au-patient-summary/hapi-fhir-au-ps">hapi-fhir-au-ps</a>),
+so a document is built from the patient's Conditions,
+AllergyIntolerances, MedicationRequests/Statements, Procedures and
+Observations.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Patient/qhc-pat-01/</span><span class="dt">\$</span><span class="st">summary&quot;</span>                       <span class="co"># by id</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="st">&quot;</span><span class="va">$REF</span><span class="st">/Patient/</span><span class="dt">\$</span><span class="st">summary?identifier=&lt;system&gt;|&lt;value&gt;&quot;</span>       <span class="co"># by business identifier</span></span></code></pre></div>
+<p>The result is a <code>document</code> Bundle that declares
+<code>http://hl7.org.au/fhir/ps/StructureDefinition/au-ps-bundle</code>,
+with the Composition first. Sections you will see: Allergies and
+Intolerances, Medication List, Problem List (always present), and
+History of Procedures, Diagnostic Results, Vital Signs, History of Past
+Illness and Pregnancy Information when the patient has matching data.
+<code>qhc-pat-01</code> returns, for example, 1 allergy, 2 medications,
+3 problems, 1 procedure, 3 results and 1 vital sign.</p>
+<ul>
+<li><strong>Patients without history</strong> (<code>qhc-pat-03</code>,
+<code>-08</code>, <code>-09</code>, <code>-15</code>, <code>-16</code>)
+still get the three required sections, each holding one generated "no
+information" entry. The sections do not use
+<code>emptyReason</code>.</li>
+<li><strong>The first call after a server restart takes about ten
+seconds</strong>, later ones about half a second.</li>
+<li><strong>Data you have just written can take up to a minute to show
+up.</strong> HAPI reuses identical searches for 60 seconds, and
+<code>$summary</code> runs searches internally.</li>
+<li><strong>The server does not validate the document against the AU PS
+profiles.</strong> The profile is declared in <code>meta.profile</code>
+only. Relative references inside the document (for example
+<code>Composition.subject</code>) resolve to entries with absolute
+<code>fullUrl</code>s, which a strict validator flags.</li>
+</ul>
 <h2 id="things-worth-knowing">Things worth knowing</h2>
 <p>These came from running the collection against the live servers.</p>
 <ul>
@@ -542,22 +599,22 @@ href="https://github.com/aehrc/qh-connectathon/tree/main/2026-10-29/2-FHIR-For-S
 <p><strong>Run them</strong> on the conformance host (use the in-cluster
 server URLs, because the runner's JVM does not trust the public
 certificate chain):</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">FROG</span><span class="op">=</span>https://conformance.efiq.hospservices.net</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># directory, step 1</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs&quot;</span> <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;bundlePath&quot;: &quot;/bundles/scenario1/step1&quot;,</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;serverUrl&quot;: &quot;http://directory:8080/fhir&quot;}&#39;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># referral, steps 2 to 6 (needs the IG for profile validation, takes 5 to 10 minutes)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs&quot;</span> <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;bundlePath&quot;: &quot;/bundles/scenario1-referral&quot;,</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;serverUrl&quot;: &quot;http://fhir:8080/fhir&quot;,</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;igPackage&quot;: &quot;hl7.fhir.au.ereq#1.0.1&quot;,</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;terminologyServerUrl&quot;: &quot;https://r4.ontoserver.csiro.au/fhir&quot;}&#39;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs/&lt;id&gt;&quot;</span>     <span class="co"># status COMPLETED, every result.success == true</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">FROG</span><span class="op">=</span>https://conformance.efiq.hospservices.net</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># directory, step 1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs&quot;</span> <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;bundlePath&quot;: &quot;/bundles/scenario1/step1&quot;,</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;serverUrl&quot;: &quot;http://directory:8080/fhir&quot;}&#39;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># referral, steps 2 to 6 (needs the IG for profile validation, takes 5 to 10 minutes)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="at">-X</span> POST <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs&quot;</span> <span class="at">-H</span> <span class="st">&#39;Content-Type: application/json&#39;</span> <span class="at">-d</span> <span class="st">&#39;{</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;bundlePath&quot;: &quot;/bundles/scenario1-referral&quot;,</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;serverUrl&quot;: &quot;http://fhir:8080/fhir&quot;,</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;igPackage&quot;: &quot;hl7.fhir.au.ereq#1.0.1&quot;,</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="st">  &quot;terminologyServerUrl&quot;: &quot;https://r4.ontoserver.csiro.au/fhir&quot;}&#39;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-s</span> <span class="st">&quot;</span><span class="va">$FROG</span><span class="st">/api/v1/runs/&lt;id&gt;&quot;</span>     <span class="co"># status COMPLETED, every result.success == true</span></span></code></pre></div>
 <p>Profile validation runs inside frog-runner from the
 <code>igPackage</code> you pass, not on the server, so always send both
 <code>serverUrl</code> and <code>igPackage</code> for the referral
