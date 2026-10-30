@@ -7,7 +7,7 @@
 // Without --yes it only prints what it would send. It refuses sample data that touches the shared
 // test patients or has ids outside the prefix; cleanup deletes only ids under the prefix.
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { isMain } from './lib/isMain.mjs';
 import { lintBundle } from './lib/lint.mjs';
 
 async function send(transaction, { server, fetchFn }) {
@@ -60,7 +60,7 @@ async function main(argv) {
   console.log(r.sent ? `\nSent ${r.plan.length} requests to ${server}.` : `\nNothing sent. Add --yes to send these ${r.plan.length} requests to ${server}.`);
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (isMain(import.meta.url)) {
   main(process.argv.slice(2)).catch((e) => {
     process.stderr.write(`${e.message}\n`);
     process.exit(1);

@@ -5,7 +5,7 @@
 //
 //   node build-single-file.mjs        (writes ../dist/questionnaire-builder.md)
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { isMain } from './lib/isMain.mjs';
 
 const SKILL = new URL('../', import.meta.url);
 const GITHUB = 'https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/';
@@ -57,7 +57,7 @@ export function buildSingleFile() {
   return `${parts.join('\n')}\n`;
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (isMain(import.meta.url)) {
   mkdirSync(new URL('dist/', SKILL), { recursive: true });
   writeFileSync(new URL('dist/questionnaire-builder.md', SKILL), buildSingleFile());
   console.log('Wrote dist/questionnaire-builder.md');
