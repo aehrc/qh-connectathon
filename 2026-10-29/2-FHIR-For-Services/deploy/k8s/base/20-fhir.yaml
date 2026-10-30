@@ -13,6 +13,22 @@ spec:
   template:
     metadata: { labels: { app: fhir } }
     spec:
+      # AU Patient Summary plugin (Patient/[id]/$summary). The hapiproject/hapi image has no shell, so an initContainer (alpine, as in 60-frog.yaml)
+      # fetches the jar from the public repo at a pinned commit SHA, checks its sha256 (deploy/plugins/SHA256SUMS) and drops it into an emptyDir that
+      # the hapi container mounts at /app/extra-classes (already on the image's -Dloader.path). See deploy/plugins/README.md for the two-commit pinning.
+      initContainers:
+        - name: au-ps-plugin
+          image: alpine:3.20
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -e
+              wget -q -O /plugins/hapi-fhir-au-ps-0.1.0.jar "https://raw.githubusercontent.com/aehrc/qh-connectathon/7045d09f513ac09b1ea658f5c369da6fe7992b8e/2026-10-29/2-FHIR-For-Services/deploy/plugins/hapi-fhir-au-ps-0.1.0.jar"
+              echo "0083be29e203623a8846ad5de2ab97d942b92731f0d3e5ba34810190a79e322b  /plugins/hapi-fhir-au-ps-0.1.0.jar" | sha256sum -c -
+          volumeMounts: [ { name: au-ps-plugin, mountPath: /plugins } ]
+          resources:
+            requests: { cpu: 50m, memory: 32Mi }
+            limits:   { cpu: 200m, memory: 64Mi }
       containers:
         - name: hapi
           image: hapiproject/hapi@sha256:d7f38d3676900b07e8a7d3500426eaf8d90ea9ced9a6726416f080f68e230fb0
@@ -28,6 +44,11 @@ spec:
             - { name: SPRING_DATASOURCE_DRIVERCLASSNAME, value: org.postgresql.Driver }
             - { name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT, value: "ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgres94Dialect" }
             - { name: HAPI_FHIR_FHIR_VERSION, value: R4 }
+            # AU Patient Summary: the jar (mounted below) holds au.csiro.aehrc.aups, a thin extension of HAPI's IPS strategy. Both settings are needed:
+            # without them /metadata has no $summary. LOADER_PATH is NOT set: the image entrypoint already passes -Dloader.path=...,/app/extra-classes,
+            # which takes precedence over the env var (verified: works without it).
+            - { name: HAPI_FHIR_CUSTOM_BEAN_PACKAGES, value: au.csiro.aehrc.aups }
+            - { name: HAPI_FHIR_IPS_ENABLED, value: "true" }
             # Serve under /referral: the Patient-Referral UI owns /fhir/* for its own ~30 routes (/fhir/Patients,
             # /fhir/Patient/<id>, ...). FHIR base becomes /referral/fhir. Same mechanism as /directory.
             - { name: SERVER_SERVLET_CONTEXT_PATH, value: /referral }
@@ -81,6 +102,7 @@ spec:
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_INSTALLMODE, value: STORE_AND_INSTALL }
             - { name: HAPI_FHIR_IMPLEMENTATIONGUIDES_REFERRAL_FETCHDEPENDENCIES, value: "false" }
           ports: [ { containerPort: 8080 } ]
+          volumeMounts: [ { name: au-ps-plugin, mountPath: /app/extra-classes, readOnly: true } ]
           readinessProbe:
             httpGet: { path: /referral/fhir/metadata, port: 8080 }
             initialDelaySeconds: 45
@@ -90,6 +112,8 @@ spec:
           resources:
             requests: { cpu: "1", memory: "3Gi" }
             limits:   { cpu: "3", memory: "4Gi" }   # 2.5 GB heap + metaspace/threads; CPU limit explicit (LimitRange default is 2)
+      volumes:
+        - { name: au-ps-plugin, emptyDir: {} }
 ---
 apiVersion: v1
 kind: Service
