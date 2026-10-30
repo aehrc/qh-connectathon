@@ -71,3 +71,18 @@ test('the CLI takes --answers from a file', () => {
   const out = execFileSync('node', [cli, path('pop-q.json'), '--data', path('pop-data.json'), '--answers', path('pop-answers.json')]).toString();
   assert.match(out, /Observation \(optional\)/);
 });
+
+test('typed-in answers skip items that are hidden for that patient or by another answer', async () => {
+  const r = await checkAll({ questionnaire: load('sex-q.json'), sampleBundle: load('sex-data.json'), prefix: 't-',
+    answers: { 'female-only': [{ valueString: 'x' }], gate: [{ valueBoolean: false }], gated: [{ valueString: 'y' }] } });
+  const lines = text(r);
+  assert.match(lines, /PASS t-f1: .*Observation \(female-only\)/);
+  assert.doesNotMatch(lines, /PASS t-m1: .*female-only/);
+  assert.doesNotMatch(lines, /gated = y/);
+});
+
+test('calculated items are shown for each patient', async () => {
+  const r = await checkAll({ questionnaire: load('sex-q.json'), sampleBundle: load('sex-data.json'), prefix: 't-' });
+  assert.match(text(r), /t-f1: .*hb-plus = 99 \(calculated\)/);
+  assert.match(text(r), /t-m1: .*hb-plus = 126 \(calculated\)/);
+});

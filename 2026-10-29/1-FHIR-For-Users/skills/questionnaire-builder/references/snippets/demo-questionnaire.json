@@ -1,0 +1,453 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "demo-preop-bloods",
+  "url": "https://aehrc.github.io/qh-connectathon/track1/skills/questionnaire-builder/Questionnaire/demo-preop-bloods",
+  "version": "0.1.0",
+  "name": "DemoPreopBloods",
+  "title": "Pre-op bloods (questionnaire-builder demo)",
+  "status": "draft",
+  "subjectType": [
+    "Patient"
+  ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "user"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Practitioner"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ObsHb",
+        "language": "application/x-fhir-query",
+        "expression": "Observation?code=http://loinc.org%7C718-7&patient={{%patient.id}}&_sort=-date&_count=1"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ObsFerritin",
+        "language": "application/x-fhir-query",
+        "expression": "Observation?code=http://loinc.org%7C2276-4&patient={{%patient.id}}&_sort=-date&_count=1"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "latestHb",
+        "language": "text/fhirpath",
+        "expression": "%ObsHb.entry.resource.first()"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "hbThreshold",
+        "language": "text/fhirpath",
+        "expression": "iif(%patient.gender = 'male', 130, 120)"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "isAdult",
+        "language": "text/fhirpath",
+        "expression": "%patient.birthDate.toDate() <= today() - 18 years"
+      }
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "PregnancyStatusTemplate",
+      "status": "final",
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+              "code": "social-history",
+              "display": "Social History"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "82810-3",
+            "display": "Pregnancy status"
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_effectiveDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "today().toString()"
+          }
+        ]
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+                "valueString": "answer.value"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Condition",
+      "id": "IronDeficiencyAnaemiaTemplate",
+      "clinicalStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+            "code": "active"
+          }
+        ]
+      },
+      "verificationStatus": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+            "code": "confirmed"
+          }
+        ]
+      },
+      "category": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "problem-list-item"
+            }
+          ]
+        }
+      ],
+      "code": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "87522002",
+            "display": "Iron deficiency anaemia"
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "_onsetDateTime": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='ida-onset').answer.value.toString()"
+          }
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "linkId": "bloods",
+      "type": "group",
+      "text": "Latest bloods",
+      "item": [
+        {
+          "linkId": "hb",
+          "type": "decimal",
+          "text": "Haemoglobin (g/L)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "g/L",
+                "display": "g/L"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestHb.value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "hb-date",
+          "type": "date",
+          "text": "Date of that Hb",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestHb.effective.toString().substring(0, 10)"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "ferritin",
+          "type": "decimal",
+          "text": "Ferritin (µg/L)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
+              "valueCoding": {
+                "system": "http://unitsofmeasure.org",
+                "code": "ug/L",
+                "display": "ug/L"
+              }
+            },
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%ObsFerritin.entry.resource.first().value.value"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "anaemic",
+          "type": "boolean",
+          "text": "Anaemic for their sex (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+          "readOnly": true,
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%resource.repeat(item).where(linkId='hb').answer.value <= %hbThreshold"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "pregnancy",
+      "type": "choice",
+      "text": "Pregnancy status",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "%patient.gender = 'female' and %isAdult"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+          "extension": [
+            {
+              "url": "template",
+              "valueReference": {
+                "reference": "#PregnancyStatusTemplate"
+              }
+            }
+          ]
+        }
+      ],
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://loinc.org",
+            "code": "LA15173-0",
+            "display": "Pregnant"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://loinc.org",
+            "code": "LA26683-5",
+            "display": "Not pregnant"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://loinc.org",
+            "code": "LA4489-6",
+            "display": "Unknown"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "urgency",
+      "type": "choice",
+      "text": "How urgent is surgery?",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/request-priority",
+            "code": "routine",
+            "display": "Routine"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/request-priority",
+            "code": "urgent",
+            "display": "Urgent"
+          }
+        },
+        {
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/request-priority",
+            "code": "asap",
+            "display": "As soon as possible"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "iron-recent",
+      "type": "boolean",
+      "text": "Iron treatment in the last 3 months?"
+    },
+    {
+      "linkId": "iron-product",
+      "type": "string",
+      "text": "Which iron product?",
+      "enableWhen": [
+        {
+          "question": "iron-recent",
+          "operator": "=",
+          "answerBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "anaemia-type",
+      "type": "choice",
+      "text": "Type of anaemia, if known",
+      "answerValueSet": "http://snomed.info/sct?fhir_vs=ecl/< 271737000",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "autocomplete"
+              }
+            ]
+          }
+        }
+      ],
+      "enableWhen": [
+        {
+          "question": "anaemic",
+          "operator": "=",
+          "answerBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "ida-confirm",
+      "type": "boolean",
+      "text": "Record a diagnosis of iron deficiency anaemia?"
+    },
+    {
+      "linkId": "ida",
+      "type": "group",
+      "text": "Iron deficiency anaemia",
+      "enableWhen": [
+        {
+          "question": "ida-confirm",
+          "operator": "=",
+          "answerBoolean": true
+        }
+      ],
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+          "extension": [
+            {
+              "url": "template",
+              "valueReference": {
+                "reference": "#IronDeficiencyAnaemiaTemplate"
+              }
+            }
+          ]
+        }
+      ],
+      "item": [
+        {
+          "linkId": "ida-onset",
+          "type": "date",
+          "text": "Date diagnosed"
+        }
+      ]
+    },
+    {
+      "linkId": "requester",
+      "type": "string",
+      "text": "Requesting clinician",
+      "readOnly": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "%user.name.first().given.first() + ' ' + %user.name.first().family"
+          }
+        }
+      ]
+    }
+  ]
+}

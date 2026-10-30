@@ -1,0 +1,21 @@
+{
+  "pregnancy": [
+    {
+      "valueCoding": {
+        "system": "http://loinc.org",
+        "code": "LA26683-5",
+        "display": "Not pregnant"
+      }
+    }
+  ],
+  "ida-confirm": [
+    {
+      "valueBoolean": true
+    }
+  ],
+  "ida-onset": [
+    {
+      "valueDate": "2026-10-21"
+    }
+  ]
+}

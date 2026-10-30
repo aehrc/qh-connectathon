@@ -73,6 +73,22 @@
         "system": "http://unitsofmeasure.org",
         "code": "g/L"
       }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "FemaleOnlyTemplate",
+      "status": "final",
+      "code": {
+        "text": "female-only"
+      },
+      "_valueString": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "answer.value"
+          }
+        ]
+      }
     }
   ],
   "item": [
@@ -129,6 +145,63 @@
             "language": "text/fhirpath",
             "expression": "iif(%patient.gender = 'female', %latestHb.value.value < 120, %latestHb.value.value < 130)"
           }
+        }
+      ]
+    },
+    {
+      "linkId": "hb-plus",
+      "type": "decimal",
+      "text": "Hb + 1",
+      "readOnly": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "%resource.repeat(item).where(linkId='hb').answer.value + 1"
+          }
+        }
+      ]
+    },
+    {
+      "linkId": "female-only",
+      "type": "string",
+      "text": "Female only",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "%patient.gender = 'female'"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+          "extension": [
+            {
+              "url": "template",
+              "valueReference": {
+                "reference": "#FemaleOnlyTemplate"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "gate",
+      "type": "boolean",
+      "text": "Gate"
+    },
+    {
+      "linkId": "gated",
+      "type": "string",
+      "text": "Gated",
+      "enableWhen": [
+        {
+          "question": "gate",
+          "operator": "=",
+          "answerBoolean": true
         }
       ]
     }

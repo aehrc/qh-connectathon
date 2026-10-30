@@ -30,6 +30,7 @@ export async function runPopulate(q, { fetchFn, patient, user }) {
     ok: Boolean(populateSuccess && populateResult),
     response: populateResult?.populatedResponse ?? null,
     issues: populateResult?.issues?.issue ?? [],
+    context: populateResult?.populatedContext ?? {},
   };
 }
 

@@ -5,6 +5,7 @@ import { lintQuestionnaire, lintBundle } from './lint.mjs';
 import { collectExpressions, evaluateExpressions } from './expressions.mjs';
 import { makeLocalFetch, makeServerFetch } from './localServer.mjs';
 import { runPopulate, runExtract } from './sdc.mjs';
+import { fillIn } from './fill.mjs';
 
 const SDC = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-';
 const POPULATING = new Set(['x-fhir-query', 'initialExpression', 'itemPopulationContext']);
@@ -29,37 +30,16 @@ function show(answer) {
   return String(v);
 }
 
-function* answered(items) {
+function* answered(items, notes = {}) {
   for (const i of items || []) {
-    if (i.answer?.length) yield `${i.linkId} = ${i.answer.map(show).join(', ')}`;
-    yield* answered(i.item);
+    if (i.answer?.length) yield `${i.linkId} = ${i.answer.map(show).join(', ')}${notes[i.linkId] ? ` (${notes[i.linkId]})` : ''}`;
+    yield* answered(i.item, notes);
   }
 }
 
 function describe(r) {
   const code = r.code?.coding?.[0]?.code ?? r.code?.text;
   return code ? `${r.resourceType} (${code})` : r.resourceType;
-}
-
-// Put typed-in answers ({linkId: [answer, ...]}) into a populated response, creating the item (and its
-// groups) where the form has it but the response doesn't yet. Stands in for the person filling in the
-// form, so templates that depend on typed-in answers can be extracted.
-export function withAnswers(response, q, answers) {
-  const fill = (qItems, rItems) => {
-    const out = [];
-    for (const qi of qItems || []) {
-      const existing = (rItems || []).find((r) => r.linkId === qi.linkId);
-      const children = fill(qi.item, existing?.item);
-      const answer = answers[qi.linkId] ?? existing?.answer;
-      if (!answer && !children.length) continue;
-      const item = { ...(existing || { linkId: qi.linkId, text: qi.text }) };
-      if (answer) item.answer = answer;
-      if (children.length) item.item = children;
-      out.push(item);
-    }
-    return out;
-  };
-  return { ...response, item: fill(q.item, response.item) };
 }
 
 // Without --prefix, take the sample data's own prefix from its first Patient: "js-f1" -> "js-".
@@ -116,13 +96,18 @@ export async function checkAll({ questionnaire: q, sampleBundle, server, patient
       pop.push(`FAIL ${patient.id}: population failed${r.issues.length ? `: ${r.issues.map((i) => i.diagnostics).join('; ')}` : ''}`);
       continue;
     }
-    const filled = [...answered(r.response.item)];
-    pop.push(`PASS ${patient.id}: ${filled.length ? filled.join(', ') : 'no items filled'}`);
+    const env = { ...r.context, patient, ...(user ? { user } : {}) };
+    const filled = fillIn(r.response, q, { answers: answers ?? {}, env });
+    const notes = Object.fromEntries([
+      ...Object.keys(answers ?? {}).map((k) => [k, 'typed in']),
+      ...filled.calculated.map((k) => [k, 'calculated']),
+    ]);
+    const shown = [...answered(filled.response.item, notes)];
+    pop.push(`PASS ${patient.id}: ${shown.length ? shown.join(', ') : 'no items filled'}`);
     for (const i of r.issues) pop.push(`WARN ${patient.id}: ${i.diagnostics ?? i.details?.text}`);
 
     if (extracts) {
-      const filledIn = answers ? withAnswers(r.response, q, answers) : r.response;
-      const qr = { ...filledIn, subject: filledIn.subject ?? { reference: `Patient/${patient.id}` } };
+      const qr = { ...filled.response, subject: filled.response.subject ?? { reference: `Patient/${patient.id}` } };
       const x = await runExtract(qr, q);
       ext.push(x.ok ? `PASS ${patient.id}: ${x.resources.length ? x.resources.map(describe).join(', ') : 'no resources'}`
         : `FAIL ${patient.id}: extraction failed`);
