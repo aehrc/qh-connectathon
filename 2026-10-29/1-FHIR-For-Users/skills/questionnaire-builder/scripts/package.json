@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Optional checking tools for the questionnaire-builder skill: lint, FHIRPath, population and extraction",
   "scripts": {
-    "test": "node --test test/"
+    "test": "node --test test/",
+    "build": "node build-single-file.mjs"
   },
   "dependencies": {
     "@aehrc/sdc-populate": "4.7.2",

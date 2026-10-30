@@ -113,7 +113,7 @@ values of that shape for the sample data. Don't claim to have redacted anything.
 * Codes: LOINC for observations, SNOMED CT-AU for conditions, findings and procedures, AMT for
   medicines.
 
-`references/sdc-cheatsheet.md` has a working snippet for every pattern, copied from a form that
+The cheat-sheet (`references/sdc-cheatsheet.md`) has a working snippet for every pattern, copied from a form that
 passes the checks. Use its patterns rather than writing from memory: several details (the
 variable extension URL, `%7C`, `repeat(item)`) fail silently when wrong.
 
