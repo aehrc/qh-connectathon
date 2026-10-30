@@ -1,0 +1,15 @@
+{
+  "name": "questionnaire-builder-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Optional checking tools for the questionnaire-builder skill: lint, FHIRPath, population and extraction",
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "@aehrc/sdc-populate": "4.7.2",
+    "@aehrc/sdc-template-extract": "1.0.16",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "fhirpath": "^5.2.2"
+  }
+}
