@@ -1,6 +1,6 @@
 ---
 name: questionnaire-builder
-description: Turns an existing form (a scanned or photographed paper form, a PDF, a screenshot of a web form, a REDCap data dictionary) or a plain list of questions into a FHIR Questionnaire with prepopulation and data extraction (SDC, Smart Forms), by working through the form's design with the person who knows it. Also produces sample patient data to demonstrate it and a change log for the form's owner. Use this whenever someone wants to digitise, convert, rebuild or "FHIR-ise" a clinical or administrative form, build an SDC Questionnaire, make a form that fills itself in from the patient record or writes results back into it, or asks how their paper or REDCap form would work in FHIR, even if they don't say "Questionnaire" or "SDC".
+description: Turns an existing form (a scanned or photographed paper form, a PDF, a screenshot of a web form, a REDCap data dictionary) or a plain list of questions into a FHIR Questionnaire with prepopulation and data extraction (SDC, Smart Forms), by working through the form's design with the person who knows it. Also produces sample patient data to demonstrate it and a decision log recording why the form is designed the way it is. Use this whenever someone wants to digitise, convert, rebuild or "FHIR-ise" a clinical or administrative form, build an SDC Questionnaire, make a form that fills itself in from the patient record or writes results back into it, or asks how their paper or REDCap form would work in FHIR, even if they don't say "Questionnaire" or "SDC".
 ---
 
 # Questionnaire builder
@@ -22,8 +22,9 @@ that fitted. A box for date of birth is a question the record already answers. A
    coded answers, and template-based extraction where it's worthwhile.
 2. **Sample data**: synthetic test patients and the records the form reads, shaped like their
    real source, plus the answers a person would type in, so they can see it work.
-3. **A change log** for whoever owns the original form: every change and every guess, with the
-   reason in plain words.
+3. **A decision log** for whoever owns the form: every decision that shaped the design (each
+   change from the original, each standard chosen, each guess), what it was instead of, why, and
+   what would make it worth revisiting, in plain words.
 
 Version 1 is **one Questionnaire**. If the conversation shows it should be several linked forms,
 recommend that, log it under "Recommended, not built", and build the one that matters most.
@@ -43,10 +44,10 @@ types, answer lists, grouping, the obvious skips. Keep the original's sections, 
 is long (more than about 15 questions, or several sections), make each section a **tab**: a
 long form on one scrolling page is hard to fill in and hard to review. Where the source has
 clear sections (headings, numbered parts, separate pages), use them as the tabs. No prepopulation or extraction yet. Show it
-(see "Showing them each version" below), with a short outline in words. Start the change log
+(see "Showing them each version" below), with a short outline in words. Start the decision log
 with every guess (unreadable text, guessed types). Then ask your first few questions.
 
-**Then rounds**, each ending in a new version they can look at, with the change-log lines that
+**Then rounds**, each ending in a new version they can look at, with the decision-log lines that
 round added:
 
 1. Structure and design: what the old form's shape was really for (strand 1).
@@ -112,8 +113,10 @@ the clues to look for on the original, and what each answer changes.
   truly can't accept the standard, are. Even then, map to the standard where you can. Log every
   departure as "local by choice", with their reason. `references/national-standards.md` has
   what to use for each kind of data, and the equivalents in other countries.
-* **No silent changes.** Every departure from the original goes in the change log with its
-  reason. The form's owner has to be able to trust the new version.
+* **No silent decisions.** Every decision that shapes the design, including every departure from
+  the original, goes in the decision log with what it replaced, its reason and when to revisit
+  it. The form's owner has to be able to trust the new version, and whoever changes it next has
+  to know what they'd be undoing.
 * **Never invent a code.** Look codes up (a terminology server: Ontoserver
   `https://r4.ontoserver.csiro.au/fhir`, or a terminology tool you have). If you can't, use text
   only and list the item as "code to confirm". A plausible fake code does more harm than none.
@@ -126,7 +129,7 @@ the clues to look for on the original, and what each answer changes.
 
 If a shared form has identifiable details on it, say so once and plainly, without repeating them:
 they've already been sent, and the person should follow their organisation's process. Then use
-the form's structure only. Values never go into the Questionnaire, sample data, change log or
+the form's structure only. Values never go into the Questionnaire, sample data, decision log or
 any lookup; read them only as clues to shape (a dd/mm/yyyy date, a weight in kg), and make up
 values of that shape for the sample data. Don't claim to have redacted anything.
 
@@ -181,7 +184,7 @@ Name them after the form, e.g. for "pre-op bloods":
 * `preop-bloods.questionnaire.json`
 * `preop-bloods.sample-data.json` (transaction Bundle, PUTs, ids under their prefix)
 * `preop-bloods.answers.json` (`{"linkId": [{"valueX": ...}]}`)
-* `preop-bloods.CHANGES.md` (from `references/change-log-template.md`)
+* `preop-bloods.DECISIONS.md` (from `references/decision-log-template.md`)
 
 Update them in place each round, so they always hold the latest version.
 
@@ -196,5 +199,5 @@ Update them in place each round, so they always hold the latest version.
 | `references/upstream-shapes.md` | Working out searches for prepopulation, for AU Core, US Core or other sources |
 | `references/environments.md` | Asking where they'll test it; how to open it in the playground; when there's no server |
 | `references/sample-data.md` | Making the test patients and answers |
-| `references/change-log-template.md` | Starting the change log (round 1) |
+| `references/decision-log-template.md` | Starting the decision log (round 1) |
 | `references/snippets/demo-questionnaire.json` | Seeing every pattern together in one working form |

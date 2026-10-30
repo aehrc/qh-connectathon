@@ -493,7 +493,7 @@ section 6 does this), and narrow it with ECL only when the question really is na
 
 These are the bindings AU Core uses, so answers line up with the record they're read from and
 written back to. Use `open-choice` only if people genuinely need to type something not in the
-value set, and say so in the change log.
+value set, and say so in the decision log.
 
 ## 8. Writing back: template-based extraction
 
@@ -729,7 +729,7 @@ sample data.
 The person never writes or reads FHIRPath: you write every expression and check it. Tell them,
 in their words, what an item fills in from and when ("your latest Hb result from the lab system,
 if there's one from the last 3 months"; "only shown for women aged 18 or over"), and log that
-plain-words rule in the change log. If a technical colleague asks to see an expression, show
+plain-words rule in the decision log. If a technical colleague asks to see an expression, show
 it then.
 
 ## 13. Codes used here, and how they were checked
@@ -750,7 +750,7 @@ Looked up with Ontoserver (`$lookup` / `$expand`) on 30 Oct 2026:
 | the value sets in section 7 | NCTS, RCPA | expanded on `tx.ontoserver.csiro.au` on 30 Oct 2026 |
 
 Never invent a code. If you can't look one up, write the item with text only and list it in the
-change log as "code to confirm".
+decision log as "code to confirm".
 
 MBS item numbers have no FHIR system URI confirmed by AU Core. If a form needs them, use the one
 your target system uses and log the system as "to confirm".

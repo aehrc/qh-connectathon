@@ -11,7 +11,8 @@ You get:
 
 * the **Questionnaire** (FHIR R4, SDC, tested with the Smart Forms renderer),
 * **sample data** (synthetic test patients) to show it working,
-* a **change log** for the form's owner, explaining every change and assumption.
+* a **decision log**: the decisions behind the design (what changed from the original, which
+  standards were chosen, what was assumed), why, and what would make each worth revisiting.
 
 You don't need to know FHIR. Please **don't share forms with real patient details** on them:
 use a blank copy, or cover the details first.
@@ -71,7 +72,7 @@ The skill works without any of them; the agent just tells you what it couldn't c
 | Path | What |
 |---|---|
 | `SKILL.md` | The skill: how the session runs, what to ask, the rules |
-| `references/` | Detail the agent reads when it needs it: the probing guide, reading forms, an SDC cheat-sheet, data shapes, test environments, sample data, the change-log template |
+| `references/` | Detail the agent reads when it needs it: the probing guide, reading forms, an SDC cheat-sheet, data shapes, test environments, sample data, the decision-log template |
 | `references/snippets/` | A small working form ("pre-op bloods") with sample data, used by the cheat-sheet |
 | `scripts/` | The optional checking tools and their tests (`npm test`) |
 | `evals/` | Test cases used to develop the skill |

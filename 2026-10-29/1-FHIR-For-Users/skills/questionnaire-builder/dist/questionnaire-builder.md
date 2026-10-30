@@ -21,8 +21,9 @@ that fitted. A box for date of birth is a question the record already answers. A
    coded answers, and template-based extraction where it's worthwhile.
 2. **Sample data**: synthetic test patients and the records the form reads, shaped like their
    real source, plus the answers a person would type in, so they can see it work.
-3. **A change log** for whoever owns the original form: every change and every guess, with the
-   reason in plain words.
+3. **A decision log** for whoever owns the form: every decision that shaped the design (each
+   change from the original, each standard chosen, each guess), what it was instead of, why, and
+   what would make it worth revisiting, in plain words.
 
 Version 1 is **one Questionnaire**. If the conversation shows it should be several linked forms,
 recommend that, log it under "Recommended, not built", and build the one that matters most.
@@ -42,10 +43,10 @@ types, answer lists, grouping, the obvious skips. Keep the original's sections, 
 is long (more than about 15 questions, or several sections), make each section a **tab**: a
 long form on one scrolling page is hard to fill in and hard to review. Where the source has
 clear sections (headings, numbered parts, separate pages), use them as the tabs. No prepopulation or extraction yet. Show it
-(see "Showing them each version" below), with a short outline in words. Start the change log
+(see "Showing them each version" below), with a short outline in words. Start the decision log
 with every guess (unreadable text, guessed types). Then ask your first few questions.
 
-**Then rounds**, each ending in a new version they can look at, with the change-log lines that
+**Then rounds**, each ending in a new version they can look at, with the decision-log lines that
 round added:
 
 1. Structure and design: what the old form's shape was really for (strand 1).
@@ -111,8 +112,10 @@ the clues to look for on the original, and what each answer changes.
   truly can't accept the standard, are. Even then, map to the standard where you can. Log every
   departure as "local by choice", with their reason. the "National data standards" section below has
   what to use for each kind of data, and the equivalents in other countries.
-* **No silent changes.** Every departure from the original goes in the change log with its
-  reason. The form's owner has to be able to trust the new version.
+* **No silent decisions.** Every decision that shapes the design, including every departure from
+  the original, goes in the decision log with what it replaced, its reason and when to revisit
+  it. The form's owner has to be able to trust the new version, and whoever changes it next has
+  to know what they'd be undoing.
 * **Never invent a code.** Look codes up (a terminology server: Ontoserver
   `https://r4.ontoserver.csiro.au/fhir`, or a terminology tool you have). If you can't, use text
   only and list the item as "code to confirm". A plausible fake code does more harm than none.
@@ -125,7 +128,7 @@ the clues to look for on the original, and what each answer changes.
 
 If a shared form has identifiable details on it, say so once and plainly, without repeating them:
 they've already been sent, and the person should follow their organisation's process. Then use
-the form's structure only. Values never go into the Questionnaire, sample data, change log or
+the form's structure only. Values never go into the Questionnaire, sample data, decision log or
 any lookup; read them only as clues to shape (a dd/mm/yyyy date, a weight in kg), and make up
 values of that shape for the sample data. Don't claim to have redacted anything.
 
@@ -180,7 +183,7 @@ Name them after the form, e.g. for "pre-op bloods":
 * `preop-bloods.questionnaire.json`
 * `preop-bloods.sample-data.json` (transaction Bundle, PUTs, ids under their prefix)
 * `preop-bloods.answers.json` (`{"linkId": [{"valueX": ...}]}`)
-* `preop-bloods.CHANGES.md` (from the "Change log template" section below)
+* `preop-bloods.DECISIONS.md` (from the "Decision log template" section below)
 
 Update them in place each round, so they always hold the latest version.
 
@@ -195,7 +198,7 @@ Update them in place each round, so they always hold the latest version.
 | [`references/upstream-shapes.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/upstream-shapes.md) | Working out searches for prepopulation, for AU Core, US Core or other sources |
 | [`references/environments.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/environments.md) | Asking where they'll test it; how to open it in the playground; when there's no server |
 | [`references/sample-data.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/sample-data.md) | Making the test patients and answers |
-| the "Change log template" section below | Starting the change log (round 1) |
+| the "Decision log template" section below | Starting the decision log (round 1) |
 | [`references/snippets/demo-questionnaire.json`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/snippets/demo-questionnaire.json) | Seeing every pattern together in one working form |
 
 ---
@@ -211,7 +214,8 @@ their work**. Never ask them to make a FHIR decision ("should this be an answerV
 the question that decides it ("is this list everything that matters, or just what fitted?") and
 make the FHIR decision yourself.
 
-Every answer that changes the form goes in the change log, with the reason in their words.
+Every answer that shapes the form is a decision: log it with what it replaced, the reason in
+their words, and what would make it worth revisiting.
 
 ### Contents
 
@@ -482,7 +486,7 @@ The same stance with their standards; look up the current versions:
 ## Starting points
 
 Four ways people arrive, and how to get from each to a first draft quickly. In every case:
-**structure first, no prepopulation or extraction yet**, and every guess goes in the change log
+**structure first, no prepopulation or extraction yet**, and every guess goes in the decision log
 as an assumption.
 
 ### Personal information comes first
@@ -496,7 +500,7 @@ If a form arrives with identifiable details on it anyway:
 * Say so plainly and briefly, without repeating the details: they have already been sent, and
   the person should follow their organisation's process for that.
 * Use only the form's **structure**. Filled-in values never go into the Questionnaire, the
-  sample data, the change log or any lookup (terminology servers included).
+  sample data, the decision log or any lookup (terminology servers included).
 * Read values only as clues to **shape**: a date written dd/mm/yyyy, a weight in kg, a
   three-letter code. Sample data gets made-up values of that shape.
 * Don't claim to have redacted the image or file; you can't.
@@ -512,7 +516,7 @@ they become prepopulated patient details, not questions.
 * Each blank, box or tick list becomes an item: blank line → string or text; a box with units →
   decimal or integer with a unit; dd/mm/yy → date; a time → time or dateTime; tick list → choice
   (checkboxes if "tick all that apply"); yes/no → boolean.
-* Text you can't read: guess, mark it in the change log as "couldn't read; guessed", and ask.
+* Text you can't read: guess, mark it in the decision log as "couldn't read; guessed", and ask.
 * Notice what isn't a question: instructions, reference tables, flowchart arrows ("if yes →"),
   logos, page furniture ("Do not write in this binding margin"). Instructions may become `display`
   items; arrows become `enableWhen`; reference tables are usually left out (ask: strand 1).
@@ -567,17 +571,34 @@ answers it (strand 2), and how it varies (strand 5).
 
 ---
 
-## Change log template
+## Decision log template
 
-The change log is for **whoever owns the original form**, not for a FHIR reader. It explains
-every way the new form differs from the old one, and every guess, in plain words, so they can
-agree, push back or take it to their committee. Start it with the first draft and add to it every
-round; don't write it at the end from memory.
+The decision log records **the decisions that led to the current design**, so anyone can see why
+the form is the way it is and revisit a decision when circumstances change. It's written for
+whoever owns the form (and whoever inherits it), not for a FHIR reader.
+
+A decision is any choice that shaped the design:
+* a departure from the original form;
+* a standard or value set chosen, or a local list kept;
+* what to prefill, and from where;
+* what to write back, or not;
+* who sees what;
+* a guess you had to make;
+* something deliberately left out.
+
+For each one, record:
+* what was decided;
+* what it was **instead of** (the original's way, or the alternative you weighed);
+* **why**, in the words of whoever decided;
+* **what would make it worth revisiting**.
+
+Start the log with the first draft and add to it as each decision is made. Don't reconstruct it
+at the end from memory: the reasons are what get lost.
 
 Copy this shape (Markdown):
 
 ```markdown
-## <Form name>: changes and assumptions
+## <Form name>: decision log
 
 Original: <what they brought: "SW1283 Adult Sepsis Pathway v2.00 (paper, 2 pages)", "list of 8
 items from <name>", "REDCap instrument 'baseline'">
@@ -587,20 +608,24 @@ Last updated: <date>
 ### Target environment
 <the block from environments.md>
 
-### Changes
+### Decisions
 
-| # | Round | What changed (before → after) | Why | Status |
-|---|---|---|---|---|
-| 1 | 1 | "Tick all that apply" list of 10 conditions → searchable list of conditions | "Those ten were what fitted on the page" (form owner, round 2) | agreed |
-| 2 | 1 | "Date of birth" box → filled in from the patient record, not asked | Known in the hospital system | agreed |
-| 3 | 1 | Section D heading unreadable on the scan; guessed "Ongoing treatment" | Couldn't read it | to confirm with form owner |
-| 4 | 3 | Pregnancy question only shown for women aged 18 or over | The pathway applies to maternity patients only | agreed |
-| 5 | 3 | Hb filled in from the latest lab result in the last 3 months | Lab system holds it; older results not useful | assumed |
+| # | Decision | Instead of | Why (who, when) | Status | Revisit if |
+|---|---|---|---|---|---|
+| 1 | Conditions picked from the national clinical condition list (searchable) | Ten tick boxes on the paper form | "Those ten were what fitted on the page" (form owner, round 2) | agreed | Reporting needs exactly those ten categories |
+| 2 | Date of birth filled in from the patient record, not asked | A box on the form | The hospital system already holds it (round 1) | assumed | The form is used where the record isn't available |
+| 3 | Section D heading read as "Ongoing treatment" | (unreadable on the scan) | Best reading of the scan (round 1) | to confirm with form owner | The form owner reads it differently |
+| 4 | Pregnancy question shown only for women aged 18 or over | Asked of everyone | The pathway only applies to adult maternity patients (form owner, round 3) | agreed | The pathway extends to adolescents |
+| 5 | Hb filled in from the latest lab result in the last 3 months | Typed in by the nurse | Lab results are in the record; older ones aren't useful for this decision (round 3) | assumed | Results arrive from a lab that doesn't send to this system |
+| 6 | Indigenous status kept as the unit's own yes/no question, mapped to the national code | The national five-way question | "The state registry still takes our format" (data manager, round 2) | local by choice | The registry accepts the national codes |
+| 7 | Nothing written back except the completed form | Writing the score to the record | "Nobody else uses the score" (form owner, round 4) | agreed | Another service starts using the score |
 
-Status is one of: **agreed** (they said so), **assumed** (your sensible default; they didn't
-object), **to confirm with form owner** (they weren't sure, or it's not their call), **local by
-choice** (they kept a local list or code instead of the national standard: give their reason, and
-the national mapping if there is one).
+Status is one of:
+* **agreed**: they said so.
+* **assumed**: your sensible default; they didn't object.
+* **to confirm with form owner**: they weren't sure, or it's not their call.
+* **local by choice**: they kept a local list or code instead of the national standard. Give
+  their reason, and the national mapping if there is one.
 
 ### What the form writes back
 
@@ -609,14 +634,16 @@ the national mapping if there is one).
 | Always | The completed form (QuestionnaireResponse) | <server> |
 | If "record diagnosis" is ticked | A diagnosis of iron deficiency anaemia, with the date | Patient's problem list (Condition) |
 
-Or: "Nothing beyond the completed form: <reason in their words>."
+Or: "Nothing beyond the completed form: <reason in their words>." (And that's a decision in the
+table too.)
 
-### Recommended, not built
+### Deferred: recommended, not built
 
-Things this version doesn't do, that the conversation suggested it should:
+Decisions to come back to: things this version doesn't do that the conversation suggested it
+should, each with why it was deferred.
 
 * <e.g. "A separate patient-facing form for section A, feeding this one (different people, at
-  different times)">
+  different times). Deferred: one form first.">
 
 ### Couldn't check
 
@@ -625,7 +652,8 @@ Things this version doesn't do, that the conversation suggested it should:
 ```
 
 Write rules in plain words ("only shown for women aged 18 or over"), never as expressions.
-Quote the person where their words are the reason.
+Quote the person where their words are the reason. When a decision is reversed, don't delete it:
+mark the old row "replaced by #n", so the history of the reasoning stays visible.
 
 ---
 
@@ -1124,7 +1152,7 @@ section 6 does this), and narrow it with ECL only when the question really is na
 
 These are the bindings AU Core uses, so answers line up with the record they're read from and
 written back to. Use `open-choice` only if people genuinely need to type something not in the
-value set, and say so in the change log.
+value set, and say so in the decision log.
 
 ### 8. Writing back: template-based extraction
 
@@ -1360,7 +1388,7 @@ sample data.
 The person never writes or reads FHIRPath: you write every expression and check it. Tell them,
 in their words, what an item fills in from and when ("your latest Hb result from the lab system,
 if there's one from the last 3 months"; "only shown for women aged 18 or over"), and log that
-plain-words rule in the change log. If a technical colleague asks to see an expression, show
+plain-words rule in the decision log. If a technical colleague asks to see an expression, show
 it then.
 
 ### 13. Codes used here, and how they were checked
@@ -1381,7 +1409,7 @@ Looked up with Ontoserver (`$lookup` / `$expand`) on 30 Oct 2026:
 | the value sets in section 7 | NCTS, RCPA | expanded on `tx.ontoserver.csiro.au` on 30 Oct 2026 |
 
 Never invent a code. If you can't look one up, write the item with text only and list it in the
-change log as "code to confirm".
+decision log as "code to confirm".
 
 MBS item numbers have no FHIR system URI confirmed by AU Core. If a form needs them, use the one
 your target system uses and log the system as "to confirm".

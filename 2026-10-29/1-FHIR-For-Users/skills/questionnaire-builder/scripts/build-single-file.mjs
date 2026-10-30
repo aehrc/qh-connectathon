@@ -9,7 +9,7 @@ import { isMain } from './lib/isMain.mjs';
 
 const SKILL = new URL('../', import.meta.url);
 const GITHUB = 'https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/';
-const INLINED = ['probing.md', 'national-standards.md', 'starting-points.md', 'change-log-template.md', 'sdc-cheatsheet.md'];
+const INLINED = ['probing.md', 'national-standards.md', 'starting-points.md', 'decision-log-template.md', 'sdc-cheatsheet.md'];
 
 const read = (path) => readFileSync(new URL(path, SKILL), 'utf8');
 const titleOf = (md) => md.match(/^# (.+)$/m)[1];

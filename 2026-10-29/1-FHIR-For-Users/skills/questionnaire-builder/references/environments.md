@@ -1,7 +1,7 @@
 # Target environment
 
 Where the form will be opened, prepopulated and tested. Ask once, early ("Where will you try this
-out?"), fill in this block, and keep it in the change log so the next session starts from it.
+out?"), fill in this block, and keep it in the decision log so the next session starts from it.
 
 ```
 Target environment

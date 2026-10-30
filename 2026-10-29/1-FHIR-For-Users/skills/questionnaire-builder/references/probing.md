@@ -9,7 +9,8 @@ their work**. Never ask them to make a FHIR decision ("should this be an answerV
 the question that decides it ("is this list everything that matters, or just what fitted?") and
 make the FHIR decision yourself.
 
-Every answer that changes the form goes in the change log, with the reason in their words.
+Every answer that shapes the form is a decision: log it with what it replaced, the reason in
+their words, and what would make it worth revisiting.
 
 ## Contents
 

@@ -1,7 +1,7 @@
 # Starting points
 
 Four ways people arrive, and how to get from each to a first draft quickly. In every case:
-**structure first, no prepopulation or extraction yet**, and every guess goes in the change log
+**structure first, no prepopulation or extraction yet**, and every guess goes in the decision log
 as an assumption.
 
 ## Personal information comes first
@@ -15,7 +15,7 @@ If a form arrives with identifiable details on it anyway:
 * Say so plainly and briefly, without repeating the details: they have already been sent, and
   the person should follow their organisation's process for that.
 * Use only the form's **structure**. Filled-in values never go into the Questionnaire, the
-  sample data, the change log or any lookup (terminology servers included).
+  sample data, the decision log or any lookup (terminology servers included).
 * Read values only as clues to **shape**: a date written dd/mm/yyyy, a weight in kg, a
   three-letter code. Sample data gets made-up values of that shape.
 * Don't claim to have redacted the image or file; you can't.
@@ -31,7 +31,7 @@ they become prepopulated patient details, not questions.
 * Each blank, box or tick list becomes an item: blank line → string or text; a box with units →
   decimal or integer with a unit; dd/mm/yy → date; a time → time or dateTime; tick list → choice
   (checkboxes if "tick all that apply"); yes/no → boolean.
-* Text you can't read: guess, mark it in the change log as "couldn't read; guessed", and ask.
+* Text you can't read: guess, mark it in the decision log as "couldn't read; guessed", and ask.
 * Notice what isn't a question: instructions, reference tables, flowchart arrows ("if yes →"),
   logos, page furniture ("Do not write in this binding margin"). Instructions may become `display`
   items; arrows become `enableWhen`; reference tables are usually left out (ask: strand 1).

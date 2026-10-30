@@ -13,7 +13,7 @@ test('the single file starts with the generated-file header', () => {
 test('it holds every section of SKILL.md and the inlined references', () => {
   const out = buildSingleFile();
   for (const h of read('SKILL.md').match(/^## .+$/gm)) assert.ok(out.includes(h), h);
-  for (const f of ['probing.md', 'starting-points.md', 'change-log-template.md', 'sdc-cheatsheet.md']) {
+  for (const f of ['probing.md', 'starting-points.md', 'decision-log-template.md', 'sdc-cheatsheet.md']) {
     const first = read(`references/${f}`).match(/^# .+$/m)[0];
     assert.ok(out.includes(`#${first}`), `${f} inlined (as ${first})`);
   }

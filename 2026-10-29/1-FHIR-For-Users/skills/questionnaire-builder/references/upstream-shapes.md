@@ -2,7 +2,7 @@
 
 Prepopulation can only read what an upstream system holds, in the shape it holds it. Ask what
 the systems are (strand 3 in `probing.md`); then use this page to turn each answer into a search
-and a FHIRPath expression, or into a change-log line saying why an item can't be prepopulated.
+and a FHIRPath expression, or into a decision-log line saying why an item can't be prepopulated.
 
 Default: **AU Core 2.0.0** (`hl7.fhir.au.core#2.0.0`). Use US Core only when the person says their
 source is US Core / USCDI-shaped. When the source is something else, ask for an example resource
