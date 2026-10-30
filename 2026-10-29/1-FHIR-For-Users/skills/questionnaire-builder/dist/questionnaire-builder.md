@@ -83,7 +83,8 @@ the clues to look for on the original, and what each answer changes.
    the need.
 2. **Who fills it in and who reads it**: one person or several, at the same time or not.
 3. **Upstream data**: which systems already hold this, and in what shape (AU Core by default; US
-   Core, local or non-FHIR if they say so). That decides what can be prepopulated.
+   Core, local or non-FHIR if they say so). That decides what can be prepopulated. Ask which
+   country they're in early: it decides which national standards you push.
 4. **Purpose and downstream use**: what decision the form leads to, and who uses the answers.
    That decides whether to extract anything, and into what.
 5. **How the form varies**: by who's using it, by the patient (sex, age, pregnancy, a
@@ -98,6 +99,18 @@ the clues to look for on the original, and what each answer changes.
 * **They never handle FHIRPath.** You write and check every expression. Tell them the rule in
   plain words ("only shown for women aged 18 or over"; "your latest Hb, if from the last 3
   months"). They shouldn't read, edit or paste expressions anywhere.
+* **Push hard for national standards.** Unless they have a strong reason not to, every piece of
+  data should take the shape and codes of their country's national standards. In Australia that
+  means AU Core resources, AUCDI data elements, SNOMED CT-AU (with AMT), LOINC, RCPA SPIA for
+  pathology, the AU eRequesting IG for requests, and METeOR definitions for things like
+  Indigenous status. Data in a national standard can be prefilled from any system, written back
+  for others to use, and compared and reported across services. A local list or code locks the
+  data into this one form. So propose the standard version first, explain the benefit in their
+  terms, and ask what stops them using it. "We've always done it this way" and "our list is
+  shorter" aren't strong reasons. A registry or a law that dictates the format, or a system that
+  truly can't accept the standard, are. Even then, map to the standard where you can. Log every
+  departure as "local by choice", with their reason. [`references/national-standards.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/national-standards.md) has
+  what to use for each kind of data, and the equivalents in other countries.
 * **No silent changes.** Every departure from the original goes in the change log with its
   reason. The form's owner has to be able to trust the new version.
 * **Never invent a code.** Look codes up (a terminology server: Ontoserver
@@ -178,6 +191,7 @@ Update them in place each round, so they always hold the latest version.
 | the "Starting points" section below | You have their form or list: how to read a scan, a screenshot, a REDCap data dictionary, or a list; handling personal information |
 | the "Probing guide" section below | Before each round of questions |
 | the "SDC cheat-sheet" section below | Writing any SDC feature (prepopulation, calculations, show/hide, answer lists, extraction) |
+| [`references/national-standards.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/national-standards.md) | Choosing the shape and codes for any piece of data; when they want a local list or code |
 | [`references/upstream-shapes.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/upstream-shapes.md) | Working out searches for prepopulation, for AU Core, US Core or other sources |
 | [`references/environments.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/environments.md) | Asking where they'll test it; how to open it in the playground; when there's no server |
 | [`references/sample-data.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/sample-data.md) | Making the test patients and answers |
@@ -228,6 +242,9 @@ that contradicts another).
 * "This table has 24 rows. Is that ever too few, or is it just what fitted?"
 * "Is this part a question people answer, or guidance they read while filling it in?"
 * "Part A and Part B have the same heading. Is that deliberate?"
+* "This list is your own. There's a national one that other systems already use; is there
+  anything stopping you using it?" (Name the standard and one concrete benefit: it fills in
+  from the GP's record, it can be counted against other hospitals.)
 * "You write the medicines (or the operation, the allergy) in by hand. Would picking them from
   the national list work, so they can be filled in from the record and counted later?"
 
@@ -242,6 +259,8 @@ that contradicts another).
 | A fixed-size table | A repeating group (`repeats: true`), no row limit |
 | Several sections, numbered parts or pages | A tab per section (`tab-container`); ask whether any section is only for some patients or some users (a tab that shows only then) |
 | Free text that's really one of a few things | A coded choice, with an "other" escape if needed |
+| Their own code list, abbreviations or local categories (a ward's list of diagnoses, "Y/N/U", a home-grown grading) | The national standard's version (national-standards.md), proposed first with what it buys them; keep local only for a strong reason, logged "local by choice", mapped to the standard if possible |
+| "Our registry / the department requires this format" | A strong reason: keep their format, and still map each answer to the national code so the data can be reused |
 | A blank for a medicine, condition, procedure, allergy, reaction or test | A coded answer from the national value set (sdc-cheatsheet section 7), autocomplete; free text only if they say so, logged |
 | A rule about a kind of thing ("on a sedative", "has dementia") | A value-set membership test (`memberOf`), never a list of codes or names; log the rule in plain words |
 | Reference material (guidelines, dose tables) | Not questions: leave it out, or a `display` item / link; consider whether it's really decision support for later |
@@ -470,7 +489,9 @@ Last updated: <date>
 | 5 | 3 | Hb filled in from the latest lab result in the last 3 months | Lab system holds it; older results not useful | assumed |
 
 Status is one of: **agreed** (they said so), **assumed** (your sensible default; they didn't
-object), **to confirm with form owner** (they weren't sure, or it's not their call).
+object), **to confirm with form owner** (they weren't sure, or it's not their call), **local by
+choice** (they kept a local list or code instead of the national standard: give their reason, and
+the national mapping if there is one).
 
 ### What the form writes back
 

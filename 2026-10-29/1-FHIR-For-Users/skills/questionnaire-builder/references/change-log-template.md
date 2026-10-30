@@ -29,7 +29,9 @@ Last updated: <date>
 | 5 | 3 | Hb filled in from the latest lab result in the last 3 months | Lab system holds it; older results not useful | assumed |
 
 Status is one of: **agreed** (they said so), **assumed** (your sensible default; they didn't
-object), **to confirm with form owner** (they weren't sure, or it's not their call).
+object), **to confirm with form owner** (they weren't sure, or it's not their call), **local by
+choice** (they kept a local list or code instead of the national standard: give their reason, and
+the national mapping if there is one).
 
 ## What the form writes back
 

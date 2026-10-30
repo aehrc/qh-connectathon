@@ -84,7 +84,8 @@ the clues to look for on the original, and what each answer changes.
    the need.
 2. **Who fills it in and who reads it**: one person or several, at the same time or not.
 3. **Upstream data**: which systems already hold this, and in what shape (AU Core by default; US
-   Core, local or non-FHIR if they say so). That decides what can be prepopulated.
+   Core, local or non-FHIR if they say so). That decides what can be prepopulated. Ask which
+   country they're in early: it decides which national standards you push.
 4. **Purpose and downstream use**: what decision the form leads to, and who uses the answers.
    That decides whether to extract anything, and into what.
 5. **How the form varies**: by who's using it, by the patient (sex, age, pregnancy, a
@@ -99,6 +100,18 @@ the clues to look for on the original, and what each answer changes.
 * **They never handle FHIRPath.** You write and check every expression. Tell them the rule in
   plain words ("only shown for women aged 18 or over"; "your latest Hb, if from the last 3
   months"). They shouldn't read, edit or paste expressions anywhere.
+* **Push hard for national standards.** Unless they have a strong reason not to, every piece of
+  data should take the shape and codes of their country's national standards. In Australia that
+  means AU Core resources, AUCDI data elements, SNOMED CT-AU (with AMT), LOINC, RCPA SPIA for
+  pathology, the AU eRequesting IG for requests, and METeOR definitions for things like
+  Indigenous status. Data in a national standard can be prefilled from any system, written back
+  for others to use, and compared and reported across services. A local list or code locks the
+  data into this one form. So propose the standard version first, explain the benefit in their
+  terms, and ask what stops them using it. "We've always done it this way" and "our list is
+  shorter" aren't strong reasons. A registry or a law that dictates the format, or a system that
+  truly can't accept the standard, are. Even then, map to the standard where you can. Log every
+  departure as "local by choice", with their reason. `references/national-standards.md` has
+  what to use for each kind of data, and the equivalents in other countries.
 * **No silent changes.** Every departure from the original goes in the change log with its
   reason. The form's owner has to be able to trust the new version.
 * **Never invent a code.** Look codes up (a terminology server: Ontoserver
@@ -179,6 +192,7 @@ Update them in place each round, so they always hold the latest version.
 | `references/starting-points.md` | You have their form or list: how to read a scan, a screenshot, a REDCap data dictionary, or a list; handling personal information |
 | `references/probing.md` | Before each round of questions |
 | `references/sdc-cheatsheet.md` | Writing any SDC feature (prepopulation, calculations, show/hide, answer lists, extraction) |
+| `references/national-standards.md` | Choosing the shape and codes for any piece of data; when they want a local list or code |
 | `references/upstream-shapes.md` | Working out searches for prepopulation, for AU Core, US Core or other sources |
 | `references/environments.md` | Asking where they'll test it; how to open it in the playground; when there's no server |
 | `references/sample-data.md` | Making the test patients and answers |
