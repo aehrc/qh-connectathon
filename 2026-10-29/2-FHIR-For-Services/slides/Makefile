@@ -39,7 +39,7 @@ PLANTUML    := plantuml
 
 # ---- Targets --------------------------------------------------------------
 
-.PHONY: all diagrams qr architects pptx pdf preview clean help
+.PHONY: all diagrams qr architects caret-deck pptx pdf preview clean help
 
 all: diagrams pptx
 
@@ -66,6 +66,10 @@ qr:
 ## Build the architects' deck (PDF and editable PPTX), QR codes included
 architects: diagrams qr
 	$(MAKE) pdf pptx DECK=../Architects-Deck.md PDF=../Architects-Deck.pdf PPTX=../Architects-Deck.pptx
+
+## Build the Caret messaging-breakout deck (PDF and editable PPTX)
+caret-deck:
+	$(MAKE) pdf pptx DECK=../Caret-Deck.md PDF=../Caret-Deck.pdf PPTX=../Caret-Deck.pptx
 
 ## Build the editable PowerPoint deck
 pptx: diagrams
