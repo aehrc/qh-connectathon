@@ -70,7 +70,7 @@ function compare(actual, operator, expected) {
   }
 }
 
-function enabled(qi, response, env) {
+export function isEnabled(qi, response, env) {
   const expr = expressionOf(qi, 'enableWhenExpression');
   if (expr) {
     try {
@@ -106,7 +106,7 @@ function calculate(response, q, env) {
 }
 
 function prune(response, q, env) {
-  const disabled = new Set([...qItems(q.item)].filter((qi) => !enabled(qi, response, env)).map((qi) => qi.linkId));
+  const disabled = new Set([...qItems(q.item)].filter((qi) => !isEnabled(qi, response, env)).map((qi) => qi.linkId));
   const keep = (items) => (items || []).filter((i) => !disabled.has(i.linkId))
     .map((i) => (i.item ? { ...i, item: keep(i.item) } : i));
   return { ...response, item: keep(response.item) };

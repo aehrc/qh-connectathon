@@ -18,13 +18,26 @@ const { inAppExtract, extractResultIsOperationOutcome } = require('@aehrc/sdc-te
 
 const TEMPLATE_EXTRACT = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract';
 
-export async function runPopulate(q, { fetchFn, patient, user }) {
+// sdc-populate takes `user` only as a Practitioner and `encounter` only as an Encounter; any other
+// launch context (a RelatedPerson or Patient user, a Location...) is passed as a fhirContext
+// reference, which it resolves through fetchResourceCallback, as a SMART launch would. It matches
+// those by resource type, so only one per type.
+export async function runPopulate(q, { fetchFn, patient, ...contexts }) {
+  const named = {};
+  const fhirContext = [];
+  for (const [name, resource] of Object.entries(contexts)) {
+    if (!resource) continue;
+    if ((name === 'user' && resource.resourceType === 'Practitioner')
+      || (name === 'encounter' && resource.resourceType === 'Encounter')) named[name] = resource;
+    else fhirContext.push({ reference: `${resource.resourceType}/${resource.id}` });
+  }
   const { populateSuccess, populateResult } = await populateQuestionnaire({
     questionnaire: structuredClone(q),
     fetchResourceCallback: (query) => fetchFn(query),
     fetchResourceRequestConfig: { sourceServerUrl: 'local' },
     patient,
-    user,
+    ...named,
+    ...(fhirContext.length ? { fhirContext } : {}),
   });
   return {
     ok: Boolean(populateSuccess && populateResult),

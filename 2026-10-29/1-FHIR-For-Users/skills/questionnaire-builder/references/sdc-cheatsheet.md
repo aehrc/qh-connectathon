@@ -651,6 +651,27 @@ itself doesn't stop it in Smart Forms' extractor, sdc-template-extract 1.0.16.)
 }
 ```
 
+**When it isn't a clinician.** A parent or carer completing a child's consent form is a
+`RelatedPerson` (linked to the child by `RelatedPerson.patient`); a patient filling in their own
+questionnaire is the `Patient`. Declare that type on the `user` launch context:
+
+```json
+{
+  "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+  "extension": [
+    { "url": "name", "valueCoding": { "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext", "code": "user" } },
+    { "url": "type", "valueCode": "RelatedPerson" }
+  ]
+}
+```
+
+Then `%user.name.first().text` is the parent's name. Put `name` before `type`: sdc-populate reads
+them by position. It takes a `user` directly only as a Practitioner; a RelatedPerson or Patient
+user reaches it as a SMART `fhirContext` reference from the launch, so check that your target
+environment sends one (and say so under "Couldn't check" if you can't). `check` and `preview` do
+this for you, using the RelatedPerson linked to each test patient, so put one per family in the
+sample data.
+
 ## 11. Gotchas
 
 * **Variables** use `http://hl7.org/fhir/StructureDefinition/variable`, not an `sdc-` URL.
@@ -690,3 +711,6 @@ Looked up with Ontoserver (`$lookup` / `$expand`) on 30 Oct 2026:
 
 Never invent a code. If you can't look one up, write the item with text only and list it in the
 change log as "code to confirm".
+
+MBS item numbers have no FHIR system URI confirmed by AU Core. If a form needs them, use the one
+your target system uses and log the system as "to confirm".

@@ -86,3 +86,58 @@ test('calculated items are shown for each patient', async () => {
   assert.match(text(r), /t-f1: .*hb-plus = 99 \(calculated\)/);
   assert.match(text(r), /t-m1: .*hb-plus = 126 \(calculated\)/);
 });
+
+// A child's form completed by a parent: launch contexts other than a Practitioner user.
+const SDCX = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-';
+const ctx = (name, type) => ({ url: `${SDCX}launchContext`, extension: [
+  { url: 'name', valueCoding: { system: 'http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext', code: name } },
+  { url: 'type', valueCode: type }] });
+const init = (expression) => ({ url: `${SDCX}initialExpression`, valueExpression: { language: 'text/fhirpath', expression } });
+const put = (resource) => ({ resource, request: { method: 'PUT', url: `${resource.resourceType}/${resource.id}` } });
+const familyForm = (contexts, items) => ({ resourceType: 'Questionnaire', status: 'draft', extension: contexts, item: items });
+const families = (extra = []) => ({ resourceType: 'Bundle', type: 'transaction', entry: [
+  put({ resourceType: 'Patient', id: 'f-c1', birthDate: '2024-01-01' }),
+  put({ resourceType: 'Patient', id: 'f-c2', birthDate: '2015-01-01' }),
+  put({ resourceType: 'Practitioner', id: 'f-dr1', name: [{ text: 'Dr Who' }] }),
+  put({ resourceType: 'RelatedPerson', id: 'f-rp2', patient: { reference: 'Patient/f-c2' }, name: [{ text: 'Bob Parent' }] }),
+  put({ resourceType: 'RelatedPerson', id: 'f-rp1', patient: { reference: 'Patient/f-c1' }, name: [{ text: 'Ann Parent' }] }),
+  ...extra.map(put)] });
+
+test('%user is the launch context type the form declares, and a RelatedPerson is the one linked to each patient', async () => {
+  const q = familyForm([ctx('patient', 'Patient'), ctx('user', 'RelatedPerson')],
+    [{ linkId: 'parent', type: 'string', text: 'Parent', extension: [init('%user.name.first().text')] }]);
+  const r = await checkAll({ questionnaire: q, sampleBundle: families(), prefix: 'f-' });
+  const lines = text(r);
+  assert.match(lines, /PASS f-c1: parent = Ann Parent/);
+  assert.match(lines, /PASS f-c2: parent = Bob Parent/);
+  assert.doesNotMatch(lines, /undefined environment variable/);
+});
+
+test('an encounter launch context is supplied from the sample data, the one for each patient', async () => {
+  const q = familyForm([ctx('patient', 'Patient'), ctx('encounter', 'Encounter')],
+    [{ linkId: 'visit', type: 'date', text: 'Visit', extension: [init('%encounter.period.start')] }]);
+  const r = await checkAll({ questionnaire: q, prefix: 'f-', sampleBundle: families([
+    { resourceType: 'Encounter', id: 'f-e2', status: 'finished', subject: { reference: 'Patient/f-c2' }, period: { start: '2026-10-02' } },
+    { resourceType: 'Encounter', id: 'f-e1', status: 'finished', subject: { reference: 'Patient/f-c1' }, period: { start: '2026-10-01' } }]) });
+  const lines = text(r);
+  assert.match(lines, /PASS f-c1: visit = 2026-10-01/);
+  assert.match(lines, /PASS f-c2: visit = 2026-10-02/);
+});
+
+test('a declared launch context with nothing in the sample data to supply it is one clear warning', async () => {
+  const q = familyForm([ctx('patient', 'Patient'), ctx('encounter', 'Encounter')],
+    [{ linkId: 'visit', type: 'date', text: 'Visit', extension: [init('%encounter.period.start')] }]);
+  const lines = text(await checkAll({ questionnaire: q, sampleBundle: families(), prefix: 'f-' }));
+  assert.match(lines, /WARN launch context "encounter" \(Encounter\): no Encounter in the sample data/);
+  assert.doesNotMatch(lines, /undefined environment variable/);
+});
+
+test('display items with a show/hide rule are reported shown or hidden for each patient', async () => {
+  const q = familyForm([ctx('patient', 'Patient')], [
+    { linkId: 'name', type: 'string', text: 'Name', extension: [init("'x'")] },
+    { linkId: 'under-5', type: 'display', text: 'Under 5: use the infant schedule', extension: [
+      { url: `${SDCX}enableWhenExpression`, valueExpression: { language: 'text/fhirpath', expression: '%patient.birthDate.toDate() > today() - 5 years' } }] }]);
+  const lines = text(await checkAll({ questionnaire: q, sampleBundle: families(), prefix: 'f-' }));
+  assert.match(lines, /PASS f-c1: .*under-5 shown/);
+  assert.match(lines, /PASS f-c2: .*under-5 hidden/);
+});
