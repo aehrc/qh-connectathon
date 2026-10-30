@@ -140,6 +140,76 @@ Variables can depend on the patient, which is how a form varies by patient chara
 }
 ```
 
+### Testing for a kind of thing: value-set membership
+
+When a rule is about a *kind* of thing (any chronic kidney disease, any sedative, any
+anticoagulant), test whether the record's code is a member of a value set. Don't list codes or
+names: a list is always incomplete (new products, brands, more specific diagnoses), silently
+misses the rest, and no one can review it. A value set (SNOMED CT ECL, or a published one) says
+what you mean and stays current.
+
+Fetch the candidates broadly, then filter with `memberOf()`:
+
+<!-- from: demo-questionnaire.json#variable:Conditions -->
+```json
+{
+  "url": "http://hl7.org/fhir/StructureDefinition/variable",
+  "valueExpression": {
+    "name": "Conditions",
+    "language": "application/x-fhir-query",
+    "expression": "Condition?patient={{%patient.id}}&clinical-status=active"
+  }
+}
+```
+
+<!-- from: demo-questionnaire.json#variable:hasCKD -->
+```json
+{
+  "url": "http://hl7.org/fhir/StructureDefinition/variable",
+  "valueExpression": {
+    "name": "hasCKD",
+    "language": "text/fhirpath",
+    "expression": "%Conditions.entry.resource.code.coding.where(memberOf('http://snomed.info/sct?fhir_vs=ecl/<< 709044004')).exists()"
+  }
+}
+```
+
+<!-- from: demo-questionnaire.json#item:ckd -->
+```json
+{
+  "linkId": "ckd",
+  "type": "boolean",
+  "text": "Chronic kidney disease?",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+      "valueExpression": {
+        "language": "text/fhirpath",
+        "expression": "iif(%hasCKD, true, {})"
+      }
+    }
+  ]
+}
+```
+
+* `memberOf()` asks the terminology server (Smart Forms uses `https://tx.ontoserver.csiro.au/fhir`
+  by default), and works in prepopulation, calculations and show/hide rules (Smart Forms renderer
+  1.5.0, sdc-populate 4.7.2). `check` runs it during prepopulation (it needs a network
+  connection); its fill-in step can't yet run it inside a calculatedExpression.
+* `iif(%hasCKD, true, {})` fills in "Yes" when the record says so and leaves the item blank
+  otherwise: an absent record isn't a "No".
+* `<<` includes the concept itself; `<` only its descendants. Check the ECL by expanding it
+  (`$expand`) and looking at what's in and what's out, then log the rule in plain words ("any
+  kind of chronic kidney disease on the problem list").
+* For medicines, match on the product (AMT, in SNOMED CT-AU), e.g. the ingredient via
+  `< 763158003 |Medicinal product| : 127489000 |Has active ingredient| = ...`. Expand it and
+  check that the Australian brands you expect are in it: hand-written medicine ECL is easy to get
+  subtly wrong.
+* A specific pathology test (Hb, ferritin) is fine as a LOINC code in the search: that's one
+  test, not a list standing in for a category.
+* If the source server supports `code:in=<value set>` or `code:below=<code>`, the search can do
+  the filtering; most don't, so `memberOf()` is the portable default.
+
 ## 4. Filling an item: initialExpression
 
 The value the item starts with. The person can change it unless the item is `readOnly`.
@@ -210,8 +280,22 @@ Use **enableWhen** when it depends on another answer in the form:
 ```json
 {
   "linkId": "iron-product",
-  "type": "string",
+  "type": "choice",
   "text": "Which iron product?",
+  "answerValueSet": "https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/questionnaire-item-control",
+            "code": "autocomplete"
+          }
+        ]
+      }
+    }
+  ],
   "enableWhen": [
     {
       "question": "iron-recent",
@@ -351,6 +435,25 @@ on the page: `answerValueSet`, with SNOMED CT ECL, shown as a search box (`autoc
 This is the tick-box question in code: ten conditions printed on paper may be "these ten
 matter" (answerOption) or "these were the ten that fitted" (a value set, or the ten plus
 "other").
+
+**Coded by default** for medicines, conditions, procedures, allergies (the substance and the
+reaction) and pathology: a coded answer can be prepopulated, extracted, checked by rules and
+counted; free text can't. Use a national value set with `autocomplete` (the iron product in
+section 6 does this), and narrow it with ECL only when the question really is narrower:
+
+| Data | Value set (`answerValueSet`) |
+|---|---|
+| Medicines | `https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1` |
+| Conditions, diagnoses, problems | `https://healthterminologies.gov.au/fhir/ValueSet/clinical-condition-1` |
+| Procedures, operations | `https://healthterminologies.gov.au/fhir/ValueSet/procedure-1` |
+| Allergy or intolerance: substance | `https://healthterminologies.gov.au/fhir/ValueSet/indicator-hypersensitivity-intolerance-to-substance-2` |
+| Allergy or intolerance: reaction | `https://healthterminologies.gov.au/fhir/ValueSet/clinical-finding-1` |
+| Pathology test requested | `https://www.rcpa.edu.au/fhir/ValueSet/spia-requesting-refset-3` |
+| Pathology result names (LOINC) | `https://www.rcpa.edu.au/fhir/ValueSet/spia-chemical-pathology-refset-3` (and the other SPIA sets) |
+
+These are the bindings AU Core uses, so answers line up with the record they're read from and
+written back to. Use `open-choice` only if people genuinely need to type something not in the
+value set, and say so in the change log.
 
 ## 8. Writing back: template-based extraction
 
@@ -580,6 +683,10 @@ Looked up with Ontoserver (`$lookup` / `$expand`) on 30 Oct 2026:
 | LA15173-0, LA26683-5, LA4489-6 | LOINC answers | Pregnant, Not pregnant, Unknown |
 | 87522002 | SNOMED CT | Iron deficiency anaemia |
 | `< 271737000` | SNOMED CT ECL | descendants of Anaemia (576 concepts) |
+| `<< 709044004` | SNOMED CT ECL | Chronic kidney disease and its subtypes (143 concepts) |
+| 433144002 | SNOMED CT | Chronic kidney disease stage 3 (sample data; in the ECL above) |
+| 56531000036109 | SNOMED CT-AU (AMT) | Ferinject 500 mg/10 mL injection, 10 mL vial (answers; in Australian Medication) |
+| the value sets in section 7 | NCTS, RCPA | expanded on `tx.ontoserver.csiro.au` on 30 Oct 2026 |
 
 Never invent a code. If you can't look one up, write the item with text only and list it in the
 change log as "code to confirm".

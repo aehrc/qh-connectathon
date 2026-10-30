@@ -80,3 +80,34 @@ test('a non-transaction Bundle or a non-PUT entry is an error', () => {
   const post = { resource: { resourceType: 'Patient', id: 'js-1' }, request: { method: 'POST', url: 'Patient' } };
   assert.deepEqual(codes(lintBundle(bundle([post]), { prefix: 'js-' }).errors), ['bundle-shape']);
 });
+
+const fp = (name, expression) => ({ url: XQ, valueExpression: { name, language: 'text/fhirpath', expression } });
+
+test('an expression testing three or more listed codes or names is a code-list warning', () => {
+  const listed = [
+    "%Meds.entry.resource.medication.coding.where(code = '111' or code = '222' or code = '333').exists()",
+    "%Conds.entry.resource.code.coding.where(code in ('111' | '222' | '333')).exists()",
+    "%Meds.entry.resource.medication.text.where(contains('temazepam') or contains('zopiclone') or contains('zolpidem')).exists()",
+  ];
+  for (const e of listed) {
+    const r = lintQuestionnaire(q([{ linkId: 'a', type: 'boolean' }], { extension: [fp('x', e)] }));
+    assert.deepEqual(codes(r.warnings), ['code-list'], e);
+  }
+  const fine = [
+    "%Conds.entry.resource.code.coding.where(memberOf('http://snomed.info/sct?fhir_vs=ecl/<< 709044004')).exists()",
+    "%Obs.entry.resource.where(code.coding.code = '718-7' or code.coding.code = '30313-1').exists()",
+  ];
+  for (const e of fine) {
+    assert.deepEqual(lintQuestionnaire(q([{ linkId: 'a', type: 'boolean' }], { extension: [fp('x', e)] })).warnings, [], e);
+  }
+});
+
+test('a free-text item about medicines, conditions, procedures, allergies or pathology is a free-text-clinical warning', () => {
+  for (const text of ['Current medications', 'Allergies and reactions', 'Previous operations', 'Diagnosis', 'Pathology tests ordered']) {
+    const r = lintQuestionnaire(q([{ linkId: 'a', type: 'string', text }]));
+    assert.deepEqual(r.warnings.map((w) => [w.code, w.linkId]), [['free-text-clinical', 'a']], text);
+  }
+  assert.deepEqual(lintQuestionnaire(q([{ linkId: 'a', type: 'text', text: 'Comments' }])).warnings, []);
+  assert.deepEqual(lintQuestionnaire(q([{ linkId: 'a', type: 'choice', text: 'Current medications',
+    answerValueSet: 'https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1' }])).warnings, []);
+});

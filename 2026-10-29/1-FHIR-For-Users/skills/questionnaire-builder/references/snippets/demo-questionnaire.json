@@ -61,6 +61,14 @@
     {
       "url": "http://hl7.org/fhir/StructureDefinition/variable",
       "valueExpression": {
+        "name": "Conditions",
+        "language": "application/x-fhir-query",
+        "expression": "Condition?patient={{%patient.id}}&clinical-status=active"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
         "name": "latestHb",
         "language": "text/fhirpath",
         "expression": "%ObsHb.entry.resource.first()"
@@ -80,6 +88,14 @@
         "name": "isAdult",
         "language": "text/fhirpath",
         "expression": "%patient.birthDate.toDate() <= today() - 18 years"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "hasCKD",
+        "language": "text/fhirpath",
+        "expression": "%Conditions.entry.resource.code.coding.where(memberOf('http://snomed.info/sct?fhir_vs=ecl/<< 709044004')).exists()"
       }
     }
   ],
@@ -242,7 +258,7 @@
         {
           "linkId": "ferritin",
           "type": "decimal",
-          "text": "Ferritin (µg/L)",
+          "text": "Ferritin (\u00b5g/L)",
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-unit",
@@ -264,7 +280,7 @@
         {
           "linkId": "anaemic",
           "type": "boolean",
-          "text": "Anaemic for their sex (Hb ≤ 130 g/L male, ≤ 120 g/L female)",
+          "text": "Anaemic for their sex (Hb \u2264 130 g/L male, \u2264 120 g/L female)",
           "readOnly": true,
           "extension": [
             {
@@ -361,13 +377,41 @@
     },
     {
       "linkId": "iron-product",
-      "type": "string",
+      "type": "choice",
       "text": "Which iron product?",
+      "answerValueSet": "https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+          "valueCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://hl7.org/fhir/questionnaire-item-control",
+                "code": "autocomplete"
+              }
+            ]
+          }
+        }
+      ],
       "enableWhen": [
         {
           "question": "iron-recent",
           "operator": "=",
           "answerBoolean": true
+        }
+      ]
+    },
+    {
+      "linkId": "ckd",
+      "type": "boolean",
+      "text": "Chronic kidney disease?",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "iif(%hasCKD, true, {})"
+          }
         }
       ]
     },

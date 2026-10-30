@@ -1,4 +1,18 @@
 {
+  "iron-recent": [
+    {
+      "valueBoolean": true
+    }
+  ],
+  "iron-product": [
+    {
+      "valueCoding": {
+        "system": "http://snomed.info/sct",
+        "code": "56531000036109",
+        "display": "Ferinject 500 mg/10 mL injection, 10 mL vial"
+      }
+    }
+  ],
   "pregnancy": [
     {
       "valueCoding": {

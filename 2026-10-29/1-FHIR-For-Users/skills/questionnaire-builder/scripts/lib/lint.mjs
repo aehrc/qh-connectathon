@@ -11,14 +11,25 @@ function* walkItems(items, depth = 0) {
   }
 }
 
-// Every {language: 'application/x-fhir-query', expression} anywhere in the resource.
-function* fhirQueries(node) {
+// Every {language, expression} in that language anywhere in the resource.
+function* expressionsIn(node, language) {
   if (Array.isArray(node)) {
-    for (const n of node) yield* fhirQueries(n);
+    for (const n of node) yield* expressionsIn(n, language);
   } else if (node && typeof node === 'object') {
-    if (node.language === 'application/x-fhir-query' && typeof node.expression === 'string') yield node.expression;
-    for (const v of Object.values(node)) yield* fhirQueries(v);
+    if (node.language === language && typeof node.expression === 'string') yield node.expression;
+    for (const v of Object.values(node)) yield* expressionsIn(v, language);
   }
+}
+
+// Free-text items on these topics should usually be coded (a heuristic: it only warns).
+const CLINICAL_TOPIC = /\b(medications?|medicines?|drugs?|conditions?|diagnos[ie]s|problems?|procedures?|operations?|surger(y|ies)|allerg(y|ies)|reactions?|pathology)\b/i;
+
+// How many codes or names an expression compares against: `code = '…'`, `code in ('…' | …)`, `contains('…')`.
+function listedLiterals(expression) {
+  const equals = expression.match(/\bcode\s*(=|~)\s*'[^']*'/g)?.length ?? 0;
+  const inList = [...expression.matchAll(/\bin\s*\(([^)]*)\)/g)].reduce((n, m) => n + (m[1].match(/'[^']*'/g)?.length ?? 0), 0);
+  const contains = expression.match(/\bcontains\(\s*'[^']*'\s*\)/g)?.length ?? 0;
+  return Math.max(equals, inList, contains);
 }
 
 function* references(node) {
@@ -63,7 +74,20 @@ export function lintQuestionnaire(q) {
     }
   }
 
-  for (const query of fhirQueries(q)) {
+  for (const item of items) {
+    if ((item.type === 'string' || item.type === 'text') && CLINICAL_TOPIC.test(item.text || '')) {
+      warnings.push({ code: 'free-text-clinical', linkId: item.linkId,
+        message: `"${item.linkId}" ("${item.text}") is free text; medicines, conditions, procedures, allergies and pathology should be coded answers from a value set.` });
+    }
+  }
+
+  for (const expression of expressionsIn(q, 'text/fhirpath')) {
+    if (listedLiterals(expression) >= 3) {
+      warnings.push({ code: 'code-list', message: `"${expression}" tests a list of codes or names; test membership of a value set (memberOf) instead.` });
+    }
+  }
+
+  for (const query of expressionsIn(q, 'application/x-fhir-query')) {
     if (query.includes('|')) {
       warnings.push({ code: 'raw-pipe', message: `Query "${query}" has a raw "|": some servers reject it (HTTP 400). Write %7C.` });
     }

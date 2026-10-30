@@ -110,8 +110,14 @@ values of that shape for the sample data. Don't claim to have redacted anything.
 * Prepopulation through x-fhir-query variables and initialExpressions.
 * Template-based extraction, attached to the item the resource is about; only-when-ticked
   extraction via a group shown only when ticked.
+* **Coded answers** for medicines, conditions, procedures, allergies (substance and reaction) and
+  pathology, from the national value sets AU Core uses, shown as a search box. Free text there
+  can't be prefilled, written back or used in a rule. Ask before making one free text, and log it.
 * Codes: LOINC for observations, SNOMED CT-AU for conditions, findings and procedures, AMT for
   medicines.
+* **Rules about a kind of thing test value-set membership**, not a list of codes or names. "Any
+  sedative" or "any kidney disease" is a value set (ECL) and `memberOf()`. A hand-made list is
+  always incomplete and goes stale without anyone noticing.
 
 The cheat-sheet (`references/sdc-cheatsheet.md`) has a working snippet for every pattern, copied from a form that
 passes the checks. Use its patterns rather than writing from memory: several details (the
