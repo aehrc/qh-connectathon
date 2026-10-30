@@ -37,7 +37,7 @@ test('a choice item with no answers is a warning', () => {
   assert.deepEqual(lintQuestionnaire(q([{ linkId: 'c', type: 'coding', answerOption: [{ valueCoding: { code: 'x' } }] }])).warnings, []);
 });
 
-const XQ = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-variable';
+const XQ = 'http://hl7.org/fhir/StructureDefinition/variable';
 const xq = (expression) => ({ url: XQ, valueExpression: { name: 'v', language: 'application/x-fhir-query', expression } });
 
 test('a raw | in an x-fhir-query is a warning that mentions %7C', () => {

@@ -4,7 +4,7 @@ import { collectExpressions, evaluateExpressions } from '../lib/expressions.mjs'
 
 const SDC = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/';
 const variable = (name, expression, language = 'text/fhirpath') =>
-  ({ url: `${SDC}sdc-questionnaire-variable`, valueExpression: { name, language, expression } });
+  ({ url: 'http://hl7.org/fhir/StructureDefinition/variable', valueExpression: { name, language, expression } });
 const ext = (kind, expression) =>
   ({ url: `${SDC}sdc-questionnaire-${kind}`, valueExpression: { language: 'text/fhirpath', expression } });
 

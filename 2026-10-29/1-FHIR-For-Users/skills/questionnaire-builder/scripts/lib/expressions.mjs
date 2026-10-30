@@ -10,6 +10,8 @@ import fhirpath from 'fhirpath';
 import r4 from 'fhirpath/fhir-context/r4/index.js';
 
 const SDC = 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-';
+// SDC variables use the core FHIR extension, not an sdc-questionnaire-* one.
+const VARIABLE = 'http://hl7.org/fhir/StructureDefinition/variable';
 const ITEM_KINDS = ['initialExpression', 'calculatedExpression', 'enableWhenExpression', 'answerExpression',
   'itemPopulationContext'];
 const TEMPLATE_KINDS = ['templateExtractValue', 'templateExtractContext'];
@@ -18,7 +20,7 @@ const QUERY = 'application/x-fhir-query';
 function itemExpressions(extensions, linkId) {
   const out = [];
   for (const e of extensions || []) {
-    if (e.url === `${SDC}variable`) {
+    if (e.url === VARIABLE) {
       const { name, language, expression } = e.valueExpression;
       out.push({ kind: language === QUERY ? 'x-fhir-query' : 'variable', linkId, name, language, expression });
     }
