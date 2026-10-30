@@ -685,6 +685,217 @@ def path_entries(row):
 assert len({r[1] for r in PATH_REQUESTS if r[9]}) == len([r for r in PATH_REQUESTS if r[9]]), "one Coverage per patient"
 
 
+# ---------------------------------------------------------------- clinical summary data (AU Patient Summary / IPS)
+# Extra clinical history for 14 of the 20 patients so Patient/[id]/$summary (AU PS) returns Allergies, Medication List,
+# Problem List, History of Procedures and Results sections. Everything is FICTIONAL and chosen to fit the patient's
+# existing referral / pathology orders. Ids are qhc-ps-*, resources are PUT with fixed ids, existing resources untouched.
+LOINC = "http://loinc.org"
+UCUM = "http://unitsofmeasure.org"
+AMT = SCT  # AMT concepts are SNOMED CT-AU concepts (MPUU = medicinal product unit of use)
+OBSCAT = "http://terminology.hl7.org/CodeSystem/observation-category"
+ALGSTAT = "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical"
+ALGVER = "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification"
+CONDCLIN = "http://terminology.hl7.org/CodeSystem/condition-clinical"
+CONDVER = "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+PSP = CORE  # AU Core 2.0.0 profiles live under http://hl7.org.au/fhir/core/StructureDefinition/
+
+CONDS = {  # key -> (SNOMED CT code, display)
+    "htn": ("38341003", "Hypertension"), "gord": ("235595009", "Gastro-oesophageal reflux disease"),
+    "t2dm": ("44054006", "Type 2 diabetes mellitus"), "lipid": ("55822004", "Hyperlipidaemia"),
+    "oa": ("396275006", "Osteoarthritis"), "ida": ("87522002", "Iron deficiency anaemia"),
+    "bph": ("266569009", "Benign prostatic hyperplasia"), "hypothy": ("40930008", "Hypothyroidism"),
+    "preg": ("72892002", "Normal pregnancy"), "af": ("49436004", "Atrial fibrillation"),
+    "asthma": ("195967001", "Asthma"), "uti": ("68566005", "Urinary tract infection"),
+    "pneu": ("233604007", "Pneumonia"), "sinus": ("36971009", "Sinusitis"),
+}
+SUBST = {  # allergy substance -> (code, display)
+    "pen": ("764146007", "Penicillin"), "cod": ("387494007", "Codeine"), "sulfa": ("387406002", "Sulfonamide"),
+    "asa": ("387458008", "Aspirin"), "nka": ("716186003", "No known allergy"),
+}
+REACT = {"rash": ("271807003", "Rash"), "ana": ("39579001", "Anaphylaxis"), "nau": ("422587007", "Nausea")}
+MEDS = {  # key -> (AMT MPUU code, display, dosage text, timing (frequency, period, unit), route code, route display, prn)
+    "perind": ("21966011000036105", "Perindopril arginine 5 mg tablet", "One tablet orally once daily in the morning", (1, 1, "d"), False),
+    "panto": ("23003011000036103", "Pantoprazole 40 mg enteric tablet", "One tablet orally once daily before breakfast", (1, 1, "d"), False),
+    "metf": ("23358011000036102", "Metformin hydrochloride 500 mg tablet", "One tablet orally twice daily with meals", (2, 1, "d"), False),
+    "metf2": ("23358011000036102", "Metformin hydrochloride 500 mg tablet", "Two tablets orally twice daily with meals", (2, 1, "d"), False),
+    "glic": ("23223011000036101", "Gliclazide 30 mg modified release tablet", "One tablet orally once daily with breakfast", (1, 1, "d"), False),
+    "ator": ("22784011000036109", "Atorvastatin 20 mg tablet", "One tablet orally once daily at night", (1, 1, "d"), False),
+    "para": ("23628011000036109", "Paracetamol 500 mg tablet", "Two tablets orally every 6 hours when required for pain, maximum 8 tablets in 24 hours", (4, 1, "d"), True),
+    "iron": ("62075011000036106", "Ferrous sulfate 250 mg (iron 80 mg) + folic acid 300 microgram modified release tablet", "One tablet orally once daily", (1, 1, "d"), False),
+    "tams": ("765922006", "Tamsulosin hydrochloride 400 microgram prolonged-release oral capsule", "One capsule orally once daily after the same meal each day", (1, 1, "d"), False),
+    "levo": ("23345011000036105", "Levothyroxine sodium 100 microgram tablet", "One tablet orally once daily on an empty stomach, 30 minutes before breakfast", (1, 1, "d"), False),
+    "folic": ("22410011000036105", "Folic acid 500 microgram tablet", "One tablet orally once daily", (1, 1, "d"), False),
+    "warf": ("22464011000036101", "Warfarin sodium 5 mg tablet", "Dose as directed by INR, currently one tablet orally once daily in the evening", (1, 1, "d"), False),
+    "salb": ("770300007", "Salbutamol (as salbutamol sulfate) 100 microgram/actuation pressurised suspension for inhalation", "Two puffs by inhalation when required for wheeze or breathlessness", (4, 1, "d"), True),
+}
+PROCS = {  # key -> (SNOMED CT code, display)
+    "colon": ("73761001", "Colonoscopy"), "appx": ("80146002", "Appendicectomy"),
+    "arthro": ("309431009", "Arthroscopy of knee"), "hernia": ("44558001", "Repair of inguinal hernia"),
+    "tkr": ("609588000", "Total knee replacement"), "disc": ("239542002", "Lumbar discectomy"),
+    "cataract": ("54885007", "Extraction of cataract"), "tonsil": ("173422009", "Tonsillectomy"),
+    "lapchol": ("45595009", "Laparoscopic cholecystectomy"),
+}
+LABS = {  # key -> (LOINC, display, unit, UCUM code)
+    "alt": ("1742-6", "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma", "U/L", "U/L"),
+    "creat": ("14682-9", "Creatinine [Moles/volume] in Serum or Plasma", "umol/L", "umol/L"),
+    "hba1c": ("4548-4", "Hemoglobin A1c/Hemoglobin.total in Blood", "%", "%"),
+    "fglu": ("14771-0", "Fasting glucose [Moles/volume] in Serum or Plasma", "mmol/L", "mmol/L"),
+    "hb": ("718-7", "Hemoglobin [Mass/volume] in Blood", "g/L", "g/L"),
+    "ferr": ("2276-4", "Ferritin [Mass/volume] in Serum or Plasma", "ug/L", "ug/L"),
+    "tsh": ("3016-3", "Thyrotropin [Units/volume] in Serum or Plasma", "mIU/L", "m[IU]/L"),
+    "chol": ("14647-2", "Cholesterol [Moles/volume] in Serum or Plasma", "mmol/L", "mmol/L"),
+    "ldl": ("22748-8", "Cholesterol in LDL [Moles/volume] in Serum or Plasma", "mmol/L", "mmol/L"),
+    "hdl": ("14646-4", "Cholesterol in HDL [Moles/volume] in Serum or Plasma", "mmol/L", "mmol/L"),
+    "tg": ("14927-8", "Triglyceride [Moles/volume] in Serum or Plasma", "mmol/L", "mmol/L"),
+    "inr": ("6301-6", "INR in Platelet poor plasma by Coagulation assay", "{INR}", "{INR}"),
+    "psa": ("2857-1", "Prostate specific Ag [Mass/volume] in Serum or Plasma", "ug/L", "ug/L"),
+}
+# patient -> clinical history. Conditions: (key, status, onset, abatement|None); allergies: (key, reaction, severity, onset);
+# meds: (key, authoredOn, kind) kind "req" = MedicationRequest, "stmt" = MedicationStatement;
+# procedures: (key, date); labs: (key, value, date); vitals: ("bp", systolic, diastolic, date) / ("hr", rate, date)
+PS_DATA = {
+    1: dict(cond=[("htn", "active", "2015-05-12", None), ("gord", "active", "2019-08-03", None)],
+            alg=[("pen", "rash", "mild", "2003-01-01")],
+            meds=[("perind", "2025-11-04", "req"), ("panto", "2025-11-04", "req")],
+            proc=[("colon", "2024-03-14")],
+            labs=[("alt", 62, "2026-10-11"), ("creat", 98, "2026-10-11")], vit=[("bp", 148, 92, "2026-10-14")]),
+    2: dict(cond=[("t2dm", "active", "2023-02-20", None), ("uti", "resolved", "2025-04-02", "2025-04-12")],
+            alg=[("nka",)],
+            meds=[("metf", "2023-02-20", "req")],
+            proc=[], labs=[("hba1c", 7.8, "2026-07-09"), ("fglu", 8.1, "2026-07-09")], vit=[("hr", 78, "2026-10-15")]),
+    4: dict(cond=[("lipid", "active", "2024-06-18", None)],
+            alg=[("cod", "nau", "mild", "2016-09-01")],
+            meds=[("ator", "2024-06-18", "req")],
+            proc=[("appx", "2005-02-27")],
+            labs=[("chol", 6.2, "2026-10-02"), ("ldl", 4.1, "2026-10-02"), ("hdl", 1.1, "2026-10-02"), ("tg", 2.4, "2026-10-02")], vit=[]),
+    5: dict(cond=[("oa", "active", "2018-03-09", None), ("htn", "active", "2012-07-21", None)],
+            alg=[("sulfa", "rash", "moderate", "1998-06-01")],
+            meds=[("para", "2025-09-15", "req"), ("perind", "2025-09-15", "req")],
+            proc=[("arthro", "2019-05-23")],
+            labs=[("hb", 128, "2026-09-08")], vit=[("bp", 142, 86, "2026-09-08")]),
+    6: dict(cond=[("ida", "active", "2026-10-06", None), ("pneu", "resolved", "2024-07-15", "2024-08-10")],
+            alg=[("nka",)],
+            meds=[("iron", "2026-10-06", "req")],
+            proc=[], labs=[("hb", 104, "2026-10-06"), ("ferr", 9, "2026-10-06")], vit=[]),
+    7: dict(cond=[("bph", "active", "2022-01-25", None)],
+            alg=[("asa", "ana", "severe", "1999-01-01")],
+            meds=[("tams", "2022-01-25", "req")],
+            proc=[("hernia", "2012-11-08")],
+            labs=[("psa", 3.9, "2026-10-05")], vit=[]),
+    10: dict(cond=[("preg", "active", "2026-08-12", None)],
+             alg=[("nka",)],
+             meds=[("folic", "2026-10-22", "req")],
+             proc=[], labs=[("hb", 118, "2026-10-22")], vit=[("bp", 112, 70, "2026-10-22")]),
+    11: dict(cond=[("hypothy", "active", "2019-04-02", None), ("sinus", "resolved", "2026-03-10", "2026-03-24")],
+             alg=[("nka",)],
+             meds=[("levo", "2019-04-02", "req")],
+             proc=[], labs=[("tsh", 6.8, "2026-10-16")], vit=[]),
+    12: dict(cond=[("hypothy", "active", "2015-10-19", None)],
+             alg=[("cod", "nau", "mild", "2010-01-01")],
+             meds=[("levo", "2015-10-19", "req")],
+             proc=[("tkr", "2022-06-14")],
+             labs=[("tsh", 2.1, "2026-10-02")], vit=[]),
+    13: dict(cond=[("t2dm", "active", "2016-09-14", None), ("htn", "active", "2016-09-14", None)],
+             alg=[("nka",)],
+             meds=[("metf2", "2020-03-02", "req"), ("glic", "2024-02-12", "req")],
+             proc=[("disc", "2009-04-30")],
+             labs=[("hba1c", 8.4, "2026-09-28"), ("creat", 84, "2026-09-28")], vit=[("bp", 136, 84, "2026-09-28")]),
+    17: dict(cond=[("af", "active", "2017-11-30", None), ("htn", "active", "2005-03-04", None)],
+             alg=[("cod", "rash", "mild", "2011-01-01")],
+             meds=[("warf", "2017-12-05", "req"), ("para", "2026-10-01", "stmt")],
+             proc=[("cataract", "2023-08-22")],
+             labs=[("inr", 2.6, "2026-10-22")], vit=[("hr", 72, "2026-10-22")]),
+    18: dict(cond=[("t2dm", "active", "2021-05-10", None)],
+             alg=[("nka",)],
+             meds=[("metf2", "2021-05-10", "req"), ("folic", "2026-08-01", "stmt")],
+             proc=[], labs=[("hba1c", 9.1, "2026-10-14"), ("fglu", 9.6, "2026-10-14")], vit=[]),
+    19: dict(cond=[("asthma", "active", "2005-02-15", None), ("uti", "active", "2026-10-23", None)],
+             alg=[("pen", "rash", "moderate", "2008-01-01")],
+             meds=[("salb", "2020-06-01", "req")],
+             proc=[("tonsil", "1992-07-20")],
+             labs=[("hb", 141, "2026-10-23")], vit=[("hr", 84, "2026-10-23")]),
+    20: dict(cond=[("gord", "active", "2025-02-09", None)],
+             alg=[("nka",)],
+             meds=[("panto", "2025-02-09", "req")],
+             proc=[], labs=[("hb", 135, "2026-10-24")], vit=[("bp", 118, 76, "2026-10-24"), ("hr", 70, "2026-10-24")]),
+}
+PS_REQ_PRACT = {}  # patient -> referrer role (first referral / pathology order that names the patient)
+for _r in REFERRALS:
+    PS_REQ_PRACT.setdefault(_r[1], _r[2])
+for _r in PATH_REQUESTS:
+    PS_REQ_PRACT.setdefault(_r[1], _r[2])
+
+
+def ps_entries(i):
+    d = PS_DATA[i]
+    pid = "Patient/qhc-pat-%02d" % i
+    rf = PS_REQ_PRACT[i]
+    role = ref("PractitionerRole/qhc-role-%d" % rf, "%s %s" % (REFERRERS[rf][5][3], REFERRERS[rf][5][1]))
+    out = []
+    for n, (k, status, onset, abate) in enumerate(d["cond"], 1):
+        c = {"resourceType": "Condition", "id": "qhc-ps-cond-%02d-%d" % (i, n), "meta": {"profile": [PSP + "au-core-condition"]},
+             "clinicalStatus": cc(CONDCLIN, status), "verificationStatus": cc(CONDVER, "confirmed"),
+             "category": [cc("http://terminology.hl7.org/CodeSystem/condition-category", "problem-list-item")],
+             "code": cc(SCT, *CONDS[k]), "subject": ref(pid), "onsetDateTime": onset}
+        if abate: c["abatementDateTime"] = abate
+        out.append(c)
+    for n, a in enumerate(d["alg"], 1):
+        code, disp = SUBST[a[0]]
+        r = {"resourceType": "AllergyIntolerance", "id": "qhc-ps-alg-%02d-%d" % (i, n), "meta": {"profile": [PSP + "au-core-allergyintolerance"]},
+             "clinicalStatus": cc(ALGSTAT, "active"), "verificationStatus": cc(ALGVER, "confirmed"),
+             "code": cc(SCT, code, disp), "patient": ref(pid), "recordedDate": "2026-10-01"}
+        if a[0] != "nka":
+            _, react, sev, onset = a
+            r["type"] = "allergy" if react != "nau" else "intolerance"
+            r["category"] = ["medication"]
+            r["criticality"] = "high" if sev == "severe" else "low"
+            r["onsetDateTime"] = onset[:4]
+            r["reaction"] = [{"manifestation": [cc(SCT, *REACT[react])], "severity": sev}]
+        out.append(r)
+    for n, (k, auth, kind) in enumerate(d["meds"], 1):
+        code, disp, text, (freq, per, unit), prn = MEDS[k]
+        dose = {"text": text, "timing": {"repeat": {"frequency": freq, "period": per, "periodUnit": unit}},
+                "route": cc(SCT, "447694001", "Respiratory tract route") if k == "salb" else cc(SCT, "26643006", "Oral route"),
+                "asNeededBoolean": prn}
+        med = cc(AMT, code, disp)
+        if kind == "req":
+            r = {"resourceType": "MedicationRequest", "id": "qhc-ps-mr-%02d-%d" % (i, n), "meta": {"profile": [PSP + "au-core-medicationrequest"]},
+                 "status": "active", "intent": "order", "medicationCodeableConcept": med, "subject": ref(pid),
+                 "authoredOn": auth, "requester": role, "dosageInstruction": [dose]}
+        else:
+            r = {"resourceType": "MedicationStatement", "id": "qhc-ps-ms-%02d-%d" % (i, n),
+                 "status": "active", "medicationCodeableConcept": med, "subject": ref(pid),
+                 "effectiveDateTime": auth, "dateAsserted": "2026-10-01", "dosage": [dose]}
+        out.append(r)
+    for n, (k, date) in enumerate(d["proc"], 1):
+        out.append({"resourceType": "Procedure", "id": "qhc-ps-proc-%02d-%d" % (i, n), "meta": {"profile": [PSP + "au-core-procedure"]},
+                    "status": "completed", "code": cc(SCT, *PROCS[k]), "subject": ref(pid), "performedDateTime": date})
+    for n, (k, val, date) in enumerate(d["labs"], 1):
+        code, disp, unit, ucum = LABS[k]
+        out.append({"resourceType": "Observation", "id": "qhc-ps-lab-%02d-%d" % (i, n), "meta": {"profile": [PSP + "au-core-diagnosticresult-path"]},
+                    "status": "final", "category": [cc(OBSCAT, "laboratory"), cc(SCT, "108252007", "Laboratory procedure")],
+                    "code": cc(LOINC, code, disp), "subject": ref(pid), "effectiveDateTime": date,
+                    "valueQuantity": {"value": val, "unit": unit, "system": UCUM, "code": ucum}})
+    for n, v in enumerate(d["vit"], 1):
+        base = {"resourceType": "Observation", "id": "qhc-ps-vit-%02d-%d" % (i, n), "status": "final",
+                "category": [cc(OBSCAT, "vital-signs")], "subject": ref(pid)}
+        if v[0] == "bp":
+            _, sy, di, date = v
+            base["meta"] = {"profile": [PSP + "au-core-bloodpressure"]}
+            base["code"] = {"coding": [cc(LOINC, "85354-9", "Blood pressure panel with all children optional")["coding"][0], {"system": SCT, "code": "75367002", "display": "Blood pressure"}]}
+            base["effectiveDateTime"] = date
+            base["component"] = [{"code": {"coding": [{"system": LOINC, "code": "8480-6", "display": "Systolic blood pressure"}, {"system": SCT, "code": "271649006", "display": "Systolic blood pressure"}]}, "valueQuantity": {"value": sy, "unit": "mm[Hg]", "system": UCUM, "code": "mm[Hg]"}},
+                                 {"code": {"coding": [{"system": LOINC, "code": "8462-4", "display": "Diastolic blood pressure"}, {"system": SCT, "code": "271650006", "display": "Diastolic blood pressure"}]}, "valueQuantity": {"value": di, "unit": "mm[Hg]", "system": UCUM, "code": "mm[Hg]"}}]
+        else:
+            _, hr, date = v
+            base["meta"] = {"profile": [PSP + "au-core-heartrate"]}
+            base["code"] = {"coding": [{"system": LOINC, "code": "8867-4", "display": "Heart rate"}, {"system": SCT, "code": "364075005", "display": "Heart rate"}]}
+            base["effectiveDateTime"] = date
+            base["valueQuantity"] = {"value": hr, "unit": "/min", "system": UCUM, "code": "/min"}
+        out.append(base)
+    return out
+
+
 if __name__ == "__main__":
     write("00-referrers.json", referrer_entries())
     write("01-schedules-slots.json", schedules_and_slots())
@@ -696,5 +907,7 @@ if __name__ == "__main__":
         for row in PATH_REQUESTS:
             if row[1] == i:
                 es += path_entries(row)
+        if i in PS_DATA:
+            es += ps_entries(i)
         write("patient-%02d.json" % i, es)
     print("written")

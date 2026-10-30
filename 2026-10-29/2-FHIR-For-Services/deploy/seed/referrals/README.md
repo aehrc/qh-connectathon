@@ -8,7 +8,7 @@ All people, organisations, identifiers and phone numbers are made up. **No real 
 |------|----------|
 | `00-referrers.json` | 6 referrer Organizations + Practitioner + PractitionerRole each, 4 pathology laboratory Organizations with 8 linked pathologists (Practitioner + PractitionerRole), all AU eRequesting profiles; plus the imaging fillers mirrored from the directory |
 | `01-schedules-slots.json` | 23 Schedules (7 imaging providers x modalities), 147 Slots (free slots 4-5 Nov 2026, busy slots behind appointments) |
-| `patient-01.json` .. `patient-20.json` | one transaction per patient: Patient, Condition/eGFR where relevant, ServiceRequest + Group Task + Referral Task per referral, Appointment where booked/fulfilled; plus the patient's AU eRequesting pathology orders (see below) |
+| `patient-01.json` .. `patient-20.json` | one transaction per patient: Patient, Condition/eGFR where relevant, ServiceRequest + Group Task + Referral Task per referral, Appointment where booked/fulfilled; plus the patient's AU eRequesting pathology orders (see below); 14 patients also carry clinical summary history (see `AU Patient Summary data` below) |
 | `generate.py` | deterministic generator (`python3 -I generate.py`); edit it, never the JSON, then regenerate |
 | `REVIEW.md` | review notes for Michael |
 
@@ -81,3 +81,43 @@ against [AU eRequesting](https://hl7.org.au/fhir/ereq/1.0.1/). Each order, in th
 The orders cover every Task state: requested, received, accepted, in-progress (specimen-collected,
 pathology-in-lab, preliminary-results), completed, on-hold, cancelled (request-cancelled-placer) and
 rejected (request-data-issue). Ids are `qhc-path-*`. Edit the `PATH_REQUESTS` table in `generate.py` to change them.
+
+## AU Patient Summary data (Patient/[id]/$summary)
+
+The referral server offers `Patient/[id]/$summary` (AU Patient Summary via the `hapi-fhir-au-ps` plugin on HAPI 8.12.0), so
+14 of the 20 patients carry clinical history for the generated document, chosen to fit their existing referrals and
+pathology orders (e.g. the patient with a pending INR is on warfarin, the TSH patients have hypothyroidism on levothyroxine).
+Defined in `PS_DATA` in `generate.py`; ids are `qhc-ps-{cond,alg,mr,ms,proc,lab,vit}-PP-N`, all `PUT`, existing resources unchanged.
+
+* Condition (`au-core-condition`, SNOMED CT-AU, active and resolved with `abatementDateTime`), AllergyIntolerance
+  (`au-core-allergyintolerance`; substance + reaction + severity, and `716186003 No known allergy` where sensible),
+  MedicationRequest (`au-core-medicationrequest`, AMT MPUU codes, dosage text/timing/route) and MedicationStatement (no profile), Procedure
+  (`au-core-procedure`, completed with `performedDateTime`), laboratory Observations (`au-core-diagnosticresult-path`, LOINC, UCUM units,
+  category `laboratory`) and vital signs (`au-core-bloodpressure`, `au-core-heartrate`).
+* Codes were checked against Ontoserver (SNOMED CT-AU, LOINC). The AMT codes are MPUU concepts, e.g. `23358011000036102` metformin 500 mg tablet.
+* The seeded bundles validate clean against AU Core 2.0.0 with `validate-referrals.py`; the only reports left are three that predate this data
+  (the IPS pregnancy-status profile is not in the pinned package set, and the `payconc` Coverage code).
+
+| Patient | Story | Allergies | Medications | Problems | Procedures | Results / vitals |
+|---|---|---|---|---|---|---|
+| 01 Mitchell-Voss | RUQ pain work-up | penicillin (rash) | perindopril, pantoprazole | hypertension, GORD (+ referral condition) | colonoscopy | ALT, creatinine (+ eGFR), BP |
+| 02 Raghunathan | type 2 diabetes | none known | metformin | T2DM, UTI (resolved) | | HbA1c, fasting glucose, HR |
+| 04 Ferrante | hyperlipidaemia | codeine (nausea) | atorvastatin | hyperlipidaemia | appendicectomy | cholesterol, LDL, HDL, triglycerides |
+| 05 O'Dwyer | knee osteoarthritis | sulfonamide (rash) | paracetamol, perindopril | OA, hypertension | knee arthroscopy | haemoglobin, BP |
+| 06 Tran | fatigue, iron deficiency | none known | iron + folic acid | IDA, pneumonia (resolved) | | haemoglobin, ferritin |
+| 07 Hollingworth | prostate / thyroid | aspirin (anaphylaxis) | tamsulosin | BPH | inguinal hernia repair | PSA |
+| 10 Nguyen | antenatal | none known | folic acid | normal pregnancy | | haemoglobin, BP |
+| 11 Patel | hypothyroidism | none known | levothyroxine | hypothyroidism, sinusitis (resolved) | | TSH |
+| 12 Whitlock | hypothyroidism | codeine (nausea) | levothyroxine | hypothyroidism | total knee replacement | TSH |
+| 13 Pascoe | T2DM, back pain | none known | metformin, gliclazide | T2DM, hypertension | lumbar discectomy | HbA1c, creatinine, BP |
+| 17 Maguire | AF on warfarin (DVA) | codeine (rash) | warfarin, paracetamol (statement) | AF, hypertension | cataract extraction | INR, HR |
+| 18 Al-Rashid | T2DM | none known | metformin, folic acid (statement) | T2DM | | HbA1c, fasting glucose |
+| 19 Brennan | asthma, dysuria | penicillin (rash) | salbutamol | asthma, UTI | tonsillectomy | haemoglobin, HR |
+| 20 Ibarra | chest pain | none known | pantoprazole | GORD | | haemoglobin, BP, HR |
+
+Patients 03, 08, 09, 14, 15 and 16 have no added history (they only get the generator's "no information" placeholder entries in $summary).
+
+Verified 2026-10-30 against the cluster image `hapiproject/hapi@sha256:d7f38d3...` (HAPI 8.12.0) with the plugin jar mounted and the AU Core 2.0.0 and
+eRequesting packages installed: all 20 patients return HTTP 200 from `Patient/[id]/$summary`. Sections returned for the patients with added data are
+Allergies and Intolerances, Medication List, Problem List, History of Procedures (where a procedure is seeded), Diagnostic Results, Vital Signs
+(where vitals are seeded) and History of Past Illness (resolved conditions).
