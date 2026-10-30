@@ -1,0 +1,117 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "t-f1",
+        "gender": "female",
+        "birthDate": "1960-01-01"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/t-f1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "t-hb-old",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/t-f1"
+        },
+        "effectiveDateTime": "2026-09-01",
+        "valueQuantity": {
+          "value": 112,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/t-hb-old"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "t-hb-new",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/t-f1"
+        },
+        "effectiveDateTime": "2026-10-20",
+        "valueQuantity": {
+          "value": 98,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/t-hb-new"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "t-m1",
+        "gender": "male",
+        "birthDate": "1958-05-05"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/t-m1"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Observation",
+        "id": "t-hb-m",
+        "status": "final",
+        "code": {
+          "coding": [
+            {
+              "system": "http://loinc.org",
+              "code": "718-7"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "Patient/t-m1"
+        },
+        "effectiveDateTime": "2026-10-21",
+        "valueQuantity": {
+          "value": 125,
+          "unit": "g/L",
+          "system": "http://unitsofmeasure.org",
+          "code": "g/L"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Observation/t-hb-m"
+      }
+    }
+  ]
+}

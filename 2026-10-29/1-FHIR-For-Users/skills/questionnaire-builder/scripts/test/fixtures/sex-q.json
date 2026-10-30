@@ -1,0 +1,136 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "sex-q",
+  "status": "draft",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-launchContext",
+      "extension": [
+        {
+          "url": "name",
+          "valueCoding": {
+            "system": "http://hl7.org/fhir/uv/sdc/CodeSystem/launchContext",
+            "code": "patient"
+          }
+        },
+        {
+          "url": "type",
+          "valueCode": "Patient"
+        }
+      ]
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "ObsHb",
+        "language": "application/x-fhir-query",
+        "expression": "Observation?code=http://loinc.org%7C718-7&patient={{%patient.id}}&_sort=-date&_count=1"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/variable",
+      "valueExpression": {
+        "name": "latestHb",
+        "language": "text/fhirpath",
+        "expression": "%ObsHb.entry.resource.first()"
+      }
+    }
+  ],
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "HbTemplate",
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://loinc.org",
+            "code": "718-7",
+            "display": "Hemoglobin [Mass/volume] in Blood"
+          }
+        ]
+      },
+      "subject": {
+        "_reference": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "%resource.subject.reference"
+            }
+          ]
+        }
+      },
+      "valueQuantity": {
+        "_value": {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+              "valueString": "item.where(linkId='hb').answer.value"
+            }
+          ]
+        },
+        "unit": "g/L",
+        "system": "http://unitsofmeasure.org",
+        "code": "g/L"
+      }
+    }
+  ],
+  "item": [
+    {
+      "linkId": "hb-group",
+      "type": "group",
+      "text": "Haemoglobin",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+          "extension": [
+            {
+              "url": "template",
+              "valueReference": {
+                "reference": "#HbTemplate"
+              }
+            }
+          ]
+        }
+      ],
+      "item": [
+        {
+          "linkId": "hb",
+          "type": "decimal",
+          "text": "Latest Hb (g/L)",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "%latestHb.value.value"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "linkId": "anaemic",
+      "type": "boolean",
+      "text": "Anaemic for their sex?",
+      "readOnly": true,
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "iif(%patient.gender = 'female', %latestHb.value.value < 120, %latestHb.value.value < 130)"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+          "valueExpression": {
+            "language": "text/fhirpath",
+            "expression": "iif(%patient.gender = 'female', %latestHb.value.value < 120, %latestHb.value.value < 130)"
+          }
+        }
+      ]
+    }
+  ]
+}

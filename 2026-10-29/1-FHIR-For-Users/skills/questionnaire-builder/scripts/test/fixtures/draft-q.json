@@ -1,0 +1,17 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "draft",
+  "status": "draft",
+  "item": [
+    {
+      "linkId": "name",
+      "type": "string",
+      "text": "Name"
+    },
+    {
+      "linkId": "ok",
+      "type": "boolean",
+      "text": "OK?"
+    }
+  ]
+}
