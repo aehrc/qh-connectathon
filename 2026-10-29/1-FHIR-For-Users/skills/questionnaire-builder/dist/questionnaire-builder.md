@@ -39,9 +39,8 @@ shared it, go straight to the draft (and see "Personal information" below).
 
 **Round 1: draft fast.** As soon as you have the form or list, map it straight across: items,
 types, answer lists, grouping, the obvious skips. No prepopulation or extraction yet. Show it
-(the file, plus a short outline in words) and how to open it ([`references/environments.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/environments.md)).
-Start the change log with every guess (unreadable text, guessed types). Then ask your first few
-questions.
+(see "Showing them each version" below), with a short outline in words. Start the change log
+with every guess (unreadable text, guessed types). Then ask your first few questions.
 
 **Then rounds**, each ending in a new version they can look at, with the change-log lines that
 round added:
@@ -57,6 +56,20 @@ Follow them if they want a different order. **Ask two or three questions at a ti
 the part of the form you're both looking at; a long list of questions about the whole form is
 another interview. When they say "you decide", decide, say what you chose, and log it as
 assumed.
+
+**Showing them each version.** If you can run code, start the preview once, in the background,
+and give them the link:
+
+```
+node scripts/preview.mjs <name>.questionnaire.json --data <name>.sample-data.json --answers <name>.answers.json
+```
+
+It opens the real Smart Forms renderer in their browser, already filled in for a test patient
+from the sample data (they pick which), with buttons to fill in the test answers and to see what
+would be written back. It reloads by itself whenever you save the files, so after each round just
+tell them it's updated and what to look at ("pick the 84-year-old: the sedative question is
+already ticked"). No server, nothing to paste. If you can't run code, give them the playground
+steps in [`references/environments.md`](https://github.com/aehrc/qh-connectathon/blob/main/2026-10-29/1-FHIR-For-Users/skills/questionnaire-builder/references/environments.md) instead.
 
 ## What to ask about
 
@@ -135,8 +148,9 @@ It lints the form and the sample data, evaluates every expression with the engin
 uses, prepopulates the form for **each** test patient, works out calculated items, applies the
 answers (skipping items the form hides for that patient), and extracts. Run it every round and
 fix every FAIL before showing a version. Read the per-patient lines back to the person in plain
-words: that's the demo. There's also an MCP server (`scripts/mcp-server.mjs`) with the same
-checks, and `scripts/load.mjs` to load or clean up sample data (dry run unless `--yes`).
+words, alongside the preview (see "Showing them each version"). There's also an MCP server
+(`scripts/mcp-server.mjs`) with the same checks, and `scripts/load.mjs` to load or clean up
+sample data (dry run unless `--yes`).
 
 **If you can't run code**, check by reading: every linkId unique; every `enableWhen` points at an
 existing item; every variable uses `http://hl7.org/fhir/StructureDefinition/variable`; every

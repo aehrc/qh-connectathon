@@ -47,7 +47,16 @@ node scripts/check.mjs form.json --data sample-data.json --answers answers.json
 ```
 
 prepopulates the form for each test patient and runs extraction, with the same libraries as the
-Smart Forms renderer, offline. `scripts/load.mjs` loads sample data to a FHIR server (only with
+Smart Forms renderer, offline.
+
+```
+node scripts/preview.mjs form.json --data sample-data.json --answers answers.json
+```
+
+opens the form in your browser in the real Smart Forms renderer, filled in for a test patient
+you pick, with what it would write back. It updates by itself each time the agent saves a new
+version. (It uses a prebuilt copy of the renderer in `scripts/preview-app/dist`; maintainers
+rebuild it with `npm run build-preview`.) `scripts/load.mjs` loads sample data to a FHIR server (only with
 `--yes`) and cleans it up again. `scripts/mcp-server.mjs` offers the same checks as an MCP
 server, for agents that use MCP:
 

@@ -31,7 +31,30 @@ Gotchas there: write `|` as `%7C`; Meld rejects resources with `meta.profile`; t
 playground (smartforms.csiro.au) can't reach Meld (a CORS header), the patched one above can;
 add `&_format=json` to open a search in a browser.
 
+## Showing a form: the local preview (default)
+
+If you can run code, this is how the person sees every version:
+
+```
+node scripts/preview.mjs form.json --data sample-data.json --answers answers.json [--user <id>]
+```
+
+It serves the real Smart Forms renderer (1.5.0) on `http://localhost:4173` and opens it. A
+picker chooses the test patient; the form is prepopulated for them from the sample data, with the
+same libraries as the playground, and their launch context (`%patient`, `%user`, `%encounter`)
+is passed to the renderer, so calculations and show/hide rules behave as in a real launch.
+**Fill in the test answers** adds the answers file; **What would be written back** runs
+extraction on the form as it stands, including anything they typed. It reloads when you save
+the files and keeps the chosen patient. No FHIR server is involved; answer lists and
+`memberOf()` still use the terminology server. Run it in the background and leave it running;
+`--port` if 4173 is taken, `--no-open` to just print the link.
+
+What it doesn't show: the target server's real data and search support (that's the playground,
+below), and a real SMART launch.
+
 ## Trying a form in the Smart Forms playground
+
+For checking against the target server's data, or when you can't run code:
 
 1. Open the playground. Settings (gear) → *Source FHIR Server URL*: the target server; validate
    with the **?** icon, then save.
@@ -48,7 +71,7 @@ The form can still be checked and shown:
 * **Offline check**: `node scripts/check.mjs form.json --data sample-data.json --answers answers.json`
   runs prepopulation and extraction against the sample data with the Smart Forms libraries,
   with no server.
-* **Looking at it**: the public playground (`https://smartforms.csiro.au/playground`) renders a
+* **Looking at it**: the local preview above. Without code execution, the public playground (`https://smartforms.csiro.au/playground`) renders a
   pasted Questionnaire. Its default server (`https://hapi.fhir.org/baseR4`) is public: you can load
   synthetic sample data there to see prepopulation, but anything there is visible to everyone
   and may be deleted at any time. Never put real data on it.
