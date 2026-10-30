@@ -161,9 +161,10 @@ What each answer changes:
   * An optional **MCP wrapper** around the same script, for agents that support MCP.
   * A load and cleanup script for the sample data and the Questionnaire. It runs only with the
     person's say-so.
-* **fhirpath-lab links for people:** where it helps, the skill gives the participant a
-  fhirpath-lab link holding the expression and a sample resource, so they can see why an item
-  fills in and experiment.
+* **No FHIRPath for people (Jim):** the person is never asked to write, read or edit FHIRPath.
+  The agent writes and checks every expression, and explains what an item fills in from in plain
+  words; that plain-words rule goes in the change log. (This replaces an earlier idea of giving
+  participants fhirpath-lab links.)
 * **Images (my call):** it assumes the agent can read images. If it can't, it asks the person to
   type out the form.
 * **Agents without skill-folder support (my call):** a generated single-file version

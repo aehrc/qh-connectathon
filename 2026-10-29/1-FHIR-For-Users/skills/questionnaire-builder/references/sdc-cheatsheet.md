@@ -25,7 +25,7 @@ silently: the variable just doesn't exist.
 9. Writing back only when asked to
 10. The person using the form: `%user`
 11. Gotchas
-12. Showing someone an expression: fhirpath-lab
+12. Explaining an expression to the person
 13. Codes used here, and how they were checked
 
 ## 1. Launch context: who and what the form is about
@@ -560,20 +560,13 @@ itself doesn't stop it in Smart Forms' extractor, sdc-template-extract 1.0.16.)
 * **linkIds** are forever: other things (expressions, templates, analytics) refer to them. Make
   them readable (`hb-date`, not `item-17`).
 
-## 12. Showing someone an expression: fhirpath-lab
+## 12. Explaining an expression to the person
 
-To let a person see why an item fills in, and try changes, give them a fhirpath-lab link with
-the expression, then ask them to paste the sample resource into its *Resource* box (or choose a
-resource on a server with `resource=Observation/<id>`):
-
-```
-https://fhirpath-lab.com/FhirPath?expression=<URL-encoded expression>
-```
-
-For example, `value.value` over one of the sample Observations:
-`https://fhirpath-lab.com/FhirPath?expression=value.value`. Press ▶ (it doesn't evaluate as you
-type). Expressions that use `%variables` need them filled in by hand; prefer showing the
-variable's own expression over the Bundle or resource it reads.
+The person never writes or reads FHIRPath: you write every expression and check it. Tell them,
+in their words, what an item fills in from and when ("your latest Hb result from the lab system,
+if there's one from the last 3 months"; "only shown for women aged 18 or over"), and log that
+plain-words rule in the change log. If a technical colleague asks to see an expression, show
+it then.
 
 ## 13. Codes used here, and how they were checked
 

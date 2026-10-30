@@ -99,6 +99,8 @@ first; this plan argues from it).
   SW1283 (Jim's test case; public, CC-licensed; committed under `evals/<case>/files/`).
 - Task 10 also packages a `.skill` file (`package_skill.py`) and sends it to Jim.
 - After Jim's review: offer description optimisation (`run_loop`).
+- (Jim) The person never writes, reads, edits or pastes FHIRPath, including into fhirpath-lab; the agent
+  explains rules in plain words. Supersedes the fhirpath-lab link step in Task 7.
 
 ## Review Focus
 
