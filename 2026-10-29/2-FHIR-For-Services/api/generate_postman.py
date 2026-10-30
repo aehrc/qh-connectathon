@@ -436,6 +436,41 @@ track = folder(
     ],
 )
 
+summary = folder(
+    "6 Patient summary",
+    "Stretch, test case P-01. The Referral Server produces an AU Patient Summary (AU PS) document on demand with "
+    "`Patient/[id]/$summary` (HAPI IPS module with the AU PS plugin). Seeded patients 01, 02, 04 to 07, 10 to 13 and 17 to 20 "
+    "carry conditions, allergies, medications, procedures and results; the others return placeholder sections.",
+    [
+        req("P-01 Patient summary (rich history)", "GET", f"{R}/Patient/qhc-pat-01/$summary",
+            "AU PS document for a seeded patient with history. The first call after a server restart can take around ten seconds.",
+            tests=[
+                "pm.test('AU PS document Bundle', () => {",
+                "  const b = pm.response.json();",
+                "  pm.expect(pm.response.code).to.eql(200);",
+                "  pm.expect(b.resourceType).to.eql('Bundle');",
+                "  pm.expect(b.type).to.eql('document');",
+                "  pm.expect(b.meta.profile).to.include('http://hl7.org.au/fhir/ps/StructureDefinition/au-ps-bundle');",
+                "  pm.expect(b.entry[0].resource.resourceType).to.eql('Composition');",
+                "});",
+                "pm.test('required sections and seeded history present', () => {",
+                "  const sections = pm.response.json().entry[0].resource.section.map(s => s.title);",
+                "  ['Allergies and Intolerances', 'Medication List', 'Problem List'].forEach(t => pm.expect(sections).to.include(t));",
+                "  const types = pm.response.json().entry.map(e => e.resource.resourceType);",
+                "  ['Condition', 'AllergyIntolerance', 'MedicationRequest'].forEach(t => pm.expect(types).to.include(t));",
+                "});",
+            ]),
+        req("P-01 Patient summary (no history: placeholders)", "GET", f"{R}/Patient/qhc-pat-03/$summary",
+            "A seeded patient with no clinical history: the required sections are still present, each with one generated 'no information' entry.",
+            tests=status_test(200, extra=[
+                "pm.test('required sections still present', () => {",
+                "  const sections = pm.response.json().entry[0].resource.section.map(s => s.title);",
+                "  ['Allergies and Intolerances', 'Medication List', 'Problem List'].forEach(t => pm.expect(sections).to.include(t));",
+                "});",
+            ])),
+    ],
+)
+
 cleanup = folder(
     "9 Clean up",
     "Deletes everything this run created, by id (the server refuses a conditional delete that matches more than one "
@@ -484,13 +519,13 @@ collection = {
             "Requests for the FHIR in Queensland Health Connectathon, Track 2 (FHIR for Services): "
             "discover an imaging service, create a referral, triage, book and track.\n\n"
             "1. Import this collection and one of the two environments.\n"
-            "2. Run the folders in order (1 to 5), or use the Collection Runner. Folder 9 cleans up what you created.\n"
+            "2. Run the folders in order (1 to 6; 6 is a stretch), or use the Collection Runner. Folder 9 cleans up what you created.\n"
             "3. Read the guide: https://aehrc.github.io/qh-connectathon/track2/QH-Track2-API-Guide.html\n\n"
             "All data is fictional. Pre-seeded ids (`qhd-*` directory, `qhc-*` referral) are used as defaults, so every "
             "folder also works on its own."),
         "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     },
-    "item": [directory, referral, triage, booking, track, cleanup],
+    "item": [directory, referral, triage, booking, track, summary, cleanup],
     "event": [{"listen": "prerequest", "script": {"type": "text/javascript", "exec": COLLECTION_PRE}}],
     "variable": [{"key": k, "value": v} for k, v in VARS.items()],
 }

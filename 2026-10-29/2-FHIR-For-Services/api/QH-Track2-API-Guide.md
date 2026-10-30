@@ -10,7 +10,7 @@ case (D-01 … S-01) from §7 of that document. All data is fictional.
 
 | File | What it is |
 |---|---|
-| [**QH-Track2.postman_collection.json**](downloads/QH-Track2.postman_collection.json) | Postman collection, 41 requests with tests, in scenario order |
+| [**QH-Track2.postman_collection.json**](downloads/QH-Track2.postman_collection.json) | Postman collection, 43 requests with tests, in scenario order |
 | [QH-Track2-public.postman_environment.json](downloads/QH-Track2-public.postman_environment.json) | Environment: the public `*.efiq.hospservices.net` servers |
 | [QH-Track2-incluster.postman_environment.json](downloads/QH-Track2-incluster.postman_environment.json) | Environment: in-cluster URLs, for frog-runner and anything running inside the cluster |
 | [**QH-Track2-frog-testscripts.zip**](downloads/QH-Track2-frog-testscripts.zip) | The fhir-frog test library: FHIR TestScripts and fixtures for this scenario (see [fhir-frog](#fhir-frog-conformance-tests)) |
@@ -28,7 +28,7 @@ newman run QH-Track2.postman_collection.json -e QH-Track2-public.postman_environ
 | Role | Public URL | Notes |
 |---|---|---|
 | **Provider Directory** (HCPD, read mostly) | `https://directory.efiq.hospservices.net/fhir` | Every request needs an `X-Request-ID: <UUID v4>` header. The collection sets it for you. |
-| **Referral Server** (referrals, tasks, booking) | `https://referrals.efiq.hospservices.net/fhir` | HAPI with the [Radiology Referral and Booking IG](https://aehrc.github.io/radiology-referral/), AU eRequesting and AU Core. Open, no auth. |
+| **Referral Server** (referrals, tasks, booking) | `https://referrals.efiq.hospservices.net/fhir` | HAPI with the [Radiology Referral and Booking IG](https://aehrc.github.io/radiology-referral/), AU eRequesting and AU Core, plus the AU Patient Summary `Patient/[id]/$summary` operation ([below](#patient-summary-au-ps-summary)). Open, no auth. |
 | **Referrer / filler UI** | `https://ui.efiq.hospservices.net` | Browser path of the track, same data. |
 | **Conformance (frog-runner)** | `https://conformance.efiq.hospservices.net` | Runs the fhir-frog TestScripts, see below. |
 
@@ -47,6 +47,7 @@ Folders 2 to 5 chain together: the ids created by one request are saved for the 
 | **3 Triage** | Step 3 | T-01, T-02 | Filler finds new Tasks; accept, put on hold with a coded reason, reject |
 | **4 Availability and booking** | Steps 4 and 5 | B-01 … B-04 | Publish Schedule and Slots, search free Slots, propose an Appointment, confirm it, cancel and rebook |
 | **5 Track status** | Step 6 | S-01 | Read the Task (`status` and `businessStatus`) and Appointments |
+| **6 Patient summary** (stretch) | | P-01 | `Patient/[id]/$summary` for a patient with history and for one without |
 | **9 Clean up** | | | Deletes what the run created |
 
 Every folder has working defaults pointing at the seeded data, so you can start anywhere. Seeded ids worth knowing:
@@ -60,6 +61,7 @@ Every folder has working defaults pointing at the seeded data, so you can start 
 | A referral with its eGFR | `ServiceRequest/qhc-sr-0001`, `Task/qhc-task-0001`, `Observation/qhc-egfr-0001` |
 | Schedule with free Slots (4 and 5 Nov 2026) | `Schedule/qhc-sched-f1-ct` for `HealthcareService/qhc-hcs-f1-ct` |
 | A booked Appointment | `Appointment/qhc-appt-0007` |
+| Patients with history for `$summary` (conditions, allergies, medications, procedures, results) | `Patient/qhc-pat-01`, `-02`, `-04` to `-07`, `-10` to `-13`, `-17` to `-20` |
 
 ## The requests in curl
 
@@ -87,7 +89,35 @@ curl "$REF/Slot?schedule.actor=HealthcareService/qhc-hcs-f1-ct&status=free"
 # S-01  track the referral
 curl "$REF/Task?focus=ServiceRequest/qhc-sr-0001"
 curl "$REF/Appointment?based-on=ServiceRequest/qhc-sr-0007"
+
+# P-01  AU Patient Summary document for a patient with history (stretch)
+curl "$REF/Patient/qhc-pat-01/\$summary"
 ```
+
+## Patient summary (AU PS `$summary`)
+
+The Referral Server can produce an [AU Patient Summary](https://build.fhir.org/ig/hl7au/au-fhir-ps/) document on demand
+(test case P-01, stretch). It is HAPI's built-in IPS module with the AU PS plugin
+([hapi-fhir-au-ps](https://gitlab.com/australian-e-health-research-centre/au-patient-summary/hapi-fhir-au-ps)), so a document
+is built from the patient's Conditions, AllergyIntolerances, MedicationRequests/Statements, Procedures and Observations.
+
+```bash
+curl "$REF/Patient/qhc-pat-01/\$summary"                       # by id
+curl "$REF/Patient/\$summary?identifier=<system>|<value>"       # by business identifier
+```
+
+The result is a `document` Bundle that declares `http://hl7.org.au/fhir/ps/StructureDefinition/au-ps-bundle`, with the
+Composition first. Sections you will see: Allergies and Intolerances, Medication List, Problem List (always present),
+and History of Procedures, Diagnostic Results, Vital Signs, History of Past Illness and Pregnancy Information when the
+patient has matching data. `qhc-pat-01` returns, for example, 1 allergy, 2 medications, 3 problems, 1 procedure, 3 results and 1 vital sign.
+
+- **Patients without history** (`qhc-pat-03`, `-08`, `-09`, `-15`, `-16`) still get the three required sections, each holding one
+  generated "no information" entry. The sections do not use `emptyReason`.
+- **The first call after a server restart takes about ten seconds**, later ones about half a second.
+- **Data you have just written can take up to a minute to show up.** HAPI reuses identical searches for 60 seconds, and
+  `$summary` runs searches internally.
+- **The server does not validate the document against the AU PS profiles.** The profile is declared in `meta.profile` only.
+  Relative references inside the document (for example `Composition.subject`) resolve to entries with absolute `fullUrl`s, which a strict validator flags.
 
 ## Things worth knowing
 
