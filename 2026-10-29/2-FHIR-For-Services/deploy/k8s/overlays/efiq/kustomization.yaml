@@ -86,7 +86,7 @@ patches:
 images:
   - name: localhost:32000/patient-referral:local
     newName: joernguysuess/patient-referral
-    digest: sha256:ce5390937e47e9c837af407e29ead02cd6e23eab65e0af7879c455d8748db739   # joernguysuess/patient-referral:1.0.1-54ff8b9 = mjosborne1/Patient-Referral v1.0.1 @ 54ff8b9
+    digest: sha256:80507299f158b307bdb47acbcef5eaee87b11561e2bb13c4893c20ad410bdbef   # joernguysuess/patient-referral:1.0.2-8a62a3c = mjosborne1/Patient-Referral v1.0.2 @ 8a62a3c
 
 secretGenerator:
   - name: db-secret
