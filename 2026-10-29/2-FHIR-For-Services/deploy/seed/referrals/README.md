@@ -96,7 +96,9 @@ Defined in `PS_DATA` in `generate.py`; ids are `qhc-ps-{cond,alg,mr,ms,proc,lab,
   category `laboratory`) and vital signs (`au-core-bloodpressure`, `au-core-heartrate`).
 * Codes were checked against Ontoserver (SNOMED CT-AU, LOINC). The AMT codes are MPUU concepts, e.g. `23358011000036102` metformin 500 mg tablet.
 * The seeded bundles validate clean against AU Core 2.0.0 with `validate-referrals.py`; the only reports left are three that predate this data
-  (the IPS pregnancy-status profile is not in the pinned package set, and the `payconc` Coverage code).
+  and are treated as known limitations by the script: the IPS pregnancy-status profile (`qhc-pregstatus-0013`) and the `payconc`
+  Coverage code (`qhc-cov-13`). The data is fine; the referral server does not have the `hl7.fhir.uv.ips` and `hl7.terminology.r4`
+  packages (AU eRequesting dependencies, `FETCHDEPENDENCIES=false`). Installing them is a post-event task.
 
 | Patient | Story | Allergies | Medications | Problems | Procedures | Results / vitals |
 |---|---|---|---|---|---|---|
