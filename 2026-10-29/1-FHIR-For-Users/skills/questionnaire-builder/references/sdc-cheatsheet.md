@@ -19,7 +19,7 @@ silently: the variable just doesn't exist.
 3. Picking a value: FHIRPath variables
 4. Filling an item: initialExpression
 5. Calculating: calculatedExpression
-6. Showing and hiding: enableWhen and enableWhenExpression
+6. Showing and hiding: enableWhen and enableWhenExpression; long forms in tabs
 7. Answer lists: answerOption or answerValueSet
 8. Writing back: template-based extraction
 9. Writing back only when asked to
@@ -362,6 +362,46 @@ condition), so the person isn't asked something the system already knows:
 ```
 
 Hidden items are left out of the response, so anything they would write back isn't written.
+
+### Long forms: tabs
+
+A long form (more than about 15 questions, or several sections) goes in tabs: one top-level
+group with the `tab-container` item control, and a group inside it for each section. Each inner
+group is a tab, its `text` the tab's name. Use the original's own sections (headings, numbered
+parts, pages) as the tabs; the demo form is laid out this way (abridged here):
+
+```json
+{
+  "linkId": "tabs",
+  "type": "group",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/questionnaire-item-control",
+            "code": "tab-container"
+          }
+        ]
+      }
+    }
+  ],
+  "item": [
+    { "linkId": "bloods", "type": "group", "text": "Latest bloods", "item": [ "..." ] },
+    { "linkId": "history", "type": "group", "text": "Iron and history", "item": [ "..." ] },
+    { "linkId": "plan", "type": "group", "text": "Diagnosis and plan", "item": [ "..." ] }
+  ]
+}
+```
+
+* A tab can have `enableWhen` / `enableWhenExpression` like any item: a "Maternity" tab only for
+  pregnant patients, a section only one user fills in.
+* Groups inside a tab show as headed sections within it.
+* Wrapping items in tabs doesn't change their linkIds; expressions that use `repeat(item)` still
+  find them. `check` warns (`long-no-tabs`) when a long form has sections but no tabs.
+* Smart Forms also supports `page` (one section per screen, with next/back). Prefer tabs: people
+  can see every section and move between them freely.
 
 ## 7. Answer lists: answerOption or answerValueSet
 

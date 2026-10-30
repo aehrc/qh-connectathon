@@ -25,7 +25,9 @@ they become prepopulated patient details, not questions.
 
 ## A scanned or photographed paper form (image or PDF)
 
-* Read it top to bottom; keep the form's order and section headings as groups.
+* Read it top to bottom; keep the form's order and section headings as groups. Headings,
+  numbered parts and separate pages are its sections: in a long form, each becomes a tab (see
+  the SDC cheat-sheet, section 6).
 * Each blank, box or tick list becomes an item: blank line → string or text; a box with units →
   decimal or integer with a unit; dd/mm/yy → date; a time → time or dateTime; tick list → choice
   (checkboxes if "tick all that apply"); yes/no → boolean.
@@ -53,7 +55,7 @@ Columns map like this:
 | REDCap column | Questionnaire |
 |---|---|
 | Variable / Field Name | `linkId` (keep it: their analyses use it) |
-| Form Name | top-level group per instrument |
+| Form Name | top-level group per instrument (several instruments: a tab each) |
 | Section Header | a group (or a `display` item) |
 | Field Type: text | string; with validation date_dmy/ymd → date, number/integer → decimal/integer, email/phone → string with a regex |
 | notes | text |

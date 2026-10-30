@@ -111,3 +111,18 @@ test('a free-text item about medicines, conditions, procedures, allergies or pat
   assert.deepEqual(lintQuestionnaire(q([{ linkId: 'a', type: 'choice', text: 'Current medications',
     answerValueSet: 'https://healthterminologies.gov.au/fhir/ValueSet/australian-medication-1' }])).warnings, []);
 });
+
+const tabControl = { url: 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl',
+  valueCodeableConcept: { coding: [{ system: 'http://hl7.org/fhir/questionnaire-item-control', code: 'tab-container' }] } };
+const questions = (prefix, n) => Array.from({ length: n }, (_, i) => ({ linkId: `${prefix}${i}`, type: 'string', text: `Q${i}` }));
+
+test('a long form with sections but no tabs or pages is a long-no-tabs warning', () => {
+  const sections = [
+    { linkId: 's1', type: 'group', text: 'One', item: questions('a', 9) },
+    { linkId: 's2', type: 'group', text: 'Two', item: questions('b', 9) },
+  ];
+  assert.deepEqual(codes(lintQuestionnaire(q(sections)).warnings), ['long-no-tabs']);
+  const tabbed = [{ linkId: 'tabs', type: 'group', extension: [tabControl], item: sections }];
+  assert.deepEqual(lintQuestionnaire(q(tabbed)).warnings, []);
+  assert.deepEqual(lintQuestionnaire(q(questions('c', 10))).warnings, []);
+});

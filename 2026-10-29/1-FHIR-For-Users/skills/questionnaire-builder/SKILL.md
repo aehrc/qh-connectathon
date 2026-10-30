@@ -39,7 +39,10 @@ to the AI provider, so this is the only step that protects the patient. If they'
 shared it, go straight to the draft (and see "Personal information" below).
 
 **Round 1: draft fast.** As soon as you have the form or list, map it straight across: items,
-types, answer lists, grouping, the obvious skips. No prepopulation or extraction yet. Show it
+types, answer lists, grouping, the obvious skips. Keep the original's sections, and if the form
+is long (more than about 15 questions, or several sections), make each section a **tab**: a
+long form on one scrolling page is hard to fill in and hard to review. Where the source has
+clear sections (headings, numbered parts, separate pages), use them as the tabs. No prepopulation or extraction yet. Show it
 (see "Showing them each version" below), with a short outline in words. Start the change log
 with every guess (unreadable text, guessed types). Then ask your first few questions.
 

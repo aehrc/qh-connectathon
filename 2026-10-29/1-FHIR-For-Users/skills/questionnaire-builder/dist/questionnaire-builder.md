@@ -38,7 +38,10 @@ to the AI provider, so this is the only step that protects the patient. If they'
 shared it, go straight to the draft (and see "Personal information" below).
 
 **Round 1: draft fast.** As soon as you have the form or list, map it straight across: items,
-types, answer lists, grouping, the obvious skips. No prepopulation or extraction yet. Show it
+types, answer lists, grouping, the obvious skips. Keep the original's sections, and if the form
+is long (more than about 15 questions, or several sections), make each section a **tab**: a
+long form on one scrolling page is hard to fill in and hard to review. Where the source has
+clear sections (headings, numbered parts, separate pages), use them as the tabs. No prepopulation or extraction yet. Show it
 (see "Showing them each version" below), with a short outline in words. Start the change log
 with every guess (unreadable text, guessed types). Then ask your first few questions.
 
@@ -237,6 +240,7 @@ that contradicts another).
 | "Nobody uses that" | Propose dropping it; log it as "to confirm with the form owner" |
 | "Go to question 12 if no" | `enableWhen`; the skip instruction disappears |
 | A fixed-size table | A repeating group (`repeats: true`), no row limit |
+| Several sections, numbered parts or pages | A tab per section (`tab-container`); ask whether any section is only for some patients or some users (a tab that shows only then) |
 | Free text that's really one of a few things | A coded choice, with an "other" escape if needed |
 | A blank for a medicine, condition, procedure, allergy, reaction or test | A coded answer from the national value set (sdc-cheatsheet section 7), autocomplete; free text only if they say so, logged |
 | A rule about a kind of thing ("on a sedative", "has dementia") | A value-set membership test (`memberOf`), never a list of codes or names; log the rule in plain words |
@@ -374,7 +378,9 @@ they become prepopulated patient details, not questions.
 
 ### A scanned or photographed paper form (image or PDF)
 
-* Read it top to bottom; keep the form's order and section headings as groups.
+* Read it top to bottom; keep the form's order and section headings as groups. Headings,
+  numbered parts and separate pages are its sections: in a long form, each becomes a tab (see
+  the SDC cheat-sheet, section 6).
 * Each blank, box or tick list becomes an item: blank line → string or text; a box with units →
   decimal or integer with a unit; dd/mm/yy → date; a time → time or dateTime; tick list → choice
   (checkboxes if "tick all that apply"); yes/no → boolean.
@@ -402,7 +408,7 @@ Columns map like this:
 | REDCap column | Questionnaire |
 |---|---|
 | Variable / Field Name | `linkId` (keep it: their analyses use it) |
-| Form Name | top-level group per instrument |
+| Form Name | top-level group per instrument (several instruments: a tab each) |
 | Section Header | a group (or a `display` item) |
 | Field Type: text | string; with validation date_dmy/ymd → date, number/integer → decimal/integer, email/phone → string with a regex |
 | notes | text |
@@ -514,7 +520,7 @@ silently: the variable just doesn't exist.
 3. Picking a value: FHIRPath variables
 4. Filling an item: initialExpression
 5. Calculating: calculatedExpression
-6. Showing and hiding: enableWhen and enableWhenExpression
+6. Showing and hiding: enableWhen and enableWhenExpression; long forms in tabs
 7. Answer lists: answerOption or answerValueSet
 8. Writing back: template-based extraction
 9. Writing back only when asked to
@@ -857,6 +863,46 @@ condition), so the person isn't asked something the system already knows:
 ```
 
 Hidden items are left out of the response, so anything they would write back isn't written.
+
+#### Long forms: tabs
+
+A long form (more than about 15 questions, or several sections) goes in tabs: one top-level
+group with the `tab-container` item control, and a group inside it for each section. Each inner
+group is a tab, its `text` the tab's name. Use the original's own sections (headings, numbered
+parts, pages) as the tabs; the demo form is laid out this way (abridged here):
+
+```json
+{
+  "linkId": "tabs",
+  "type": "group",
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl",
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/questionnaire-item-control",
+            "code": "tab-container"
+          }
+        ]
+      }
+    }
+  ],
+  "item": [
+    { "linkId": "bloods", "type": "group", "text": "Latest bloods", "item": [ "..." ] },
+    { "linkId": "history", "type": "group", "text": "Iron and history", "item": [ "..." ] },
+    { "linkId": "plan", "type": "group", "text": "Diagnosis and plan", "item": [ "..." ] }
+  ]
+}
+```
+
+* A tab can have `enableWhen` / `enableWhenExpression` like any item: a "Maternity" tab only for
+  pregnant patients, a section only one user fills in.
+* Groups inside a tab show as headed sections within it.
+* Wrapping items in tabs doesn't change their linkIds; expressions that use `repeat(item)` still
+  find them. `check` warns (`long-no-tabs`) when a long form has sections but no tabs.
+* Smart Forms also supports `page` (one section per screen, with next/back). Prefer tabs: people
+  can see every section and move between them freely.
 
 ### 7. Answer lists: answerOption or answerValueSet
 

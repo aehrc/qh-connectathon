@@ -52,6 +52,7 @@ that contradicts another).
 | "Nobody uses that" | Propose dropping it; log it as "to confirm with the form owner" |
 | "Go to question 12 if no" | `enableWhen`; the skip instruction disappears |
 | A fixed-size table | A repeating group (`repeats: true`), no row limit |
+| Several sections, numbered parts or pages | A tab per section (`tab-container`); ask whether any section is only for some patients or some users (a tab that shows only then) |
 | Free text that's really one of a few things | A coded choice, with an "other" escape if needed |
 | A blank for a medicine, condition, procedure, allergy, reaction or test | A coded answer from the national value set (sdc-cheatsheet section 7), autocomplete; free text only if they say so, logged |
 | A rule about a kind of thing ("on a sedative", "has dementia") | A value-set membership test (`memberOf`), never a list of codes or names; log the rule in plain words |

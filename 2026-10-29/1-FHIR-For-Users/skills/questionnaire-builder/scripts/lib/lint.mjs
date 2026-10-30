@@ -32,6 +32,13 @@ function listedLiterals(expression) {
   return Math.max(equals, inList, contains);
 }
 
+// More questions than this, in sections, is too long for one scrolling page.
+const LONG_FORM = 15;
+
+const hasItemControl = (item, code) => (item.extension || []).some((e) =>
+  e.url === 'http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl'
+  && e.valueCodeableConcept?.coding?.some((c) => c.code === code));
+
 function* references(node) {
   if (Array.isArray(node)) {
     for (const n of node) yield* references(n);
@@ -79,6 +86,14 @@ export function lintQuestionnaire(q) {
       warnings.push({ code: 'free-text-clinical', linkId: item.linkId,
         message: `"${item.linkId}" ("${item.text}") is free text; medicines, conditions, procedures, allergies and pathology should be coded answers from a value set.` });
     }
+  }
+
+  const questionCount = items.filter((i) => i.type !== 'group' && i.type !== 'display').length;
+  const sectionCount = items.filter((i) => i.type === 'group').length;
+  const navigable = items.some((i) => hasItemControl(i, 'tab-container') || hasItemControl(i, 'page'));
+  if (questionCount > LONG_FORM && sectionCount >= 2 && !navigable) {
+    warnings.push({ code: 'long-no-tabs',
+      message: `${questionCount} questions in ${sectionCount} sections on one long page; put the sections in tabs (a group with itemControl tab-container).` });
   }
 
   for (const expression of expressionsIn(q, 'text/fhirpath')) {
