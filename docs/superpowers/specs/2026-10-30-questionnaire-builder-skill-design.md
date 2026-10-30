@@ -91,6 +91,7 @@ These are territory for the agent, not a script to read out.
      * a chain, where one form's response prepopulates the next
    * Wording and reading level for each audience.
    * Which fields a given user mustn't edit.
+   * See also "How the form varies" below; varying by user is one case of it.
 3. **Upstream data: what exists, and its shape.**
    * Which systems already hold this information?
    * What shape is it in: AU Core, US Core/USCDI, a local FHIR profile, non-FHIR, or nothing?
@@ -105,6 +106,38 @@ These are territory for the agent, not a script to read out.
      QuestionnaireResponse is enough. When it is worthwhile, the answer decides which resources to
      write and in what shape, so they match what the consumer expects (for example AU Core
      Observation, Condition, MedicationRequest, or a registry's profile).
+
+### How the form varies (asked explicitly, across the strands)
+
+A paper form is one fixed shape for everybody. A Questionnaire can change with who is filling it
+in and who it's about, so the skill **asks directly** how the form should vary. It doesn't wait
+for the person to mention it. It looks for clues on the original, such as "females only",
+"children under 2: complete section C", "if pregnant", "doctor to complete", or crossed-out
+sections. It asks about variation along each of these:
+
+* **Who is using it:** patient, nurse, doctor, admin. Items shown, hidden, read-only, or worded
+  differently.
+* **Patient characteristics:** sex, age band (infant, child, adult, older adult), pregnancy, or a
+  known condition. For example, questions or sections that apply only to some patients, sex- or
+  age-specific thresholds (such as Hb cut-offs by sex in the PAM forms), or different answer
+  lists for children.
+* **Context:** setting or encounter type, and stage of care (first visit vs follow-up, before vs
+  after treatment).
+
+What each answer changes:
+
+* Where the characteristic is already in the patient's record (sex, birth date, active
+  conditions), it's prepopulated and drives the variation silently: `enableWhenExpression`,
+  calculated variables, thresholds in FHIRPath. The person isn't asked for something the system
+  knows. This ties into the upstream strand.
+* Where it isn't in the record, it becomes an explicit item early in the form, with `enableWhen`
+  depending on it.
+* Variation by user that can't be expressed in one form becomes the separate- or chained-forms
+  recommendation (see "More than one form").
+* The sample data covers the variation, for example one adult female and one adult male test
+  patient (or an infant, where age matters). The demo can then show the form behaving differently
+  for each.
+* Each variation, and the rule that drives it, goes in the change log.
 
 ## Format and where it runs (my call)
 
