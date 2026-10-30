@@ -41,13 +41,34 @@ function describe(r) {
   return code ? `${r.resourceType} (${code})` : r.resourceType;
 }
 
+// Put typed-in answers ({linkId: [answer, ...]}) into a populated response, creating the item (and its
+// groups) where the form has it but the response doesn't yet. Stands in for the person filling in the
+// form, so templates that depend on typed-in answers can be extracted.
+export function withAnswers(response, q, answers) {
+  const fill = (qItems, rItems) => {
+    const out = [];
+    for (const qi of qItems || []) {
+      const existing = (rItems || []).find((r) => r.linkId === qi.linkId);
+      const children = fill(qi.item, existing?.item);
+      const answer = answers[qi.linkId] ?? existing?.answer;
+      if (!answer && !children.length) continue;
+      const item = { ...(existing || { linkId: qi.linkId, text: qi.text }) };
+      if (answer) item.answer = answer;
+      if (children.length) item.item = children;
+      out.push(item);
+    }
+    return out;
+  };
+  return { ...response, item: fill(q.item, response.item) };
+}
+
 // Without --prefix, take the sample data's own prefix from its first Patient: "js-f1" -> "js-".
 function inferPrefix(bundle) {
   const id = bundle.entry?.find((e) => e.resource?.resourceType === 'Patient')?.resource.id ?? '';
   return id.includes('-') ? id.slice(0, id.indexOf('-') + 1) : id;
 }
 
-export async function checkAll({ questionnaire: q, sampleBundle, server, patientId, userId, prefix }) {
+export async function checkAll({ questionnaire: q, sampleBundle, server, patientId, userId, prefix, answers }) {
   const sections = [];
   const add = (name, lines) => sections.push({ name, pass: !lines.some((l) => l.startsWith('FAIL')), lines });
 
@@ -100,7 +121,8 @@ export async function checkAll({ questionnaire: q, sampleBundle, server, patient
     for (const i of r.issues) pop.push(`WARN ${patient.id}: ${i.diagnostics ?? i.details?.text}`);
 
     if (extracts) {
-      const qr = { ...r.response, subject: r.response.subject ?? { reference: `Patient/${patient.id}` } };
+      const filledIn = answers ? withAnswers(r.response, q, answers) : r.response;
+      const qr = { ...filledIn, subject: filledIn.subject ?? { reference: `Patient/${patient.id}` } };
       const x = await runExtract(qr, q);
       ext.push(x.ok ? `PASS ${patient.id}: ${x.resources.length ? x.resources.map(describe).join(', ') : 'no resources'}`
         : `FAIL ${patient.id}: extraction failed`);

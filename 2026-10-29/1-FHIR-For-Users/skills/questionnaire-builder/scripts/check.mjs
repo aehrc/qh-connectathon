@@ -2,7 +2,10 @@
 // Check a Questionnaire: structure, expressions, and population and extraction for each test patient.
 //
 //   node check.mjs <questionnaire.json> [--data sample.json | --server <base>]
-//                  [--patient <id>] [--user <id>] [--prefix <p>] [--json]
+//                  [--patient <id>] [--user <id>] [--prefix <p>] [--answers answers.json] [--json]
+//
+// answers.json: {"<linkId>": [{"valueString": "..."}], ...}, added to each prepopulated response before
+// extraction, standing in for what the person types in.
 //
 // Exits 0 if nothing failed, 1 otherwise.
 import { readFileSync } from 'node:fs';
@@ -27,8 +30,8 @@ const flag = (name) => {
   return i >= 0 ? args.splice(i, 2)[1] : undefined;
 };
 const json = args.includes('--json') && args.splice(args.indexOf('--json'), 1);
-const opts = { data: flag('--data'), server: flag('--server'), patientId: flag('--patient'), userId: flag('--user'), prefix: flag('--prefix') };
-if (args.length !== 1) fail('Usage: node check.mjs <questionnaire.json> [--data sample.json | --server <base>] [--patient id] [--user id] [--prefix p] [--json]');
+const opts = { data: flag('--data'), server: flag('--server'), patientId: flag('--patient'), userId: flag('--user'), prefix: flag('--prefix'), answers: flag('--answers') };
+if (args.length !== 1) fail('Usage: node check.mjs <questionnaire.json> [--data sample.json | --server <base>] [--patient id] [--user id] [--prefix p] [--answers answers.json] [--json]');
 
 const report = await checkAll({
   questionnaire: readJson(args[0]),
@@ -37,6 +40,7 @@ const report = await checkAll({
   patientId: opts.patientId,
   userId: opts.userId,
   prefix: opts.prefix,
+  answers: opts.answers ? readJson(opts.answers) : undefined,
 });
 
 if (json) {

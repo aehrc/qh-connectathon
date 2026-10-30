@@ -49,10 +49,16 @@ test('extraction writes one Hb Observation for the patient, and warns about the 
   response.subject = { reference: 'Patient/t-f1' };
   const r = await runExtract(response, q);
   assert.equal(r.ok, true);
-  const hb = r.resources.filter((x) => x.resourceType === 'Observation');
+  const hb = r.resources.filter((x) => x.code?.coding?.[0]?.code === '718-7');
   assert.equal(hb.length, 1);
   assert.equal(hb[0].code.coding[0].code, '718-7');
   assert.equal(hb[0].valueQuantity.value, 98);
   assert.equal(hb[0].subject.reference, 'Patient/t-f1');
   assert.deepEqual(r.warnings.map((w) => [w.code, w.path]), [['empty-template', 'EmptyTemplate']]);
+});
+
+test('a template on an item nobody answered is not reported as empty', async () => {
+  const { response } = await runPopulate(q, { fetchFn: makeLocalFetch(data), patient });
+  const r = await runExtract({ ...response, subject: { reference: 'Patient/t-f1' } }, q);
+  assert.ok(!r.warnings.some((w) => w.path === 'OptionalTemplate'), JSON.stringify(r.warnings));
 });

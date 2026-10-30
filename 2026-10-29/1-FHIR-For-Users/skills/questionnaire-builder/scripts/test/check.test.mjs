@@ -59,3 +59,15 @@ test('the CLI prints the report and exits 0 on a pass', () => {
   const out = execFileSync('node', [cli, path('sex-q.json'), '--data', path('sex-data.json'), '--prefix', 't-']).toString();
   assert.match(out, /PASS/);
 });
+
+test('answers are added to each populated response before extraction', async () => {
+  const r = await checkAll({ questionnaire: load('pop-q.json'), sampleBundle: load('pop-data.json'), prefix: 't-',
+    answers: { optional: [{ valueString: 'typed in' }] } });
+  assert.match(text(r), /PASS t-f1: .*Observation \(optional\)/);
+  assert.doesNotMatch(text(r), /OptionalTemplate/);
+});
+
+test('the CLI takes --answers from a file', () => {
+  const out = execFileSync('node', [cli, path('pop-q.json'), '--data', path('pop-data.json'), '--answers', path('pop-answers.json')]).toString();
+  assert.match(out, /Observation \(optional\)/);
+});

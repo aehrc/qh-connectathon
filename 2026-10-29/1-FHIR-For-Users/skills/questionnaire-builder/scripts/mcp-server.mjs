@@ -32,7 +32,8 @@ server.registerTool('evaluate_fhirpath', {
 
 server.registerTool('check_questionnaire', {
   description: 'Check a Questionnaire: structure, every FHIRPath expression, and population and template extraction '
-    + 'for each Patient in the sample transaction Bundle (offline) or against a FHIR server base URL.',
+    + 'for each Patient in the sample transaction Bundle (offline) or against a FHIR server base URL. '
+    + 'answers ({linkId: [answer]}) stand in for what the person types in before extraction.',
   inputSchema: {
     questionnaire: z.record(z.string(), z.any()),
     sampleBundle: z.record(z.string(), z.any()).optional(),
@@ -40,6 +41,7 @@ server.registerTool('check_questionnaire', {
     patientId: z.string().optional(),
     userId: z.string().optional(),
     prefix: z.string().optional(),
+    answers: z.record(z.string(), z.array(z.any())).optional(),
   },
 }, async (args) => reply(await checkAll(args)));
 

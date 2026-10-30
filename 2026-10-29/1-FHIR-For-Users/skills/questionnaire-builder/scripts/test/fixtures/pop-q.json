@@ -91,6 +91,22 @@
           ]
         }
       }
+    },
+    {
+      "resourceType": "Observation",
+      "id": "OptionalTemplate",
+      "status": "final",
+      "code": {
+        "text": "optional"
+      },
+      "_valueString": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtractValue",
+            "valueString": "item.where(linkId='optional').answer.value"
+          }
+        ]
+      }
     }
   ],
   "item": [
@@ -149,7 +165,41 @@
         {
           "linkId": "note",
           "type": "string",
-          "text": "Note"
+          "text": "Note",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/fhirpath",
+                "expression": "'no notes'"
+              }
+            }
+          ]
+        },
+        {
+          "linkId": "unanswered-group",
+          "type": "group",
+          "text": "Only when asked",
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-templateExtract",
+              "extension": [
+                {
+                  "url": "template",
+                  "valueReference": {
+                    "reference": "#OptionalTemplate"
+                  }
+                }
+              ]
+            }
+          ],
+          "item": [
+            {
+              "linkId": "optional",
+              "type": "string",
+              "text": "Optional"
+            }
+          ]
         }
       ]
     }

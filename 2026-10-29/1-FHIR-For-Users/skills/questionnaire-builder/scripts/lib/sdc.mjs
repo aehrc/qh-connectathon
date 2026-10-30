@@ -42,21 +42,48 @@ async function extract(qr, q) {
   return { ok: true, resources: (extractResult.extractedBundle.entry || []).map((e) => e.resource), issues: [] };
 }
 
-// Which templates (by contained id) are attached to items or to the root.
-function templateIds(q) {
-  const ids = [];
-  const fromExtensions = (exts) => {
+// Which templates (by contained id) are attached, and to which item (null: the root).
+function attachments(q) {
+  const out = [];
+  const fromExtensions = (exts, linkId) => {
     for (const e of exts || []) {
       if (e.url !== TEMPLATE_EXTRACT) continue;
       const ref = e.extension?.find((x) => x.url === 'template')?.valueReference?.reference;
-      if (ref) ids.push(ref.replace(/^#/, ''));
+      if (ref) out.push({ id: ref.replace(/^#/, ''), linkId });
     }
   };
-  const walk = (items) => items?.forEach((i) => { fromExtensions(i.extension); walk(i.item); });
-  fromExtensions(q.extension);
+  const walk = (items) => items?.forEach((i) => { fromExtensions(i.extension, i.linkId); walk(i.item); });
+  fromExtensions(q.extension, null);
   walk(q.item);
-  return ids;
+  return out;
 }
+
+function answered(items, linkId) {
+  for (const i of items || []) {
+    if (linkId === null || i.linkId === linkId) {
+      const has = (it) => it.answer?.length || it.item?.some(has) || it.answer?.some((a) => a.item?.some(has));
+      if (has(i)) return true;
+    }
+    if (answered(i.item, linkId) || i.answer?.some((a) => answered(a.item, linkId))) return true;
+  }
+  return false;
+}
+
+// The template with its templateExtract* instructions taken out: what it gives if no value is filled in.
+function fixedPart(node) {
+  if (Array.isArray(node)) return node.map(fixedPart).filter((v) => v !== undefined);
+  if (!node || typeof node !== 'object') return node;
+  const out = {};
+  for (const [k, v] of Object.entries(node)) {
+    if (k === 'id' || k === 'extension') continue;
+    const kept = fixedPart(v);
+    const empty = kept === undefined || (typeof kept === 'object' && Object.keys(kept).length === 0);
+    if (!empty) out[k] = kept;
+  }
+  return Object.keys(out).length ? out : undefined;
+}
+
+const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 // A copy of the form with only one template left attached.
 function onlyTemplate(q, keep) {
@@ -72,17 +99,22 @@ function onlyTemplate(q, keep) {
   return copy;
 }
 
-// A template that yields nothing usually means its templateExtractValue paths match no answers
-// (a wrong linkId, or a path written from the wrong item), so each one is extracted on its own.
+// A template whose item was answered but which filled in none of its values usually has
+// templateExtractValue paths that match no answers (a wrong linkId, or a path written from the wrong
+// item). Each answered template is extracted on its own to find those. Templates on unanswered items
+// are skipped: producing nothing there is normal (e.g. a Condition only written when "yes" is ticked).
 export async function runExtract(qr, q) {
   const all = await extract(qr, q);
   const warnings = all.issues.map((i) => ({ code: 'extract-issue', message: i.diagnostics || i.details?.text || JSON.stringify(i) }));
   if (all.ok) {
-    for (const id of templateIds(q)) {
+    for (const { id, linkId } of attachments(q)) {
+      if (!answered(qr.item, linkId)) continue;
+      const template = q.contained?.find((c) => c.id === id);
       const one = await extract(qr, onlyTemplate(q, id));
-      if (!one.ok || one.resources.length === 0) {
+      const filled = one.resources.some((r) => !same(fixedPart(r), fixedPart(template)));
+      if (!one.ok || !filled) {
         warnings.push({ code: 'empty-template', path: id,
-          message: `Template ${id} produced nothing: its paths may not match any answers.` });
+          message: `Template ${id} filled in none of its values${linkId ? ` from "${linkId}"` : ''}: its paths may not match any answers.` });
       }
     }
   }
