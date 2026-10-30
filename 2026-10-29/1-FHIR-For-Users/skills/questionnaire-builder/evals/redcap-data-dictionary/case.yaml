@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: redcap-data-dictionary
+expected_outcome: |
+  A structure-only first version of the instrument as a Questionnaire, keeping REDCap's variable
+  names as linkIds, turning branching logic into enableWhen, keeping choices as coded options
+  without inventing standard codes, plus a short set of questions (including how the form varies)
+  and a started change log.
+context:
+  scaffold_script: place-files.sh

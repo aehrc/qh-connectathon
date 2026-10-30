@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: ptss-form-c-fast-forward
+expected_outcome: |
+  A complete Questionnaire, sample data, answers and change log: section A and the specialist's
+  details filled from the record and the logged-in user, the page-2 table as one repeating group,
+  conditional questions as enableWhen, no write-back templates (the completed form is what's
+  needed), the duplicated Part A/Part B heading flagged to confirm.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: sepsis-pathway-pdf
+expected_outcome: |
+  A first reply with a structure-only draft of the two-page pathway (not the four pages of
+  prescribing guidance), the label area treated as record data, the screening and risk flow as
+  conditional logic, and a few plain-language questions, including about the form's variations
+  (maternity, regional versions).
+context:
+  scaffold_script: place-files.sh

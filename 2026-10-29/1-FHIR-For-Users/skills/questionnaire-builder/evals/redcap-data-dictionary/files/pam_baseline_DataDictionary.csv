@@ -1,0 +1,15 @@
+Variable / Field Name,Form Name,Section Header,Field Type,Field Label,"Choices, Calculations, OR Slider Labels",Field Note,Text Validation Type OR Show Slider Number,Text Validation Min,Text Validation Max,Identifier?,Branching Logic (Show field only if...),Required Field?,Custom Alignment,Question Number (surveys only),Matrix Group Name,Matrix Ranking?,Field Annotation
+record_id,baseline,,text,Record ID,,,,,,,,,,,,,
+pam_urn,baseline,Patient,text,Hospital URN,,,,,,y,,y,,,,,
+pam_dob,baseline,,text,Date of birth,,,date_dmy,,,y,,y,,,,,
+pam_sex,baseline,,radio,Sex,"1, Male | 2, Female | 3, Other / not stated",,,,,,,y,,,,,
+pam_pregnant,baseline,,yesno,Currently pregnant?,,,,,,,[pam_sex] = '2',,,,,,
+pam_height,baseline,Measurements,text,Height (cm),,,number,100,230,,,,,,,,
+pam_weight,baseline,,text,Weight (kg),,,number,30,250,,,,,,,,
+pam_bmi,baseline,,calc,BMI,"round([pam_weight]/(([pam_height]/100)^2),1)",,,,,,,,,,,,@READONLY
+pam_hb,baseline,Bloods,text,Haemoglobin (g/L),,,integer,30,250,,,y,,,,,
+pam_ferritin,baseline,,text,Ferritin (ug/L),,,integer,0,5000,,,,,,,,
+pam_surgery,baseline,Surgery,dropdown,Planned surgery type,"1, Orthopaedic | 2, Cardiac | 3, General / colorectal | 4, Gynaecology | 5, Urology | 6, Other",,,,,,,,,,,,
+pam_comorbid,baseline,,checkbox,Comorbidities (tick all that apply),"1, Chronic kidney disease | 2, Heart failure | 3, Inflammatory bowel disease | 4, Cancer | 5, None of these",,,,,,,,,,,,
+pam_iron_route,baseline,Treatment,radio,Iron given,"0, None | 1, Oral | 2, Intravenous",,,,,,,,,,,,
+pam_iv_iron_date,baseline,,text,Date of IV iron,,,date_dmy,,,,[pam_iron_route] = '2',,,,,,

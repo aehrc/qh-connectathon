@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: falls-risk-list-fast-forward
+expected_outcome: |
+  A complete Questionnaire, sample data, answers and change log: age and sex from the record,
+  sedatives and cognitive impairment prepopulated from MedicationRequest and Condition where
+  possible, the score as a read-only calculation including the over-65 point, a high-risk record
+  written back only when the score is 3 or more, sample patients that differ in risk, no invented
+  codes.
