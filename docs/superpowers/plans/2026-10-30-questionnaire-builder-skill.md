@@ -80,6 +80,26 @@ first; this plan argues from it).
 - Non-goals: a renderer, REDCap export, authoring new value sets or CodeSystems, CQL,
   definition-based or StructureMap extraction.
 
+## Amendments (skill-creator guidance, adopted mid-run)
+
+- Folder is `references/` (skill-creator anatomy), not `reference/`.
+- `description` is deliberately "pushy" (lists contexts: paper/scanned form, web form screenshot, REDCap,
+  list of questions, FHIR Questionnaire, SDC, prepopulation, extraction, Smart Forms), and the body
+  explains *why* rather than stacking MUSTs.
+- Task 11 uses skill-creator's eval loop: test cases as `S/evals/<case>/` (prompt.md, case.yaml,
+  graders/, files/ per skill-creator `references/schemas.md`); runs with-skill and without-skill
+  (baseline) in parallel; results in a git-ignored `questionnaire-builder-workspace/iteration-N/`;
+  grade, `aggregate_benchmark`, and open `eval-viewer/generate_review.py` for Jim to review before
+  revising. Two kinds of case, because the skill is a conversation and an eval run gets one turn:
+  *first-reply* cases (what the opening reply does: PII check, a draft, a few questions, variation
+  asked) and *fast-forward* cases (the prompt supplies the participant's answers up front; graders
+  check the artifacts: `check` passes, population differs by patient, extraction yields the
+  resources, change log entries).
+- Cases: (a) scan with PII, (b) REDCap dictionary, (c) plain list, (d) the QH Adult Sepsis Pathway
+  SW1283 (Jim's test case; public, CC-licensed; committed under `evals/<case>/files/`).
+- Task 10 also packages a `.skill` file (`package_skill.py`) and sends it to Jim.
+- After Jim's review: offer description optimisation (`run_loop`).
+
 ## Review Focus
 
 1. **A round-1 draft with no prepopulation or extraction.** `check` must report "nothing to
@@ -102,9 +122,9 @@ first; this plan argues from it).
 
 ```
 S/
-  SKILL.md                      flow, strands, rules; points into reference/
+  SKILL.md                      flow, strands, rules; points into references/
   README.md                     what it is; install (Claude Code, claude.ai, other agents); scripts
-  reference/
+  references/
     starting-points.md          reading scans, screenshots, REDCap dictionaries, lists
     probing.md                  four strands + variation: questions and what each answer changes
     sdc-cheatsheet.md           SDC patterns with snippets (verified by snippets/ + check)
@@ -163,12 +183,12 @@ S/
   - `meta.profile` present on the Questionnaire or any contained template → warning
     `meta-profile`
   - `lintBundle` with an entry id not starting with the prefix → error `id-prefix`
-  - `lintBundle` with an entry id, or any `reference`, matching `/^(Patient\/)?pam-(\d{3}|demo)$/`
+  - `lintBundle` with an entry id, or any `references`, matching `/^(Patient\/)?pam-(\d{3}|demo)$/`
     → error `shared-patient`
   - `lintBundle` with `type !== 'transaction'`, or a non-PUT request → error `bundle-shape`
 - [ ] **Step 3:** Run `npm test`. Expected: FAIL (module not found).
 - [ ] **Step 4:** Implement `lib/lint.mjs`. Walk items recursively. Find references by walking
-  every object key named `reference`.
+  every object key named `references`.
 - [ ] **Step 5:** Run `npm test`. Expected: all lint tests PASS.
 - [ ] **Step 6: Commit** `skill toolkit: package and lint`.
 
@@ -338,9 +358,9 @@ S/
 
 **Files:**
 - Create:
-  - `S/reference/sdc-cheatsheet.md`, `S/reference/upstream-shapes.md`
-  - `S/reference/environments.md`, `S/reference/sample-data.md`
-  - `S/reference/snippets/demo-questionnaire.json`, `S/reference/snippets/demo-sample-data.json`
+  - `S/references/sdc-cheatsheet.md`, `S/references/upstream-shapes.md`
+  - `S/references/environments.md`, `S/references/sample-data.md`
+  - `S/references/snippets/demo-questionnaire.json`, `S/references/snippets/demo-sample-data.json`
   - `S/scripts/test/snippets.test.mjs`
 
 **Interfaces:**
@@ -396,8 +416,8 @@ S/
 ### Task 8: Probing guide, starting points, change log, SKILL.md, README
 
 **Files:**
-- Create: `S/reference/probing.md`, `S/reference/starting-points.md`,
-  `S/reference/change-log-template.md`, `S/SKILL.md`, `S/README.md`
+- Create: `S/references/probing.md`, `S/references/starting-points.md`,
+  `S/references/change-log-template.md`, `S/SKILL.md`, `S/README.md`
 
 **Interfaces:**
 - Consumes: the reference files from Task 7 (by path).
@@ -490,7 +510,7 @@ S/
   `S/dist/questionnaire-builder.md`
 
 **Interfaces:**
-- Consumes: `SKILL.md` and `reference/*.md`.
+- Consumes: `SKILL.md` and `references/*.md`.
 - Produces: `dist/questionnaire-builder.md`. It contains the `SKILL.md` body (no frontmatter),
   then `probing.md`, `starting-points.md`, `change-log-template.md` and `sdc-cheatsheet.md`
   inline, under headings. Links to other reference files become links to GitHub `main`
@@ -500,7 +520,7 @@ S/
 - [ ] **Step 1: Write a failing test.**
   - The output starts with the generated-file header.
   - It contains every `##` heading of `SKILL.md`.
-  - It has no relative `reference/` links left.
+  - It has no relative `references/` links left.
   - Re-running produces identical output.
   - The committed `dist` file equals the fresh build, so CI catches drift.
 - [ ] **Step 2:** Run → FAIL. **Step 3:** Implement. Add an npm script `build`. **Step 4:** Run →
@@ -511,7 +531,7 @@ S/
 
 **Files:**
 - Create: `S/scripts/test/behaviour/` with `scenarios.md` and `results.md`
-- Modify: `SKILL.md`, `reference/*`, as the results require
+- Modify: `SKILL.md`, `references/*`, as the results require
 
 - [ ] **Step 1: Write `scenarios.md`.** Three scenarios. For each, a role-played participant
   brief and pass criteria, taken from the spec.
