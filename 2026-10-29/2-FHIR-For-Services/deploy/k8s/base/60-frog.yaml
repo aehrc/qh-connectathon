@@ -38,7 +38,21 @@ spec:
               rm -rf /bundles/*
               cp -r /tmp/x/*/2026-10-29/2-FHIR-For-Services/deploy/frog-tests/* /bundles/
               ls -R /bundles | head -30
-          volumeMounts: [ { name: bundles, mountPath: /bundles } ]
+              # Also publish the bundles as FHIR test packages in the runner's package cache. The web UI's "Test suite"
+              # box lists cached packages (it cannot start a bundlePath), so without this the UI shows nothing to pick.
+              # The runner lists a package only if its TestScripts are named TestScript-*.json, as an IG build names them.
+              mkpkg() { # id title description source-dir [dependency-id dependency-version]
+                d="/root/.fhir/packages/$1#0.1.0"; src="$4"
+                rm -rf "$d"; mkdir -p "$d/package"
+                for f in "$src"/*.json; do cp "$f" "$d/package/TestScript-$(basename "$f")"; done
+                [ -d "$src/fixtures" ] && cp "$src"/fixtures/*.json "$d/package/"
+                deps='{}'; [ -n "$5" ] && deps="{\"$5\":\"$6\"}"
+                echo "{\"name\":\"$1\",\"version\":\"0.1.0\",\"type\":\"IG\",\"fhirVersions\":[\"4.0.1\"],\"canonical\":\"http://aehrc.csiro.au/fhir/qh-connectathon/track2/${1#qh.track2-}\",\"title\":\"$2\",\"description\":\"$3\",\"dependencies\":$deps}" > "$d/package/package.json"
+              }
+              mkpkg qh.track2-directory-tests "QH Track 2: directory tests" "Provider directory discovery (scenario step 1)" /bundles/scenario1/step1
+              mkpkg qh.track2-referral-tests "QH Track 2: referral tests" "Referral create, triage and track (scenario steps 2-6)" /bundles/scenario1-referral hl7.fhir.au.ereq 1.0.1
+              ls /root/.fhir/packages
+          volumeMounts: [ { name: bundles, mountPath: /bundles }, { name: cache, mountPath: /root/.fhir } ]
           resources:
             requests: { cpu: "50m", memory: "64Mi" }
             limits:   { cpu: "500m", memory: "256Mi" }

@@ -236,6 +236,48 @@ Techniques worth knowing:
 - **Resources**: explicit CPU and memory limits on every container (referral HAPI 3 CPU / 4 Gi, directory 2 / 3 Gi, Postgres 1.5, UI 0.5, banner 0.25, frog 1).
 - **Persistence**: one Postgres PVC; nothing is backed up. Export data before teardown (decision G4).
 
+### 6a. AU Patient Summary plugin on the referral HAPI (`Patient/[id]/$summary`)
+
+Only deployment `fhir` changes (the `directory` deployment and every overlay are otherwise byte-identical; see the render diff in the commit message of the manifest commit).
+`deploy/plugins/hapi-fhir-au-ps-0.1.0.jar` (7 KB, sha256 in `deploy/plugins/SHA256SUMS`) is delivered like the IG tarballs: an `alpine` initContainer
+(`au-ps-plugin`, same image as the frog initContainer, digest-pinned by the base `images:` block) downloads it from `raw.githubusercontent.com` at a pinned
+commit SHA, verifies the sha256 (a mismatch fails the init container and the pod stays out of service), and writes it to an `emptyDir` that the `hapi`
+container mounts read-only at `/app/extra-classes`. Settings added: `HAPI_FHIR_CUSTOM_BEAN_PACKAGES=au.csiro.aehrc.aups`, `HAPI_FHIR_IPS_ENABLED=true`.
+`LOADER_PATH` is deliberately not set: the image entrypoint is `java -Dloader.path=main.war!/WEB-INF/classes/,main.war!/WEB-INF/,/app/extra-classes ...PropertiesLauncher`,
+so `/app/extra-classes` is already on the loader path and the `-D` property outranks the env var. Tested on the exact image digest: with the jar on the volume and
+no `LOADER_PATH`, `/metadata` lists `summary` on Patient and `Patient/[id]/$summary` returns an AU PS Bundle; without the two `HAPI_FHIR_*` settings (jar mounted)
+there is no `summary` operation, so both settings are required. Pinning sequence (jar commit first, manifest second): `deploy/plugins/README.md`.
+Note: the jar carries its own `application.yaml` (ips_enabled, custom-bean-packages, and an `implementationguides` block for hl7.fhir.au.ps 1.0.0 and
+au.core 1.0.0). The stock image's own `application.yaml` and the env vars still apply, whether that block is honoured was not checked (the local run had a working `$summary` and the three error lines in its log were not examined); if it takes effect, HAPI would try to fetch those packages from packages.fhir.org at boot. Check the first cluster boot log for `hl7.fhir.au.ps`.
+
+**Rollout risk (referral HAPI).**
+- The pod template changes, so the next reconcile of the Flux-tracked branch rolls `fhir`. Strategy is the default RollingUpdate (25 percent surge, 25 percent
+  unavailable rounds to one extra pod, zero unavailable for 1 replica): the old pod keeps serving until the new one passes readiness. `fhir` has no PVC, so the
+  RWO deadlock described below does not apply to it.
+- Readiness: `initialDelaySeconds` 45, period 15 s, failureThreshold 20, so the pod can take up to 45 + 300 s = about 5.75 min before it is considered failed; there
+  is no liveness or startup probe (no restart loop). Documented boots: about 2.5 min on a fresh database with the 7-IG set (`EKS-PLAN.md`, `IG-PINNING.md` s11);
+  the stock image with H2 and no IGs reached `/metadata` 200 in 36 s locally. A restart on the existing, already populated database has NOT been measured, and the
+  `$validate` warm-up after boot (first call can 504) still applies. The new init container adds one small download (about 1-3 s).
+- Capacity: the surge pod requests 4 Gi / 1 CPU on `efiq` while the old pod keeps its 4 Gi; if the node cannot take it, Karpenter must add a node first (minutes),
+  and `karpenter.sh/do-not-disrupt` does not help scheduling. The ALB health check must see the new pod ready before the old one is removed; in-flight requests on the old pod
+  get the default 30 s termination grace.
+- Dependency: the new pod needs `raw.githubusercontent.com` at start (as the IG `packageUrl` fetches already do). If the URL or hash is wrong, the new pod sticks in
+  `Init:Error` / `Init:CrashLoopBackOff` and the old pod stays up; nothing is lost, but the rollout stalls and Flux reports not ready.
+- **RWO volume deadlock** (existing, relevant to any change that also touches `db` or `frog`): the Postgres PVC is ReadWriteOnce EBS, so the `efiq` overlay sets `db`
+  to RollingUpdate with `maxSurge: 0, maxUnavailable: 1` (Recreate is rejected by Flux's server-side dry run); `frog` uses Recreate for its RWO cache. A surging `db`
+  pod would hang in ContainerCreating on the volume still attached to the old pod. This change does not touch `db`.
+
+Safest sequence for a live event (do not run during sessions; pick a quiet window):
+1. Push ONLY the jar commit to a side branch (not the Flux branch) and check `curl -sI "<raw url at that SHA>" | head -1` is 200 and
+   `curl -s "<raw url>" | sha256sum` equals `deploy/plugins/SHA256SUMS`. A commit on any branch of the public repo is servable by SHA.
+2. Suspend Flux so the timing is yours: `flux suspend kustomization apps-track2 -n flux-system` (name per `EKS-PLAN.md`; confirm with `flux get kustomizations`).
+3. Fast-forward (never squash or rebase: the jar commit SHA is in the manifest) `track2-prep-wip` to include both commits.
+4. `kubectl -n track2 get deploy fhir -o jsonpath='{.status.readyReplicas}'` (baseline 1), then `flux resume kustomization apps-track2 -n flux-system` and
+   `flux reconcile kustomization apps-track2 -n flux-system --with-source`.
+5. `kubectl -n track2 rollout status deploy/fhir --timeout=10m`; in parallel `kubectl -n track2 logs deploy/fhir -c au-ps-plugin` should end with `...jar: OK`.
+6. Verify: `curl -s https://referrals.efiq.hospservices.net/fhir/metadata | grep -c '"summary"'` and `GET /fhir/Patient/<id>/$summary` returns 200; run `smoke/smoke.sh`.
+7. Rollback if needed: suspend Flux, `git revert` the manifest commit on the branch (or `kubectl -n track2 rollout undo deploy/fhir`, which Flux would otherwise revert), resume.
+
 ## 7. How it is verified
 
 The use cases the suite follows come from Michael's two-day agenda (`Services-Track-Two-Day-Agenda.md`):

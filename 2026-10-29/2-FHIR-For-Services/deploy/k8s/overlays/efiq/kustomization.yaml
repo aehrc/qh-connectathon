@@ -59,6 +59,30 @@ patches:
         value: { name: HAPI_FHIR_SERVER_ADDRESS, value: "https://HOST.REPLACED-BY-KUSTOMIZE/fhir" }
     target: { kind: Deployment, name: directory }
 
+  # frog-runner: pre-register the two servers as "target servers" so the UI suggests the right one when a suite is picked
+  # (conformsTo must equal the test package's canonical, see base/60-frog.yaml). In-cluster plain-http URLs, because the
+  # runner's JVM does not trust the public certificate chain. EFIQ serves both FHIR bases at /fhir (one host each).
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: FROGRUNNER_BACKENDS_0_NAME, value: track2-referral }
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: FROGRUNNER_BACKENDS_0_CONFORMSTO, value: "http://aehrc.csiro.au/fhir/qh-connectathon/track2/referral-tests" }
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: FROGRUNNER_BACKENDS_0_URL, value: "http://fhir:8080/fhir" }
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: FROGRUNNER_BACKENDS_1_NAME, value: track2-directory }
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: FROGRUNNER_BACKENDS_1_CONFORMSTO, value: "http://aehrc.csiro.au/fhir/qh-connectathon/track2/directory-tests" }
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value: { name: FROGRUNNER_BACKENDS_1_URL, value: "http://directory:8080/fhir" }
+    target: { kind: Deployment, name: frog }
+
 images:
   - name: localhost:32000/patient-referral:local
     newName: joernguysuess/patient-referral
