@@ -44,7 +44,7 @@ spec:
             limits:   { cpu: "500m", memory: "256Mi" }
       containers:
         - name: frog
-          image: registry.gitlab.com/fhirfrog/frog-runner@sha256:9342e2912e6786a34f5991162735706513a38a55216554fa2c9f249129579f34
+          image: registry.gitlab.com/fhirfrog/frog-runner@sha256:70599b32d82c4f840833ec7530f0a4bde114c1b4f3caeb01573062b33cfef2ad
           env:
             - { name: JAVA_TOOL_OPTIONS, value: "-Xms256m -Xmx1g" }
           ports: [ { containerPort: 8080 } ]
